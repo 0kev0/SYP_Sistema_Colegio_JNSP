@@ -1,19 +1,28 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import Modelos.Docente.Modelo_RegistroNotas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public final class Registro_notas extends javax.swing.JInternalFrame {
+public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
-    public Registro_notas() {
+    private final Modelos.Docente.Modelo_RegistroNotas Objeto = new Modelos.Docente.Modelo_RegistroNotas();
+    private List<Modelos.Docente.Modelo_RegistroNotas> ListObjeto;
+    private DefaultTableModel modeloTabla = new DefaultTableModel();
+
+    public Gestion_Notas() {
         initComponents();
         DiseñoTabla(Tbl_RegistroNotas);
+        Cargar_Notas(Tbl_RegistroNotas);
     }
 
     @SuppressWarnings("unchecked")
@@ -154,6 +163,37 @@ public final class Registro_notas extends javax.swing.JInternalFrame {
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));
 
+    }
+
+    public void Cargar_Notas(JTable tabla) {
+
+        modeloTabla = (DefaultTableModel) tabla.getModel();
+        modeloTabla.setNumRows(0);
+
+        ListObjeto = Objeto.GetRegistroNotas();
+        System.out.println("hay " + ListObjeto.size());
+
+        for (Modelos.Docente.Modelo_RegistroNotas item : ListObjeto) {
+            double prom = 0;
+            for (Double items : item.getNotas()) {
+                prom += items;
+            }
+            prom = prom / 6;
+
+            modeloTabla.addRow(new Object[]{
+                item.getNIE(),
+                item.getApellido(),
+                item.getNombre(),
+                item.getNotas().get(0),
+                item.getNotas().get(1),
+                item.getNotas().get(2),
+                item.getNotas().get(3),
+                item.getNotas().get(4),
+                item.getNotas().get(5),
+                prom});
+        }
+
+        tabla.setModel(modeloTabla);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

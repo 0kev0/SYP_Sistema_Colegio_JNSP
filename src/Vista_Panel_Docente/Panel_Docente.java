@@ -9,7 +9,7 @@ import static Funciones.Funciones.CentrarFrames;
 import Vista_Panel_Docente.Opciones.Asignacion_Actividades;
 import Vista_Panel_Docente.Opciones.Asignacion_Notas;
 import Vista_Panel_Docente.Opciones.Registro_Asistencia;
-import Vista_Panel_Docente.Opciones.Registro_notas;
+import Vista_Panel_Docente.Opciones.Gestion_Notas;
 import Vista_Panel_Docente.Opciones.Toma_Asistencia;
 
 
@@ -571,7 +571,7 @@ public class Panel_Docente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseClicked
 
     private void Btn_Inventario_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseClicked
-        Registro_notas gest = new Registro_notas();
+        Gestion_Notas gest = new Gestion_Notas();
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);

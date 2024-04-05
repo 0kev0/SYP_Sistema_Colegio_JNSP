@@ -1,0 +1,1957 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.0
+-- Dumped by pg_dump version 16.0
+
+-- Started on 2024-04-05 10:39:56
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 251 (class 1259 OID 17678)
+-- Name: Tbl_Actividades; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Actividades" (
+    id integer NOT NULL,
+    "Nombre " character varying(150) NOT NULL,
+    "Ponderacion" numeric NOT NULL,
+    "Materia_id" integer NOT NULL,
+    "TipoActividad_id" integer,
+    "Descripcion" character varying(200),
+    "Periodo" integer
+);
+
+
+ALTER TABLE public."Tbl_Actividades" OWNER TO postgres;
+
+--
+-- TOC entry 250 (class 1259 OID 17677)
+-- Name: Tbl_Actividades_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Actividades_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Actividades_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5072 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: Tbl_Actividades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Actividades_id_seq" OWNED BY public."Tbl_Actividades".id;
+
+
+--
+-- TOC entry 245 (class 1259 OID 17645)
+-- Name: Tbl_Asistencias; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Asistencias" (
+    id integer NOT NULL,
+    "Docente_id" integer NOT NULL,
+    "Estudiante_id" integer NOT NULL,
+    "Fecha" date NOT NULL,
+    "Estado_id" integer NOT NULL,
+    "Justificacion" character varying(300) NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Asistencias" OWNER TO postgres;
+
+--
+-- TOC entry 244 (class 1259 OID 17644)
+-- Name: Tbl_Asistencias_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Asistencias_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Asistencias_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5073 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: Tbl_Asistencias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Asistencias_id_seq" OWNED BY public."Tbl_Asistencias".id;
+
+
+--
+-- TOC entry 231 (class 1259 OID 17574)
+-- Name: Tbl_Descuentos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Descuentos" (
+    id integer NOT NULL,
+    "Tipo_descuento" character varying NOT NULL,
+    "Descuento" numeric(2,0) NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Descuentos" OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 17573)
+-- Name: Tbl_Descuentos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Descuentos_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Descuentos_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5074 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: Tbl_Descuentos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Descuentos_id_seq" OWNED BY public."Tbl_Descuentos".id;
+
+
+--
+-- TOC entry 239 (class 1259 OID 17617)
+-- Name: Tbl_Estado_pago; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Estado_pago" (
+    id integer NOT NULL,
+    "Estado" character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Estado_pago" OWNER TO postgres;
+
+--
+-- TOC entry 238 (class 1259 OID 17616)
+-- Name: Tbl_Estado_pago_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Estado_pago_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Estado_pago_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5075 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: Tbl_Estado_pago_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Estado_pago_id_seq" OWNED BY public."Tbl_Estado_pago".id;
+
+
+--
+-- TOC entry 247 (class 1259 OID 17662)
+-- Name: Tbl_Grados; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Grados" (
+    id integer NOT NULL,
+    "Grado" character varying NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Grados" OWNER TO postgres;
+
+--
+-- TOC entry 246 (class 1259 OID 17661)
+-- Name: Tbl_Grados_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Grados_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Grados_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5076 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: Tbl_Grados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Grados_id_seq" OWNED BY public."Tbl_Grados".id;
+
+
+--
+-- TOC entry 249 (class 1259 OID 17671)
+-- Name: Tbl_Materias; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Materias" (
+    id integer NOT NULL,
+    "Nombre" character varying(150) NOT NULL,
+    "Grado_id" integer NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Materias" OWNER TO postgres;
+
+--
+-- TOC entry 248 (class 1259 OID 17670)
+-- Name: Tbl_Materias_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Materias_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Materias_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5077 (class 0 OID 0)
+-- Dependencies: 248
+-- Name: Tbl_Materias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Materias_id_seq" OWNED BY public."Tbl_Materias".id;
+
+
+--
+-- TOC entry 229 (class 1259 OID 17567)
+-- Name: Tbl_Matricula; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Matricula" (
+    id integer NOT NULL,
+    "Estudiante_id" integer NOT NULL,
+    "Responsables_id" integer NOT NULL,
+    "Año" integer NOT NULL,
+    "Fecha" date NOT NULL,
+    "Monto_neto" numeric(2,0) NOT NULL,
+    "Descuento_id" integer NOT NULL,
+    "Monto_final" numeric(2,0) NOT NULL,
+    "Grado_id" integer
+);
+
+
+ALTER TABLE public."Tbl_Matricula" OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 17566)
+-- Name: Tbl_Matricula_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Matricula_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Matricula_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5078 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: Tbl_Matricula_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Matricula_id_seq" OWNED BY public."Tbl_Matricula".id;
+
+
+--
+-- TOC entry 241 (class 1259 OID 17624)
+-- Name: Tbl_Mensualidad; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Mensualidad" (
+    "Estudiante_id" integer NOT NULL,
+    id bigint NOT NULL,
+    "Mes" integer NOT NULL,
+    "Año" integer NOT NULL,
+    "Fecha_pago" date NOT NULL,
+    "Mora" integer NOT NULL,
+    "Monto" numeric NOT NULL,
+    "Estado_id" integer NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Mensualidad" OWNER TO postgres;
+
+--
+-- TOC entry 240 (class 1259 OID 17623)
+-- Name: Tbl_Mensualidad_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Mensualidad_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Mensualidad_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5079 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: Tbl_Mensualidad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Mensualidad_id_seq" OWNED BY public."Tbl_Mensualidad".id;
+
+
+--
+-- TOC entry 253 (class 1259 OID 17692)
+-- Name: Tbl_Nota_Actividad; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Nota_Actividad" (
+    id integer NOT NULL,
+    "Estudiante_id" integer NOT NULL,
+    "Actividad_id" integer NOT NULL,
+    "Nota " numeric NOT NULL,
+    "Periodo_id" integer
+);
+
+
+ALTER TABLE public."Tbl_Nota_Actividad" OWNER TO postgres;
+
+--
+-- TOC entry 5080 (class 0 OID 0)
+-- Dependencies: 253
+-- Name: TABLE "Tbl_Nota_Actividad"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public."Tbl_Nota_Actividad" IS '*Agregarle atributo not null a periodo id
+';
+
+
+--
+-- TOC entry 252 (class 1259 OID 17691)
+-- Name: Tbl_Nota_Actividad_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Nota_Actividad_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Nota_Actividad_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5081 (class 0 OID 0)
+-- Dependencies: 252
+-- Name: Tbl_Nota_Actividad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Nota_Actividad_id_seq" OWNED BY public."Tbl_Nota_Actividad".id;
+
+
+--
+-- TOC entry 257 (class 1259 OID 17746)
+-- Name: Tbl_Periodos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Periodos" (
+    id integer NOT NULL,
+    "Periodo" integer NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Periodos" OWNER TO postgres;
+
+--
+-- TOC entry 256 (class 1259 OID 17745)
+-- Name: Tbl_Periodos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Periodos_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Periodos_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5082 (class 0 OID 0)
+-- Dependencies: 256
+-- Name: Tbl_Periodos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Periodos_id_seq" OWNED BY public."Tbl_Periodos".id;
+
+
+--
+-- TOC entry 221 (class 1259 OID 17344)
+-- Name: Tbl_Personal; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Personal" (
+    "NIE" integer NOT NULL,
+    "Nombres" character varying(150) NOT NULL,
+    "Apellidos" character varying(150) NOT NULL,
+    "Rol_id" integer NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Personal" OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 17342)
+-- Name: Tbl_Personal_NIE_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Personal_NIE_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Personal_NIE_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5083 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: Tbl_Personal_NIE_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Personal_NIE_seq" OWNED BY public."Tbl_Personal"."NIE";
+
+
+--
+-- TOC entry 220 (class 1259 OID 17343)
+-- Name: Tbl_Personal_Rol_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Personal_Rol_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Personal_Rol_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5084 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: Tbl_Personal_Rol_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Personal_Rol_id_seq" OWNED BY public."Tbl_Personal"."Rol_id";
+
+
+--
+-- TOC entry 235 (class 1259 OID 17595)
+-- Name: Tbl_Productos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Productos" (
+    id integer NOT NULL,
+    "Nombre" character varying(200) NOT NULL,
+    "Tipo_Producto_id" integer NOT NULL,
+    "Costo" numeric NOT NULL,
+    "Precio" numeric NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Productos" OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 17594)
+-- Name: Tbl_Productos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Productos_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Productos_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5085 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: Tbl_Productos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Productos_id_seq" OWNED BY public."Tbl_Productos".id;
+
+
+--
+-- TOC entry 227 (class 1259 OID 17554)
+-- Name: Tbl_Responsabless; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Responsabless" (
+    id integer NOT NULL,
+    "Nombres" character varying(150) NOT NULL,
+    "Apellidos" character varying(150) NOT NULL,
+    "Tipo_Responsable_id" integer NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Responsabless" OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 17553)
+-- Name: Tbl_Responsabless_Tipo_Responsable_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Responsabless_Tipo_Responsable_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Responsabless_Tipo_Responsable_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5086 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: Tbl_Responsabless_Tipo_Responsable_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Responsabless_Tipo_Responsable_id_seq" OWNED BY public."Tbl_Responsabless"."Tipo_Responsable_id";
+
+
+--
+-- TOC entry 225 (class 1259 OID 17552)
+-- Name: Tbl_Responsabless_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Responsabless_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Responsabless_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5087 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: Tbl_Responsabless_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Responsabless_id_seq" OWNED BY public."Tbl_Responsabless".id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 17300)
+-- Name: Tbl_Roles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Roles" (
+    id integer NOT NULL,
+    "Rol" character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Roles" OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 17299)
+-- Name: Tbl_Roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Roles_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Roles_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5088 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: Tbl_Roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Roles_id_seq" OWNED BY public."Tbl_Roles".id;
+
+
+--
+-- TOC entry 259 (class 1259 OID 17758)
+-- Name: Tbl_TipoActividad; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_TipoActividad" (
+    id integer NOT NULL,
+    "Nombre" character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_TipoActividad" OWNER TO postgres;
+
+--
+-- TOC entry 258 (class 1259 OID 17757)
+-- Name: Tbl_TipoActividad_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_TipoActividad_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_TipoActividad_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5089 (class 0 OID 0)
+-- Dependencies: 258
+-- Name: Tbl_TipoActividad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_TipoActividad_id_seq" OWNED BY public."Tbl_TipoActividad".id;
+
+
+--
+-- TOC entry 233 (class 1259 OID 17588)
+-- Name: Tbl_Tipo_Producto; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Tipo_Producto" (
+    id integer NOT NULL,
+    "Nombre_tipo" character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Tipo_Producto" OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 17587)
+-- Name: Tbl_Tipo_Producto_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Tipo_Producto_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Tipo_Producto_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5090 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: Tbl_Tipo_Producto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Tipo_Producto_id_seq" OWNED BY public."Tbl_Tipo_Producto".id;
+
+
+--
+-- TOC entry 255 (class 1259 OID 17711)
+-- Name: Tbl_Tipo_Transaccion; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Tipo_Transaccion" (
+    "Id" integer NOT NULL,
+    "Tipo" character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Tipo_Transaccion" OWNER TO postgres;
+
+--
+-- TOC entry 254 (class 1259 OID 17710)
+-- Name: Tbl_Tipo_Transaccion_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Tipo_Transaccion_Id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Tipo_Transaccion_Id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5091 (class 0 OID 0)
+-- Dependencies: 254
+-- Name: Tbl_Tipo_Transaccion_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Tipo_Transaccion_Id_seq" OWNED BY public."Tbl_Tipo_Transaccion"."Id";
+
+
+--
+-- TOC entry 223 (class 1259 OID 17357)
+-- Name: Tbl_Tipos_Responsables; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Tipos_Responsables" (
+    id integer NOT NULL,
+    "Tipo_de_responsable" character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Tipos_Responsables" OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 17356)
+-- Name: Tbl_Tipos_Responsables_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Tipos_Responsables_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Tipos_Responsables_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5092 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: Tbl_Tipos_Responsables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Tipos_Responsables_id_seq" OWNED BY public."Tbl_Tipos_Responsables".id;
+
+
+--
+-- TOC entry 237 (class 1259 OID 17607)
+-- Name: Tbl_Transaccion; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Transaccion" (
+    id integer NOT NULL,
+    "Descripcion" character varying(150) NOT NULL,
+    "Cantidad" integer NOT NULL,
+    "Fecha" date NOT NULL,
+    "Monto" numeric NOT NULL,
+    "Tipo_Transaccion_id" integer NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_Transaccion" OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 17606)
+-- Name: Tbl_Transaccion_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Transaccion_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Transaccion_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5093 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: Tbl_Transaccion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Transaccion_id_seq" OWNED BY public."Tbl_Transaccion".id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 17293)
+-- Name: Tbl_Usuarios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_Usuarios" (
+    id integer NOT NULL,
+    "Nombre" character varying(50) NOT NULL,
+    "Contraseña" character varying(100) NOT NULL,
+    "Rol_id" integer
+);
+
+
+ALTER TABLE public."Tbl_Usuarios" OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 17292)
+-- Name: Tbl_Usuarios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_Usuarios_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_Usuarios_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5094 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: Tbl_Usuarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_Usuarios_id_seq" OWNED BY public."Tbl_Usuarios".id;
+
+
+--
+-- TOC entry 243 (class 1259 OID 17638)
+-- Name: Tbl_estado_aistencia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Tbl_estado_aistencia" (
+    id integer NOT NULL,
+    "Estado" character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public."Tbl_estado_aistencia" OWNER TO postgres;
+
+--
+-- TOC entry 242 (class 1259 OID 17637)
+-- Name: Tbl_estado_aistencia_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Tbl_estado_aistencia_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public."Tbl_estado_aistencia_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5095 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: Tbl_estado_aistencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Tbl_estado_aistencia_id_seq" OWNED BY public."Tbl_estado_aistencia".id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 17526)
+-- Name: tbl_Estudiante; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."tbl_Estudiante" (
+    "NIE" integer NOT NULL,
+    "Nombres" character varying(150) NOT NULL,
+    "Apellidos" character varying(150) NOT NULL,
+    "Responsables_id" integer[] NOT NULL,
+    "Grado_id" integer
+);
+
+
+ALTER TABLE public."tbl_Estudiante" OWNER TO postgres;
+
+--
+-- TOC entry 4812 (class 2604 OID 17681)
+-- Name: Tbl_Actividades id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Actividades" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Actividades_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4809 (class 2604 OID 17648)
+-- Name: Tbl_Asistencias id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Asistencias" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Asistencias_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4802 (class 2604 OID 17577)
+-- Name: Tbl_Descuentos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Descuentos" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Descuentos_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4806 (class 2604 OID 17620)
+-- Name: Tbl_Estado_pago id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Estado_pago" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Estado_pago_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4810 (class 2604 OID 17665)
+-- Name: Tbl_Grados id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Grados" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Grados_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4811 (class 2604 OID 17674)
+-- Name: Tbl_Materias id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Materias" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Materias_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4801 (class 2604 OID 17570)
+-- Name: Tbl_Matricula id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Matricula" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Matricula_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4807 (class 2604 OID 17627)
+-- Name: Tbl_Mensualidad id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Mensualidad" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Mensualidad_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4813 (class 2604 OID 17695)
+-- Name: Tbl_Nota_Actividad id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Nota_Actividad" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Nota_Actividad_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4815 (class 2604 OID 17749)
+-- Name: Tbl_Periodos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Periodos" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Periodos_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4796 (class 2604 OID 17347)
+-- Name: Tbl_Personal NIE; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Personal" ALTER COLUMN "NIE" SET DEFAULT nextval('public."Tbl_Personal_NIE_seq"'::regclass);
+
+
+--
+-- TOC entry 4797 (class 2604 OID 17348)
+-- Name: Tbl_Personal Rol_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Personal" ALTER COLUMN "Rol_id" SET DEFAULT nextval('public."Tbl_Personal_Rol_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4804 (class 2604 OID 17598)
+-- Name: Tbl_Productos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Productos" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Productos_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4799 (class 2604 OID 17557)
+-- Name: Tbl_Responsabless id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Responsabless" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Responsabless_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4800 (class 2604 OID 17558)
+-- Name: Tbl_Responsabless Tipo_Responsable_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Responsabless" ALTER COLUMN "Tipo_Responsable_id" SET DEFAULT nextval('public."Tbl_Responsabless_Tipo_Responsable_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4795 (class 2604 OID 17303)
+-- Name: Tbl_Roles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Roles" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Roles_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4816 (class 2604 OID 17761)
+-- Name: Tbl_TipoActividad id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_TipoActividad" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_TipoActividad_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4803 (class 2604 OID 17591)
+-- Name: Tbl_Tipo_Producto id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Tipo_Producto" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Tipo_Producto_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4814 (class 2604 OID 17714)
+-- Name: Tbl_Tipo_Transaccion Id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Tipo_Transaccion" ALTER COLUMN "Id" SET DEFAULT nextval('public."Tbl_Tipo_Transaccion_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 4798 (class 2604 OID 17360)
+-- Name: Tbl_Tipos_Responsables id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Tipos_Responsables" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Tipos_Responsables_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4805 (class 2604 OID 17610)
+-- Name: Tbl_Transaccion id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Transaccion" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Transaccion_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4794 (class 2604 OID 17296)
+-- Name: Tbl_Usuarios id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Usuarios" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Usuarios_id_seq"'::regclass);
+
+
+--
+-- TOC entry 4808 (class 2604 OID 17641)
+-- Name: Tbl_estado_aistencia id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_estado_aistencia" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_estado_aistencia_id_seq"'::regclass);
+
+
+--
+-- TOC entry 5058 (class 0 OID 17678)
+-- Dependencies: 251
+-- Data for Name: Tbl_Actividades; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Actividades" (id, "Nombre ", "Ponderacion", "Materia_id", "TipoActividad_id", "Descripcion", "Periodo") FROM stdin;
+1	Tarea de sumas	0.10	1	1	Lista de sumas	1
+2	Tarea de esdrujulas	2.0	4	1	Tarea de buscar 6 palabras esdrujulas	1
+3	Tarea de planas	2.0	3	1	Tarea de hacer 2 hojas de practica	1
+4	Tarea de cuento	2.0	2	1	Tarea de inventar un cuento	1
+\.
+
+
+--
+-- TOC entry 5052 (class 0 OID 17645)
+-- Dependencies: 245
+-- Data for Name: Tbl_Asistencias; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Asistencias" (id, "Docente_id", "Estudiante_id", "Fecha", "Estado_id", "Justificacion") FROM stdin;
+26	9876	1235	2024-03-31	3	Le dio Sifilis
+28	9876	1235	2024-04-02	2	0
+29	9876	1235	2024-04-01	1	0
+30	9876	1235	2024-04-02	3	LE dio Hepatitis B
+32	9876	1234	2024-04-01	1	0
+31	9876	1234	2024-03-31	1	0
+33	9876	1234	2024-04-04	1	*
+34	9876	1235	2024-04-04	2	*
+\.
+
+
+--
+-- TOC entry 5038 (class 0 OID 17574)
+-- Dependencies: 231
+-- Data for Name: Tbl_Descuentos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Descuentos" (id, "Tipo_descuento", "Descuento") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5046 (class 0 OID 17617)
+-- Dependencies: 239
+-- Data for Name: Tbl_Estado_pago; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Estado_pago" (id, "Estado") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5054 (class 0 OID 17662)
+-- Dependencies: 247
+-- Data for Name: Tbl_Grados; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Grados" (id, "Grado") FROM stdin;
+1	Primer Grado
+\.
+
+
+--
+-- TOC entry 5056 (class 0 OID 17671)
+-- Dependencies: 249
+-- Data for Name: Tbl_Materias; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Materias" (id, "Nombre", "Grado_id") FROM stdin;
+1	Mate	1
+2	Lenguaje	1
+3	Caligrafia	1
+4	Ortografia	1
+\.
+
+
+--
+-- TOC entry 5036 (class 0 OID 17567)
+-- Dependencies: 229
+-- Data for Name: Tbl_Matricula; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Matricula" (id, "Estudiante_id", "Responsables_id", "Año", "Fecha", "Monto_neto", "Descuento_id", "Monto_final", "Grado_id") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5048 (class 0 OID 17624)
+-- Dependencies: 241
+-- Data for Name: Tbl_Mensualidad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Mensualidad" ("Estudiante_id", id, "Mes", "Año", "Fecha_pago", "Mora", "Monto", "Estado_id") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5060 (class 0 OID 17692)
+-- Dependencies: 253
+-- Data for Name: Tbl_Nota_Actividad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Nota_Actividad" (id, "Estudiante_id", "Actividad_id", "Nota ", "Periodo_id") FROM stdin;
+4	1234	3	8.5	\N
+7	1234	1	3	\N
+8	1234	4	5	\N
+9	1235	2	2	\N
+10	1235	1	1	\N
+\.
+
+
+--
+-- TOC entry 5064 (class 0 OID 17746)
+-- Dependencies: 257
+-- Data for Name: Tbl_Periodos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Periodos" (id, "Periodo") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5028 (class 0 OID 17344)
+-- Dependencies: 221
+-- Data for Name: Tbl_Personal; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Personal" ("NIE", "Nombres", "Apellidos", "Rol_id") FROM stdin;
+9876	Profe Alex	EL Salva Mates	1
+\.
+
+
+--
+-- TOC entry 5042 (class 0 OID 17595)
+-- Dependencies: 235
+-- Data for Name: Tbl_Productos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Productos" (id, "Nombre", "Tipo_Producto_id", "Costo", "Precio") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5034 (class 0 OID 17554)
+-- Dependencies: 227
+-- Data for Name: Tbl_Responsabless; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Responsabless" (id, "Nombres", "Apellidos", "Tipo_Responsable_id") FROM stdin;
+1	Juan	Bodoque	1
+\.
+
+
+--
+-- TOC entry 5025 (class 0 OID 17300)
+-- Dependencies: 218
+-- Data for Name: Tbl_Roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Roles" (id, "Rol") FROM stdin;
+1	Docente
+2	Secretaria
+3	Director
+\.
+
+
+--
+-- TOC entry 5066 (class 0 OID 17758)
+-- Dependencies: 259
+-- Data for Name: Tbl_TipoActividad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_TipoActividad" (id, "Nombre") FROM stdin;
+1	Tarea
+2	Exposicion
+3	Reporte
+4	Auto-Evaluacion
+5	Examen
+\.
+
+
+--
+-- TOC entry 5040 (class 0 OID 17588)
+-- Dependencies: 233
+-- Data for Name: Tbl_Tipo_Producto; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Tipo_Producto" (id, "Nombre_tipo") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5062 (class 0 OID 17711)
+-- Dependencies: 255
+-- Data for Name: Tbl_Tipo_Transaccion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Tipo_Transaccion" ("Id", "Tipo") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5030 (class 0 OID 17357)
+-- Dependencies: 223
+-- Data for Name: Tbl_Tipos_Responsables; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Tipos_Responsables" (id, "Tipo_de_responsable") FROM stdin;
+1	Padre
+2	Madre
+3	Tio
+4	Tia
+\.
+
+
+--
+-- TOC entry 5044 (class 0 OID 17607)
+-- Dependencies: 237
+-- Data for Name: Tbl_Transaccion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Transaccion" (id, "Descripcion", "Cantidad", "Fecha", "Monto", "Tipo_Transaccion_id") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5023 (class 0 OID 17293)
+-- Dependencies: 216
+-- Data for Name: Tbl_Usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_Usuarios" (id, "Nombre", "Contraseña", "Rol_id") FROM stdin;
+1	Juan	123	\N
+2	Juan	1234	3
+\.
+
+
+--
+-- TOC entry 5050 (class 0 OID 17638)
+-- Dependencies: 243
+-- Data for Name: Tbl_estado_aistencia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Tbl_estado_aistencia" (id, "Estado") FROM stdin;
+3	Justificado
+2	Ausente
+1	Presente
+\.
+
+
+--
+-- TOC entry 5031 (class 0 OID 17526)
+-- Dependencies: 224
+-- Data for Name: tbl_Estudiante; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."tbl_Estudiante" ("NIE", "Nombres", "Apellidos", "Responsables_id", "Grado_id") FROM stdin;
+1234	Juan .Jr	Bodoque	{1}	1
+1235	Pepe	Rodolfino	{1}	1
+\.
+
+
+--
+-- TOC entry 5096 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: Tbl_Actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Actividades_id_seq"', 4, true);
+
+
+--
+-- TOC entry 5097 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: Tbl_Asistencias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Asistencias_id_seq"', 34, true);
+
+
+--
+-- TOC entry 5098 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: Tbl_Descuentos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Descuentos_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5099 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: Tbl_Estado_pago_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Estado_pago_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5100 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: Tbl_Grados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Grados_id_seq"', 1, true);
+
+
+--
+-- TOC entry 5101 (class 0 OID 0)
+-- Dependencies: 248
+-- Name: Tbl_Materias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Materias_id_seq"', 4, true);
+
+
+--
+-- TOC entry 5102 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: Tbl_Matricula_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Matricula_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5103 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: Tbl_Mensualidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Mensualidad_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5104 (class 0 OID 0)
+-- Dependencies: 252
+-- Name: Tbl_Nota_Actividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Nota_Actividad_id_seq"', 10, true);
+
+
+--
+-- TOC entry 5105 (class 0 OID 0)
+-- Dependencies: 256
+-- Name: Tbl_Periodos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Periodos_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5106 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: Tbl_Personal_NIE_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Personal_NIE_seq"', 1, false);
+
+
+--
+-- TOC entry 5107 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: Tbl_Personal_Rol_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Personal_Rol_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5108 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: Tbl_Productos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Productos_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5109 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: Tbl_Responsabless_Tipo_Responsable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Responsabless_Tipo_Responsable_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5110 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: Tbl_Responsabless_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Responsabless_id_seq"', 1, true);
+
+
+--
+-- TOC entry 5111 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: Tbl_Roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Roles_id_seq"', 3, true);
+
+
+--
+-- TOC entry 5112 (class 0 OID 0)
+-- Dependencies: 258
+-- Name: Tbl_TipoActividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_TipoActividad_id_seq"', 5, true);
+
+
+--
+-- TOC entry 5113 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: Tbl_Tipo_Producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Tipo_Producto_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5114 (class 0 OID 0)
+-- Dependencies: 254
+-- Name: Tbl_Tipo_Transaccion_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Tipo_Transaccion_Id_seq"', 1, false);
+
+
+--
+-- TOC entry 5115 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: Tbl_Tipos_Responsables_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Tipos_Responsables_id_seq"', 4, true);
+
+
+--
+-- TOC entry 5116 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: Tbl_Transaccion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Transaccion_id_seq"', 1, false);
+
+
+--
+-- TOC entry 5117 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: Tbl_Usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_Usuarios_id_seq"', 2, true);
+
+
+--
+-- TOC entry 5118 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: Tbl_estado_aistencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_estado_aistencia_id_seq"', 3, true);
+
+
+--
+-- TOC entry 4822 (class 2606 OID 17350)
+-- Name: Tbl_Personal Rol; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Personal"
+    ADD CONSTRAINT "Rol" PRIMARY KEY ("NIE");
+
+
+--
+-- TOC entry 4852 (class 2606 OID 17685)
+-- Name: Tbl_Actividades Tbl_Actividades_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Actividades"
+    ADD CONSTRAINT "Tbl_Actividades_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4846 (class 2606 OID 17650)
+-- Name: Tbl_Asistencias Tbl_Asistencias_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Asistencias"
+    ADD CONSTRAINT "Tbl_Asistencias_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4832 (class 2606 OID 17581)
+-- Name: Tbl_Descuentos Tbl_Descuentos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Descuentos"
+    ADD CONSTRAINT "Tbl_Descuentos_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4840 (class 2606 OID 17622)
+-- Name: Tbl_Estado_pago Tbl_Estado_pago_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Estado_pago"
+    ADD CONSTRAINT "Tbl_Estado_pago_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4848 (class 2606 OID 17669)
+-- Name: Tbl_Grados Tbl_Grados_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Grados"
+    ADD CONSTRAINT "Tbl_Grados_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4850 (class 2606 OID 17676)
+-- Name: Tbl_Materias Tbl_Materias_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Materias"
+    ADD CONSTRAINT "Tbl_Materias_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4830 (class 2606 OID 17572)
+-- Name: Tbl_Matricula Tbl_Matricula_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Matricula"
+    ADD CONSTRAINT "Tbl_Matricula_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4842 (class 2606 OID 17631)
+-- Name: Tbl_Mensualidad Tbl_Mensualidad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Mensualidad"
+    ADD CONSTRAINT "Tbl_Mensualidad_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4854 (class 2606 OID 17699)
+-- Name: Tbl_Nota_Actividad Tbl_Nota_Actividad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Nota_Actividad"
+    ADD CONSTRAINT "Tbl_Nota_Actividad_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4858 (class 2606 OID 17751)
+-- Name: Tbl_Periodos Tbl_Periodos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Periodos"
+    ADD CONSTRAINT "Tbl_Periodos_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4836 (class 2606 OID 17600)
+-- Name: Tbl_Productos Tbl_Productos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Productos"
+    ADD CONSTRAINT "Tbl_Productos_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4828 (class 2606 OID 17560)
+-- Name: Tbl_Responsabless Tbl_Responsabless_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Responsabless"
+    ADD CONSTRAINT "Tbl_Responsabless_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4820 (class 2606 OID 17305)
+-- Name: Tbl_Roles Tbl_Roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Roles"
+    ADD CONSTRAINT "Tbl_Roles_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4860 (class 2606 OID 17763)
+-- Name: Tbl_TipoActividad Tbl_TipoActividad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_TipoActividad"
+    ADD CONSTRAINT "Tbl_TipoActividad_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4834 (class 2606 OID 17593)
+-- Name: Tbl_Tipo_Producto Tbl_Tipo_Producto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Tipo_Producto"
+    ADD CONSTRAINT "Tbl_Tipo_Producto_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4856 (class 2606 OID 17721)
+-- Name: Tbl_Tipo_Transaccion Tbl_Tipo_Transaccion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Tipo_Transaccion"
+    ADD CONSTRAINT "Tbl_Tipo_Transaccion_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 4824 (class 2606 OID 17362)
+-- Name: Tbl_Tipos_Responsables Tbl_Tipos_Responsables_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Tipos_Responsables"
+    ADD CONSTRAINT "Tbl_Tipos_Responsables_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4838 (class 2606 OID 17614)
+-- Name: Tbl_Transaccion Tbl_Transaccion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Transaccion"
+    ADD CONSTRAINT "Tbl_Transaccion_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4818 (class 2606 OID 17298)
+-- Name: Tbl_Usuarios Tbl_Usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Usuarios"
+    ADD CONSTRAINT "Tbl_Usuarios_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4844 (class 2606 OID 17643)
+-- Name: Tbl_estado_aistencia Tbl_estado_aistencia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_estado_aistencia"
+    ADD CONSTRAINT "Tbl_estado_aistencia_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4826 (class 2606 OID 17532)
+-- Name: tbl_Estudiante tbl_Estudiante_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."tbl_Estudiante"
+    ADD CONSTRAINT "tbl_Estudiante_pkey" PRIMARY KEY ("NIE");
+
+
+--
+-- TOC entry 4876 (class 2606 OID 17705)
+-- Name: Tbl_Nota_Actividad Actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Nota_Actividad"
+    ADD CONSTRAINT "Actividad_id" FOREIGN KEY ("Actividad_id") REFERENCES public."Tbl_Actividades"(id) NOT VALID;
+
+
+--
+-- TOC entry 4865 (class 2606 OID 17582)
+-- Name: Tbl_Matricula Descuento_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Matricula"
+    ADD CONSTRAINT "Descuento_id" FOREIGN KEY ("Descuento_id") REFERENCES public."Tbl_Descuentos"(id) NOT VALID;
+
+
+--
+-- TOC entry 4870 (class 2606 OID 17651)
+-- Name: Tbl_Asistencias Docente_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Asistencias"
+    ADD CONSTRAINT "Docente_id" FOREIGN KEY ("Docente_id") REFERENCES public."Tbl_Personal"("NIE");
+
+
+--
+-- TOC entry 4869 (class 2606 OID 17632)
+-- Name: Tbl_Mensualidad Estado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Mensualidad"
+    ADD CONSTRAINT "Estado_id" FOREIGN KEY ("Estado_id") REFERENCES public."Tbl_Estado_pago"(id);
+
+
+--
+-- TOC entry 4871 (class 2606 OID 17728)
+-- Name: Tbl_Asistencias Estado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Asistencias"
+    ADD CONSTRAINT "Estado_id" FOREIGN KEY ("Estado_id") REFERENCES public."Tbl_estado_aistencia"(id) NOT VALID;
+
+
+--
+-- TOC entry 4872 (class 2606 OID 17656)
+-- Name: Tbl_Asistencias Estudiante_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Asistencias"
+    ADD CONSTRAINT "Estudiante_id" FOREIGN KEY ("Estudiante_id") REFERENCES public."tbl_Estudiante"("NIE");
+
+
+--
+-- TOC entry 4877 (class 2606 OID 17700)
+-- Name: Tbl_Nota_Actividad Estudiante_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Nota_Actividad"
+    ADD CONSTRAINT "Estudiante_id" FOREIGN KEY ("Estudiante_id") REFERENCES public."tbl_Estudiante"("NIE") NOT VALID;
+
+
+--
+-- TOC entry 4873 (class 2606 OID 17715)
+-- Name: Tbl_Materias Grado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Materias"
+    ADD CONSTRAINT "Grado_id" FOREIGN KEY ("Grado_id") REFERENCES public."Tbl_Grados"(id) NOT VALID;
+
+
+--
+-- TOC entry 4863 (class 2606 OID 17733)
+-- Name: tbl_Estudiante Grado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."tbl_Estudiante"
+    ADD CONSTRAINT "Grado_id" FOREIGN KEY ("Grado_id") REFERENCES public."Tbl_Grados"(id) NOT VALID;
+
+
+--
+-- TOC entry 4866 (class 2606 OID 17738)
+-- Name: Tbl_Matricula Grado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Matricula"
+    ADD CONSTRAINT "Grado_id" FOREIGN KEY ("Grado_id") REFERENCES public."Tbl_Grados"(id) NOT VALID;
+
+
+--
+-- TOC entry 4874 (class 2606 OID 17686)
+-- Name: Tbl_Actividades Materia_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Actividades"
+    ADD CONSTRAINT "Materia_id" FOREIGN KEY ("Materia_id") REFERENCES public."Tbl_Materias"(id);
+
+
+--
+-- TOC entry 4878 (class 2606 OID 17752)
+-- Name: Tbl_Nota_Actividad Periodo_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Nota_Actividad"
+    ADD CONSTRAINT "Periodo_id" FOREIGN KEY ("Periodo_id") REFERENCES public."Tbl_Periodos"(id) NOT VALID;
+
+
+--
+-- TOC entry 4861 (class 2606 OID 17769)
+-- Name: Tbl_Usuarios Rol_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Usuarios"
+    ADD CONSTRAINT "Rol_id" FOREIGN KEY ("Rol_id") REFERENCES public."Tbl_Roles"(id) NOT VALID;
+
+
+--
+-- TOC entry 4862 (class 2606 OID 17351)
+-- Name: Tbl_Personal Roles; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Personal"
+    ADD CONSTRAINT "Roles" FOREIGN KEY ("Rol_id") REFERENCES public."Tbl_Roles"(id);
+
+
+--
+-- TOC entry 4875 (class 2606 OID 17764)
+-- Name: Tbl_Actividades TipoActividad_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Actividades"
+    ADD CONSTRAINT "TipoActividad_id" FOREIGN KEY ("TipoActividad_id") REFERENCES public."Tbl_TipoActividad"(id) NOT VALID;
+
+
+--
+-- TOC entry 4867 (class 2606 OID 17601)
+-- Name: Tbl_Productos Tipo_Producto_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Productos"
+    ADD CONSTRAINT "Tipo_Producto_id" FOREIGN KEY ("Tipo_Producto_id") REFERENCES public."Tbl_Tipo_Producto"(id);
+
+
+--
+-- TOC entry 4868 (class 2606 OID 17722)
+-- Name: Tbl_Transaccion Tipo_Transaccion_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Transaccion"
+    ADD CONSTRAINT "Tipo_Transaccion_id" FOREIGN KEY ("Tipo_Transaccion_id") REFERENCES public."Tbl_Tipo_Transaccion"("Id") NOT VALID;
+
+
+--
+-- TOC entry 4864 (class 2606 OID 17561)
+-- Name: Tbl_Responsabless Tipo_responsable; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Tbl_Responsabless"
+    ADD CONSTRAINT "Tipo_responsable" FOREIGN KEY ("Tipo_Responsable_id") REFERENCES public."Tbl_Tipos_Responsables"(id);
+
+
+-- Completed on 2024-04-05 10:39:56
+
+--
+-- PostgreSQL database dump complete
+--
+

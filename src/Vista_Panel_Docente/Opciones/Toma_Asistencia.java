@@ -20,13 +20,14 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
     private final Modelo_TomaAsistencia Objeto = new Modelo_TomaAsistencia();
     private List<Modelo_TomaAsistencia> ListObjeto;
-    private DefaultTableModel modeloTabla;
+    private DefaultTableModel modeloTabla = new DefaultTableModel();
 
     public Toma_Asistencia() {
         initComponents();
         DiseñoTabla(Tbl_ListadoAsistencia);
         Cargar_ListadoAsistencia(Tbl_ListadoAsistencia);
         Lb_FechaActual.setText(obtenerFechaActual());
+        modeloTabla = (DefaultTableModel) Tbl_ListadoAsistencia.getModel();
 
     }
 
@@ -65,17 +66,17 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
         Tbl_ListadoAsistencia.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(255, 153, 51)));
         Tbl_ListadoAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "NIE", "Nombres", "Apellidos", "Presente", "", "Ausente", "", "Justificado", "", "Justificacion"
+                "NIE", "Nombres", "Apellidos", "Presente", "Ausente", "Justificado", "Justificacion"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true, true, true, true
+                false, false, false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -94,22 +95,15 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
             Tbl_ListadoAsistencia.getColumnModel().getColumn(1).setPreferredWidth(250);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(2).setResizable(false);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(2).setPreferredWidth(250);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(3).setResizable(false);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(3).setPreferredWidth(80);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(4).setResizable(false);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(4).setPreferredWidth(0);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(5).setResizable(false);
+            Tbl_ListadoAsistencia.getColumnModel().getColumn(5).setPreferredWidth(80);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(6).setResizable(false);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(6).setPreferredWidth(0);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(7).setResizable(false);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(7).setPreferredWidth(80);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(8).setResizable(false);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(8).setPreferredWidth(0);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(9).setResizable(false);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(9).setPreferredWidth(150);
+            Tbl_ListadoAsistencia.getColumnModel().getColumn(6).setPreferredWidth(150);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 940, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 940, 290));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -260,7 +254,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
             int NIE = Integer.parseInt(modeloTabla.getValueAt(i, 0).toString());
             System.out.println("NIE" + NIE);
 
-            String Justificacion = modeloTabla.getValueAt(i, 6).toString();
+            String Justificacion = (modeloTabla.getValueAt(i, 6).toString());
             System.out.println("justificacion" + ((Justificacion == null) ? "diferente" : Justificacion));
 
             int EstadoAsistencia = 0;
@@ -268,10 +262,10 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
             if ((boolean) modeloTabla.getValueAt(i, 3)) {
                 EstadoAsistencia = 1;//presente
             }
-            if ((boolean) modeloTabla.getValueAt(i, 5)) {
+            if ((boolean) modeloTabla.getValueAt(i, 4)) {
                 EstadoAsistencia = 2;//ausente
             }
-            if ((boolean) modeloTabla.getValueAt(i, 7)) {
+            if ((boolean) modeloTabla.getValueAt(i, 5)) {
                 EstadoAsistencia = 3;//justificado
             }
 
@@ -302,12 +296,13 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        int numeroDeCeldas = 4; // Cambia este valor al número de celdas que necesites
+        int numeroDeCeldas = modeloTabla.getColumnCount(); // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
+        
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));
 
@@ -325,6 +320,10 @@ public void Cargar_ListadoAsistencia(JTable tabla) {
             item.getNIE(),
             item.getNombreEstudiante(),
             item.getApellidoEstudiante(),
+            Boolean.FALSE,
+            Boolean.FALSE,
+            Boolean.FALSE,
+            "*"
 
         });
     }

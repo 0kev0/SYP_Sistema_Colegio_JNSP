@@ -1,42 +1,67 @@
 package Customizacion;
 
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.*;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class TablaCusomizada extends DefaultTableCellRenderer {
 
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+public class CheckBoxTableExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("CheckBox Table Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 200);
 
-        if (value instanceof JLabel labelCell) {
+        String[] columnNames = {"Columna 1", "Columna 2", "Columna 3"};
+        Object[][] data = {
+                {false, false, false},
+                {false, false, false},
+                {false, false, false}
+        };
 
-            // Ajusta el tamaño de la imagen a 20px si es un ImageIcon
-            if (labelCell.getIcon() instanceof ImageIcon imageIcon) {
-                Image image = imageIcon.getImage();
-                Image newImage = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-                imageIcon = new ImageIcon(newImage);
-                labelCell.setIcon(imageIcon);
+        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return Boolean.class; // Todas las columnas son de tipo Boolean (checkbox)
             }
 
-            JTableHeader header = table.getTableHeader();
-            header.setPreferredSize(new Dimension(60, 100));
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Solo permite editar una celda a la vez
+                return getColumnClass(column) == Boolean.class;
+            }
+        };
 
-            labelCell.setOpaque(true);
-            labelCell.setForeground(Color.white);
-            labelCell.setBackground(Color.WHITE);
-            labelCell.setBorder(new EmptyBorder(2, 5, 5, 2));
-            labelCell.setPreferredSize(new Dimension(60, 100));
-            labelCell.setHorizontalAlignment(CENTER);
+        JTable table = new JTable(model);
+        table.setDefaultRenderer(Boolean.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JCheckBox checkBox = new JCheckBox();
+                checkBox.setSelected((Boolean) value);
+                checkBox.addItemListener((ItemEvent e) -> {
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        // Deshabilita otros checkboxes en la misma fila
+                        for (int i = 0; i < table.getColumnCount(); i++) {
+                            if (i != column) {
+                                model.setValueAt(false, row, i);
+                            }
+                        }
+                    }
+                });
+                return checkBox;
+            }
+        });
 
-            return labelCell;
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane);
 
-        } else {
-            return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        }
+        frame.setVisible(true);
     }
 
-}
+}}

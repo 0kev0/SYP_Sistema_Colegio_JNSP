@@ -1,19 +1,28 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import Modelos.Docente.Modelo_RegistroAsistencia;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public final class Registro_Asistencia extends javax.swing.JInternalFrame {
 
+    private final Modelo_RegistroAsistencia Objeto = new Modelo_RegistroAsistencia();
+    private List<Modelo_RegistroAsistencia> ListObjeto;
+    private DefaultTableModel modeloTabla = new DefaultTableModel();
+
     public Registro_Asistencia() {
         initComponents();
-        DiseñoTabla(Tbl_Actividades);
+        modeloTabla = (DefaultTableModel) Tbl_RegistroAsistencia.getModel();
+        DiseñoTabla(Tbl_RegistroAsistencia);
+        Cargar_Listado_Registro(Tbl_RegistroAsistencia);
 
     }
 
@@ -23,7 +32,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tbl_Actividades = new javax.swing.JTable();
+        Tbl_RegistroAsistencia = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         Lb_Aerolinea1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -33,7 +42,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         Cb_Busqueda = new javax.swing.JComboBox<>();
         Cb_Año = new javax.swing.JComboBox<>();
-        Cb_Busqueda2 = new javax.swing.JComboBox<>();
+        Cb_BuscarPorMes_ = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
@@ -49,21 +58,21 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 540));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Tbl_Actividades.setAutoCreateRowSorter(true);
-        Tbl_Actividades.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(255, 153, 51)));
-        Tbl_Actividades.setModel(new javax.swing.table.DefaultTableModel(
+        Tbl_RegistroAsistencia.setAutoCreateRowSorter(true);
+        Tbl_RegistroAsistencia.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(255, 153, 51)));
+        Tbl_RegistroAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "NIE", "Nombres", "Apellidos", "Asistencia", "Justificacion"
+                "NIE", "Nombres", "Apellidos", "Asistencia", "Fallas", "Fallas justificadas"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -74,21 +83,23 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(Tbl_Actividades);
-        if (Tbl_Actividades.getColumnModel().getColumnCount() > 0) {
-            Tbl_Actividades.getColumnModel().getColumn(0).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(0).setPreferredWidth(80);
-            Tbl_Actividades.getColumnModel().getColumn(1).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(250);
-            Tbl_Actividades.getColumnModel().getColumn(2).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(250);
-            Tbl_Actividades.getColumnModel().getColumn(3).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(80);
-            Tbl_Actividades.getColumnModel().getColumn(4).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(150);
+        jScrollPane1.setViewportView(Tbl_RegistroAsistencia);
+        if (Tbl_RegistroAsistencia.getColumnModel().getColumnCount() > 0) {
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(0).setResizable(false);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(0).setPreferredWidth(80);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(1).setResizable(false);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(1).setPreferredWidth(250);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(2).setResizable(false);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(2).setPreferredWidth(250);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(3).setResizable(false);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(3).setPreferredWidth(80);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(4).setResizable(false);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(4).setPreferredWidth(80);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(5).setResizable(false);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(5).setPreferredWidth(80);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 940, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 940, 290));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -198,13 +209,18 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         Cb_Año.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Año :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
         jPanel1.add(Cb_Año, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 134, -1));
 
-        Cb_Busqueda2.setBackground(new java.awt.Color(224, 213, 170));
-        Cb_Busqueda2.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
-        Cb_Busqueda2.setForeground(new java.awt.Color(0, 0, 0));
-        Cb_Busqueda2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
-        Cb_Busqueda2.setToolTipText("");
-        Cb_Busqueda2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Mes :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        jPanel1.add(Cb_Busqueda2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 134, -1));
+        Cb_BuscarPorMes_.setBackground(new java.awt.Color(224, 213, 170));
+        Cb_BuscarPorMes_.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
+        Cb_BuscarPorMes_.setForeground(new java.awt.Color(0, 0, 0));
+        Cb_BuscarPorMes_.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        Cb_BuscarPorMes_.setToolTipText("");
+        Cb_BuscarPorMes_.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Mes :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
+        Cb_BuscarPorMes_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cb_BuscarPorMes_ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Cb_BuscarPorMes_, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 134, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -220,8 +236,11 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-        public void DiseñoTabla(JTable tabla) {
+    private void Cb_BuscarPorMes_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_BuscarPorMes_ActionPerformed
+        Cargar_Listado_Registro_Busqueda(Tbl_RegistroAsistencia);
+    }//GEN-LAST:event_Cb_BuscarPorMes_ActionPerformed
+
+    public void DiseñoTabla(JTable tabla) {
         tabla.setDefaultRenderer(Object.class,
                 new TablaCusomizada());
         tabla.setRowHeight(40);
@@ -233,7 +252,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        int numeroDeCeldas = 4; // Cambia este valor al número de celdas que necesites
+        int numeroDeCeldas = modeloTabla.getColumnCount(); // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
@@ -243,17 +262,57 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         header.setPreferredSize(new Dimension(60, 45));
 
     }
-  
-    
+
+    public void Cargar_Listado_Registro(JTable tabla) {
+        modeloTabla.setNumRows(0);
+
+        ListObjeto = Objeto.GetListado(1);
+        System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
+
+        for (Modelo_RegistroAsistencia item : ListObjeto) {
+            modeloTabla.addRow(new Object[]{
+                item.getNIE(),
+                item.getNombreEstudiante(),
+                item.getApellidoEstudiante(),
+                item.getCantAsistencias(),
+                item.getCantAusencias(),
+                item.getCantAusenciaJustificadas()});
+        }
+
+        tabla.setModel(modeloTabla);
+    }
+
+    public void Cargar_Listado_Registro_Busqueda(JTable tabla) {
+        int mes = Cb_BuscarPorMes_.getSelectedIndex()+1;
+        int Year = Integer.parseInt(Cb_Año.getSelectedItem().toString());
+        modeloTabla.setNumRows(0);
+
+        System.out.println("buscando por año: " + Year + "  por mes : " + mes);
+        ListObjeto = Objeto.GetListadoCustom(1, mes, Year);
+        System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
+
+        for (Modelo_RegistroAsistencia item : ListObjeto) {
+            modeloTabla.addRow(new Object[]{
+                item.getNIE(),
+                item.getNombreEstudiante(),
+                item.getApellidoEstudiante(),
+                item.getCantAsistencias(),
+                item.getCantAusencias(),
+                item.getCantAusenciaJustificadas()});
+        }
+
+        tabla.setModel(modeloTabla);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Cb_Año;
+    private javax.swing.JComboBox<String> Cb_BuscarPorMes_;
     private javax.swing.JComboBox<String> Cb_Busqueda;
-    private javax.swing.JComboBox<String> Cb_Busqueda2;
     private javax.swing.JLabel Lb_Aerolinea1;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
-    private javax.swing.JTable Tbl_Actividades;
+    private javax.swing.JTable Tbl_RegistroAsistencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
