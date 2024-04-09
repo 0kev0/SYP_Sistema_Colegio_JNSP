@@ -5,6 +5,8 @@ import Modelos.Docente.Modelo_RegistroAsistencia;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -23,6 +25,8 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         modeloTabla = (DefaultTableModel) Tbl_RegistroAsistencia.getModel();
         DiseñoTabla(Tbl_RegistroAsistencia);
         Cargar_Listado_Registro(Tbl_RegistroAsistencia);
+
+ 
 
     }
 
@@ -283,7 +287,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
     }
 
     public void Cargar_Listado_Registro_Busqueda(JTable tabla) {
-        int mes = Cb_BuscarPorMes_.getSelectedIndex()+1;
+        int mes = Cb_BuscarPorMes_.getSelectedIndex() + 1;
         int Year = Integer.parseInt(Cb_Año.getSelectedItem().toString());
         modeloTabla.setNumRows(0);
 

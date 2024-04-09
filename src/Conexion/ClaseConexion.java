@@ -24,7 +24,6 @@ public class ClaseConexion {
 
     public Connection iniciarConexion() {
         try {
-            System.out.println("Iniciando conexión a la base de datos");
             Class.forName("org.postgresql.Driver");
             conexion = DriverManager.getConnection(url, usuario, pass);
             boolean estado = conexion.isValid(50000);

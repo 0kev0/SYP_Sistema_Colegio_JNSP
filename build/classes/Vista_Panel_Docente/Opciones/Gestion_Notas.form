@@ -87,18 +87,18 @@
                     <Column editable="false" title="NIE" type="java.lang.Object"/>
                     <Column editable="false" title="Apellidos" type="java.lang.Object"/>
                     <Column editable="false" title="Nombre" type="java.lang.Object"/>
-                    <Column editable="false" title="Actividad 1" type="java.lang.Object"/>
-                    <Column editable="false" title="Actividad 2" type="java.lang.Object"/>
-                    <Column editable="false" title="Actividad 3" type="java.lang.Object"/>
-                    <Column editable="false" title="Actividad 4" type="java.lang.Object"/>
-                    <Column editable="false" title="Examen" type="java.lang.Object"/>
-                    <Column editable="true" title="Auto-evaluacion" type="java.lang.Object"/>
+                    <Column editable="false" title="Actividad 1 (10%)" type="java.lang.Object"/>
+                    <Column editable="false" title="Actividad 2 (10%)" type="java.lang.Object"/>
+                    <Column editable="false" title=" Actividad 3 (10%)" type="java.lang.Object"/>
+                    <Column editable="false" title="Actividad 4 (10%)" type="java.lang.Object"/>
+                    <Column editable="false" title="Examen (50%)" type="java.lang.Object"/>
+                    <Column editable="true" title="Auto-evaluacion (10%)" type="java.lang.Object"/>
                     <Column editable="true" title="Promedio" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -143,7 +143,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -252,6 +252,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Cb_BusquedaActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -295,6 +298,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Cb_PeriodoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -315,7 +321,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Introduzca NIE"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder justification="1" position="1" title="Buscar">
@@ -330,6 +335,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TB_BuscarKeyReleased"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="196" y="135" width="208" height="50"/>

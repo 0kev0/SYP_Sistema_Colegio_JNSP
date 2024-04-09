@@ -1,11 +1,15 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import static Funciones.Funciones.clearScreen;
 import Modelos.Docente.Modelo_Asignacion_Actividades;
+import Modelos.Docente.Modelo_Materias;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -15,12 +19,16 @@ import javax.swing.table.JTableHeader;
 public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
 
     private final Modelo_Asignacion_Actividades Objeto = new Modelo_Asignacion_Actividades();
+    private List<Modelo_Materias> ListMAterias;
+    private final Modelo_Materias ObjetoMAteria = new Modelo_Materias();
     private List<Modelo_Asignacion_Actividades> ListObjeto;
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
     public Asignacion_Actividades() {
+        clearScreen();
         initComponents();
         CArgar_Actividades(Tbl_Actividades);
+        cargarMAterias(Cb_Asignatura);
         DiseñoTabla(Tbl_Actividades);
 
     }
@@ -216,13 +224,17 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         Cb_Asignatura.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Asignatura.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         Cb_Asignatura.setForeground(new java.awt.Color(0, 0, 0));
-        Cb_Asignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Matematicas", "Lenguaje", "Ciencias", "Sociales" }));
         Cb_Asignatura.setToolTipText("");
         Cb_Asignatura.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Materia :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
         jPanel1.add(Cb_Asignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 134, -1));
 
         jPanel6.setBackground(new java.awt.Color(226, 215, 132));
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
 
         Lb_Aerolinea4.setBackground(new java.awt.Color(255, 255, 255));
         Lb_Aerolinea4.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
@@ -266,7 +278,11 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-        public void CArgar_Actividades(JTable tabla) {
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel6MouseClicked
+
+    public void CArgar_Actividades(JTable tabla) {
 
         modeloTabla = (DefaultTableModel) tabla.getModel();
         modeloTabla.setNumRows(0);
@@ -282,14 +298,24 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                 item.getMateria(),
                 item.getTipoActividad(),
                 item.getDescripcion(),
-                item.getPonderacion(),
-            });
+                item.getPonderacion(),});
         }
 
         tabla.setModel(modeloTabla);
     }
-    
-    
+
+    public void cargarMAterias(JComboBox combobox) {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+
+        ListMAterias = ObjetoMAteria.GetListadoMaterias(9876);
+
+        for (Modelo_Materias item : ListMAterias) {
+            modelo.addElement(item.getNombreMateria());
+        }
+
+        combobox.setModel(modelo);
+    }
+
     public void DiseñoTabla(JTable tabla) {
         tabla.setDefaultRenderer(Object.class,
                 new TablaCusomizada());

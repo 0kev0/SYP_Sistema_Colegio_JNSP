@@ -135,7 +135,7 @@ public class Modelo_Asignacion_Actividades {
             statement = conexionDB.createStatement();//crear consulta
 
             String sql = """
-            SELECT Act.id , Act."Nombre " , Act."Periodo",Mat."Nombre" , TAct."Nombre", Act."Ponderacion", Act."Descripcion"
+            SELECT Act.id , Act."Nombre_Actividad" ,Mat."Nombre" , TAct."Nombre", Act."Ponderacion", Act."Descripcion"
                                      	FROM public."Tbl_Actividades" AS Act 
                                      	INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
                                      	INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct.id = Act."TipoActividad_id"
@@ -148,8 +148,7 @@ public class Modelo_Asignacion_Actividades {
 
                 Modelo_Asignacion_Actividades Actividades = new Modelo_Asignacion_Actividades();
 
-                Actividades.setNombreActividad(consulta.getString("Nombre "));
-                Actividades.setPeriodo(consulta.getInt("Periodo"));
+                Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
                 Actividades.setMateria(consulta.getString("Nombre"));
                 Actividades.setTipoActividad(consulta.getString("Nombre"));
                 Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
@@ -353,7 +352,6 @@ public class Modelo_Asignacion_Actividades {
         }
         return 0;
     }
-
 
 
 }

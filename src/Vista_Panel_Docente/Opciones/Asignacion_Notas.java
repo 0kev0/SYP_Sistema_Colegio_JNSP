@@ -1,19 +1,28 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import Modelos.Docente.Modelo_AsignacionNotas;
+import Modelos.Docente.Modelo_GestionNotas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
+    private final Modelo_AsignacionNotas Objeto = new Modelo_AsignacionNotas();
+    private List<Modelo_AsignacionNotas> ListObjeto;
+    private DefaultTableModel modeloTabla = new DefaultTableModel();
+
     public Asignacion_Notas() {
         initComponents();
         DiseñoTabla(Tbl_Actividades);
+        CArgar_Actividades(Tbl_Actividades);
 
     }
 
@@ -55,11 +64,11 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "NIE", "Nombres", "Apellidos", "Ponderacion", "Nota", "Editar"
+                "NIE", "Nombres", "Apellidos", "Actividad", "Ponderacion", "Nota", "Editar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -75,11 +84,13 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             Tbl_Actividades.getColumnModel().getColumn(2).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(250);
             Tbl_Actividades.getColumnModel().getColumn(3).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(150);
             Tbl_Actividades.getColumnModel().getColumn(4).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(80);
             Tbl_Actividades.getColumnModel().getColumn(5).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(100);
+            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(6).setResizable(false);
+            Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(100);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 720, 350));
@@ -206,8 +217,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-        public void DiseñoTabla(JTable tabla) {
+    public void DiseñoTabla(JTable tabla) {
         tabla.setDefaultRenderer(Object.class,
                 new TablaCusomizada());
         tabla.setRowHeight(40);
@@ -229,8 +239,30 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         header.setPreferredSize(new Dimension(60, 45));
 
     }
-  
-    
+
+    public void CArgar_Actividades(JTable tabla) {
+
+        modeloTabla = (DefaultTableModel) tabla.getModel();
+        modeloTabla.setNumRows(0);
+
+        ListObjeto = Objeto.getListadoActividades();
+        System.out.println("hay " + ListObjeto.size());
+
+        for (Modelo_AsignacionNotas item : ListObjeto) {
+
+            modeloTabla.addRow(new Object[]{
+                item.getNIE(),
+                item.getNombreEstudiante(),
+                item.getApellidoEstudiante(),
+                item.getNombreActividad(),
+                item.getPonderacion(),
+                item.getNota(),
+            });
+        }
+
+        tabla.setModel(modeloTabla);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Cb_Busqueda;

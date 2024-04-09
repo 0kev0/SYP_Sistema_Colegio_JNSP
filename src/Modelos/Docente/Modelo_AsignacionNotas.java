@@ -6,13 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Modelo_RegistroNotas {
+public class Modelo_AsignacionNotas {
 
     private Connection conexionDB;
     private Statement statement;
@@ -22,13 +20,11 @@ public class Modelo_RegistroNotas {
 //lado Servidor
 //lado escritorio
     private int NIE;
-    private int NIES;
-    private int Grado;
-    private String Nombre;
-    private String Apellido;
-    private Double Promedio;
+    private String NombreEstudiante;
+    private String ApellidoEstudiante;
+    private String NombreActividad;
     private Double Nota;
-    private List<Double> notas;
+    private Double Ponderacion;
 
     public Connection getConexionDB() {
         return conexionDB;
@@ -70,28 +66,28 @@ public class Modelo_RegistroNotas {
         this.NIE = NIE;
     }
 
-    public String getNombre() {
-        return Nombre;
+    public String getNombreEstudiante() {
+        return NombreEstudiante;
     }
 
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+    public void setNombreEstudiante(String NombreEstudiante) {
+        this.NombreEstudiante = NombreEstudiante;
     }
 
-    public String getApellido() {
-        return Apellido;
+    public String getApellidoEstudiante() {
+        return ApellidoEstudiante;
     }
 
-    public void setApellido(String Materia) {
-        this.Apellido = Materia;
+    public void setApellidoEstudiante(String ApellidoEstudiante) {
+        this.ApellidoEstudiante = ApellidoEstudiante;
     }
 
-    public Double getPromedio() {
-        return Promedio;
+    public String getNombreActividad() {
+        return NombreActividad;
     }
 
-    public void setPromedio(Double Promedio) {
-        this.Promedio = Promedio;
+    public void setNombreActividad(String NombreActividad) {
+        this.NombreActividad = NombreActividad;
     }
 
     public Double getNota() {
@@ -102,47 +98,31 @@ public class Modelo_RegistroNotas {
         this.Nota = Nota;
     }
 
-    public List<Double> getNotas() {
-        return notas;
+    public Double getPonderacion() {
+        return Ponderacion;
     }
 
-    public void setNotas(List<Double> notas) {
-        this.notas = notas;
+    public void setPonderacion(Double Ponderacion) {
+        this.Ponderacion = Ponderacion;
     }
 
-    public int getNIES() {
-        return NIES;
-    }
-
-    public void setNIES(int NIES) {
-        this.NIES = NIES;
-    }
-
-    public int getGrado() {
-        return Grado;
-    }
-
-    public void setGrado(int Grado) {
-        this.Grado = Grado;
-    }
-
-    public Modelo_RegistroNotas(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
-            int NIE, String Nombre, String Apellido, Double Nota, List<Double> notas, Double Promedio) {
+    public Modelo_AsignacionNotas(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
+            int NIE, String NombreActividad, String NombreEstudiante, String ApellidoEstudiante, Double Nota, Double Ponderacion) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
         this.pstm = pstm;
         ////////////////////////////////////////////////
         this.NIE = NIE;
-        this.Nombre = Nombre;
-        this.Apellido = Apellido;
-        this.Promedio = Promedio;
+        this.NombreActividad = NombreActividad;
+        this.NombreEstudiante = NombreEstudiante;
+        this.ApellidoEstudiante = ApellidoEstudiante;
         this.Nota = Nota;
-        this.notas = notas;
+        this.Ponderacion = Ponderacion;
 
     }
 
-    public Modelo_RegistroNotas() {
+    public Modelo_AsignacionNotas() {
         this.claseConectar = new ClaseConexion();
     }
 
@@ -150,86 +130,44 @@ public class Modelo_RegistroNotas {
      * @return
      * *******************************************************************************************************************
      */
-    public ArrayList<Modelo_RegistroNotas> GetRegistroNotas() {
+    public ArrayList<Modelo_AsignacionNotas> getListadoActividades() {
         try {
-            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
-            statement = conexionDB.createStatement(); // Creamos la consulta
+            conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
+            statement = conexionDB.createStatement();//crear consulta
 
-            ArrayList<Integer> nies = new ArrayList<>(); // Lista para almacenar los NIE
+            String sql = """
+            SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", Tb_Act."Nombre_Actividad",Tb_Act."Ponderacion", Tbl_NAct."Nota "
+                    FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
+                        INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
+                        INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id";""";
 
-            String lista = """
-            SELECT "NIE" FROM public."tbl_Estudiante"
-            WHERE "Grado_id" = 1;
-        """;
+            ResultSet consulta = statement.executeQuery(sql);//ejecutamos la consulta
 
-            ResultSet COnsultaNies = statement.executeQuery(lista); // Ejecutamos la consulta
+            ArrayList<Modelo_AsignacionNotas> DataActividades = new ArrayList<>();
+            while (consulta.next()) {
 
-            while (COnsultaNies.next()) {
-                nies.add(COnsultaNies.getInt("NIE"));
-                System.out.println("nie " + COnsultaNies.getInt("NIE") + "\n");
+                Modelo_AsignacionNotas Actividades = new Modelo_AsignacionNotas();
+
+                Actividades.setNIE(consulta.getInt("NIE"));
+                Actividades.setNombreEstudiante(consulta.getString("Nombres"));
+                Actividades.setApellidoEstudiante(consulta.getString("Apellidos"));
+                Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
+                Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
+                Actividades.setNota(consulta.getDouble("Nota "));
+
+                DataActividades.add(Actividades);
             }
 
-            System.out.println("Alumnos: " + nies.size());
-
-            ArrayList<Modelo_RegistroNotas> DataActividades = new ArrayList<>(); // Lista para almacenar los datos de actividades
-
-            for (Integer nie : nies) {
-
-                String ConsultaNotasPorNie = """
-SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
-tna."Nota ",
-tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
-                	FROM public."Tbl_Nota_Actividad" AS tna
-                	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
-                	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
-                	
-                	WHERE TbEst."NIE" = ?;
-            """;
-
-                System.out.println("\nnie a buscar " + nie);
-
-                PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNie);
-                preparedStatement.setInt(1, nie);
-
-                ResultSet consulta = preparedStatement.executeQuery(); // Ejecutamos la consulta
-
-                ArrayList<Double> notas = new ArrayList<>(); // Lista para almacenar las notas del estudiante
-                Modelo_RegistroNotas Actividades = new Modelo_RegistroNotas();
-
-                while (consulta.next()) {
-                    System.out.println("agregando nota de: " + consulta.getString("Nombres"));
-                    notas.add(consulta.getDouble("Nota "));
-                    System.out.println("nota agregada: " + consulta.getDouble("Nota ") + " actividad: " + consulta.getString("Nombre "));
-                    Actividades.setNIE(nie);
-                    Actividades.setApellido(consulta.getString("Apellidos"));
-                    Actividades.setNombre(consulta.getString("Nombres"));
-                    Actividades.setNotas(notas); // Asignar la lista de notas al estudiante
-
-                }
-
-                while (Actividades.getNotas().size() < 6) {
-                    notas.add(0.0);
-                }
-
-                Actividades.setNotas(notas); // Asignar la lista de notas al estudiante
-
-                DataActividades.add(Actividades); // Agregar el estudiante a la lista de actividades
-
-                System.out.println("----agregado ");
-            }
-
-            System.out.println("----agregados: " + DataActividades.size());
             conexionDB.close();
             return DataActividades;
 
         } catch (SQLException ex) {
-            Logger.getLogger(Modelo_RegistroNotas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Modelo_AsignacionNotas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public ArrayList<Modelo_RegistroNotas> GetInforme() {
+    public ArrayList<Modelo_AsignacionNotas> GetInforme() {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
@@ -242,13 +180,13 @@ tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
 
             ResultSet consulta = statement.executeQuery(sql);//ejecutamos la consulta
 
-            ArrayList<Modelo_RegistroNotas> DataPersonas = new ArrayList<>();
+            ArrayList<Modelo_AsignacionNotas> DataPersonas = new ArrayList<>();
             while (consulta.next()) {
 
-                Modelo_RegistroNotas Persona = new Modelo_RegistroNotas();
+                Modelo_AsignacionNotas Persona = new Modelo_AsignacionNotas();
 
 //                Persona.setId(consulta.getInt("idpersona"));
-//                Persona.setNombre(consulta.getString("Actividad"));
+//                Persona.setNombre(consulta.getString("NombreActividad"));
 //                Persona.setApellido_paterno(consulta.getString("apellido paterno"));
 //                Persona.setApellido_materno(consulta.getString("apellido materno"));
 //                Persona.setTipo_doc(consulta.getString("tipo_documneto"));
@@ -268,13 +206,12 @@ tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
             return DataPersonas;
 
         } catch (SQLException ex) {
-            Logger.getLogger(Modelo_RegistroNotas.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Modelo_AsignacionNotas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public Modelo_RegistroNotas GetPersona(int id) {
+    public Modelo_AsignacionNotas GetPersona(int id) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // initiate a connection
 
@@ -283,12 +220,12 @@ tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
             pstm.setInt(1, id);
             ResultSet consulta = pstm.executeQuery(); // execute the query
 
-            Modelo_RegistroNotas Persona = null;
+            Modelo_AsignacionNotas Persona = null;
             if (consulta.next()) {
-                Persona = new Modelo_RegistroNotas();
+                Persona = new Modelo_AsignacionNotas();
 //
 //                Persona.setId(consulta.getInt("idpersona"));
-//                Persona.setNombre(consulta.getString("Actividad"));
+//                Persona.setNombre(consulta.getString("NombreActividad"));
 //                Persona.setApellido_paterno(consulta.getString("apellido paterno"));
 //                Persona.setApellido_materno(consulta.getString("apellido materno"));
 //                Persona.setTipo_doc(consulta.getString("tipo_documneto"));
@@ -305,13 +242,12 @@ tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
             return Persona;
 
         } catch (SQLException ex) {
-            Logger.getLogger(Modelo_RegistroNotas.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Modelo_AsignacionNotas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public int insertNuevoCliente(Modelo_RegistroNotas PersonasInsert) {
+    public int insertNuevoCliente(Modelo_AsignacionNotas PersonasInsert) {
         try {
             String sql = """
                          INSERT INTO public."Tbl_Cliente"( nombre, "apellido paterno", "apellido materno", tipo_documneto, num_documento, direccion, telefono, email, "Password", "id_Membresia")
@@ -337,13 +273,12 @@ tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
             return respuesta;
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Modelo_RegistroNotas.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Modelo_AsignacionNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return 0;
     }
 
-    public int editPersonas(Modelo_RegistroNotas PersonasEdit) {
+    public int editPersonas(Modelo_AsignacionNotas PersonasEdit) {
         try {
 
             String sql = """
@@ -354,7 +289,8 @@ tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
             conexionDB = claseConectar.iniciarConexion();
             pstm = conexionDB.prepareStatement(sql);
 
-            //   System.out.println("id a modificar" + PersonasEdit.getId());
+         //   System.out.println("id a modificar" + PersonasEdit.getId());
+
 //            pstm.setString(1, PersonasEdit.getNombre());
 //            pstm.setString(2, PersonasEdit.getApellido_paterno());
 //            pstm.setString(3, PersonasEdit.getApellido_materno());
@@ -371,8 +307,7 @@ tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
             return respuesta;
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Modelo_RegistroNotas.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Modelo_AsignacionNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -395,8 +330,7 @@ tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
             return respuesta;
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Modelo_RegistroNotas.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Modelo_AsignacionNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -415,10 +349,10 @@ tbA."Nombre ",tbA."Periodo", tbtA."Nombre"
             return respuesta;
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Modelo_RegistroNotas.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Modelo_AsignacionNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return 0;
     }
+
 
 }

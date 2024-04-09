@@ -8,8 +8,7 @@ import java.awt.MenuItem;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import static java.lang.System.out;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -23,6 +22,20 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 
 public class Funciones {
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    public static void TiemSql() {
+        long startTime = System.nanoTime();
+        long endTime = System.nanoTime();
+
+        long elapsedTimeInNanoseconds = endTime - startTime;
+
+        System.out.println("Tiempo de ejecucion : " + elapsedTimeInNanoseconds + " ns");
+    }
 
     public static void Menu_Item_Mouse_Action(JMenu JMenu_1, String color) throws NumberFormatException {
         JMenu_1.setOpaque(true);
