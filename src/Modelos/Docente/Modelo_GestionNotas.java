@@ -154,7 +154,7 @@ public class Modelo_GestionNotas {
      * @return
      * *******************************************************************************************************************
      */
-    public ArrayList<Modelo_GestionNotas> GetRegistroNotas(int grado,int periodo) {
+    public ArrayList<Modelo_GestionNotas> GetRegistroNotas(int grado, int periodo) {
         try {
             System.out.println("            ---CARGAR NOTAS");
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
@@ -180,7 +180,7 @@ public class Modelo_GestionNotas {
                 String ConsultaNotasPorNIE = """
 SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
 tna."Nota ",
-tbA."Nombre_Actividad", tbtA."Nombre"
+tbA."Nombre_Actividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
@@ -260,12 +260,13 @@ tbA."Nombre_Actividad", tbtA."Nombre"
 
                 for (Integer nie : ListaNies) {
                     String ConsultaNotasPorNIE = """
-SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,tna."Nota ",
-    tbA."Nombre_Actividad", tbtA."Nombre"
-                          	FROM public."Tbl_Nota_Actividad" AS tna
-                             	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
-                             	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                          	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
+SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
+tna."Nota ",
+tbA."Nombre_Actividad"
+                	FROM public."Tbl_Nota_Actividad" AS tna
+                	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
+                	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
                                                                      
                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? ;""";
 
@@ -307,18 +308,18 @@ SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,tna."Nota ",
                 System.out.println("====>BUSQUEDA POR " + ParametroBusqueda);
 
                 String BusquedaGeneral = """
-SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,tna."Nota ",
-                                         tbA."Nombre_Actividad", tbtA."Nombre"
-                                                               	FROM public."Tbl_Nota_Actividad" AS tna
-                                                                  	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
-                                                                  	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                                                               	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
+SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
+tna."Nota ",
+tbA."Nombre_Actividad"
+                	FROM public."Tbl_Nota_Actividad" AS tna
+                	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
+                	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
                                                                                                           
                                                     	WHERE tbA."Periodo_id" = ? AND """;
 
                 BusquedaGeneral += ParametroBusqueda + " LIKE ? ;";
 
-                
                 System.out.println("consulta:  " + BusquedaGeneral);
                 pstm = conexionDB.prepareStatement(BusquedaGeneral);
                 pstm.setInt(1, Periodo);
@@ -343,8 +344,12 @@ SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,tna."Nota ",
                     i++;
                 }
 
-                while (NotaAlumno.getNotas().size() < 6) {
-                    notas.add(0.0);
+                try {
+                    while (NotaAlumno.getNotas().size() < 6) {
+                        notas.add(0.0);
+                    }
+                } catch (NullPointerException ex) {
+                    System.out.println("La lista NotaAlumno.getNotas() está vacía.");
                 }
 
                 NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
@@ -361,6 +366,7 @@ SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,tna."Nota ",
         } catch (SQLException ex) {
             Logger.getLogger(Modelo_GestionNotas.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return null;
     }
 //adaprar los dos tipos de busquyeda
@@ -373,12 +379,13 @@ SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,tna."Nota ",
             System.out.println("====>BUSQUEDA POR " + ParametroBusqueda);
 
             String BusquedaGeneral = """
-SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,tna."Nota ",
-                                         tbA."Nombre_Actividad", tbtA."Nombre"
-                                                               	FROM public."Tbl_Nota_Actividad" AS tna
-                                                                  	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
-                                                                  	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                                                               	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
+SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
+tna."Nota ",
+tbA."Nombre_Actividad"
+                	FROM public."Tbl_Nota_Actividad" AS tna
+                	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
+                	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
                                                                                                           
                                                     	WHERE  """;
 

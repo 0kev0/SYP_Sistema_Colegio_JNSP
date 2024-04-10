@@ -27,6 +27,8 @@ public class Funciones {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+    
+    
 
     public static void TiemSql() {
         long startTime = System.nanoTime();
@@ -73,6 +75,18 @@ public class Funciones {
             Textbox.setText(text);
         }
 
+    }
+
+    public static void Mouse_EnterTextbox(JTextField textbox) {
+        if (textbox.getText().contains("Ingrese")) {
+            textbox.setText("");
+        }
+    }
+
+    public static void Mouse_LeftTextbox(String textoinicial, JTextField textbox) {
+        if (textbox.getText().equalsIgnoreCase("")) {
+            textbox.setText(textoinicial);
+        }
     }
 
     public static void DateValid(JTextField textbox, int maxlimit, JLabel error, int DigitLimit) {
@@ -128,11 +142,47 @@ public class Funciones {
                 if (!(Character.isLetter(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
                     showError("***Formato erroneo, solo letras***");
                     e.consume();
+                    textbox.removeKeyListener(this);
                 }
 
-                if (textbox.getText().length() >= 30) // limit textfield to 31 characters
-                {
+                if (textbox.getText().length() >= 30) {
                     showError("***Cantidad de caracteres excedido***");
+                    e.consume();
+                    textbox.removeKeyListener(this);
+
+                }
+            }
+
+            private void showError(String errorMessage) {
+                error.setText(errorMessage);
+                error.setForeground(Color.RED);
+                System.out.println(errorMessage);
+                textbox.setText("");
+
+                Timer timer = new Timer(2000, e -> {
+                    // Después de 2 segundos, restablece el color del error y vacía el campo de texto
+                    error.setForeground(Color.decode("#172A38"));
+                    textbox.setText("");
+                    error.setText("");
+                    textbox.removeKeyListener(this); // Detiene el KeyListener
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
+        });
+    }
+
+    public static void ValidNIE(JTextField textbox, JLabel error) {
+        textbox.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+
+                if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+                    showError("***Formato erróneo, solo números enteros***");
+                    e.consume();
+                } else if (textbox.getText().length() >= 4) {
+                    showError("***El NIE debe tener máximo 4 dígitos***");
                     e.consume();
                 }
             }
@@ -140,9 +190,16 @@ public class Funciones {
             private void showError(String errorMessage) {
                 error.setText(errorMessage);
                 error.setForeground(Color.RED);
-                out.println(errorMessage);
+                System.out.println(errorMessage);
                 textbox.setText("");
-                Timer timer = new Timer(1000, e -> error.setForeground(Color.decode("#172A38")));
+
+                Timer timer = new Timer(2000, e -> {
+                    // Después de 2 segundos, restablece el color del error y vacía el campo de texto
+                    error.setForeground(Color.decode("#172A38"));
+                    textbox.setText("");
+                    error.setText("");
+                    textbox.removeKeyListener(this); // Detiene el KeyListener
+                });
                 timer.setRepeats(false);
                 timer.start();
             }

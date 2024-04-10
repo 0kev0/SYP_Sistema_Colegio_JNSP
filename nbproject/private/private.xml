@@ -12,10 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Funciones/Funciones.java</file>
-            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Vista_Panel_Docente/Opciones/Registro_Asistencia.java</file>
-            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Vista_Panel_Docente/Opciones/Gestion_Notas.java</file>
-            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Vista_Panel_Docente/Opciones/Toma_Asistencia.java</file>
+            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Modelos/Docente/Modelo_Asignacion_Actividades.java</file>
+            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Modelos/Docente/Modelo_Materias.java</file>
+            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Vista_Panel_Docente/Opciones/Asignacion_Actividades.java</file>
+            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Modelos/Docente/Modelo_AsignacionNotas.java</file>
             <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Vista_Panel_Docente/Opciones/Asignacion_Notas.java</file>
         </group>
     </open-files>

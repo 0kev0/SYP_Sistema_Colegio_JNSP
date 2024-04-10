@@ -22,6 +22,7 @@ public class Modelo_AsignacionNotas {
     private int NIE;
     private String NombreEstudiante;
     private String ApellidoEstudiante;
+    private String EstadoActividad;
     private String NombreActividad;
     private Double Nota;
     private Double Ponderacion;
@@ -82,6 +83,14 @@ public class Modelo_AsignacionNotas {
         this.ApellidoEstudiante = ApellidoEstudiante;
     }
 
+    public String getEstadoActividad() {
+        return EstadoActividad;
+    }
+
+    public void setEstadoActividad(String EstadoActividad) {
+        this.EstadoActividad = EstadoActividad;
+    }
+
     public String getNombreActividad() {
         return NombreActividad;
     }
@@ -107,7 +116,7 @@ public class Modelo_AsignacionNotas {
     }
 
     public Modelo_AsignacionNotas(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
-            int NIE, String NombreActividad, String NombreEstudiante, String ApellidoEstudiante, Double Nota, Double Ponderacion) {
+            int NIE, String NombreActividad, String NombreEstudiante, String ApellidoEstudiante, String EstadoActividad, Double Nota, Double Ponderacion) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
@@ -117,6 +126,7 @@ public class Modelo_AsignacionNotas {
         this.NombreActividad = NombreActividad;
         this.NombreEstudiante = NombreEstudiante;
         this.ApellidoEstudiante = ApellidoEstudiante;
+        this.EstadoActividad = EstadoActividad;
         this.Nota = Nota;
         this.Ponderacion = Ponderacion;
 
@@ -134,12 +144,16 @@ public class Modelo_AsignacionNotas {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
-
+System.out.println("###BUSQUEDA GENERAL");
             String sql = """
-            SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", Tb_Act."Nombre_Actividad",Tb_Act."Ponderacion", Tbl_NAct."Nota "
-                    FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
-                        INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
-                        INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id";""";
+      SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
+                  			Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
+                  			Tbl_NAct."Nota "
+                                      FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
+                                      INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
+                                      INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
+      				INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact.id = Tb_Act."TipoActividad_id"
+                                      INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id";""";
 
             ResultSet consulta = statement.executeQuery(sql);//ejecutamos la consulta
 
@@ -152,6 +166,56 @@ public class Modelo_AsignacionNotas {
                 Actividades.setNombreEstudiante(consulta.getString("Nombres"));
                 Actividades.setApellidoEstudiante(consulta.getString("Apellidos"));
                 Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
+                Actividades.setEstadoActividad(consulta.getString("EstadoActividad"));
+                Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
+                Actividades.setNota(consulta.getDouble("Nota "));
+
+                DataActividades.add(Actividades);
+            }
+
+            conexionDB.close();
+            return DataActividades;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_AsignacionNotas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Modelo_AsignacionNotas> get_ListadoActividades_Filtrada(int Criterio , String Parametro) {
+        try {
+            conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
+            statement = conexionDB.createStatement();//crear consulta
+            System.out.println("###BUSQUEDA FILTRADA\n criterio de busqueda : " + Parametro + "\n Id del criterio  " + Criterio );
+          
+            String sql = """
+      SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
+                              			Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
+                              			Tbl_NAct."Nota "
+                                                  FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
+                                                  INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
+                                                  INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
+                  								INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact.id = Tb_Act."TipoActividad_id"
+                                                  INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id"
+            					
+            					WHERE """ + Parametro;
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, Criterio);
+
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+
+            ArrayList<Modelo_AsignacionNotas> DataActividades = new ArrayList<>();
+            while (consulta.next()) {
+
+                Modelo_AsignacionNotas Actividades = new Modelo_AsignacionNotas();
+
+                Actividades.setNIE(consulta.getInt("NIE"));
+                Actividades.setNombreEstudiante(consulta.getString("Nombres"));
+                Actividades.setApellidoEstudiante(consulta.getString("Apellidos"));
+                Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
+                Actividades.setEstadoActividad(consulta.getString("EstadoActividad"));
                 Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
                 Actividades.setNota(consulta.getDouble("Nota "));
 
@@ -289,8 +353,7 @@ public class Modelo_AsignacionNotas {
             conexionDB = claseConectar.iniciarConexion();
             pstm = conexionDB.prepareStatement(sql);
 
-         //   System.out.println("id a modificar" + PersonasEdit.getId());
-
+            //   System.out.println("id a modificar" + PersonasEdit.getId());
 //            pstm.setString(1, PersonasEdit.getNombre());
 //            pstm.setString(2, PersonasEdit.getApellido_paterno());
 //            pstm.setString(3, PersonasEdit.getApellido_materno());
@@ -353,6 +416,5 @@ public class Modelo_AsignacionNotas {
         }
         return 0;
     }
-
 
 }

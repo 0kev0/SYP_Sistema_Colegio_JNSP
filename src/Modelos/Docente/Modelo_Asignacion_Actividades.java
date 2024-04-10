@@ -135,11 +135,11 @@ public class Modelo_Asignacion_Actividades {
             statement = conexionDB.createStatement();//crear consulta
 
             String sql = """
-            SELECT Act.id , Act."Nombre_Actividad" ,Mat."Nombre" , TAct."Nombre", Act."Ponderacion", Act."Descripcion"
-                                     	FROM public."Tbl_Actividades" AS Act 
-                                     	INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
-                                     	INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct.id = Act."TipoActividad_id"
-            							;""";
+            SELECT Act.id , Act."Nombre_Actividad" , Mat."Nombre",TAct."TipoActividad",  Act."Descripcion" , TAct."Ponderacion"
+                                                                         	FROM public."Tbl_Actividades" AS Act 
+                                                                         	INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
+                                                                         	INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct.id = Act."TipoActividad_id"
+                                                							""";
 
             ResultSet consulta = statement.executeQuery(sql);//ejecutamos la consulta
 
@@ -147,16 +147,17 @@ public class Modelo_Asignacion_Actividades {
             while (consulta.next()) {
 
                 Modelo_Asignacion_Actividades Actividades = new Modelo_Asignacion_Actividades();
-
                 Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
                 Actividades.setMateria(consulta.getString("Nombre"));
-                Actividades.setTipoActividad(consulta.getString("Nombre"));
-                Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
+                Actividades.setTipoActividad(consulta.getString("TipoActividad"));
                 Actividades.setDescripcion(consulta.getString("Descripcion"));
+                Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
+
+                System.out.println("###" + Actividades.getNombreActividad());
 
                 DataActividades.add(Actividades);
             }
-
+            System.out.println("$$$ "+ DataActividades.size());
             conexionDB.close();
             return DataActividades;
 
@@ -288,8 +289,7 @@ public class Modelo_Asignacion_Actividades {
             conexionDB = claseConectar.iniciarConexion();
             pstm = conexionDB.prepareStatement(sql);
 
-         //   System.out.println("id a modificar" + PersonasEdit.getId());
-
+            //   System.out.println("id a modificar" + PersonasEdit.getId());
 //            pstm.setString(1, PersonasEdit.getNombre());
 //            pstm.setString(2, PersonasEdit.getApellido_paterno());
 //            pstm.setString(3, PersonasEdit.getApellido_materno());
@@ -352,6 +352,5 @@ public class Modelo_Asignacion_Actividades {
         }
         return 0;
     }
-
 
 }
