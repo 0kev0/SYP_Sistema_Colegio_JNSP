@@ -144,7 +144,7 @@ public class Modelo_AsignacionNotas {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
-System.out.println("###BUSQUEDA GENERAL");
+            System.out.println("###BUSQUEDA GENERAL");
             String sql = """
       SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
                   			Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
@@ -182,12 +182,12 @@ System.out.println("###BUSQUEDA GENERAL");
         return null;
     }
 
-    public ArrayList<Modelo_AsignacionNotas> get_ListadoActividades_Filtrada(int Criterio , String Parametro) {
+    public ArrayList<Modelo_AsignacionNotas> get_ListadoActividades_Filtrada(int Criterio, String Parametro) {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
-            System.out.println("###BUSQUEDA FILTRADA\n criterio de busqueda : " + Parametro + "\n Id del criterio  " + Criterio );
-          
+            System.out.println("###BUSQUEDA FILTRADA\n criterio de busqueda : " + Parametro + "\n Id del criterio  " + Criterio);
+
             String sql = """
       SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
                               			Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
@@ -202,7 +202,6 @@ System.out.println("###BUSQUEDA GENERAL");
 
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, Criterio);
-
 
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 

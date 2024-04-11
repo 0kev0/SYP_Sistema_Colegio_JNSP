@@ -1,6 +1,5 @@
 package Modelos.Docente;
 
-import Modelos.*;
 import Conexion.ClaseConexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -157,7 +157,7 @@ public class Modelo_GestionNotas {
      */
     public ArrayList<Modelo_GestionNotas> GetRegistroNotas(int grado, int periodo) {
         try {
-            System.out.println("            ---CARGAR NOTAS");
+            System.out.println("---CARGAR NOTAS");
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             statement = conexionDB.createStatement(); // Creamos la consulta
 
@@ -195,7 +195,7 @@ tbA."Nombre_Actividad"
                 preparedStatement.setInt(2, periodo);
 
                 ResultSet consulta_Notas = preparedStatement.executeQuery(); // Ejecutamos la consulta
-                System.out.println("consulta:  " + preparedStatement.toString());
+                //System.out.println("consulta:  " + preparedStatement.toString());
 
                 TiemSql();
 
@@ -204,7 +204,6 @@ tbA."Nombre_Actividad"
 
                 while (consulta_Notas.next()) {
 
-                    System.out.print(">agregando nota de: " + consulta_Notas.getString("Nombres"));
                     notas.add(consulta_Notas.getDouble("NotaObtenida"));
                     NotaAlumno.setNIE(nie);
                     NotaAlumno.setApellido(consulta_Notas.getString("Apellidos"));
@@ -219,6 +218,7 @@ tbA."Nombre_Actividad"
 
                 NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
                 if (NotaAlumno.getNIE() != 0) {
+                    System.out.println("\n>agregando NIE: "+ NotaAlumno.getNIE()+ " y NOMBRE "+ NotaAlumno.getNombre());
                     ListadoNotas.add(NotaAlumno); // Agregar el estudiante a la lista de actividades
 
                 }
@@ -436,10 +436,10 @@ tbA."Nombre_Actividad"
 
             NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
 
-                    if (NotaAlumno.getNIE() != 0) {
-                        NotaBuscar.add(NotaAlumno); // Agregar el estudiante a la lista de actividades
+            if (NotaAlumno.getNIE() != 0) {
+                NotaBuscar.add(NotaAlumno); // Agregar el estudiante a la lista de actividades
 
-                    }
+            }
             System.out.println("                        -> Agregados: " + NotaBuscar.size());
             conexionDB.close();
 

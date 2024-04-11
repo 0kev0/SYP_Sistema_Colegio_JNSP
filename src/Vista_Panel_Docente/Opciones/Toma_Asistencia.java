@@ -366,7 +366,8 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        int numeroDeCeldas = 6; // Cambia este valor al número de celdas que necesites
+        
+        int numeroDeCeldas = 2; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
@@ -382,7 +383,8 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
     }
 
-    public void get_TblAsistencia(JTable tabla) {
+
+  public void get_TblAsistencia(JTable tabla) {
         modeloTabla = (DefaultTableModel) tabla.getModel();
         modeloTabla.setNumRows(0);
 
@@ -401,6 +403,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
         tabla.setModel(modeloTabla);
     }
+
 
     public static String obtenerFechaActual() {
         // Obtener la fecha y hora actual

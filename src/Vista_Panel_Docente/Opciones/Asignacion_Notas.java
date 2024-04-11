@@ -111,7 +111,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             Tbl_Actividades.getColumnModel().getColumn(3).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(150);
             Tbl_Actividades.getColumnModel().getColumn(4).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(150);
+            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(5).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(6).setResizable(false);
@@ -413,7 +413,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 7; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
         

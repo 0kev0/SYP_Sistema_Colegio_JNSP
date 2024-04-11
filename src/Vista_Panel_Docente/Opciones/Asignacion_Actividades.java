@@ -462,6 +462,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 
         tabla.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+        tabla.getColumnModel().getColumn(3).setCellRenderer(leftRenderer);
 
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));

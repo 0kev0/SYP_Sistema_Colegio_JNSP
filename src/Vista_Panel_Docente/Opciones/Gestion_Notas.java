@@ -392,7 +392,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
 
 
-        int numeroDeCeldas = 9; // Cambia este valor al número de celdas que necesites
+        int numeroDeCeldas = 10; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
