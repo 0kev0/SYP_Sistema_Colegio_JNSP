@@ -148,7 +148,7 @@ System.out.println("###BUSQUEDA GENERAL");
             String sql = """
       SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
                   			Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
-                  			Tbl_NAct."Nota "
+                  			Tbl_NAct."NotaObtenida"
                                       FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
                                       INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
                                       INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
@@ -168,7 +168,7 @@ System.out.println("###BUSQUEDA GENERAL");
                 Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
                 Actividades.setEstadoActividad(consulta.getString("EstadoActividad"));
                 Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
-                Actividades.setNota(consulta.getDouble("Nota "));
+                Actividades.setNota(consulta.getDouble("NotaObtenida"));
 
                 DataActividades.add(Actividades);
             }
@@ -191,7 +191,7 @@ System.out.println("###BUSQUEDA GENERAL");
             String sql = """
       SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
                               			Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
-                              			Tbl_NAct."Nota "
+                              			Tbl_NAct."NotaObtenida"
                                                   FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
                                                   INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
                                                   INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
@@ -217,7 +217,7 @@ System.out.println("###BUSQUEDA GENERAL");
                 Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
                 Actividades.setEstadoActividad(consulta.getString("EstadoActividad"));
                 Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
-                Actividades.setNota(consulta.getDouble("Nota "));
+                Actividades.setNota(consulta.getDouble("NotaObtenida"));
 
                 DataActividades.add(Actividades);
             }

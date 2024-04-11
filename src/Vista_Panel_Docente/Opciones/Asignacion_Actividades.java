@@ -11,9 +11,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -37,7 +39,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     public Asignacion_Actividades() {
         clearScreen();
         initComponents();
-        Get_Actividades(Tbl_Actividades);
+        Get_Tbl_Actividades(Tbl_Actividades);
 
         Get_Periodos(Cb_Periodo);
         Get_Materias(Cb_Asignatura);
@@ -48,22 +50,24 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
 
     }
 
-    public void Get_Actividades(JTable tabla) {
+    public void Get_Tbl_Actividades(JTable tabla) {
         modeloTabla = (DefaultTableModel) tabla.getModel();
         modeloTabla.setNumRows(0);
 
         List_Actividades = Objeto_Actividades.GetActividades();
         System.out.println("hay " + List_Actividades.size());
 
+        ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
         for (Modelo_Asignacion_Actividades item : List_Actividades) {
 
             modeloTabla.addRow(new Object[]{
-                1,
+
                 item.getNombreActividad(),
                 item.getMateria(),
                 item.getTipoActividad(),
                 item.getDescripcion(),
-                item.getPonderacion(),});
+                item.getPonderacion(),
+                new JLabel(iconoEditar)});
         }
 
         tabla.setModel(modeloTabla);
@@ -96,17 +100,21 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     }
 
     public void Get_TipoActividad(JComboBox ComboBox) {
+        try {
+            DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
 
-        DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
+            List_TipoActividad = Objeto_TipoActividad.Get_EstadosActividades();
+            System.out.println("hay " + List_TipoActividad.size());
 
-        List_TipoActividad = Objeto_TipoActividad.Get_EstadosActividades();
-        System.out.println("hay " + List_TipoActividad.size());
+            for (Modelo_TipoActividad item : List_TipoActividad) {
+                ModeloComboBox.addElement(item.getTipoActividad());
+            }
 
-        for (Modelo_TipoActividad item : List_TipoActividad) {
-            ModeloComboBox.addElement(item.getTipoActividad());
+            ComboBox.setModel(ModeloComboBox);
+        } catch (Exception e) {
+            // Manejo de excepciones aquí
+            System.err.println("Error al cargar los elementos en el combo box: " + e.getMessage());
         }
-
-        ComboBox.setModel(ModeloComboBox);
     }
 
     @SuppressWarnings("unchecked")
@@ -145,17 +153,17 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Tbl_Actividades.setAutoCreateRowSorter(true);
-        Tbl_Actividades.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(255, 153, 51)));
+        Tbl_Actividades.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 153, 51)));
         Tbl_Actividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "No#", "Nombre actividad", "Asignatura", "Tipo", "Descripcion", "Ponderacion"
+                "Nombre actividad", "Asignatura", "Tipo", "Descripcion", "Ponderacion", "Editar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -165,17 +173,17 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(Tbl_Actividades);
         if (Tbl_Actividades.getColumnModel().getColumnCount() > 0) {
             Tbl_Actividades.getColumnModel().getColumn(0).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(0).setPreferredWidth(50);
+            Tbl_Actividades.getColumnModel().getColumn(0).setPreferredWidth(150);
             Tbl_Actividades.getColumnModel().getColumn(1).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(150);
+            Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(2).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(150);
+            Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(3).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(100);
+            Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(250);
             Tbl_Actividades.getColumnModel().getColumn(4).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(300);
+            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(80);
             Tbl_Actividades.getColumnModel().getColumn(5).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(60);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 800, 350));
@@ -443,11 +451,17 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        int numeroDeCeldas = 4; // Cambia este valor al número de celdas que necesites
+
+        int numeroDeCeldas = 5; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+
+        tabla.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));

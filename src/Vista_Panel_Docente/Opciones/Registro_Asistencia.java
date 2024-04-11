@@ -63,7 +63,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Tbl_RegistroAsistencia.setAutoCreateRowSorter(true);
-        Tbl_RegistroAsistencia.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(255, 153, 51)));
+        Tbl_RegistroAsistencia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 153, 51)));
         Tbl_RegistroAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
@@ -254,13 +254,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         tabla.setFont(fuente);
         tabla.getTableHeader().setFont(fuente);
 
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        int numeroDeCeldas = modeloTabla.getColumnCount(); // Cambia este valor al número de celdas que necesites
 
-        for (int i = 0; i < numeroDeCeldas; i++) {
-            tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
 
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));

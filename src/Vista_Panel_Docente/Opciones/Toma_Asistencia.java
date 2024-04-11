@@ -1,6 +1,7 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import Funciones.Funciones;
 import static Funciones.Funciones.clearScreen;
 import Modelos.Docente.Modelo_Asignacion_Actividades;
 import Modelos.Docente.Modelo_TomaAsistencia;
@@ -10,11 +11,14 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -29,7 +33,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
         clearScreen();
         initComponents();
         DiseñoTabla(Tbl_ListadoAsistencia);
-        Cargar_ListadoAsistencia(Tbl_ListadoAsistencia);
+        get_TblAsistencia(Tbl_ListadoAsistencia);
         Lb_FechaActual.setText(obtenerFechaActual());
         modeloTabla = (DefaultTableModel) Tbl_ListadoAsistencia.getModel();
 
@@ -83,7 +87,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Tbl_ListadoAsistencia.setAutoCreateRowSorter(true);
-        Tbl_ListadoAsistencia.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(255, 153, 51)));
+        Tbl_ListadoAsistencia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 153, 51)));
         Tbl_ListadoAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null}
@@ -112,9 +116,9 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
             Tbl_ListadoAsistencia.getColumnModel().getColumn(0).setResizable(false);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(0).setPreferredWidth(80);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(1).setResizable(false);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(1).setPreferredWidth(250);
+            Tbl_ListadoAsistencia.getColumnModel().getColumn(1).setPreferredWidth(200);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(2).setResizable(false);
-            Tbl_ListadoAsistencia.getColumnModel().getColumn(2).setPreferredWidth(250);
+            Tbl_ListadoAsistencia.getColumnModel().getColumn(2).setPreferredWidth(200);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(3).setPreferredWidth(80);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(4).setResizable(false);
             Tbl_ListadoAsistencia.getColumnModel().getColumn(5).setResizable(false);
@@ -123,7 +127,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
             Tbl_ListadoAsistencia.getColumnModel().getColumn(6).setPreferredWidth(150);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 940, 290));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 990, 350));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -264,86 +268,89 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        clearScreen();
-        Date fecha = new Date();
-        boolean all_fine = false;
 
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-            boolean columnaSeleccionada = false; // Bandera para verificar si se seleccionó al menos una columna
-            boolean justificacionInvalida = false; // Bandera para verificar si la justificación es inválida
+        try {
+            clearScreen();
+            Date fecha = new Date();
+            boolean all_fine = false;
 
-            for (int j = 3; j <= 5; j++) {
-                boolean asistenciaMarcada = (boolean) modeloTabla.getValueAt(i, j);
-                String justificacion = (String) Tbl_ListadoAsistencia.getValueAt(i, 6);
+            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+                boolean columnaSeleccionada = false; // Flag to verify if at least one column was selected
 
-                if (asistenciaMarcada && j == 5 && (justificacion == null || justificacion.trim().isEmpty())) {
-                    // Mostrar una alerta (puedes adaptar esto según tu entorno)
-                    System.out.println("¡Debe ingresar una justificación!");
-                    columnaSeleccionada = true;
-                    justificacionInvalida = true; // Marcar la justificación como inválida
-                    all_fine = true;
-                    break; // Si se selecciona una columna, no es necesario seguir verificando
+                for (int j = 3; j <= 5; j++) {
+                    boolean asistenciaMarcada = (boolean) modeloTabla.getValueAt(i, j);
+                    String justificacion = (String) Tbl_ListadoAsistencia.getValueAt(i, 6);
+
+                    if (asistenciaMarcada && j == 5 && (justificacion == null || justificacion.trim().isEmpty())) {
+                        // Show an alert (you can adapt this according to your environment)
+                        System.out.println("¡Debe ingresar una justificación!");
+                        columnaSeleccionada = true;
+                        all_fine = false;
+                        break; // If a column is selected, it is not necessary to continue checking
+                    }
+                    if (asistenciaMarcada) {
+                        columnaSeleccionada = true;
+                        all_fine = true;
+                        break; // If a column is selected, it is not necessary to continue checking
+                    }
+
                 }
-                if (asistenciaMarcada) {
-                    columnaSeleccionada = true;
-                    all_fine = true;
-                    break; // Si se selecciona una columna, no es necesario seguir verificando
+
+                if (columnaSeleccionada) {
+                    System.out.println("[+] Todo está bien para la fila con NIE: " + modeloTabla.getValueAt(i, 0));
+                } else {
+                    all_fine = false;
+                    System.out.println("[-] Asistencia sin marcar del NIE: " + modeloTabla.getValueAt(i, 0));
+
+                    // You can show an additional alert message if you wish
                 }
-            }
 
-            if (justificacionInvalida) {
-                continue; // Si la justificación es inválida, saltar al siguiente ciclo
-            }
-
-            if (columnaSeleccionada) {
-                System.out.println("Todo está bien para la fila con NIE: " + modeloTabla.getValueAt(i, 0));
-            } else {
-                all_fine = false;
-                System.out.println("Asistencia sin marcar del NIE: " + modeloTabla.getValueAt(i, 0));
-
-                // Puedes mostrar un mensaje de alerta adicional si lo deseas
             }
 
             if (all_fine) {
-                // ingreso
-                int filaSeleccionada = Tbl_ListadoAsistencia.getSelectedRow();
-                boolean columna5Marcada = (boolean) Tbl_ListadoAsistencia.getValueAt(filaSeleccionada, 5);
+                // entry
+                for (int i = 0; i < modeloTabla.getRowCount(); i++) {
 
-                System.out.println("vuelta");
+                    System.out.println("vuelta");
 
-                int NIE = Integer.parseInt(modeloTabla.getValueAt(i, 0).toString());
-                System.out.println("NIE" + NIE);
+                    int NIE = Integer.parseInt(modeloTabla.getValueAt(i, 0).toString());
+                    System.out.println("NIE" + NIE);
 
-                String Justificacion = (modeloTabla.getValueAt(i, 6).toString());
-                System.out.println("justificacion" + ((Justificacion == null) ? "diferente" : Justificacion));
+                    String Justificacion = (modeloTabla.getValueAt(i, 6) != null) ? modeloTabla.getValueAt(i, 6).toString() : "";
 
-                int EstadoAsistencia = 0;
+                    int EstadoAsistencia = 0;
 
-                if ((boolean) modeloTabla.getValueAt(i, 3)) {
-                    EstadoAsistencia = 1;//presente
+                    if ((boolean) modeloTabla.getValueAt(i, 3)) {
+                        EstadoAsistencia = 1;//present
+                    }
+                    if ((boolean) modeloTabla.getValueAt(i, 4)) {
+                        EstadoAsistencia = 2;//absent
+                    }
+                    if ((boolean) modeloTabla.getValueAt(i, 5)) {
+                        EstadoAsistencia = 3;//justified
+                    }
+
+                    System.out.println("estado: " + EstadoAsistencia);
+
+                    Modelo_TomaAsistencia Asistencia = new Modelo_TomaAsistencia();
+
+                    Asistencia.setIdDocente(9876);
+                    Asistencia.setNIE(NIE);
+                    Asistencia.setFecha(fecha);
+                    Asistencia.setIdEstadoAsistencia(EstadoAsistencia);
+                    Asistencia.setJustificacion(Justificacion);
+
+                    Asistencia.RegistrarAsistencia(Asistencia);
                 }
-                if ((boolean) modeloTabla.getValueAt(i, 4)) {
-                    EstadoAsistencia = 2;//ausente
-                }
-                if ((boolean) modeloTabla.getValueAt(i, 5)) {
-                    EstadoAsistencia = 3;//justificado
-                }
-
-                System.out.println("estado: " + EstadoAsistencia);
-
-                Modelo_TomaAsistencia Asistencia = new Modelo_TomaAsistencia();
-
-                Asistencia.setIdDocente(9876);
-                Asistencia.setNIE(NIE);
-                Asistencia.setFecha(fecha);
-                Asistencia.setIdEstadoAsistencia(EstadoAsistencia);
-                Asistencia.setJustificacion(Justificacion);
-
-                Asistencia.RegistrarAsistencia(Asistencia);
             } else {
                 System.out.println("###ERROR");
             }
+        } catch (NumberFormatException e) {
+            System.out.println("Error converting NIE to a number: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
         }
+
 
     }//GEN-LAST:event_jPanel6MouseClicked
 
@@ -359,18 +366,23 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        int numeroDeCeldas = modeloTabla.getColumnCount(); // Cambia este valor al número de celdas que necesites
+        int numeroDeCeldas = 6; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+
+        tabla.getColumnModel().getColumn(1).setCellRenderer(leftRenderer);
+        tabla.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
 
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));
 
     }
 
-    public void Cargar_ListadoAsistencia(JTable tabla) {
+    public void get_TblAsistencia(JTable tabla) {
         modeloTabla = (DefaultTableModel) tabla.getModel();
         modeloTabla.setNumRows(0);
 
@@ -384,10 +396,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
                 item.getApellidoEstudiante(),
                 Boolean.FALSE,
                 Boolean.FALSE,
-                Boolean.FALSE,
-                "*"
-
-            });
+                Boolean.FALSE,});
         }
 
         tabla.setModel(modeloTabla);

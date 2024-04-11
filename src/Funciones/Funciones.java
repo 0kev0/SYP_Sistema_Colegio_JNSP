@@ -27,8 +27,6 @@ public class Funciones {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-    
-    
 
     public static void TiemSql() {
         long startTime = System.nanoTime();
@@ -181,8 +179,8 @@ public class Funciones {
                 if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
                     showError("***Formato erróneo, solo números enteros***");
                     e.consume();
-                } else if (textbox.getText().length() >= 4) {
-                    showError("***El NIE debe tener máximo 4 dígitos***");
+                } else if (textbox.getText().length() >= 5) {
+                    showError("***El NIE debe tener máximo 5 dígitos***");
                     e.consume();
                 }
             }
@@ -377,4 +375,40 @@ public class Funciones {
         label.setIcon(icon_Label);
     }
 
+    public static int JOption(String titulo, String mensaje, String[] opciones) {
+        // Crea un JOptionPane con las opciones proporcionadas
+        int seleccion = JOptionPane.showOptionDialog(
+                null, // Componente padre (null para centrar en la pantalla)
+                mensaje, // Mensaje a mostrar
+                titulo, // Título del diálogo
+                JOptionPane.DEFAULT_OPTION, // Tipo de opciones (DEFAULT_OPTION muestra botones OK/CANCEL)
+                JOptionPane.PLAIN_MESSAGE, // Tipo de mensaje (PLAIN_MESSAGE muestra solo texto)
+                null, // Icono personalizado (null para usar el icono predeterminado)
+                opciones, // Array de opciones
+                opciones[0] // Opción predeterminada
+        );
+
+        // Maneja la selección del usuario
+        switch (seleccion) {
+            case 0 -> {
+                System.out.println("El usuario seleccionó: " + opciones[0]);
+                return 0;
+            }
+            case 1 -> {
+                System.out.println("El usuario seleccionó: " + opciones[1]);
+                return 1;
+            }
+            case 2 -> {
+                System.out.println("El usuario seleccionó: " + opciones[2]);
+                return 2;
+            }
+            default ->
+                System.out.println("El usuario cerró el diálogo sin seleccionar una opción.");
+        }
+        return 0;
+    }
+
+     public static void showMessageDialog(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
 }
