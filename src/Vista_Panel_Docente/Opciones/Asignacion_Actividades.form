@@ -89,7 +89,7 @@
                     <Column editable="false" title="Tipo" type="java.lang.Object"/>
                     <Column editable="false" title="Descripcion" type="java.lang.Object"/>
                     <Column editable="false" title="Ponderacion" type="java.lang.Object"/>
-                    <Column editable="true" title="Editar" type="java.lang.Object"/>
+                    <Column editable="false" title="Editar" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -119,7 +119,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="60" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>

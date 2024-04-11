@@ -52,8 +52,6 @@ public class Panel_Docente extends javax.swing.JFrame {
         Lb_AsignarNOtas = new javax.swing.JLabel();
         Btn_Inventario9 = new javax.swing.JPanel();
         Desk = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -469,32 +467,15 @@ public class Panel_Docente extends javax.swing.JFrame {
 
         Desk.setBackground(new java.awt.Color(250, 244, 208));
 
-        jLabel1.setText("Notas finales, promediadas");
-
-        jLabel2.setText("Para asignar las actividades");
-
-        Desk.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        Desk.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout DeskLayout = new javax.swing.GroupLayout(Desk);
         Desk.setLayout(DeskLayout);
         DeskLayout.setHorizontalGroup(
             DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DeskLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(948, Short.MAX_VALUE))
+            .addGap(0, 1100, Short.MAX_VALUE)
         );
         DeskLayout.setVerticalGroup(
             DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DeskLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel1)
-                .addGap(69, 69, 69)
-                .addComponent(jLabel2)
-                .addContainerGap(401, Short.MAX_VALUE))
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
         Panel_bg.add(Desk, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 1100, 540));
@@ -657,8 +638,6 @@ public class Panel_Docente extends javax.swing.JFrame {
     private javax.swing.JLabel Lb_RegistroVentas;
     private javax.swing.JPanel Panel_Izq;
     private javax.swing.JPanel Panel_bg;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

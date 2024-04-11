@@ -3,6 +3,7 @@ package Vista_Panel_Docente.Opciones;
 import Customizacion.TablaCusomizada;
 import Funciones.Funciones;
 import static Funciones.Funciones.clearScreen;
+import static Funciones.Funciones.showMessageDialog;
 import Modelos.Docente.Modelo_Asignacion_Actividades;
 import Modelos.Docente.Modelo_TomaAsistencia;
 import java.awt.Color;
@@ -282,16 +283,15 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
                     String justificacion = (String) Tbl_ListadoAsistencia.getValueAt(i, 6);
 
                     if (asistenciaMarcada && j == 5 && (justificacion == null || justificacion.trim().isEmpty())) {
-                        // Show an alert (you can adapt this according to your environment)
                         System.out.println("¡Debe ingresar una justificación!");
                         columnaSeleccionada = true;
                         all_fine = false;
-                        break; // If a column is selected, it is not necessary to continue checking
+                        break; 
                     }
                     if (asistenciaMarcada) {
                         columnaSeleccionada = true;
                         all_fine = true;
-                        break; // If a column is selected, it is not necessary to continue checking
+                        break; 
                     }
 
                 }
@@ -301,8 +301,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
                 } else {
                     all_fine = false;
                     System.out.println("[-] Asistencia sin marcar del NIE: " + modeloTabla.getValueAt(i, 0));
-
-                    // You can show an additional alert message if you wish
+                    showMessageDialog("ERROR", "Asistencias sin marcar del NIE");break;
                 }
 
             }

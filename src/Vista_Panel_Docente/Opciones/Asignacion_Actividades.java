@@ -163,7 +163,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -183,7 +183,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
             Tbl_Actividades.getColumnModel().getColumn(4).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(80);
             Tbl_Actividades.getColumnModel().getColumn(5).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(60);
+            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 800, 350));
