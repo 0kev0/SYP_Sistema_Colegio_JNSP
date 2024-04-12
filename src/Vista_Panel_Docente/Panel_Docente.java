@@ -1,15 +1,14 @@
 package Vista_Panel_Docente;
 
-import Vista_Panel_Director.*;
 import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import java.awt.Color;
-import Customizacion.*;
 import static Funciones.Funciones.CentrarFrames;
 import Vista_Panel_Docente.Opciones.Asignacion_Actividades;
 import Vista_Panel_Docente.Opciones.Asignacion_Notas;
 import Vista_Panel_Docente.Opciones.Registro_Asistencia;
 import Vista_Panel_Docente.Opciones.Gestion_Notas;
+import Vista_Panel_Docente.Opciones.Gestion_Voleta_Notas;
 import Vista_Panel_Docente.Opciones.Toma_Asistencia;
 
 
@@ -52,8 +51,6 @@ public class Panel_Docente extends javax.swing.JFrame {
         Lb_AsignarNOtas = new javax.swing.JLabel();
         Btn_Inventario9 = new javax.swing.JPanel();
         Desk = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -123,7 +120,7 @@ public class Panel_Docente extends javax.swing.JFrame {
             .addGroup(Btn_AsignarActividadesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Lb_MAtricula)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         Btn_AsignarActividadesLayout.setVerticalGroup(
             Btn_AsignarActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,7 +311,7 @@ public class Panel_Docente extends javax.swing.JFrame {
         Lb_ModificarCuenta.setBackground(new java.awt.Color(7, 3, 26));
         Lb_ModificarCuenta.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
         Lb_ModificarCuenta.setForeground(new java.awt.Color(7, 3, 26));
-        Lb_ModificarCuenta.setText("Modificar Cuenta");
+        Lb_ModificarCuenta.setText("Notas Promediadas");
 
         Btn_Inventario.setBackground(new java.awt.Color(255, 255, 102));
         Btn_Inventario.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 0, 0, new java.awt.Color(255, 153, 0)));
@@ -324,7 +321,7 @@ public class Panel_Docente extends javax.swing.JFrame {
         Btn_Inventario.setLayout(Btn_InventarioLayout);
         Btn_InventarioLayout.setHorizontalGroup(
             Btn_InventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 192, Short.MAX_VALUE)
         );
         Btn_InventarioLayout.setVerticalGroup(
             Btn_InventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,10 +333,10 @@ public class Panel_Docente extends javax.swing.JFrame {
         Btn_Modificar_cuentaLayout.setHorizontalGroup(
             Btn_Modificar_cuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Btn_Inventario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_Modificar_cuentaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(Btn_Modificar_cuentaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(Lb_ModificarCuenta)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Btn_Modificar_cuentaLayout.setVerticalGroup(
             Btn_Modificar_cuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,18 +434,17 @@ public class Panel_Docente extends javax.swing.JFrame {
                         .addComponent(Btn_Inventario_, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                         .addComponent(Btn_AsignarActividades, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                         .addComponent(Btn_TomaAsistencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Panel_IzqLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(Btn_Regresar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(29, 29, 29))
                         .addComponent(Btn_Asignar_Notas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
-                    .addComponent(Btn_RegistroAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Btn_RegistroAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(Panel_IzqLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(Btn_Regresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
         Panel_IzqLayout.setVerticalGroup(
             Panel_IzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_IzqLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(Btn_Inventario_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Btn_AsignarActividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -460,41 +456,24 @@ public class Panel_Docente extends javax.swing.JFrame {
                 .addComponent(Btn_RegistroAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Btn_Modificar_cuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(Btn_Regresar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addContainerGap())
         );
 
         Panel_bg.add(Panel_Izq, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 210, 540));
 
         Desk.setBackground(new java.awt.Color(250, 244, 208));
 
-        jLabel1.setText("Notas finales, promediadas");
-
-        jLabel2.setText("Para asignar las actividades");
-
-        Desk.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        Desk.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout DeskLayout = new javax.swing.GroupLayout(Desk);
         Desk.setLayout(DeskLayout);
         DeskLayout.setHorizontalGroup(
             DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DeskLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(948, Short.MAX_VALUE))
+            .addGap(0, 1100, Short.MAX_VALUE)
         );
         DeskLayout.setVerticalGroup(
             DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DeskLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel1)
-                .addGap(69, 69, 69)
-                .addComponent(jLabel2)
-                .addContainerGap(401, Short.MAX_VALUE))
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
         Panel_bg.add(Desk, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 1100, 540));
@@ -567,7 +546,13 @@ public class Panel_Docente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_RegistroAsistenciaMouseExited
 
     private void Btn_Modificar_cuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Modificar_cuentaMouseClicked
-        // TODO add your handling code here:
+
+        Gestion_Voleta_Notas gest = new Gestion_Voleta_Notas();
+
+        CentrarFrames(Desk, gest);
+        Desk.add(gest);
+        gest.show();
+        
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseClicked
 
     private void Btn_Inventario_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseClicked
@@ -657,8 +642,6 @@ public class Panel_Docente extends javax.swing.JFrame {
     private javax.swing.JLabel Lb_RegistroVentas;
     private javax.swing.JPanel Panel_Izq;
     private javax.swing.JPanel Panel_bg;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -75,6 +75,18 @@ public class Funciones {
 
     }
 
+    public static void Mouse_EnterTextbox(JTextField textbox) {
+        if (textbox.getText().contains("Ingrese")) {
+            textbox.setText("");
+        }
+    }
+
+    public static void Mouse_LeftTextbox(String textoinicial, JTextField textbox) {
+        if (textbox.getText().equalsIgnoreCase("")) {
+            textbox.setText(textoinicial);
+        }
+    }
+
     public static void DateValid(JTextField textbox, int maxlimit, JLabel error, int DigitLimit) {
         textbox.addKeyListener(new KeyAdapter() {
             @Override
@@ -128,11 +140,47 @@ public class Funciones {
                 if (!(Character.isLetter(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
                     showError("***Formato erroneo, solo letras***");
                     e.consume();
+                    textbox.removeKeyListener(this);
                 }
 
-                if (textbox.getText().length() >= 30) // limit textfield to 31 characters
-                {
+                if (textbox.getText().length() >= 30) {
                     showError("***Cantidad de caracteres excedido***");
+                    e.consume();
+                    textbox.removeKeyListener(this);
+
+                }
+            }
+
+            private void showError(String errorMessage) {
+                error.setText(errorMessage);
+                error.setForeground(Color.RED);
+                System.out.println(errorMessage);
+                textbox.setText("");
+
+                Timer timer = new Timer(2000, e -> {
+                    // Después de 2 segundos, restablece el color del error y vacía el campo de texto
+                    error.setForeground(Color.decode("#172A38"));
+                    textbox.setText("");
+                    error.setText("");
+                    textbox.removeKeyListener(this); // Detiene el KeyListener
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
+        });
+    }
+
+    public static void ValidNIE(JTextField textbox, JLabel error) {
+        textbox.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+
+                if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+                    showError("***Formato erróneo, solo números enteros***");
+                    e.consume();
+                } else if (textbox.getText().length() >= 5) {
+                    showError("***El NIE debe tener máximo 5 dígitos***");
                     e.consume();
                 }
             }
@@ -140,9 +188,16 @@ public class Funciones {
             private void showError(String errorMessage) {
                 error.setText(errorMessage);
                 error.setForeground(Color.RED);
-                out.println(errorMessage);
+                System.out.println(errorMessage);
                 textbox.setText("");
-                Timer timer = new Timer(1000, e -> error.setForeground(Color.decode("#172A38")));
+
+                Timer timer = new Timer(2000, e -> {
+                    // Después de 2 segundos, restablece el color del error y vacía el campo de texto
+                    error.setForeground(Color.decode("#172A38"));
+                    textbox.setText("");
+                    error.setText("");
+                    textbox.removeKeyListener(this); // Detiene el KeyListener
+                });
                 timer.setRepeats(false);
                 timer.start();
             }
@@ -320,4 +375,40 @@ public class Funciones {
         label.setIcon(icon_Label);
     }
 
+    public static int JOption(String titulo, String mensaje, String[] opciones) {
+        // Crea un JOptionPane con las opciones proporcionadas
+        int seleccion = JOptionPane.showOptionDialog(
+                null, // Componente padre (null para centrar en la pantalla)
+                mensaje, // Mensaje a mostrar
+                titulo, // Título del diálogo
+                JOptionPane.DEFAULT_OPTION, // Tipo de opciones (DEFAULT_OPTION muestra botones OK/CANCEL)
+                JOptionPane.PLAIN_MESSAGE, // Tipo de mensaje (PLAIN_MESSAGE muestra solo texto)
+                null, // Icono personalizado (null para usar el icono predeterminado)
+                opciones, // Array de opciones
+                opciones[0] // Opción predeterminada
+        );
+
+        // Maneja la selección del usuario
+        switch (seleccion) {
+            case 0 -> {
+                System.out.println("El usuario seleccionó: " + opciones[0]);
+                return 0;
+            }
+            case 1 -> {
+                System.out.println("El usuario seleccionó: " + opciones[1]);
+                return 1;
+            }
+            case 2 -> {
+                System.out.println("El usuario seleccionó: " + opciones[2]);
+                return 2;
+            }
+            default ->
+                System.out.println("El usuario cerró el diálogo sin seleccionar una opción.");
+        }
+        return 0;
+    }
+
+     public static void showMessageDialog(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
 }

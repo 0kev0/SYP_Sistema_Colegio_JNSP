@@ -5,7 +5,7 @@
 -- Dumped from database version 16.0
 -- Dumped by pg_dump version 16.0
 
--- Started on 2024-04-05 10:39:56
+-- Started on 2024-04-10 21:40:54
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,1373 +18,561 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
-
 --
--- TOC entry 251 (class 1259 OID 17678)
--- Name: Tbl_Actividades; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Actividades" (
-    id integer NOT NULL,
-    "Nombre " character varying(150) NOT NULL,
-    "Ponderacion" numeric NOT NULL,
-    "Materia_id" integer NOT NULL,
-    "TipoActividad_id" integer,
-    "Descripcion" character varying(200),
-    "Periodo" integer
-);
-
-
-ALTER TABLE public."Tbl_Actividades" OWNER TO postgres;
-
---
--- TOC entry 250 (class 1259 OID 17677)
--- Name: Tbl_Actividades_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Actividades_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Actividades_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5072 (class 0 OID 0)
--- Dependencies: 250
--- Name: Tbl_Actividades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Actividades_id_seq" OWNED BY public."Tbl_Actividades".id;
-
-
---
--- TOC entry 245 (class 1259 OID 17645)
--- Name: Tbl_Asistencias; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Asistencias" (
-    id integer NOT NULL,
-    "Docente_id" integer NOT NULL,
-    "Estudiante_id" integer NOT NULL,
-    "Fecha" date NOT NULL,
-    "Estado_id" integer NOT NULL,
-    "Justificacion" character varying(300) NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Asistencias" OWNER TO postgres;
-
---
--- TOC entry 244 (class 1259 OID 17644)
--- Name: Tbl_Asistencias_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Asistencias_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Asistencias_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5073 (class 0 OID 0)
--- Dependencies: 244
--- Name: Tbl_Asistencias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Asistencias_id_seq" OWNED BY public."Tbl_Asistencias".id;
-
-
---
--- TOC entry 231 (class 1259 OID 17574)
--- Name: Tbl_Descuentos; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Descuentos" (
-    id integer NOT NULL,
-    "Tipo_descuento" character varying NOT NULL,
-    "Descuento" numeric(2,0) NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Descuentos" OWNER TO postgres;
-
---
--- TOC entry 230 (class 1259 OID 17573)
--- Name: Tbl_Descuentos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Descuentos_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Descuentos_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5074 (class 0 OID 0)
--- Dependencies: 230
--- Name: Tbl_Descuentos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Descuentos_id_seq" OWNED BY public."Tbl_Descuentos".id;
-
-
---
--- TOC entry 239 (class 1259 OID 17617)
--- Name: Tbl_Estado_pago; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Estado_pago" (
-    id integer NOT NULL,
-    "Estado" character varying(20) NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Estado_pago" OWNER TO postgres;
-
---
--- TOC entry 238 (class 1259 OID 17616)
--- Name: Tbl_Estado_pago_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Estado_pago_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Estado_pago_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5075 (class 0 OID 0)
--- Dependencies: 238
--- Name: Tbl_Estado_pago_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Estado_pago_id_seq" OWNED BY public."Tbl_Estado_pago".id;
-
-
---
--- TOC entry 247 (class 1259 OID 17662)
--- Name: Tbl_Grados; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Grados" (
-    id integer NOT NULL,
-    "Grado" character varying NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Grados" OWNER TO postgres;
-
---
--- TOC entry 246 (class 1259 OID 17661)
--- Name: Tbl_Grados_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Grados_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Grados_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5076 (class 0 OID 0)
--- Dependencies: 246
--- Name: Tbl_Grados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Grados_id_seq" OWNED BY public."Tbl_Grados".id;
-
-
---
--- TOC entry 249 (class 1259 OID 17671)
--- Name: Tbl_Materias; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Materias" (
-    id integer NOT NULL,
-    "Nombre" character varying(150) NOT NULL,
-    "Grado_id" integer NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Materias" OWNER TO postgres;
-
---
--- TOC entry 248 (class 1259 OID 17670)
--- Name: Tbl_Materias_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Materias_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Materias_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5077 (class 0 OID 0)
--- Dependencies: 248
--- Name: Tbl_Materias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Materias_id_seq" OWNED BY public."Tbl_Materias".id;
-
-
---
--- TOC entry 229 (class 1259 OID 17567)
--- Name: Tbl_Matricula; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Matricula" (
-    id integer NOT NULL,
-    "Estudiante_id" integer NOT NULL,
-    "Responsables_id" integer NOT NULL,
-    "Año" integer NOT NULL,
-    "Fecha" date NOT NULL,
-    "Monto_neto" numeric(2,0) NOT NULL,
-    "Descuento_id" integer NOT NULL,
-    "Monto_final" numeric(2,0) NOT NULL,
-    "Grado_id" integer
-);
-
-
-ALTER TABLE public."Tbl_Matricula" OWNER TO postgres;
-
---
--- TOC entry 228 (class 1259 OID 17566)
--- Name: Tbl_Matricula_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Matricula_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Matricula_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5078 (class 0 OID 0)
--- Dependencies: 228
--- Name: Tbl_Matricula_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Matricula_id_seq" OWNED BY public."Tbl_Matricula".id;
-
-
---
--- TOC entry 241 (class 1259 OID 17624)
--- Name: Tbl_Mensualidad; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Mensualidad" (
-    "Estudiante_id" integer NOT NULL,
-    id bigint NOT NULL,
-    "Mes" integer NOT NULL,
-    "Año" integer NOT NULL,
-    "Fecha_pago" date NOT NULL,
-    "Mora" integer NOT NULL,
-    "Monto" numeric NOT NULL,
-    "Estado_id" integer NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Mensualidad" OWNER TO postgres;
-
---
--- TOC entry 240 (class 1259 OID 17623)
--- Name: Tbl_Mensualidad_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Mensualidad_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Mensualidad_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5079 (class 0 OID 0)
--- Dependencies: 240
--- Name: Tbl_Mensualidad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Mensualidad_id_seq" OWNED BY public."Tbl_Mensualidad".id;
-
-
---
--- TOC entry 253 (class 1259 OID 17692)
--- Name: Tbl_Nota_Actividad; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Nota_Actividad" (
-    id integer NOT NULL,
-    "Estudiante_id" integer NOT NULL,
-    "Actividad_id" integer NOT NULL,
-    "Nota " numeric NOT NULL,
-    "Periodo_id" integer
-);
-
-
-ALTER TABLE public."Tbl_Nota_Actividad" OWNER TO postgres;
-
---
--- TOC entry 5080 (class 0 OID 0)
--- Dependencies: 253
--- Name: TABLE "Tbl_Nota_Actividad"; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON TABLE public."Tbl_Nota_Actividad" IS '*Agregarle atributo not null a periodo id
-';
-
-
---
--- TOC entry 252 (class 1259 OID 17691)
--- Name: Tbl_Nota_Actividad_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Nota_Actividad_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Nota_Actividad_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5081 (class 0 OID 0)
+-- TOC entry 5075 (class 0 OID 17678)
 -- Dependencies: 252
--- Name: Tbl_Nota_Actividad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Nota_Actividad_id_seq" OWNED BY public."Tbl_Nota_Actividad".id;
-
-
---
--- TOC entry 257 (class 1259 OID 17746)
--- Name: Tbl_Periodos; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Periodos" (
-    id integer NOT NULL,
-    "Periodo" integer NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Periodos" OWNER TO postgres;
-
---
--- TOC entry 256 (class 1259 OID 17745)
--- Name: Tbl_Periodos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Periodos_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Periodos_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5082 (class 0 OID 0)
--- Dependencies: 256
--- Name: Tbl_Periodos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Periodos_id_seq" OWNED BY public."Tbl_Periodos".id;
-
-
---
--- TOC entry 221 (class 1259 OID 17344)
--- Name: Tbl_Personal; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Personal" (
-    "NIE" integer NOT NULL,
-    "Nombres" character varying(150) NOT NULL,
-    "Apellidos" character varying(150) NOT NULL,
-    "Rol_id" integer NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Personal" OWNER TO postgres;
-
---
--- TOC entry 219 (class 1259 OID 17342)
--- Name: Tbl_Personal_NIE_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Personal_NIE_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Personal_NIE_seq" OWNER TO postgres;
-
---
--- TOC entry 5083 (class 0 OID 0)
--- Dependencies: 219
--- Name: Tbl_Personal_NIE_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Personal_NIE_seq" OWNED BY public."Tbl_Personal"."NIE";
-
-
---
--- TOC entry 220 (class 1259 OID 17343)
--- Name: Tbl_Personal_Rol_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Personal_Rol_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Personal_Rol_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5084 (class 0 OID 0)
--- Dependencies: 220
--- Name: Tbl_Personal_Rol_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Personal_Rol_id_seq" OWNED BY public."Tbl_Personal"."Rol_id";
-
-
---
--- TOC entry 235 (class 1259 OID 17595)
--- Name: Tbl_Productos; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Productos" (
-    id integer NOT NULL,
-    "Nombre" character varying(200) NOT NULL,
-    "Tipo_Producto_id" integer NOT NULL,
-    "Costo" numeric NOT NULL,
-    "Precio" numeric NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Productos" OWNER TO postgres;
-
---
--- TOC entry 234 (class 1259 OID 17594)
--- Name: Tbl_Productos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Productos_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Productos_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5085 (class 0 OID 0)
--- Dependencies: 234
--- Name: Tbl_Productos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Productos_id_seq" OWNED BY public."Tbl_Productos".id;
-
-
---
--- TOC entry 227 (class 1259 OID 17554)
--- Name: Tbl_Responsabless; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Responsabless" (
-    id integer NOT NULL,
-    "Nombres" character varying(150) NOT NULL,
-    "Apellidos" character varying(150) NOT NULL,
-    "Tipo_Responsable_id" integer NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Responsabless" OWNER TO postgres;
-
---
--- TOC entry 226 (class 1259 OID 17553)
--- Name: Tbl_Responsabless_Tipo_Responsable_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Responsabless_Tipo_Responsable_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Responsabless_Tipo_Responsable_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5086 (class 0 OID 0)
--- Dependencies: 226
--- Name: Tbl_Responsabless_Tipo_Responsable_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Responsabless_Tipo_Responsable_id_seq" OWNED BY public."Tbl_Responsabless"."Tipo_Responsable_id";
-
-
---
--- TOC entry 225 (class 1259 OID 17552)
--- Name: Tbl_Responsabless_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Responsabless_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Responsabless_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5087 (class 0 OID 0)
--- Dependencies: 225
--- Name: Tbl_Responsabless_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Responsabless_id_seq" OWNED BY public."Tbl_Responsabless".id;
-
-
---
--- TOC entry 218 (class 1259 OID 17300)
--- Name: Tbl_Roles; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Roles" (
-    id integer NOT NULL,
-    "Rol" character varying(150) NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Roles" OWNER TO postgres;
-
---
--- TOC entry 217 (class 1259 OID 17299)
--- Name: Tbl_Roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Roles_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Roles_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5088 (class 0 OID 0)
--- Dependencies: 217
--- Name: Tbl_Roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Roles_id_seq" OWNED BY public."Tbl_Roles".id;
-
-
---
--- TOC entry 259 (class 1259 OID 17758)
--- Name: Tbl_TipoActividad; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_TipoActividad" (
-    id integer NOT NULL,
-    "Nombre" character varying(50) NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_TipoActividad" OWNER TO postgres;
-
---
--- TOC entry 258 (class 1259 OID 17757)
--- Name: Tbl_TipoActividad_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_TipoActividad_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_TipoActividad_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5089 (class 0 OID 0)
--- Dependencies: 258
--- Name: Tbl_TipoActividad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_TipoActividad_id_seq" OWNED BY public."Tbl_TipoActividad".id;
-
-
---
--- TOC entry 233 (class 1259 OID 17588)
--- Name: Tbl_Tipo_Producto; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Tipo_Producto" (
-    id integer NOT NULL,
-    "Nombre_tipo" character varying(150) NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Tipo_Producto" OWNER TO postgres;
-
---
--- TOC entry 232 (class 1259 OID 17587)
--- Name: Tbl_Tipo_Producto_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Tipo_Producto_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Tipo_Producto_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5090 (class 0 OID 0)
--- Dependencies: 232
--- Name: Tbl_Tipo_Producto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Tipo_Producto_id_seq" OWNED BY public."Tbl_Tipo_Producto".id;
-
-
---
--- TOC entry 255 (class 1259 OID 17711)
--- Name: Tbl_Tipo_Transaccion; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Tipo_Transaccion" (
-    "Id" integer NOT NULL,
-    "Tipo" character varying(50) NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Tipo_Transaccion" OWNER TO postgres;
-
---
--- TOC entry 254 (class 1259 OID 17710)
--- Name: Tbl_Tipo_Transaccion_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Tipo_Transaccion_Id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Tipo_Transaccion_Id_seq" OWNER TO postgres;
-
---
--- TOC entry 5091 (class 0 OID 0)
--- Dependencies: 254
--- Name: Tbl_Tipo_Transaccion_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Tipo_Transaccion_Id_seq" OWNED BY public."Tbl_Tipo_Transaccion"."Id";
-
-
---
--- TOC entry 223 (class 1259 OID 17357)
--- Name: Tbl_Tipos_Responsables; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Tipos_Responsables" (
-    id integer NOT NULL,
-    "Tipo_de_responsable" character varying(50) NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Tipos_Responsables" OWNER TO postgres;
-
---
--- TOC entry 222 (class 1259 OID 17356)
--- Name: Tbl_Tipos_Responsables_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Tipos_Responsables_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Tipos_Responsables_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5092 (class 0 OID 0)
--- Dependencies: 222
--- Name: Tbl_Tipos_Responsables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Tipos_Responsables_id_seq" OWNED BY public."Tbl_Tipos_Responsables".id;
-
-
---
--- TOC entry 237 (class 1259 OID 17607)
--- Name: Tbl_Transaccion; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Transaccion" (
-    id integer NOT NULL,
-    "Descripcion" character varying(150) NOT NULL,
-    "Cantidad" integer NOT NULL,
-    "Fecha" date NOT NULL,
-    "Monto" numeric NOT NULL,
-    "Tipo_Transaccion_id" integer NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_Transaccion" OWNER TO postgres;
-
---
--- TOC entry 236 (class 1259 OID 17606)
--- Name: Tbl_Transaccion_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Transaccion_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Transaccion_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5093 (class 0 OID 0)
--- Dependencies: 236
--- Name: Tbl_Transaccion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Transaccion_id_seq" OWNED BY public."Tbl_Transaccion".id;
-
-
---
--- TOC entry 216 (class 1259 OID 17293)
--- Name: Tbl_Usuarios; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_Usuarios" (
-    id integer NOT NULL,
-    "Nombre" character varying(50) NOT NULL,
-    "Contraseña" character varying(100) NOT NULL,
-    "Rol_id" integer
-);
-
-
-ALTER TABLE public."Tbl_Usuarios" OWNER TO postgres;
-
---
--- TOC entry 215 (class 1259 OID 17292)
--- Name: Tbl_Usuarios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_Usuarios_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_Usuarios_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5094 (class 0 OID 0)
--- Dependencies: 215
--- Name: Tbl_Usuarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_Usuarios_id_seq" OWNED BY public."Tbl_Usuarios".id;
-
-
---
--- TOC entry 243 (class 1259 OID 17638)
--- Name: Tbl_estado_aistencia; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Tbl_estado_aistencia" (
-    id integer NOT NULL,
-    "Estado" character varying(20) NOT NULL
-);
-
-
-ALTER TABLE public."Tbl_estado_aistencia" OWNER TO postgres;
-
---
--- TOC entry 242 (class 1259 OID 17637)
--- Name: Tbl_estado_aistencia_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."Tbl_estado_aistencia_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public."Tbl_estado_aistencia_id_seq" OWNER TO postgres;
-
---
--- TOC entry 5095 (class 0 OID 0)
--- Dependencies: 242
--- Name: Tbl_estado_aistencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."Tbl_estado_aistencia_id_seq" OWNED BY public."Tbl_estado_aistencia".id;
-
-
---
--- TOC entry 224 (class 1259 OID 17526)
--- Name: tbl_Estudiante; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."tbl_Estudiante" (
-    "NIE" integer NOT NULL,
-    "Nombres" character varying(150) NOT NULL,
-    "Apellidos" character varying(150) NOT NULL,
-    "Responsables_id" integer[] NOT NULL,
-    "Grado_id" integer
-);
-
-
-ALTER TABLE public."tbl_Estudiante" OWNER TO postgres;
-
---
--- TOC entry 4812 (class 2604 OID 17681)
--- Name: Tbl_Actividades id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Actividades" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Actividades_id_seq"'::regclass);
-
-
---
--- TOC entry 4809 (class 2604 OID 17648)
--- Name: Tbl_Asistencias id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Asistencias" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Asistencias_id_seq"'::regclass);
-
-
---
--- TOC entry 4802 (class 2604 OID 17577)
--- Name: Tbl_Descuentos id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Descuentos" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Descuentos_id_seq"'::regclass);
-
-
---
--- TOC entry 4806 (class 2604 OID 17620)
--- Name: Tbl_Estado_pago id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Estado_pago" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Estado_pago_id_seq"'::regclass);
-
-
---
--- TOC entry 4810 (class 2604 OID 17665)
--- Name: Tbl_Grados id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Grados" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Grados_id_seq"'::regclass);
-
-
---
--- TOC entry 4811 (class 2604 OID 17674)
--- Name: Tbl_Materias id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Materias" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Materias_id_seq"'::regclass);
-
-
---
--- TOC entry 4801 (class 2604 OID 17570)
--- Name: Tbl_Matricula id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Matricula" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Matricula_id_seq"'::regclass);
-
-
---
--- TOC entry 4807 (class 2604 OID 17627)
--- Name: Tbl_Mensualidad id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Mensualidad" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Mensualidad_id_seq"'::regclass);
-
-
---
--- TOC entry 4813 (class 2604 OID 17695)
--- Name: Tbl_Nota_Actividad id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Nota_Actividad" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Nota_Actividad_id_seq"'::regclass);
-
-
---
--- TOC entry 4815 (class 2604 OID 17749)
--- Name: Tbl_Periodos id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Periodos" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Periodos_id_seq"'::regclass);
-
-
---
--- TOC entry 4796 (class 2604 OID 17347)
--- Name: Tbl_Personal NIE; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Personal" ALTER COLUMN "NIE" SET DEFAULT nextval('public."Tbl_Personal_NIE_seq"'::regclass);
-
-
---
--- TOC entry 4797 (class 2604 OID 17348)
--- Name: Tbl_Personal Rol_id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Personal" ALTER COLUMN "Rol_id" SET DEFAULT nextval('public."Tbl_Personal_Rol_id_seq"'::regclass);
-
-
---
--- TOC entry 4804 (class 2604 OID 17598)
--- Name: Tbl_Productos id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Productos" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Productos_id_seq"'::regclass);
-
-
---
--- TOC entry 4799 (class 2604 OID 17557)
--- Name: Tbl_Responsabless id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Responsabless" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Responsabless_id_seq"'::regclass);
-
-
---
--- TOC entry 4800 (class 2604 OID 17558)
--- Name: Tbl_Responsabless Tipo_Responsable_id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Responsabless" ALTER COLUMN "Tipo_Responsable_id" SET DEFAULT nextval('public."Tbl_Responsabless_Tipo_Responsable_id_seq"'::regclass);
-
-
---
--- TOC entry 4795 (class 2604 OID 17303)
--- Name: Tbl_Roles id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Roles" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Roles_id_seq"'::regclass);
-
-
---
--- TOC entry 4816 (class 2604 OID 17761)
--- Name: Tbl_TipoActividad id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_TipoActividad" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_TipoActividad_id_seq"'::regclass);
-
-
---
--- TOC entry 4803 (class 2604 OID 17591)
--- Name: Tbl_Tipo_Producto id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Tipo_Producto" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Tipo_Producto_id_seq"'::regclass);
-
-
---
--- TOC entry 4814 (class 2604 OID 17714)
--- Name: Tbl_Tipo_Transaccion Id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Tipo_Transaccion" ALTER COLUMN "Id" SET DEFAULT nextval('public."Tbl_Tipo_Transaccion_Id_seq"'::regclass);
-
-
---
--- TOC entry 4798 (class 2604 OID 17360)
--- Name: Tbl_Tipos_Responsables id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Tipos_Responsables" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Tipos_Responsables_id_seq"'::regclass);
-
-
---
--- TOC entry 4805 (class 2604 OID 17610)
--- Name: Tbl_Transaccion id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Transaccion" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Transaccion_id_seq"'::regclass);
-
-
---
--- TOC entry 4794 (class 2604 OID 17296)
--- Name: Tbl_Usuarios id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Usuarios" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_Usuarios_id_seq"'::regclass);
-
-
---
--- TOC entry 4808 (class 2604 OID 17641)
--- Name: Tbl_estado_aistencia id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_estado_aistencia" ALTER COLUMN id SET DEFAULT nextval('public."Tbl_estado_aistencia_id_seq"'::regclass);
-
-
---
--- TOC entry 5058 (class 0 OID 17678)
--- Dependencies: 251
 -- Data for Name: Tbl_Actividades; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Actividades" (id, "Nombre ", "Ponderacion", "Materia_id", "TipoActividad_id", "Descripcion", "Periodo") FROM stdin;
-1	Tarea de sumas	0.10	1	1	Lista de sumas	1
-2	Tarea de esdrujulas	2.0	4	1	Tarea de buscar 6 palabras esdrujulas	1
-3	Tarea de planas	2.0	3	1	Tarea de hacer 2 hojas de practica	1
-4	Tarea de cuento	2.0	2	1	Tarea de inventar un cuento	1
-\.
+INSERT INTO public."Tbl_Actividades" VALUES (1, 'Tarea de sumas', 1, 1, 'Lista de sumas', 1);
+INSERT INTO public."Tbl_Actividades" VALUES (2, 'Tarea de esdrujulas', 4, 1, 'Tarea de buscar 6 palabras esdrujulas', 1);
+INSERT INTO public."Tbl_Actividades" VALUES (3, 'Tarea de planas', 3, 2, 'Tarea de hacer 2 hojas de practica', 1);
+INSERT INTO public."Tbl_Actividades" VALUES (4, 'Tarea de cuento', 2, 2, 'Tarea de inventar un cuento', 1);
 
 
 --
--- TOC entry 5052 (class 0 OID 17645)
--- Dependencies: 245
+-- TOC entry 5069 (class 0 OID 17645)
+-- Dependencies: 246
 -- Data for Name: Tbl_Asistencias; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Asistencias" (id, "Docente_id", "Estudiante_id", "Fecha", "Estado_id", "Justificacion") FROM stdin;
-26	9876	1235	2024-03-31	3	Le dio Sifilis
-28	9876	1235	2024-04-02	2	0
-29	9876	1235	2024-04-01	1	0
-30	9876	1235	2024-04-02	3	LE dio Hepatitis B
-32	9876	1234	2024-04-01	1	0
-31	9876	1234	2024-03-31	1	0
-33	9876	1234	2024-04-04	1	*
-34	9876	1235	2024-04-04	2	*
-\.
+INSERT INTO public."Tbl_Asistencias" VALUES (26, 9876, 1235, '2024-03-31', 3, 'Le dio Sifilis');
+INSERT INTO public."Tbl_Asistencias" VALUES (28, 9876, 1235, '2024-04-02', 2, '0');
+INSERT INTO public."Tbl_Asistencias" VALUES (29, 9876, 1235, '2024-04-01', 1, '0');
+INSERT INTO public."Tbl_Asistencias" VALUES (30, 9876, 1235, '2024-04-02', 3, 'LE dio Hepatitis B');
+INSERT INTO public."Tbl_Asistencias" VALUES (32, 9876, 1234, '2024-04-01', 1, '0');
+INSERT INTO public."Tbl_Asistencias" VALUES (31, 9876, 1234, '2024-03-31', 1, '0');
+INSERT INTO public."Tbl_Asistencias" VALUES (33, 9876, 1234, '2024-04-04', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (34, 9876, 1235, '2024-04-04', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (35, 9876, 1234, '2024-04-05', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (36, 9876, 1235, '2024-04-05', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (37, 9876, 1234, '2024-04-07', 3, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (39, 9876, 1234, '2024-04-07', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (40, 9876, 1235, '2024-04-07', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (41, 9876, 1234, '2024-04-07', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (42, 9876, 1235, '2024-04-07', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (45, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (46, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (47, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (48, 9876, 1235, '2024-04-08', 3, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (49, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (50, 9876, 1235, '2024-04-08', 3, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (51, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (52, 9876, 1235, '2024-04-08', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (54, 9876, 1235, '2024-04-08', 3, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (55, 9876, 1234, '2024-04-08', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (57, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (58, 9876, 1235, '2024-04-08', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (59, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (60, 9876, 1235, '2024-04-08', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (61, 9876, 1234, '2024-04-08', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (62, 9876, 1235, '2024-04-08', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (63, 9876, 1234, '2024-04-08', 3, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (64, 9876, 1235, '2024-04-08', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (65, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (67, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (69, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (70, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (71, 9876, 1235, '2024-04-08', 3, '1');
+INSERT INTO public."Tbl_Asistencias" VALUES (72, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (73, 9876, 1235, '2024-04-08', 3, '1');
+INSERT INTO public."Tbl_Asistencias" VALUES (74, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (75, 9876, 1235, '2024-04-08', 3, '1');
+INSERT INTO public."Tbl_Asistencias" VALUES (76, 9876, 1234, '2024-04-08', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (77, 9876, 1235, '2024-04-08', 3, '1');
+INSERT INTO public."Tbl_Asistencias" VALUES (78, 9876, 1234, '2024-04-09', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (79, 9876, 1235, '2024-04-09', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (80, 9876, 1234, '2024-04-09', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (81, 9876, 1234, '2024-04-09', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (82, 9876, 1234, '2024-04-09', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (83, 9876, 1235, '2024-04-09', 3, '15415');
+INSERT INTO public."Tbl_Asistencias" VALUES (84, 9876, 1234, '2024-04-10', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (85, 9876, 1235, '2024-04-10', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (86, 9876, 24101, '2024-04-10', 3, 'Le dio mareo');
+INSERT INTO public."Tbl_Asistencias" VALUES (87, 9876, 24102, '2024-04-10', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (88, 9876, 24103, '2024-04-10', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (89, 9876, 24104, '2024-04-10', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (90, 9876, 24105, '2024-04-10', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (91, 9876, 24106, '2024-04-10', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (92, 9876, 24107, '2024-04-10', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (93, 9876, 24188, '2024-04-10', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (94, 9876, 24108, '2024-04-10', 2, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (95, 9876, 24110, '2024-04-10', 1, '*');
+INSERT INTO public."Tbl_Asistencias" VALUES (96, 9876, 1234, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (97, 9876, 1235, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (98, 9876, 24101, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (99, 9876, 24102, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (100, 9876, 24103, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (101, 9876, 24104, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (102, 9876, 24105, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (103, 9876, 24106, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (104, 9876, 24107, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (105, 9876, 24188, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (106, 9876, 1234, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (107, 9876, 1235, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (108, 9876, 24101, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (109, 9876, 24102, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (110, 9876, 24103, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (111, 9876, 24104, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (112, 9876, 24105, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (113, 9876, 24106, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (114, 9876, 24107, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (115, 9876, 24188, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (116, 9876, 24108, '2024-04-10', 3, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (117, 9876, 24110, '2024-04-10', 3, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (118, 9876, 1234, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (119, 9876, 1235, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (120, 9876, 24101, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (121, 9876, 24102, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (122, 9876, 24103, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (123, 9876, 24104, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (124, 9876, 24105, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (125, 9876, 24106, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (126, 9876, 24107, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (127, 9876, 24188, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (128, 9876, 24108, '2024-04-10', 3, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (129, 9876, 24110, '2024-04-10', 3, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (130, 9876, 1234, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (131, 9876, 1235, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (132, 9876, 24101, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (133, 9876, 24102, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (134, 9876, 24103, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (135, 9876, 24104, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (136, 9876, 24105, '2024-04-10', 2, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (137, 9876, 24106, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (138, 9876, 24107, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (139, 9876, 24188, '2024-04-10', 1, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (140, 9876, 24108, '2024-04-10', 3, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (141, 9876, 24110, '2024-04-10', 3, 'Asistio');
+INSERT INTO public."Tbl_Asistencias" VALUES (142, 9876, 1234, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (143, 9876, 1235, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (144, 9876, 24101, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (145, 9876, 24102, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (146, 9876, 24103, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (147, 9876, 24104, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (148, 9876, 24105, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (149, 9876, 24106, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (150, 9876, 24107, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (151, 9876, 24188, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (152, 9876, 24108, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (153, 9876, 24110, '2024-04-10', 3, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (154, 9876, 1234, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (155, 9876, 1235, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (156, 9876, 24101, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (157, 9876, 24102, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (158, 9876, 24103, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (159, 9876, 24104, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (160, 9876, 24105, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (161, 9876, 24106, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (162, 9876, 24107, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (163, 9876, 24188, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (164, 9876, 24108, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (165, 9876, 24110, '2024-04-10', 3, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (166, 9876, 1234, '2024-04-10', 3, 'nvbn');
+INSERT INTO public."Tbl_Asistencias" VALUES (167, 9876, 1235, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (168, 9876, 24101, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (169, 9876, 24102, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (170, 9876, 24103, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (171, 9876, 24104, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (172, 9876, 24105, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (173, 9876, 24106, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (174, 9876, 24107, '2024-04-10', 1, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (175, 9876, 24188, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (176, 9876, 24108, '2024-04-10', 2, '');
+INSERT INTO public."Tbl_Asistencias" VALUES (177, 9876, 24110, '2024-04-10', 2, '');
 
 
 --
--- TOC entry 5038 (class 0 OID 17574)
--- Dependencies: 231
+-- TOC entry 5055 (class 0 OID 17574)
+-- Dependencies: 232
 -- Data for Name: Tbl_Descuentos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Descuentos" (id, "Tipo_descuento", "Descuento") FROM stdin;
-\.
 
 
 --
--- TOC entry 5046 (class 0 OID 17617)
--- Dependencies: 239
+-- TOC entry 5085 (class 0 OID 17790)
+-- Dependencies: 262
+-- Data for Name: Tbl_EstadoActividad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public."Tbl_EstadoActividad" VALUES (1, 'Calificada');
+INSERT INTO public."Tbl_EstadoActividad" VALUES (2, 'Pendiente');
+INSERT INTO public."Tbl_EstadoActividad" VALUES (3, 'No evaluada');
+INSERT INTO public."Tbl_EstadoActividad" VALUES (0, 'Todos');
+
+
+--
+-- TOC entry 5063 (class 0 OID 17617)
+-- Dependencies: 240
 -- Data for Name: Tbl_Estado_pago; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Estado_pago" (id, "Estado") FROM stdin;
-\.
 
 
 --
--- TOC entry 5054 (class 0 OID 17662)
--- Dependencies: 247
+-- TOC entry 5071 (class 0 OID 17662)
+-- Dependencies: 248
 -- Data for Name: Tbl_Grados; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Grados" (id, "Grado") FROM stdin;
-1	Primer Grado
-\.
+INSERT INTO public."Tbl_Grados" VALUES (1, 'Primer Grado');
+INSERT INTO public."Tbl_Grados" VALUES (2, '2');
+INSERT INTO public."Tbl_Grados" VALUES (3, '3');
+INSERT INTO public."Tbl_Grados" VALUES (4, '4');
+INSERT INTO public."Tbl_Grados" VALUES (5, '5');
+INSERT INTO public."Tbl_Grados" VALUES (6, '6');
+INSERT INTO public."Tbl_Grados" VALUES (7, '7');
+INSERT INTO public."Tbl_Grados" VALUES (8, '8');
+INSERT INTO public."Tbl_Grados" VALUES (9, '9');
 
 
 --
--- TOC entry 5056 (class 0 OID 17671)
--- Dependencies: 249
+-- TOC entry 5073 (class 0 OID 17671)
+-- Dependencies: 250
 -- Data for Name: Tbl_Materias; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Materias" (id, "Nombre", "Grado_id") FROM stdin;
-1	Mate	1
-2	Lenguaje	1
-3	Caligrafia	1
-4	Ortografia	1
-\.
+INSERT INTO public."Tbl_Materias" VALUES (15, 'Matemáticas Avanzadas', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (16, 'Ciencias Naturales', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (17, 'Historia de los Dinosaurios', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (18, 'Arte Creativo', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (19, 'Lectura y Escritura Creativa', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (20, 'Exploración Espacial', 3, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (21, 'Geografía Mundial', 3, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (22, 'Programación Básica', 3, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (23, 'Ciencias Sociales', 3, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (24, 'Educación Ambiental', 3, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (1, 'Mate', 1, 9876);
+INSERT INTO public."Tbl_Materias" VALUES (2, 'Lenguaje', 1, 9876);
+INSERT INTO public."Tbl_Materias" VALUES (3, 'Caligrafia', 1, 9876);
+INSERT INTO public."Tbl_Materias" VALUES (4, 'Ortografia', 1, 9876);
+INSERT INTO public."Tbl_Materias" VALUES (25, 'Matemáticas Avanzadas', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (26, 'Ciencias Naturales', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (27, 'Historia de los Dinosaurios', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (28, 'Arte Creativo', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (29, 'Lectura y Escritura Creativa', 2, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (30, 'Exploración Espacial', 3, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (31, 'Geografía Mundial', 3, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (32, 'Programación Básica', 3, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (33, 'Ciencias Sociales', 3, NULL);
+INSERT INTO public."Tbl_Materias" VALUES (34, 'Educación Ambiental', 3, NULL);
 
 
 --
--- TOC entry 5036 (class 0 OID 17567)
--- Dependencies: 229
+-- TOC entry 5053 (class 0 OID 17567)
+-- Dependencies: 230
 -- Data for Name: Tbl_Matricula; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Matricula" (id, "Estudiante_id", "Responsables_id", "Año", "Fecha", "Monto_neto", "Descuento_id", "Monto_final", "Grado_id") FROM stdin;
-\.
 
 
 --
--- TOC entry 5048 (class 0 OID 17624)
--- Dependencies: 241
+-- TOC entry 5065 (class 0 OID 17624)
+-- Dependencies: 242
 -- Data for Name: Tbl_Mensualidad; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Mensualidad" ("Estudiante_id", id, "Mes", "Año", "Fecha_pago", "Mora", "Monto", "Estado_id") FROM stdin;
-\.
 
 
 --
--- TOC entry 5060 (class 0 OID 17692)
--- Dependencies: 253
+-- TOC entry 5077 (class 0 OID 17692)
+-- Dependencies: 254
 -- Data for Name: Tbl_Nota_Actividad; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Nota_Actividad" (id, "Estudiante_id", "Actividad_id", "Nota ", "Periodo_id") FROM stdin;
-4	1234	3	8.5	\N
-7	1234	1	3	\N
-8	1234	4	5	\N
-9	1235	2	2	\N
-10	1235	1	1	\N
-\.
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (4, 1234, 3, 8.5, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (7, 1234, 1, 3, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (9, 1235, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (8, 1234, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (10, 1235, 2, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (13, 24110, 3, 7, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (14, 24110, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (15, 24110, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (16, 24110, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (18, 24108, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (19, 24108, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (20, 24108, 3, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (21, 24101, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (22, 24101, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (23, 24101, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (25, 24102, 3, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (26, 24102, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (27, 24102, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (28, 24102, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (29, 24103, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (30, 24103, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (31, 24103, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (33, 24104, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (34, 24104, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (35, 24104, 3, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (37, 24105, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (38, 24105, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (39, 24105, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (41, 24106, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (42, 24106, 3, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (43, 24106, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (44, 24106, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (45, 24107, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (46, 24107, 3, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (47, 24107, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (48, 24107, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (49, 24108, 3, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (50, 24108, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (51, 24108, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (52, 24108, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (53, 24110, 1, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (54, 24110, 2, 0, 2);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (55, 24110, 3, 7, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (56, 24110, 4, 0, 3);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (17, 24108, 1, 10, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (24, 24101, 3, 5.5, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (32, 24103, 3, 7.1, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (36, 24104, 4, 5.6, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (40, 24105, 3, 8.8, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (57, 24188, 3, 7, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (58, 24188, 2, 4, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (59, 24188, 1, 6, 1);
+INSERT INTO public."Tbl_Nota_Actividad" VALUES (60, 24188, 4, 5, 1);
 
 
 --
--- TOC entry 5064 (class 0 OID 17746)
--- Dependencies: 257
+-- TOC entry 5081 (class 0 OID 17746)
+-- Dependencies: 258
 -- Data for Name: Tbl_Periodos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Periodos" (id, "Periodo") FROM stdin;
-\.
+INSERT INTO public."Tbl_Periodos" VALUES (1, 0, 'Todos');
+INSERT INTO public."Tbl_Periodos" VALUES (2, 1, '1er Periodo');
+INSERT INTO public."Tbl_Periodos" VALUES (3, 2, '2do Periodo');
+INSERT INTO public."Tbl_Periodos" VALUES (4, 3, '3er Periodo');
+INSERT INTO public."Tbl_Periodos" VALUES (5, 4, '4to Periodo');
 
 
 --
--- TOC entry 5028 (class 0 OID 17344)
--- Dependencies: 221
+-- TOC entry 5045 (class 0 OID 17344)
+-- Dependencies: 222
 -- Data for Name: Tbl_Personal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Personal" ("NIE", "Nombres", "Apellidos", "Rol_id") FROM stdin;
-9876	Profe Alex	EL Salva Mates	1
-\.
+INSERT INTO public."Tbl_Personal" VALUES (9876, 'Profe Alex', 'EL Salva Mates', 1);
+INSERT INTO public."Tbl_Personal" VALUES (9877, 'José Enmanuel', 'Alas Sanchez', 1);
+INSERT INTO public."Tbl_Personal" VALUES (9878, 'Sandra Rosibel', 'Martinez Rivera', 1);
+INSERT INTO public."Tbl_Personal" VALUES (9879, 'Mateo José ', 'Benavidez Quintanilla', 1);
+INSERT INTO public."Tbl_Personal" VALUES (9880, 'Héctor Javier', 'Paiz', 1);
+INSERT INTO public."Tbl_Personal" VALUES (9881, 'María Aracely', 'Guzman Jiminez', 1);
+INSERT INTO public."Tbl_Personal" VALUES (9882, 'Luciano Antonio', 'Castillo González', 1);
+INSERT INTO public."Tbl_Personal" VALUES (9883, 'Melissa Natalia', 'Ramos Días', 1);
+INSERT INTO public."Tbl_Personal" VALUES (9884, 'Emily Iveth', 'Portillo Hernández', 1);
+INSERT INTO public."Tbl_Personal" VALUES (9553, 'Cristina Raquel', 'Ventura González', 2);
+INSERT INTO public."Tbl_Personal" VALUES (9554, 'Teresa Lissbeth', 'Segovia Guevara', 2);
+INSERT INTO public."Tbl_Personal" VALUES (9040, 'NombreDirector', 'Apellido', 3);
 
 
 --
--- TOC entry 5042 (class 0 OID 17595)
--- Dependencies: 235
+-- TOC entry 5059 (class 0 OID 17595)
+-- Dependencies: 236
 -- Data for Name: Tbl_Productos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Productos" (id, "Nombre", "Tipo_Producto_id", "Costo", "Precio") FROM stdin;
-\.
 
 
 --
--- TOC entry 5034 (class 0 OID 17554)
--- Dependencies: 227
+-- TOC entry 5051 (class 0 OID 17554)
+-- Dependencies: 228
 -- Data for Name: Tbl_Responsabless; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Responsabless" (id, "Nombres", "Apellidos", "Tipo_Responsable_id") FROM stdin;
-1	Juan	Bodoque	1
-\.
+INSERT INTO public."Tbl_Responsabless" VALUES (1, 'Juan', 'Bodoque', 1);
 
 
 --
--- TOC entry 5025 (class 0 OID 17300)
--- Dependencies: 218
+-- TOC entry 5042 (class 0 OID 17300)
+-- Dependencies: 219
 -- Data for Name: Tbl_Roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Roles" (id, "Rol") FROM stdin;
-1	Docente
-2	Secretaria
-3	Director
-\.
+INSERT INTO public."Tbl_Roles" VALUES (1, 'Docente');
+INSERT INTO public."Tbl_Roles" VALUES (2, 'Secretaria');
+INSERT INTO public."Tbl_Roles" VALUES (3, 'Director');
 
 
 --
--- TOC entry 5066 (class 0 OID 17758)
--- Dependencies: 259
+-- TOC entry 5083 (class 0 OID 17758)
+-- Dependencies: 260
 -- Data for Name: Tbl_TipoActividad; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_TipoActividad" (id, "Nombre") FROM stdin;
-1	Tarea
-2	Exposicion
-3	Reporte
-4	Auto-Evaluacion
-5	Examen
-\.
+INSERT INTO public."Tbl_TipoActividad" VALUES (1, 'Tarea', 0.10);
+INSERT INTO public."Tbl_TipoActividad" VALUES (2, 'Exposicion', 0.15);
+INSERT INTO public."Tbl_TipoActividad" VALUES (3, 'Reporte', 0.10);
+INSERT INTO public."Tbl_TipoActividad" VALUES (4, 'Auto-Evaluacion', 0.05);
+INSERT INTO public."Tbl_TipoActividad" VALUES (5, 'Examen', 0.60);
 
 
 --
--- TOC entry 5040 (class 0 OID 17588)
--- Dependencies: 233
+-- TOC entry 5057 (class 0 OID 17588)
+-- Dependencies: 234
 -- Data for Name: Tbl_Tipo_Producto; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Tipo_Producto" (id, "Nombre_tipo") FROM stdin;
-\.
+INSERT INTO public."Tbl_Tipo_Producto" VALUES (1, 'Uniforme de Fisica');
+INSERT INTO public."Tbl_Tipo_Producto" VALUES (2, 'Uniforme Diario');
+INSERT INTO public."Tbl_Tipo_Producto" VALUES (3, 'Libros');
 
 
 --
--- TOC entry 5062 (class 0 OID 17711)
--- Dependencies: 255
+-- TOC entry 5079 (class 0 OID 17711)
+-- Dependencies: 256
 -- Data for Name: Tbl_Tipo_Transaccion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Tipo_Transaccion" ("Id", "Tipo") FROM stdin;
-\.
 
 
 --
--- TOC entry 5030 (class 0 OID 17357)
--- Dependencies: 223
+-- TOC entry 5047 (class 0 OID 17357)
+-- Dependencies: 224
 -- Data for Name: Tbl_Tipos_Responsables; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Tipos_Responsables" (id, "Tipo_de_responsable") FROM stdin;
-1	Padre
-2	Madre
-3	Tio
-4	Tia
-\.
+INSERT INTO public."Tbl_Tipos_Responsables" VALUES (1, 'Padre');
+INSERT INTO public."Tbl_Tipos_Responsables" VALUES (2, 'Madre');
+INSERT INTO public."Tbl_Tipos_Responsables" VALUES (3, 'Tio');
+INSERT INTO public."Tbl_Tipos_Responsables" VALUES (4, 'Tia');
 
 
 --
--- TOC entry 5044 (class 0 OID 17607)
--- Dependencies: 237
+-- TOC entry 5061 (class 0 OID 17607)
+-- Dependencies: 238
 -- Data for Name: Tbl_Transaccion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Transaccion" (id, "Descripcion", "Cantidad", "Fecha", "Monto", "Tipo_Transaccion_id") FROM stdin;
-\.
 
 
 --
--- TOC entry 5023 (class 0 OID 17293)
--- Dependencies: 216
+-- TOC entry 5040 (class 0 OID 17293)
+-- Dependencies: 217
 -- Data for Name: Tbl_Usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_Usuarios" (id, "Nombre", "Contraseña", "Rol_id") FROM stdin;
-1	Juan	123	\N
-2	Juan	1234	3
-\.
+INSERT INTO public."Tbl_Usuarios" VALUES (1, 'Juan', '123', NULL);
+INSERT INTO public."Tbl_Usuarios" VALUES (2, 'Juan', '1234', 3);
 
 
 --
--- TOC entry 5050 (class 0 OID 17638)
--- Dependencies: 243
+-- TOC entry 5067 (class 0 OID 17638)
+-- Dependencies: 244
 -- Data for Name: Tbl_estado_aistencia; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Tbl_estado_aistencia" (id, "Estado") FROM stdin;
-3	Justificado
-2	Ausente
-1	Presente
-\.
+INSERT INTO public."Tbl_estado_aistencia" VALUES (3, 'Justificado');
+INSERT INTO public."Tbl_estado_aistencia" VALUES (2, 'Ausente');
+INSERT INTO public."Tbl_estado_aistencia" VALUES (1, 'Presente');
 
 
 --
--- TOC entry 5031 (class 0 OID 17526)
--- Dependencies: 224
+-- TOC entry 5048 (class 0 OID 17526)
+-- Dependencies: 225
 -- Data for Name: tbl_Estudiante; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."tbl_Estudiante" ("NIE", "Nombres", "Apellidos", "Responsables_id", "Grado_id") FROM stdin;
-1234	Juan .Jr	Bodoque	{1}	1
-1235	Pepe	Rodolfino	{1}	1
-\.
+INSERT INTO public."tbl_Estudiante" VALUES (1234, 'Juan .Jr', 'Bodoque', '{1}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (1235, 'Pepe', 'Rodolfino', '{1}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24101, 'Carlos Josue', 'Gómez Zelaya', '{1}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24102, 'Jessica Alejandra', 'Villatoro Mendez', '{2}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24103, 'Mario Eliseo', 'Garcia Hernández', '{3}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24104, 'Ana Maria', 'Martínez Perdomo', '{4}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24105, 'Juan de Dios', 'Ramirez Cuadra', '{5}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24106, 'Daniela Sofía', 'Ventura González', '{6}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24107, 'Luis Mainor', 'Guzman Castillo', '{7}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24188, 'Valeria Nohemi', 'Torres Rivas', '{8}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24108, 'José Leonel', 'Castro Venegas', '{9}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (24110, 'María Isabel', 'Alfaro Menjivar', '{10}', 1);
+INSERT INTO public."tbl_Estudiante" VALUES (23201, 'Diego Alejandro', 'Polio Andrade', '{11}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (23202, 'Fernanda Lizbeth', 'Calderon Pereira', '{12}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (23203, 'Jorge Mateo', 'Granados Vallejos', '{13}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (23204, 'Gabriela Aracely', 'Flores del Cid', '{14}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (23205, 'Daniel Esaú', 'Castro Gómez', '{15}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (23206, 'Saira Valentina', 'Alegria Martínez', '{16}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (23207, 'Jonathan Felipe', 'Hernández Paz', '{17}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (23208, 'Laura Margarita', 'Espinal Segovia', '{18}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (23209, 'Sara Monserrat', 'Giron Salgado', '{19}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (23210, 'Pedro Margarito', 'Flores Campos', '{20}', 2);
+INSERT INTO public."tbl_Estudiante" VALUES (22231, 'Julia Antonia', 'Argueta Villalobo', '{21}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (22232, 'Ángel Osmin', 'Marquez Berrios', '{22}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (22233, 'Lady Marcela', 'López Amaya', '{23}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (22234, 'Marvin Douglas', 'Chavez Rodríguez', '{24}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (22235, 'Kenia Camila', 'Pineda Gómez', '{25}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (22236, 'Mateo Benjamin', 'Mejía Hernández', '{26}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (22237, 'Sara Isabella', 'García Rubio', '{27}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (22238, 'Carlos David', 'Campos Avalos', '{28}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (22239, 'Carla Johana', 'Ramirez Amaya', '{29}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (22240, 'Victor Roberto', 'Rodríguez Molina', '{30}', 3);
+INSERT INTO public."tbl_Estudiante" VALUES (21141, 'Alejandro Adiel', 'Flores Hernandez', '{31}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (21142, 'Rodolfo Daniel', 'Cuadra Hernández', '{32}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (21143, 'Andrea Michelle', 'Avelar Martínez', '{33}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (21144, 'Francisco Joel', 'Luna Nolasco', '{34}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (21145, 'Genesis Beatriz', 'Cruz Urrutia', '{35}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (21146, 'Gerson Osael', 'Sorto García', '{36}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (21147, 'Brenda Liliana', 'Bonilla Delgado', '{37}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (21148, 'César Augusto', 'Hernández Guevara', '{38}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (21149, 'Ivania Cristina', 'Ventura Membreño', '{39}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (21150, 'Emily Iveth', 'Portillo Velasquez', '{40}', 4);
+INSERT INTO public."tbl_Estudiante" VALUES (20701, 'Dinora Sofia', 'Romerio Rios', '{41}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (20702, 'Diana Lilian', 'Chevez Serrano', '{42}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (20703, 'Edgar Isaias', 'Cordova Ponce', '{43}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (20704, 'Cindy Elena', 'Morales Pozo', '{44}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (20705, 'Erick Isacc', 'Salamanca Sanchez', '{45}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (20706, 'Alicia Rosibel', 'García Trejo', '{46}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (20707, 'Paolo Fabián ', 'Blanco Majano', '{47}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (20708, 'Gabriel Maximiliano', 'Alvarado Mazariego', '{48}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (20709, 'Gustavo Ismael', 'Fuentes Benitez', '{49}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (20710, 'Hugo Humberto', 'Merlos García', '{50}', 5);
+INSERT INTO public."tbl_Estudiante" VALUES (19491, 'Camila Alejandra', 'Martínez Sorto', '{51}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (19492, 'Angel Matias', 'Hernandez Moreira', '{52}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (19493, 'Sonia Isabella', 'Juarez Salmeron', '{53}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (19494, 'David Joel', 'Aguilar Guandique', '{54}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (19495, 'Carla Julissa', 'Reyes Hernández', '{55}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (19496, 'Roberto Isaac', 'Barraza Solano', '{56}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (19497, 'Yeimi Izmar', 'Lemus Mendoza', '{57}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (19498, 'Adolfo Andres', 'Molina Romero', '{58}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (19499, 'Andrea Esmeralda', 'Giron García', '{59}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (19500, 'Arturo Elias', 'Zavala Solorzano', '{60}', 6);
+INSERT INTO public."tbl_Estudiante" VALUES (18191, 'Jimena Beatriz', 'Granados López', '{61}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (18192, 'Hector Benjamín', 'Ayala Gonzalez', '{62}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (18193, 'Brenda Daniela', 'Ramos Flores', '{63}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (18194, 'Antony César', 'Chavez Martínez', '{64}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (18195, 'Carmen Raquel', 'Hernandez González', '{65}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (18196, 'Jose Daniel', 'Rodríguez Alfaro', '{66}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (18197, 'David Emanuel', 'Moreno García', '{67}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (18198, 'Diana Iveth', 'Machuca Sanchez', '{68}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (18199, 'Edgar Samuel', 'Chavez Ramirez', '{69}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (18200, 'Alicia Elena', 'Villalta Torres', '{70}', 7);
+INSERT INTO public."tbl_Estudiante" VALUES (17110, 'Erick Armando', 'García Zelaya', '{71}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (17120, 'Katherine Estela', 'Salazar Martínez', '{72}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (17130, 'Francisco Fabián', 'Diaz Diaz', '{73}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (17140, 'Eliza Gabriela', 'Solis Manzano', '{74}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (17150, 'Luciano Gustavo', 'Lazo Moreno', '{75}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (17160, 'Hugo Jose', 'Martínez Membreño', '{76}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (17170, 'Camila Isabel', 'Perez Parada', '{77}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (17180, 'Marcos Mateo', 'Manzano Torres', '{78}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (17190, 'Melissa Isabella', 'Perez Gomez', '{79}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (17200, 'Jonathan Esau', 'Lizama Magaña', '{80}', 8);
+INSERT INTO public."tbl_Estudiante" VALUES (16091, 'Carla Amalia', 'Diaz Romero', '{81}', 9);
+INSERT INTO public."tbl_Estudiante" VALUES (16092, 'Julio Roberto', 'Guandique Sosa', '{82}', 9);
+INSERT INTO public."tbl_Estudiante" VALUES (16093, 'Ruth Jacqueline', 'Lemus Vazquez', '{83}', 9);
+INSERT INTO public."tbl_Estudiante" VALUES (16094, 'Ever Adolfo', 'Martínez Rivera', '{84}', 9);
+INSERT INTO public."tbl_Estudiante" VALUES (16095, 'Andrea Celeste', 'Casas López', '{85}', 9);
+INSERT INTO public."tbl_Estudiante" VALUES (16096, 'Juan Arturo', 'Rivera Avalos', '{86}', 9);
+INSERT INTO public."tbl_Estudiante" VALUES (16097, 'Melissa Beatriz', 'García Benitez', '{87}', 9);
+INSERT INTO public."tbl_Estudiante" VALUES (16098, 'Benjamín Franklin', 'Martínez Mendoza', '{88}', 9);
+INSERT INTO public."tbl_Estudiante" VALUES (16099, 'Brenda Sarai', 'López Lovo', '{89}', 9);
+INSERT INTO public."tbl_Estudiante" VALUES (16100, 'César Antonio', 'Paredes Rodríguez', '{90}', 9);
 
 
 --
--- TOC entry 5096 (class 0 OID 0)
--- Dependencies: 250
+-- TOC entry 5117 (class 0 OID 0)
+-- Dependencies: 251
 -- Name: Tbl_Actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1392,17 +580,17 @@ SELECT pg_catalog.setval('public."Tbl_Actividades_id_seq"', 4, true);
 
 
 --
--- TOC entry 5097 (class 0 OID 0)
--- Dependencies: 244
+-- TOC entry 5118 (class 0 OID 0)
+-- Dependencies: 245
 -- Name: Tbl_Asistencias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Tbl_Asistencias_id_seq"', 34, true);
+SELECT pg_catalog.setval('public."Tbl_Asistencias_id_seq"', 177, true);
 
 
 --
--- TOC entry 5098 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 5119 (class 0 OID 0)
+-- Dependencies: 231
 -- Name: Tbl_Descuentos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1410,8 +598,17 @@ SELECT pg_catalog.setval('public."Tbl_Descuentos_id_seq"', 1, false);
 
 
 --
--- TOC entry 5099 (class 0 OID 0)
--- Dependencies: 238
+-- TOC entry 5120 (class 0 OID 0)
+-- Dependencies: 261
+-- Name: Tbl_EstadoActividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Tbl_EstadoActividad_id_seq"', 4, true);
+
+
+--
+-- TOC entry 5121 (class 0 OID 0)
+-- Dependencies: 239
 -- Name: Tbl_Estado_pago_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1419,26 +616,26 @@ SELECT pg_catalog.setval('public."Tbl_Estado_pago_id_seq"', 1, false);
 
 
 --
--- TOC entry 5100 (class 0 OID 0)
--- Dependencies: 246
+-- TOC entry 5122 (class 0 OID 0)
+-- Dependencies: 247
 -- Name: Tbl_Grados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Tbl_Grados_id_seq"', 1, true);
+SELECT pg_catalog.setval('public."Tbl_Grados_id_seq"', 9, true);
 
 
 --
--- TOC entry 5101 (class 0 OID 0)
--- Dependencies: 248
+-- TOC entry 5123 (class 0 OID 0)
+-- Dependencies: 249
 -- Name: Tbl_Materias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Tbl_Materias_id_seq"', 4, true);
+SELECT pg_catalog.setval('public."Tbl_Materias_id_seq"', 34, true);
 
 
 --
--- TOC entry 5102 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 5124 (class 0 OID 0)
+-- Dependencies: 229
 -- Name: Tbl_Matricula_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1446,8 +643,8 @@ SELECT pg_catalog.setval('public."Tbl_Matricula_id_seq"', 1, false);
 
 
 --
--- TOC entry 5103 (class 0 OID 0)
--- Dependencies: 240
+-- TOC entry 5125 (class 0 OID 0)
+-- Dependencies: 241
 -- Name: Tbl_Mensualidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1455,26 +652,26 @@ SELECT pg_catalog.setval('public."Tbl_Mensualidad_id_seq"', 1, false);
 
 
 --
--- TOC entry 5104 (class 0 OID 0)
--- Dependencies: 252
+-- TOC entry 5126 (class 0 OID 0)
+-- Dependencies: 253
 -- Name: Tbl_Nota_Actividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Tbl_Nota_Actividad_id_seq"', 10, true);
+SELECT pg_catalog.setval('public."Tbl_Nota_Actividad_id_seq"', 60, true);
 
 
 --
--- TOC entry 5105 (class 0 OID 0)
--- Dependencies: 256
+-- TOC entry 5127 (class 0 OID 0)
+-- Dependencies: 257
 -- Name: Tbl_Periodos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Tbl_Periodos_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."Tbl_Periodos_id_seq"', 5, true);
 
 
 --
--- TOC entry 5106 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 5128 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: Tbl_Personal_NIE_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1482,8 +679,8 @@ SELECT pg_catalog.setval('public."Tbl_Personal_NIE_seq"', 1, false);
 
 
 --
--- TOC entry 5107 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 5129 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: Tbl_Personal_Rol_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1491,8 +688,8 @@ SELECT pg_catalog.setval('public."Tbl_Personal_Rol_id_seq"', 1, false);
 
 
 --
--- TOC entry 5108 (class 0 OID 0)
--- Dependencies: 234
+-- TOC entry 5130 (class 0 OID 0)
+-- Dependencies: 235
 -- Name: Tbl_Productos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1500,8 +697,8 @@ SELECT pg_catalog.setval('public."Tbl_Productos_id_seq"', 1, false);
 
 
 --
--- TOC entry 5109 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 5131 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: Tbl_Responsabless_Tipo_Responsable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1509,8 +706,8 @@ SELECT pg_catalog.setval('public."Tbl_Responsabless_Tipo_Responsable_id_seq"', 1
 
 
 --
--- TOC entry 5110 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 5132 (class 0 OID 0)
+-- Dependencies: 226
 -- Name: Tbl_Responsabless_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1518,8 +715,8 @@ SELECT pg_catalog.setval('public."Tbl_Responsabless_id_seq"', 1, true);
 
 
 --
--- TOC entry 5111 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 5133 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: Tbl_Roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1527,8 +724,8 @@ SELECT pg_catalog.setval('public."Tbl_Roles_id_seq"', 3, true);
 
 
 --
--- TOC entry 5112 (class 0 OID 0)
--- Dependencies: 258
+-- TOC entry 5134 (class 0 OID 0)
+-- Dependencies: 259
 -- Name: Tbl_TipoActividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1536,8 +733,8 @@ SELECT pg_catalog.setval('public."Tbl_TipoActividad_id_seq"', 5, true);
 
 
 --
--- TOC entry 5113 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 5135 (class 0 OID 0)
+-- Dependencies: 233
 -- Name: Tbl_Tipo_Producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1545,8 +742,8 @@ SELECT pg_catalog.setval('public."Tbl_Tipo_Producto_id_seq"', 1, false);
 
 
 --
--- TOC entry 5114 (class 0 OID 0)
--- Dependencies: 254
+-- TOC entry 5136 (class 0 OID 0)
+-- Dependencies: 255
 -- Name: Tbl_Tipo_Transaccion_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1554,8 +751,8 @@ SELECT pg_catalog.setval('public."Tbl_Tipo_Transaccion_Id_seq"', 1, false);
 
 
 --
--- TOC entry 5115 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 5137 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: Tbl_Tipos_Responsables_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1563,8 +760,8 @@ SELECT pg_catalog.setval('public."Tbl_Tipos_Responsables_id_seq"', 4, true);
 
 
 --
--- TOC entry 5116 (class 0 OID 0)
--- Dependencies: 236
+-- TOC entry 5138 (class 0 OID 0)
+-- Dependencies: 237
 -- Name: Tbl_Transaccion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1572,8 +769,8 @@ SELECT pg_catalog.setval('public."Tbl_Transaccion_id_seq"', 1, false);
 
 
 --
--- TOC entry 5117 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 5139 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: Tbl_Usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1581,375 +778,15 @@ SELECT pg_catalog.setval('public."Tbl_Usuarios_id_seq"', 2, true);
 
 
 --
--- TOC entry 5118 (class 0 OID 0)
--- Dependencies: 242
+-- TOC entry 5140 (class 0 OID 0)
+-- Dependencies: 243
 -- Name: Tbl_estado_aistencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public."Tbl_estado_aistencia_id_seq"', 3, true);
 
 
---
--- TOC entry 4822 (class 2606 OID 17350)
--- Name: Tbl_Personal Rol; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Personal"
-    ADD CONSTRAINT "Rol" PRIMARY KEY ("NIE");
-
-
---
--- TOC entry 4852 (class 2606 OID 17685)
--- Name: Tbl_Actividades Tbl_Actividades_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Actividades"
-    ADD CONSTRAINT "Tbl_Actividades_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4846 (class 2606 OID 17650)
--- Name: Tbl_Asistencias Tbl_Asistencias_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Asistencias"
-    ADD CONSTRAINT "Tbl_Asistencias_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4832 (class 2606 OID 17581)
--- Name: Tbl_Descuentos Tbl_Descuentos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Descuentos"
-    ADD CONSTRAINT "Tbl_Descuentos_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4840 (class 2606 OID 17622)
--- Name: Tbl_Estado_pago Tbl_Estado_pago_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Estado_pago"
-    ADD CONSTRAINT "Tbl_Estado_pago_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4848 (class 2606 OID 17669)
--- Name: Tbl_Grados Tbl_Grados_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Grados"
-    ADD CONSTRAINT "Tbl_Grados_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4850 (class 2606 OID 17676)
--- Name: Tbl_Materias Tbl_Materias_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Materias"
-    ADD CONSTRAINT "Tbl_Materias_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4830 (class 2606 OID 17572)
--- Name: Tbl_Matricula Tbl_Matricula_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Matricula"
-    ADD CONSTRAINT "Tbl_Matricula_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4842 (class 2606 OID 17631)
--- Name: Tbl_Mensualidad Tbl_Mensualidad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Mensualidad"
-    ADD CONSTRAINT "Tbl_Mensualidad_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4854 (class 2606 OID 17699)
--- Name: Tbl_Nota_Actividad Tbl_Nota_Actividad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Nota_Actividad"
-    ADD CONSTRAINT "Tbl_Nota_Actividad_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4858 (class 2606 OID 17751)
--- Name: Tbl_Periodos Tbl_Periodos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Periodos"
-    ADD CONSTRAINT "Tbl_Periodos_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4836 (class 2606 OID 17600)
--- Name: Tbl_Productos Tbl_Productos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Productos"
-    ADD CONSTRAINT "Tbl_Productos_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4828 (class 2606 OID 17560)
--- Name: Tbl_Responsabless Tbl_Responsabless_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Responsabless"
-    ADD CONSTRAINT "Tbl_Responsabless_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4820 (class 2606 OID 17305)
--- Name: Tbl_Roles Tbl_Roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Roles"
-    ADD CONSTRAINT "Tbl_Roles_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4860 (class 2606 OID 17763)
--- Name: Tbl_TipoActividad Tbl_TipoActividad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_TipoActividad"
-    ADD CONSTRAINT "Tbl_TipoActividad_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4834 (class 2606 OID 17593)
--- Name: Tbl_Tipo_Producto Tbl_Tipo_Producto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Tipo_Producto"
-    ADD CONSTRAINT "Tbl_Tipo_Producto_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4856 (class 2606 OID 17721)
--- Name: Tbl_Tipo_Transaccion Tbl_Tipo_Transaccion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Tipo_Transaccion"
-    ADD CONSTRAINT "Tbl_Tipo_Transaccion_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4824 (class 2606 OID 17362)
--- Name: Tbl_Tipos_Responsables Tbl_Tipos_Responsables_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Tipos_Responsables"
-    ADD CONSTRAINT "Tbl_Tipos_Responsables_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4838 (class 2606 OID 17614)
--- Name: Tbl_Transaccion Tbl_Transaccion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Transaccion"
-    ADD CONSTRAINT "Tbl_Transaccion_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4818 (class 2606 OID 17298)
--- Name: Tbl_Usuarios Tbl_Usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Usuarios"
-    ADD CONSTRAINT "Tbl_Usuarios_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4844 (class 2606 OID 17643)
--- Name: Tbl_estado_aistencia Tbl_estado_aistencia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_estado_aistencia"
-    ADD CONSTRAINT "Tbl_estado_aistencia_pkey" PRIMARY KEY (id);
-
-
---
--- TOC entry 4826 (class 2606 OID 17532)
--- Name: tbl_Estudiante tbl_Estudiante_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."tbl_Estudiante"
-    ADD CONSTRAINT "tbl_Estudiante_pkey" PRIMARY KEY ("NIE");
-
-
---
--- TOC entry 4876 (class 2606 OID 17705)
--- Name: Tbl_Nota_Actividad Actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Nota_Actividad"
-    ADD CONSTRAINT "Actividad_id" FOREIGN KEY ("Actividad_id") REFERENCES public."Tbl_Actividades"(id) NOT VALID;
-
-
---
--- TOC entry 4865 (class 2606 OID 17582)
--- Name: Tbl_Matricula Descuento_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Matricula"
-    ADD CONSTRAINT "Descuento_id" FOREIGN KEY ("Descuento_id") REFERENCES public."Tbl_Descuentos"(id) NOT VALID;
-
-
---
--- TOC entry 4870 (class 2606 OID 17651)
--- Name: Tbl_Asistencias Docente_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Asistencias"
-    ADD CONSTRAINT "Docente_id" FOREIGN KEY ("Docente_id") REFERENCES public."Tbl_Personal"("NIE");
-
-
---
--- TOC entry 4869 (class 2606 OID 17632)
--- Name: Tbl_Mensualidad Estado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Mensualidad"
-    ADD CONSTRAINT "Estado_id" FOREIGN KEY ("Estado_id") REFERENCES public."Tbl_Estado_pago"(id);
-
-
---
--- TOC entry 4871 (class 2606 OID 17728)
--- Name: Tbl_Asistencias Estado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Asistencias"
-    ADD CONSTRAINT "Estado_id" FOREIGN KEY ("Estado_id") REFERENCES public."Tbl_estado_aistencia"(id) NOT VALID;
-
-
---
--- TOC entry 4872 (class 2606 OID 17656)
--- Name: Tbl_Asistencias Estudiante_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Asistencias"
-    ADD CONSTRAINT "Estudiante_id" FOREIGN KEY ("Estudiante_id") REFERENCES public."tbl_Estudiante"("NIE");
-
-
---
--- TOC entry 4877 (class 2606 OID 17700)
--- Name: Tbl_Nota_Actividad Estudiante_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Nota_Actividad"
-    ADD CONSTRAINT "Estudiante_id" FOREIGN KEY ("Estudiante_id") REFERENCES public."tbl_Estudiante"("NIE") NOT VALID;
-
-
---
--- TOC entry 4873 (class 2606 OID 17715)
--- Name: Tbl_Materias Grado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Materias"
-    ADD CONSTRAINT "Grado_id" FOREIGN KEY ("Grado_id") REFERENCES public."Tbl_Grados"(id) NOT VALID;
-
-
---
--- TOC entry 4863 (class 2606 OID 17733)
--- Name: tbl_Estudiante Grado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."tbl_Estudiante"
-    ADD CONSTRAINT "Grado_id" FOREIGN KEY ("Grado_id") REFERENCES public."Tbl_Grados"(id) NOT VALID;
-
-
---
--- TOC entry 4866 (class 2606 OID 17738)
--- Name: Tbl_Matricula Grado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Matricula"
-    ADD CONSTRAINT "Grado_id" FOREIGN KEY ("Grado_id") REFERENCES public."Tbl_Grados"(id) NOT VALID;
-
-
---
--- TOC entry 4874 (class 2606 OID 17686)
--- Name: Tbl_Actividades Materia_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Actividades"
-    ADD CONSTRAINT "Materia_id" FOREIGN KEY ("Materia_id") REFERENCES public."Tbl_Materias"(id);
-
-
---
--- TOC entry 4878 (class 2606 OID 17752)
--- Name: Tbl_Nota_Actividad Periodo_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Nota_Actividad"
-    ADD CONSTRAINT "Periodo_id" FOREIGN KEY ("Periodo_id") REFERENCES public."Tbl_Periodos"(id) NOT VALID;
-
-
---
--- TOC entry 4861 (class 2606 OID 17769)
--- Name: Tbl_Usuarios Rol_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Usuarios"
-    ADD CONSTRAINT "Rol_id" FOREIGN KEY ("Rol_id") REFERENCES public."Tbl_Roles"(id) NOT VALID;
-
-
---
--- TOC entry 4862 (class 2606 OID 17351)
--- Name: Tbl_Personal Roles; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Personal"
-    ADD CONSTRAINT "Roles" FOREIGN KEY ("Rol_id") REFERENCES public."Tbl_Roles"(id);
-
-
---
--- TOC entry 4875 (class 2606 OID 17764)
--- Name: Tbl_Actividades TipoActividad_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Actividades"
-    ADD CONSTRAINT "TipoActividad_id" FOREIGN KEY ("TipoActividad_id") REFERENCES public."Tbl_TipoActividad"(id) NOT VALID;
-
-
---
--- TOC entry 4867 (class 2606 OID 17601)
--- Name: Tbl_Productos Tipo_Producto_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Productos"
-    ADD CONSTRAINT "Tipo_Producto_id" FOREIGN KEY ("Tipo_Producto_id") REFERENCES public."Tbl_Tipo_Producto"(id);
-
-
---
--- TOC entry 4868 (class 2606 OID 17722)
--- Name: Tbl_Transaccion Tipo_Transaccion_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Transaccion"
-    ADD CONSTRAINT "Tipo_Transaccion_id" FOREIGN KEY ("Tipo_Transaccion_id") REFERENCES public."Tbl_Tipo_Transaccion"("Id") NOT VALID;
-
-
---
--- TOC entry 4864 (class 2606 OID 17561)
--- Name: Tbl_Responsabless Tipo_responsable; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Tbl_Responsabless"
-    ADD CONSTRAINT "Tipo_responsable" FOREIGN KEY ("Tipo_Responsable_id") REFERENCES public."Tbl_Tipos_Responsables"(id);
-
-
--- Completed on 2024-04-05 10:39:56
+-- Completed on 2024-04-10 21:40:54
 
 --
 -- PostgreSQL database dump complete

@@ -27,7 +27,7 @@ public class ClaseConexion {
             Class.forName("org.postgresql.Driver");
             conexion = DriverManager.getConnection(url, usuario, pass);
             boolean estado = conexion.isValid(50000);
-            System.out.println(estado ? "Conexión exitosa" : "ERROR al conectar");
+            System.out.println(estado ? "Conexión exitosa\n" : "ERROR al conectar\n");
             return conexion;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ClaseConexion.class.getName()).log(Level.SEVERE, null, ex);

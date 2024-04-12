@@ -1,6 +1,5 @@
 package Modelos.Docente;
 
-import Modelos.*;
 import Conexion.ClaseConexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -170,7 +169,7 @@ public class Modelo_TomaAsistencia {
             String sql = """
                     SELECT "NIE", "Nombres", "Apellidos", "Grado_id"
                     FROM public."tbl_Estudiante"
-                    WHERE "Grado_id" = ?;""";
+                    WHERE "Grado_id" = ?; """;
 
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, grado);

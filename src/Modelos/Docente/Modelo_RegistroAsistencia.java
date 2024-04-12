@@ -189,7 +189,6 @@ public class Modelo_RegistroAsistencia {
      * @return
      * *******************************************************************************************************************
      */
-    
     public ArrayList<Modelo_RegistroAsistencia> GetListado(int grado) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
@@ -258,6 +257,55 @@ GROUP BY tbEst."NIE", tbEst."Nombres", tbEst."Apellidos";""";
             pstm.setInt(1, Mes);
             pstm.setInt(2, Year);
             pstm.setInt(3, Grado);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+
+            ArrayList<Modelo_RegistroAsistencia> DataListado = new ArrayList<>();
+
+            while (consulta.next()) {
+                Modelo_RegistroAsistencia Estudiante = new Modelo_RegistroAsistencia();
+
+                Estudiante.setNIE(consulta.getInt("NIE"));
+                Estudiante.setNombreEstudiante(consulta.getString("Nombres"));
+                Estudiante.setApellidoEstudiante(consulta.getString("Apellidos"));
+                Estudiante.setCantAsistencias(consulta.getInt("Numero_Asistencias"));
+                Estudiante.setCantAusencias(consulta.getInt("Numero_Fallas"));
+                Estudiante.setCantAusenciaJustificadas(consulta.getInt("Numero_Fallas_Justificadas"));
+
+                DataListado.add(Estudiante);
+            }
+
+            conexionDB.close();
+            return DataListado;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_RegistroAsistencia.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Modelo_RegistroAsistencia> GetListadoCustom_dia(int Grado,int dia, int Mes, int Year) {
+        try {
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            System.out.println("dia mes year " + dia + Mes + Year);
+            String sql = """
+SELECT tbEst."NIE", tbEst."Nombres", tbEst."Apellidos",
+                        (CASE WHEN TbAsi."Estado_id" = 1 THEN 1 ELSE 0 END) AS "Numero_Asistencias",
+                        (CASE WHEN TbAsi."Estado_id" = 2 THEN 1 ELSE 0 END) AS "Numero_Fallas",
+                        (CASE WHEN TbAsi."Estado_id" = 3 THEN 1 ELSE 0 END) AS "Numero_Fallas_Justificadas"
+                                                                                                                    	
+                         FROM public."Tbl_Asistencias" AS TbAsi
+                                INNER JOIN "tbl_Estudiante" AS tbEst ON tbEst."NIE" = TbAsi."Estudiante_id"
+                					WHERE EXTRACT(DAY FROM TbAsi."Fecha") = ?                       
+                                      AND EXTRACT(MONTH FROM TbAsi."Fecha") = ? 
+                                      AND EXTRACT(YEAR FROM TbAsi."Fecha") = ? 
+                                      AND tbEst."Grado_id" = ?;""";
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, dia);
+            pstm.setInt(2, Mes);
+            pstm.setInt(3, Year);
+            pstm.setInt(4, Grado);
 
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
