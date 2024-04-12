@@ -236,10 +236,8 @@ public class Modelo_AsignacionNotas {
             statement = conexionDB.createStatement();//crear consulta
 
             String sql = """
-                         SELECT *,TM."Descuento",TM."Membresia",TR."Consumo",TR."Consumo_Final"  
-                         FROM public."Tbl_Cliente"  
-                         INNER JOIN "Tbl_Membresias" AS TM on TM."id_Membresia" = "Tbl_Cliente"."id_Membresia"
-                         INNER JOIN "Tbl_RegistroConsumo" AS TR ON TR."id_Cliente" = "Tbl_Cliente".idpersona""";
+                        
+                         """;
 
             ResultSet consulta = statement.executeQuery(sql);//ejecutamos la consulta
 
@@ -248,20 +246,7 @@ public class Modelo_AsignacionNotas {
 
                 Modelo_AsignacionNotas Persona = new Modelo_AsignacionNotas();
 
-//                Persona.setId(consulta.getInt("idpersona"));
-//                Persona.setNombre(consulta.getString("NombreActividad"));
-//                Persona.setApellido_paterno(consulta.getString("apellido paterno"));
-//                Persona.setApellido_materno(consulta.getString("apellido materno"));
-//                Persona.setTipo_doc(consulta.getString("tipo_documneto"));
-//                Persona.setNum_doc(consulta.getString("num_documento"));
-//                Persona.setDireccion(consulta.getString("direccion"));
-//                Persona.setTelefono(consulta.getString("telefono"));
-//                Persona.setEmail(consulta.getString("email"));
-//                Persona.setPassword(consulta.getString("Password"));
-//                Persona.setMembresia(consulta.getDouble("Descuento"));
-//                Persona.setTierMembresia(consulta.getString("Membresia"));
-//                Persona.setConsumo(consulta.getDouble("Consumo"));
-//                Persona.setConsumoFinal(consulta.getDouble("Consumo_Final"));
+
                 DataPersonas.add(Persona);
             }
 
@@ -278,7 +263,7 @@ public class Modelo_AsignacionNotas {
         try {
             conexionDB = claseConectar.iniciarConexion(); // initiate a connection
 
-            String sql = "SELECT *,TM.\"Descuento\",TM.\"Membresia\"  FROM public.\"Tbl_Cliente\" INNER JOIN \"Tbl_Membresias\" AS TM on TM.\"id_Membresia\" = \"Tbl_Cliente\".\"id_Membresia\" WHERE idpersona = ?";
+            String sql = " ";
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, id);
             ResultSet consulta = pstm.executeQuery(); // execute the query
@@ -286,19 +271,7 @@ public class Modelo_AsignacionNotas {
             Modelo_AsignacionNotas Persona = null;
             if (consulta.next()) {
                 Persona = new Modelo_AsignacionNotas();
-//
-//                Persona.setId(consulta.getInt("idpersona"));
-//                Persona.setNombre(consulta.getString("NombreActividad"));
-//                Persona.setApellido_paterno(consulta.getString("apellido paterno"));
-//                Persona.setApellido_materno(consulta.getString("apellido materno"));
-//                Persona.setTipo_doc(consulta.getString("tipo_documneto"));
-//                Persona.setNum_doc(consulta.getString("num_documento"));
-//                Persona.setDireccion(consulta.getString("direccion"));
-//                Persona.setTelefono(consulta.getString("telefono"));
-//                Persona.setEmail(consulta.getString("email"));
-//                Persona.setPassword(consulta.getString("Password"));
-//                Persona.setMembresia(consulta.getDouble("Descuento"));
-//                Persona.setTierMembresia(consulta.getString("Membresia"));
+
             }
 
             conexionDB.close();

@@ -1,10 +1,8 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
-import Funciones.Funciones;
 import static Funciones.Funciones.clearScreen;
 import static Funciones.Funciones.showMessageDialog;
-import Modelos.Docente.Modelo_Asignacion_Actividades;
 import Modelos.Docente.Modelo_TomaAsistencia;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,8 +10,6 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -276,7 +272,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
             boolean all_fine = false;
 
             for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-                boolean columnaSeleccionada = false; // Flag to verify if at least one column was selected
+                boolean columnaSeleccionada = false; // Verificar que la columna fue seleccionada
 
                 for (int j = 3; j <= 5; j++) {
                     boolean asistenciaMarcada = (boolean) modeloTabla.getValueAt(i, j);
@@ -286,7 +282,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
                         System.out.println("¡Debe ingresar una justificación!");
                         columnaSeleccionada = true;
                         all_fine = false;
-                        break; 
+                    showMessageDialog("ERROR", "Hay justificaciones sin llenar el motivo.");break;
                     }
                     if (asistenciaMarcada) {
                         columnaSeleccionada = true;

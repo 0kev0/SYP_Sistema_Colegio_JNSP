@@ -161,18 +161,7 @@ public class Modelo_GestionNotas {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             statement = conexionDB.createStatement(); // Creamos la consulta
 
-            ArrayList<Integer> ListaNies = new ArrayList<>(); // Lista para almacenar los NIE de los estudiantes del grado
-
-            String sql_lista = """
-            SELECT "NIE" FROM public."tbl_Estudiante"
-            WHERE "Grado_id" = 1;
-        """;
-
-            ResultSet ConsultaListaNies = statement.executeQuery(sql_lista); // Ejecutamos la consulta con la query dada
-
-            while (ConsultaListaNies.next()) {
-                ListaNies.add(ConsultaListaNies.getInt("NIE"));
-            }
+            ArrayList<Integer> ListaNies = Get_ListadoNIES(); // Lista para almacenar los NIE de los estudiantes del grado
 
             ArrayList<Modelo_GestionNotas> ListadoNotas = new ArrayList<>(); // Lista para almacenar los datos de actividades
 
@@ -218,7 +207,7 @@ tbA."Nombre_Actividad"
 
                 NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
                 if (NotaAlumno.getNIE() != 0) {
-                    System.out.println("\n>agregando NIE: "+ NotaAlumno.getNIE()+ " y NOMBRE "+ NotaAlumno.getNombre());
+                    System.out.println("\n>agregando NIE: " + NotaAlumno.getNIE() + " y NOMBRE " + NotaAlumno.getNombre());
                     ListadoNotas.add(NotaAlumno); // Agregar el estudiante a la lista de actividades
 
                 }
@@ -234,6 +223,25 @@ tbA."Nombre_Actividad"
             Logger.getLogger(Modelo_GestionNotas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public ArrayList<Integer> Get_ListadoNIES() throws SQLException {
+        System.out.println("---CARGAR NIES");
+        conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+        statement = conexionDB.createStatement(); // Creamos la consulta
+        String sql_lista = """
+            SELECT "NIE" FROM public."tbl_Estudiante"
+            WHERE "Grado_id" = 1;
+        """;
+
+        ArrayList<Integer> ListaNies = new ArrayList<>(); // Lista para almacenar los NIE de los estudiantes del grado
+
+        ResultSet ConsultaListaNies = statement.executeQuery(sql_lista); // Ejecutamos la consulta con la query dada
+
+        while (ConsultaListaNies.next()) {
+            ListaNies.add(ConsultaListaNies.getInt("NIE"));
+        }
+        return ListaNies;
     }
 
     public ArrayList<Modelo_GestionNotas> getBusqueda(String Palabra, String ParametroBusqueda, int Periodo, int grado) {

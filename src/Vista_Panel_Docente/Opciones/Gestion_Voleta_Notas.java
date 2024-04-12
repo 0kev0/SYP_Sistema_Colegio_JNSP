@@ -16,13 +16,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public final class Gestion_Notas extends javax.swing.JInternalFrame {
+public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
     private final Modelos.Docente.Modelo_GestionNotas Objeto_GestionNotas = new Modelos.Docente.Modelo_GestionNotas();
     private List<Modelos.Docente.Modelo_GestionNotas> List_Notas;
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
-    public Gestion_Notas() {
+    public Gestion_Voleta_Notas() {
         initComponents();
         modeloTabla = (DefaultTableModel) Tbl_RegistroNotas.getModel();
         DiseñoTabla(Tbl_RegistroNotas);
@@ -42,10 +42,12 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         Cb_Periodo = new javax.swing.JComboBox<>();
         TB_Buscar = new javax.swing.JTextField();
         errorTb_Busqueda = new javax.swing.JLabel();
+        Btn_GuardarActividad = new javax.swing.JPanel();
+        Lb_Guardar = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
-        setTitle("Registro de notas ");
+        setTitle("Registro voleta de notas");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setEnabled(false);
         setFocusCycleRoot(false);
@@ -64,7 +66,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "NIE", "Apellidos", "Nombre", "Actividad 1 (10%)", "Actividad 2 (10%)", " Actividad 3 (10%)", "Actividad 4 (10%)", "Examen (50%)", "Auto-evaluacion (10%)", "Promedio"
+                "Materias", "Act 1", "Act 2", "Act 3", "Act 4", "60%", "10%", "Examen", "30%", "Promedio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -81,7 +83,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
             Tbl_RegistroNotas.getColumnModel().getColumn(9).setPreferredWidth(50);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 200, 1040, 275));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 1040, 275));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -89,30 +91,26 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         Lb_Aerolinea1.setBackground(new java.awt.Color(255, 255, 255));
         Lb_Aerolinea1.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         Lb_Aerolinea1.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Aerolinea1.setText("Registro de Notas");
+        Lb_Aerolinea1.setText("Registro voleta de notas");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(16, Short.MAX_VALUE)))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(14, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, -1, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 370, -1));
 
         Cb_Busqueda.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Busqueda.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -125,7 +123,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 Cb_BusquedaActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 134, -1));
+        jPanel1.add(Cb_Busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 134, -1));
 
         Cb_Periodo.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Periodo.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -138,7 +136,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 Cb_PeriodoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 140, 134, -1));
+        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 10, 134, -1));
 
         TB_Buscar.setBackground(new java.awt.Color(224, 213, 170));
         TB_Buscar.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -164,13 +162,50 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 TB_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(TB_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 208, 50));
+        jPanel1.add(TB_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 208, 50));
 
         errorTb_Busqueda.setBackground(new java.awt.Color(23, 42, 56));
         errorTb_Busqueda.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         errorTb_Busqueda.setForeground(new java.awt.Color(23, 42, 56));
         errorTb_Busqueda.setText("Error");
-        jPanel1.add(errorTb_Busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 280, -1));
+        jPanel1.add(errorTb_Busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 280, -1));
+
+        Btn_GuardarActividad.setBackground(new java.awt.Color(226, 215, 132));
+        Btn_GuardarActividad.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
+        Btn_GuardarActividad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_GuardarActividadMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_GuardarActividadMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_GuardarActividadMouseExited(evt);
+            }
+        });
+
+        Lb_Guardar.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Guardar.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        Lb_Guardar.setForeground(new java.awt.Color(0, 0, 0));
+        Lb_Guardar.setText("Generar boleta de notas");
+
+        javax.swing.GroupLayout Btn_GuardarActividadLayout = new javax.swing.GroupLayout(Btn_GuardarActividad);
+        Btn_GuardarActividad.setLayout(Btn_GuardarActividadLayout);
+        Btn_GuardarActividadLayout.setHorizontalGroup(
+            Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_GuardarActividadLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(Lb_Guardar)
+                .addGap(14, 14, 14))
+        );
+        Btn_GuardarActividadLayout.setVerticalGroup(
+            Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_GuardarActividadLayout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(Lb_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 470, 240, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -377,6 +412,18 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_TB_BuscarMouseExited
 
+    private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
+
+    private void Btn_GuardarActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseEntered
+        Funciones.EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
+    }//GEN-LAST:event_Btn_GuardarActividadMouseEntered
+
+    private void Btn_GuardarActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseExited
+        Funciones.LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
+    }//GEN-LAST:event_Btn_GuardarActividadMouseExited
+
     public void DiseñoTabla(JTable tabla) {
         tabla.setDefaultRenderer(Object.class,
                 new TablaCusomizada());
@@ -426,7 +473,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
             for (Double items : item.getNotas()) {
                 prom += items;
             }
-            prom = prom / 3;
+            prom = prom / 6;
 
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
@@ -446,9 +493,11 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Btn_GuardarActividad;
     private javax.swing.JComboBox<String> Cb_Busqueda;
     private javax.swing.JComboBox<String> Cb_Periodo;
     private javax.swing.JLabel Lb_Aerolinea1;
+    private javax.swing.JLabel Lb_Guardar;
     private javax.swing.JTextField TB_Buscar;
     private javax.swing.JTable Tbl_RegistroNotas;
     private javax.swing.JLabel errorTb_Busqueda;
