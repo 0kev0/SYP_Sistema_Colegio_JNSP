@@ -76,7 +76,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     public void Get_Materias(JComboBox combobox) {
         DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
 
-        List_Materias = Objeto_Materia.GetListadoMaterias(9876);
+        List_Materias = Objeto_Materia.GetListadoMaterias(1);
 
         for (Modelo_Materias item : List_Materias) {
             ModeloComboBox.addElement(item.getNombreMateria());

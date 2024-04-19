@@ -117,7 +117,7 @@ public class Modelo_Materias {
             String sql = """
 SELECT "Nombre"
 	FROM public."Tbl_Materias"
-		WHERE "Docente_id" = ?;""";
+		WHERE  "Grado_id" = ? ;""";
 
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, idDocente);
@@ -134,6 +134,39 @@ SELECT "Nombre"
             }
 
             conexionDB.close();
+            return DataListado;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Materias.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
+        }
+        return null;
+    }
+    
+       public ArrayList<Modelo_Materias> Get_Id_ListadoMaterias(int id_Grado) {
+        try {
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            String sql = """
+SELECT "Nombre" , "id"
+	FROM public."Tbl_Materias"
+		WHERE  "Grado_id" = ? ;""";
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, id_Grado);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+
+            ArrayList<Modelo_Materias> DataListado = new ArrayList<>();
+            
+            while (consulta.next()) {
+                Modelo_Materias Estudiante = new Modelo_Materias();
+                Estudiante.setidMateria(consulta.getInt("id"));
+                Estudiante.setNombreMateria(consulta.getString("Nombre"));
+
+                DataListado.add(Estudiante);
+            }
+
+            conexionDB.close();
+            
             return DataListado;
 
         } catch (SQLException ex) {
