@@ -152,10 +152,11 @@ public class Modelo_GestionNotas {
     /**
      * @param grado
      * @param periodo
+     * @param idmateria
      * @return
      * *******************************************************************************************************************
      */
-    public ArrayList<Modelo_GestionNotas> GetRegistroNotas(int grado, int periodo) {
+    public ArrayList<Modelo_GestionNotas> GetRegistroNotas(int grado, int periodo, int idmateria) {
         try {
             System.out.println("---CARGAR NOTAS");
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
@@ -174,14 +175,15 @@ tbA."Nombre_Actividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"
                 	
-                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ?;
+                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND tbA."Materia_id" = ?;
             """;
 
                 PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
                 preparedStatement.setInt(1, nie);
                 preparedStatement.setInt(2, periodo);
+                preparedStatement.setInt(3, idmateria);
 
                 ResultSet consulta_Notas = preparedStatement.executeQuery(); // Ejecutamos la consulta
                 //System.out.println("consulta:  " + preparedStatement.toString());
@@ -224,8 +226,8 @@ tbA."Nombre_Actividad"
         }
         return null;
     }
-    
-        public ArrayList<Modelo_GestionNotas> Get_NotasPromediadas(int grado, int periodo) {
+
+    public ArrayList<Modelo_GestionNotas> Get_NotasPromediadas(int grado, int periodo) {
         try {
             System.out.println("---CARGAR NOTAS");
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
@@ -244,8 +246,8 @@ tbA."Nombre_Actividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
-                	
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"
+                                                                                                          	
                 	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ?;
             """;
 
@@ -314,7 +316,7 @@ tbA."Nombre_Actividad"
         return ListaNies;
     }
 
-    public ArrayList<Modelo_GestionNotas> getBusqueda(String Palabra, String ParametroBusqueda, int Periodo, int grado) {
+    public ArrayList<Modelo_GestionNotas> getBusqueda(String Palabra, String ParametroBusqueda, int Periodo, int grado, int idmat) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             statement = conexionDB.createStatement(); // Creamos la consulta
@@ -351,13 +353,15 @@ tbA."Nombre_Actividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
-                                                                     
-               	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? ;""";
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id" 
+					INNER JOIN "Tbl_Materias" AS TbMat ON TbMat.id = tbA."Materia_id"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+               	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND TbMat.id = ? ;""";
 
                     PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
                     preparedStatement.setInt(1, nie);
                     preparedStatement.setInt(2, Periodo);
+                    preparedStatement.setInt(3, idmat);
 
                     System.out.println("consulta:  " + pstm.toString());
 
@@ -383,7 +387,6 @@ tbA."Nombre_Actividad"
 
                     NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
 
-                    NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
 
                     if (NotaAlumno.getNIE() != 0) {
                         BusquedaNota.add(NotaAlumno); // Agregar el estudiante a la lista de actividades
@@ -405,16 +408,18 @@ tbA."Nombre_Actividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
-                                                                                                          
-                                                    	WHERE tbA."Periodo_id" = ? AND """;
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"
+		INNER JOIN "Tbl_Materias" AS TbMat ON TbMat.id = tbA."Materia_id"
+                                                                                                                                                                                            
+                      WHERE tbA."Periodo_id" = ? AND TbMat.id = ? AND """;
 
-                BusquedaGeneral += " unaccent( " + ParametroBusqueda + " ) " + " LIKE unaccent( ? ) ;";
+                BusquedaGeneral += " unaccent( " + ParametroBusqueda + " ) " + " LIKE unaccent( ? )  ORDER BY " + " unaccent( " + ParametroBusqueda + " ) ;";
 
                 pstm = conexionDB.prepareStatement(BusquedaGeneral);
 
                 pstm.setInt(1, Periodo);
-                pstm.setString(2, Palabra + "%");
+                pstm.setInt(2, idmat);
+                pstm.setString(3, Palabra + "%");
 
                 System.out.println("consulta:  " + pstm.toString());
 
@@ -467,28 +472,32 @@ tbA."Nombre_Actividad"
     }
 //adaprar los dos tipos de busquyeda
 
-    public ArrayList<Modelo_GestionNotas> getBusquedaNombres(String Palabra, String ParametroBusqueda, int Periodo, int grado) {
+    public ArrayList<Modelo_GestionNotas> getBusquedaNombres(String Palabra, String ParametroBusqueda, int Periodo, int grado,int idmat) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             statement = conexionDB.createStatement(); // Creamos la consulta
 
             System.out.println("====>BUSQUEDA POR " + ParametroBusqueda);
 
-            String BusquedaGeneral = """
+                String BusquedaGeneral = """
 SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
-tna."Nota ",
+tna."NotaObtenida",
 tbA."Nombre_Actividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA.id = tbA."TipoActividad_id"
-                                                                                                          
-                                                    	WHERE  """;
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"
+		INNER JOIN "Tbl_Materias" AS TbMat ON TbMat.id = tbA."Materia_id"
+                                                                                                                                                                                            
+                      WHERE tbA."Periodo_id" = ? AND TbMat.id = ? AND """;
 
-            BusquedaGeneral += ParametroBusqueda + " LIKE ? ;";
+                BusquedaGeneral += " unaccent( " + ParametroBusqueda + " ) " + " LIKE unaccent( ? ) ;";
 
-            pstm = conexionDB.prepareStatement(BusquedaGeneral);
-            pstm.setString(1, Palabra + "%");
+                pstm = conexionDB.prepareStatement(BusquedaGeneral);
+
+                pstm.setInt(1, Periodo);
+                pstm.setInt(2, idmat);
+                pstm.setString(3, Palabra + "%");
 
             ArrayList<Modelo_GestionNotas> NotaBuscar = new ArrayList<>(); // Lista para almacenar los datos de actividades
 

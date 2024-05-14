@@ -137,25 +137,31 @@ public class Modelo_AsignacionNotas {
     }
 
     /**
+     * @param grado
      * @return
      * *******************************************************************************************************************
      */
-    public ArrayList<Modelo_AsignacionNotas> getListadoActividades() {
+    public ArrayList<Modelo_AsignacionNotas> getListadoActividades(int grado) {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
             System.out.println("###BUSQUEDA GENERAL");
             String sql = """
-      SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
-                  			Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
-                  			Tbl_NAct."NotaObtenida"
-                                      FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
-                                      INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
-                                      INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
-      				INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact.id = Tb_Act."TipoActividad_id"
-                                      INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id";""";
+SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
+                Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
+                 Tbl_NAct."NotaObtenida"
+                           FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
+      INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
+      INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
+      INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact."id_Act" = Tb_Act."TipoActividad_id"
+      INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id"
+      INNER JOIN "Tbl_Grados" AS TbGr ON TbGr.id = Tb_Est."Grado_id"
+      WHERE TbGr.id = ? ;""";
 
-            ResultSet consulta = statement.executeQuery(sql);//ejecutamos la consulta
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, grado);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             ArrayList<Modelo_AsignacionNotas> DataActividades = new ArrayList<>();
             while (consulta.next()) {

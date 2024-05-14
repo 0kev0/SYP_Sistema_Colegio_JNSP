@@ -141,8 +141,39 @@ SELECT "Nombre"
         }
         return null;
     }
-    
-       public ArrayList<Modelo_Materias> Get_Id_ListadoMaterias(int id_Grado) {
+
+    public Modelo_Materias Get_Materia(int idDocente) {
+        try {
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            String sql = """
+SELECT TbMt."Nombre",TbMt."id",TbMt."Nombre"
+	FROM public."Tbl_Personal" AS TbPr
+	INNER JOIN "Tbl_Materias" AS TbMt ON TbMt.id = TbPr."Materia_id"
+        WHERE TbPr."NIE" = ? ;""";
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, idDocente);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+            Modelo_Materias DocenteGuia = new Modelo_Materias();
+
+            while (consulta.next()) {
+                DocenteGuia.setNombreMateria(consulta.getString("Nombre"));
+                DocenteGuia.setidMateria(consulta.getInt("id"));
+
+            }
+
+            conexionDB.close();
+            System.out.println("materia del docente guia es: " + DocenteGuia.getNombreMateria() + " id mat : " + DocenteGuia.getidMateria());
+            return DocenteGuia;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Materias.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Modelo_Materias> Get_Id_ListadoMaterias(int id_Grado) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             String sql = """
@@ -156,7 +187,7 @@ SELECT "Nombre" , "id"
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             ArrayList<Modelo_Materias> DataListado = new ArrayList<>();
-            
+
             while (consulta.next()) {
                 Modelo_Materias Estudiante = new Modelo_Materias();
                 Estudiante.setidMateria(consulta.getInt("id"));
@@ -166,7 +197,7 @@ SELECT "Nombre" , "id"
             }
 
             conexionDB.close();
-            
+
             return DataListado;
 
         } catch (SQLException ex) {

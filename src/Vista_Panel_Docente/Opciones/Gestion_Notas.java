@@ -5,6 +5,7 @@ import Funciones.Funciones;
 import static Funciones.Funciones.ValidNIE;
 import static Funciones.Funciones.ValidNombres;
 import Modelos.Docente.Modelo_GestionNotas;
+import Modelos.Docente.Modelo_Materias;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,13 +21,21 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
     private final Modelos.Docente.Modelo_GestionNotas Objeto_GestionNotas = new Modelos.Docente.Modelo_GestionNotas();
     private List<Modelos.Docente.Modelo_GestionNotas> List_Notas;
+    private Modelo_Materias Objeto_Modelo_Materias = new Modelo_Materias();
+    private final String materia;
+    private final int idmateria;
+
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
     public Gestion_Notas() {
         initComponents();
+        Objeto_Modelo_Materias = Objeto_Modelo_Materias.Get_Materia(9876);
+        materia = Objeto_Modelo_Materias.getNombreMateria();
+        idmateria = Objeto_Modelo_Materias.getidMateria();
         modeloTabla = (DefaultTableModel) Tbl_RegistroNotas.getModel();
         DiseñoTabla(Tbl_RegistroNotas);
         Get_ListadoNotas(Tbl_RegistroNotas);
+        Lb_MateriaGuia.setText(materia);
     }
 
     @SuppressWarnings("unchecked")
@@ -42,6 +51,8 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         Cb_Periodo = new javax.swing.JComboBox<>();
         TB_Buscar = new javax.swing.JTextField();
         errorTb_Busqueda = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        Lb_MateriaGuia = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
@@ -81,7 +92,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
             Tbl_RegistroNotas.getColumnModel().getColumn(9).setPreferredWidth(50);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 200, 1040, 275));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1060, 275));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -89,30 +100,25 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         Lb_Aerolinea1.setBackground(new java.awt.Color(255, 255, 255));
         Lb_Aerolinea1.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         Lb_Aerolinea1.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Aerolinea1.setText("Registro de Notas");
+        Lb_Aerolinea1.setText("Registro de Notas de docente guia");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(16, Short.MAX_VALUE)))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(14, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, -1, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 490, -1));
 
         Cb_Busqueda.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Busqueda.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -171,6 +177,33 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         errorTb_Busqueda.setForeground(new java.awt.Color(23, 42, 56));
         errorTb_Busqueda.setText("Error");
         jPanel1.add(errorTb_Busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 280, -1));
+
+        jPanel4.setBackground(new java.awt.Color(226, 215, 132));
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
+
+        Lb_MateriaGuia.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_MateriaGuia.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
+        Lb_MateriaGuia.setForeground(new java.awt.Color(0, 0, 0));
+        Lb_MateriaGuia.setText("materia");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(Lb_MateriaGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(Lb_MateriaGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 230, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -269,18 +302,20 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
             List<Modelo_GestionNotas> obj;
 
-            obj = Objeto_GestionNotas.getBusqueda(Palabra, ParametroBusqueda, periodo, 1);
+            obj = Objeto_GestionNotas.getBusqueda(Palabra, ParametroBusqueda, periodo, 1, 1);
 
             try {
                 int size = obj.size();
                 System.out.println("*** *** ***hay " + size);
 
                 for (Modelo_GestionNotas item : obj) {
+
                     double prom = 0;
-                    for (Double items : item.getNotas()) {
-                        prom += items;
+                    for (int y = 0; y < 4; y++) {
+                        prom += item.getNotas().get(y) * .10;
                     }
-                    prom = prom / 3;
+                    prom += item.getNotas().get(4) * .50;
+                    prom += item.getNotas().get(5) * .10;
 
                     modeloTabla.addRow(new Object[]{
                         item.getNIE(),
@@ -315,15 +350,16 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         System.out.println("buscando periodo: " + periodo + " y parametro: " + ParametroBusqueda);
 
         List<Modelo_GestionNotas> obj;
-        obj = Objeto_GestionNotas.GetRegistroNotas(1, periodo);
+        obj = Objeto_GestionNotas.GetRegistroNotas(1, periodo, idmateria);
         System.out.println("*** *** ***hay " + obj.size());
 
         for (Modelo_GestionNotas item : obj) {
             double prom = 0;
-            for (Double items : item.getNotas()) {
-                prom += items;
+            for (int i = 0; i < 4; i++) {
+                prom += item.getNotas().get(i) * .10;
             }
-            prom = prom / 3;
+            prom += item.getNotas().get(4) * .50;
+            prom += item.getNotas().get(5) * .10;
 
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
@@ -390,17 +426,15 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-
-
         int numeroDeCeldas = 10; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-        
+
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-        
+
         tabla.getColumnModel().getColumn(1).setCellRenderer(leftRenderer);
         tabla.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
 
@@ -418,15 +452,16 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
         System.out.println("buscando periodo: " + periodo);
 
-        List_Notas = Objeto_GestionNotas.GetRegistroNotas(1, periodo);
+        List_Notas = Objeto_GestionNotas.GetRegistroNotas(1, periodo, idmateria);
         System.out.println("###hay " + List_Notas.size());
 
         for (Modelos.Docente.Modelo_GestionNotas item : List_Notas) {
             double prom = 0;
-            for (Double items : item.getNotas()) {
-                prom += items;
+            for (int i = 0; i < 4; i++) {
+                prom += item.getNotas().get(i) * .10;
             }
-            prom = prom / 3;
+            prom += item.getNotas().get(4) * .50;
+            prom += item.getNotas().get(5) * .10;
 
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
@@ -449,11 +484,13 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> Cb_Busqueda;
     private javax.swing.JComboBox<String> Cb_Periodo;
     private javax.swing.JLabel Lb_Aerolinea1;
+    private javax.swing.JLabel Lb_MateriaGuia;
     private javax.swing.JTextField TB_Buscar;
     private javax.swing.JTable Tbl_RegistroNotas;
     private javax.swing.JLabel errorTb_Busqueda;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

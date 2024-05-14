@@ -3,7 +3,6 @@ package Vista_Panel_Docente.Opciones;
 import Customizacion.TablaCusomizada;
 import Modelos.Docente.Modelo_AsignacionNotas;
 import Modelos.Docente.Modelo_EstadoActividad;
-import Modelos.Docente.Modelo_GestionNotas;
 import Modelos.Docente.Modelo_Periodos;
 import Modelos.Docente.Modelo_TipoActividad;
 import java.awt.Color;
@@ -67,6 +66,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         Lb_Guardar = new javax.swing.JLabel();
         Btn_LimpiarFiltros = new javax.swing.JPanel();
         Lb_LimpiarFiltros = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
@@ -128,7 +128,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         Lb_Aerolinea1.setBackground(new java.awt.Color(255, 255, 255));
         Lb_Aerolinea1.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         Lb_Aerolinea1.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Aerolinea1.setText("1er Periodo");
+        Lb_Aerolinea1.setText("materia");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -183,7 +183,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         Lb_Aerolinea2.setBackground(new java.awt.Color(255, 255, 255));
         Lb_Aerolinea2.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         Lb_Aerolinea2.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Aerolinea2.setText("Asignacion de notas");
+        Lb_Aerolinea2.setText("Asignacion de notas ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -191,8 +191,8 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Lb_Aerolinea2)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(Lb_Aerolinea2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,8 +235,8 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Al cambiar de actividad cambiaria el contenido de la columna de nota");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, 400, -1));
+        jLabel1.setText("Restrinjir cuanto ya se haya pasado de periodo");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 400, -1));
 
         Cb_EstadoActividad.setBackground(new java.awt.Color(224, 213, 170));
         Cb_EstadoActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -329,11 +329,15 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
         jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 140, 40));
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("hay que restrinjirlo a la materia que imparte el docente guia ");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 400, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1099, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,7 +440,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
         ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
 
-        ListObjeto = Objeto.getListadoActividades();
+        ListObjeto = Objeto.getListadoActividades(1);
         System.out.println("hay " + ListObjeto.size());
 
         for (Modelo_AsignacionNotas item : ListObjeto) {
@@ -537,6 +541,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Lb_LimpiarFiltros;
     private javax.swing.JTable Tbl_Actividades;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

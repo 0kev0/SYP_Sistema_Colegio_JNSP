@@ -18,8 +18,12 @@ public class Modelo_Asignacion_Actividades {
     private PreparedStatement pstm;
 
 //lado Servidor
+    private int idActividad;
+    private int idTipoActividad;
+
 //lado escritorio
     private int Periodo;
+
     private String TipoActividad;
     private String Materia;
     private String NombreActividad;
@@ -106,7 +110,24 @@ public class Modelo_Asignacion_Actividades {
         this.Ponderacion = Ponderacion;
     }
 
-    public Modelo_Asignacion_Actividades(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm, int id, String nombre, String password, String tipo_usuario, String Descripcion, Double Ponderacion) {
+    public int getIdActividad() {
+        return idActividad;
+    }
+
+    public void setIdActividad(int idActividad) {
+        this.idActividad = idActividad;
+    }
+
+    public int getIdTipoActividad() {
+        return idTipoActividad;
+    }
+
+    public void setIdTipoActividad(int idTipoActividad) {
+        this.idTipoActividad = idTipoActividad;
+    }
+
+    public Modelo_Asignacion_Actividades(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
+            int id, String nombre, String password, String tipo_usuario, String Descripcion, Double Ponderacion, int idActividad, int idTipoActividad) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
@@ -118,6 +139,8 @@ public class Modelo_Asignacion_Actividades {
         this.Materia = tipo_usuario;
         this.Descripcion = Descripcion;
         this.Ponderacion = Ponderacion;
+        this.idActividad = idActividad;
+        this.idTipoActividad = idTipoActividad;
 
     }
 
@@ -126,27 +149,33 @@ public class Modelo_Asignacion_Actividades {
     }
 
     /**
+     * @param grado
      * @return
      * *******************************************************************************************************************
      */
-    public ArrayList<Modelo_Asignacion_Actividades> GetActividades() {
+    public ArrayList<Modelo_Asignacion_Actividades> GetActividades(int grado) {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
 
             String sql = """
-            SELECT Act.id , Act."Nombre_Actividad" , Mat."Nombre",TAct."TipoActividad",  Act."Descripcion" , TAct."Ponderacion"
-                                                                         	FROM public."Tbl_Actividades" AS Act 
-                                                                         	INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
-                                                                         	INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct.id = Act."TipoActividad_id"
-                                                							""";
+SELECT Act.id , Act."Nombre_Actividad" , Mat."Nombre",TAct."TipoActividad", TAct."id_Act", Act."Descripcion" , TAct."Ponderacion"
+FROM public."Tbl_Actividades" AS Act 
+		INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
+		INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct."id_Act" = Act."TipoActividad_id"
+			WHERE Mat.id = ? ;""";
 
-            ResultSet consulta = statement.executeQuery(sql);//ejecutamos la consulta
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, grado);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             ArrayList<Modelo_Asignacion_Actividades> DataActividades = new ArrayList<>();
             while (consulta.next()) {
 
                 Modelo_Asignacion_Actividades Actividades = new Modelo_Asignacion_Actividades();
+                Actividades.setIdTipoActividad(consulta.getInt("id_Act"));
+                Actividades.setIdActividad(consulta.getInt("id"));
                 Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
                 Actividades.setMateria(consulta.getString("Nombre"));
                 Actividades.setTipoActividad(consulta.getString("TipoActividad"));
@@ -157,9 +186,49 @@ public class Modelo_Asignacion_Actividades {
 
                 DataActividades.add(Actividades);
             }
-            System.out.println("$$$ "+ DataActividades.size());
+            System.out.println("$$$ " + DataActividades.size());
             conexionDB.close();
             return DataActividades;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Asignacion_Actividades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Modelo_Asignacion_Actividades GetActividad(int grado, int id) {
+        try {
+            conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
+            statement = conexionDB.createStatement();//crear consulta
+
+            String sql = """
+SELECT Act.id , Act."Nombre_Actividad" , Mat."Nombre",TAct."TipoActividad",TAct."id_Act",  Act."Descripcion" , TAct."Ponderacion"
+FROM public."Tbl_Actividades" AS Act 
+		INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
+		INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct."id_Act" = Act."TipoActividad_id"
+			WHERE Mat.id = ? AND Act.id = ? ;""";
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, grado);
+            pstm.setInt(2, id);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+
+            Modelo_Asignacion_Actividades Actividad = new Modelo_Asignacion_Actividades();
+            while (consulta.next()) {
+                Actividad.setIdTipoActividad(consulta.getInt("id_Act"));
+                Actividad.setIdActividad(consulta.getInt("id"));
+                Actividad.setNombreActividad(consulta.getString("Nombre_Actividad"));
+                Actividad.setMateria(consulta.getString("Nombre"));
+                Actividad.setTipoActividad(consulta.getString("TipoActividad"));
+                Actividad.setDescripcion(consulta.getString("Descripcion"));
+                Actividad.setPonderacion(consulta.getDouble("Ponderacion"));
+
+                System.out.println("###" + Actividad.getNombreActividad());
+
+            }
+            conexionDB.close();
+            return Actividad;
 
         } catch (SQLException ex) {
             Logger.getLogger(Modelo_Asignacion_Actividades.class.getName()).log(Level.SEVERE, null, ex);
@@ -278,29 +347,23 @@ public class Modelo_Asignacion_Actividades {
         return 0;
     }
 
-    public int editPersonas(Modelo_Asignacion_Actividades PersonasEdit) {
+    public int Edit_Actividad(Modelo_Asignacion_Actividades ActividadaEditar) {
         try {
 
             String sql = """
-                         UPDATE public."Tbl_Cliente"
-                         	SET  nombre=?, "apellido paterno"=?, "apellido materno"=?, tipo_documneto=?, num_documento=?, direccion=?, telefono=?, email=?, "Password"=?, "id_Membresia"=?
-                         	WHERE idpersona=?;""";
+UPDATE public."Tbl_Actividades"
+                         	SET  "Nombre_Actividad"= ?,  "TipoActividad_id"=?, "Descripcion"=?
+                         	WHERE id = ?;""";
 
             conexionDB = claseConectar.iniciarConexion();
             pstm = conexionDB.prepareStatement(sql);
 
-            //   System.out.println("id a modificar" + PersonasEdit.getId());
-//            pstm.setString(1, PersonasEdit.getNombre());
-//            pstm.setString(2, PersonasEdit.getApellido_paterno());
-//            pstm.setString(3, PersonasEdit.getApellido_materno());
-//            pstm.setString(4, PersonasEdit.getTipo_doc());
-//            pstm.setString(5, PersonasEdit.getNum_doc());
-//            pstm.setString(6, PersonasEdit.getDireccion());
-//            pstm.setString(7, PersonasEdit.getTelefono());
-//            pstm.setString(8, PersonasEdit.getEmail());
-//            pstm.setString(9, PersonasEdit.getPassword());
-//            pstm.setInt(10, PersonasEdit.getIdMembresia());
-//            pstm.setInt(11, PersonasEdit.getId());
+            System.out.println("id a modificar" + ActividadaEditar.getIdActividad());
+            pstm.setString(1, ActividadaEditar.getNombreActividad());
+            pstm.setInt(2, ActividadaEditar.getIdTipoActividad());
+            pstm.setString(3, ActividadaEditar.getDescripcion());
+            pstm.setInt(4, ActividadaEditar.getIdActividad());
+
             int respuesta = pstm.executeUpdate();
 
             return respuesta;
