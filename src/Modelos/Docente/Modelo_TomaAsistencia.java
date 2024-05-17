@@ -166,6 +166,7 @@ public class Modelo_TomaAsistencia {
     public ArrayList<Modelo_TomaAsistencia> GetListado(int grado) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            
             String sql = """
                     SELECT "NIE", "Nombres", "Apellidos", "Grado_id"
                     FROM public."tbl_Estudiante"
