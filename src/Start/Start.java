@@ -8,10 +8,12 @@ import Vista_Panel_Secretaria.Panel_Secretaria;
 public class Start {
 
     public static void main(String[] args) {
-//        Vista_Panel_Director start = new Vista_Panel_Director();
-        Panel_Secretaria start = new Panel_Secretaria();
-//        Vista_Panel_Director start = new Vista_Panel_Director();
+        // Panel_Docente.Panel_Docente start =  new Panel_Docente();
+        // Panel_Secretaria start = new Panel_Secretaria();
+        Panel_Director start = new Panel_Director();
 
         start.setVisible(true);
+        
+            
     }
 }

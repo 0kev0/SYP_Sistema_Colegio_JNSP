@@ -769,29 +769,29 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_CrearCuentaMouseEntered
 
     private void Btn_CrearCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CrearCuentaMouseClicked
-        if (Funciones.validarCampos(jPanel5)) {
-            if (!TxbContraseña.getText().equals(TxbVerificarContraseña.getText())) {
-                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error ", 0);
-            } else {
-                //                Tbl_Cliente persona = new Tbl_Cliente();
-                //
-                //                persona.setNombre(TxbNombre.getText());
-                //                persona.setApellido_paterno(TxbApellidoPaterno.getText());
-                //                persona.setApellido_materno(TxbApellidoMaterno.getText());
-                //                persona.setTipo_doc(CbTipoDoc.getSelectedItem().toString());
-                //                persona.setNum_doc(TxbDocIdentidad.getText());
-                //                persona.setDireccion(TxbDireccion.getText());
-                //                persona.setTelefono(TxbTelefono.getText());
-                //                persona.setEmail(TxbCorreo.getText());
-                //                persona.setPassword(TxbContraseña.getText());
-                //                persona.setIdMembresia(4);
-                //
-                //                if (persona.insertNuevoCliente(persona) > 0) {
-                    //                    JOptionPane.showConfirmDialog(rootPane, "CUENTA CREADA SATISFACTORIAMENTE");
-                    //                }
-
-            }
-        }
+//        if (Funciones.validarCampos(jPanel5)) {
+//            if (!TxbContraseña.getText().equals(Funciones.TxbVerificarContraseña.getText())) {
+//                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error ", 0);
+//            } else {
+//                //                Tbl_Cliente persona = new Tbl_Cliente();
+//                //
+//                //                persona.setNombre(TxbNombre.getText());
+//                //                persona.setApellido_paterno(TxbApellidoPaterno.getText());
+//                //                persona.setApellido_materno(TxbApellidoMaterno.getText());
+//                //                persona.setTipo_doc(CbTipoDoc.getSelectedItem().toString());
+//                //                persona.setNum_doc(TxbDocIdentidad.getText());
+//                //                persona.setDireccion(TxbDireccion.getText());
+//                //                persona.setTelefono(TxbTelefono.getText());
+//                //                persona.setEmail(TxbCorreo.getText());
+//                //                persona.setPassword(TxbContraseña.getText());
+//                //                persona.setIdMembresia(4);
+//                //
+//                //                if (persona.insertNuevoCliente(persona) > 0) {
+//                    //                    JOptionPane.showConfirmDialog(rootPane, "CUENTA CREADA SATISFACTORIAMENTE");
+//                    //                }
+//
+//            }
+//        }
 
     }//GEN-LAST:event_Btn_CrearCuentaMouseClicked
 
@@ -811,7 +811,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
 
     private void CbTipoDocItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CbTipoDocItemStateChanged
         String doc = CbTipoDoc.getSelectedItem().toString();
-        TxbDocIdentidad.setText("Ingrese su " + doc);
+//        TxbDocIdentidad.setText("Ingrese su " + doc);
     }//GEN-LAST:event_CbTipoDocItemStateChanged
 
     private void TxbCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxbCorreoKeyTyped

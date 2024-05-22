@@ -315,6 +315,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
         modeloTabla_Productos.setNumRows(0);
 
         System.out.println("buscando id tipo " + op);
+        
         List_Productos = Objeto_Modelo_Productos.Get_Productos_filtrado(op);
         System.out.println("hay " + List_Productos.size());
 
