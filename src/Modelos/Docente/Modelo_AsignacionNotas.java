@@ -12,13 +12,13 @@ import java.util.logging.Logger;
 
 public class Modelo_AsignacionNotas {
 
+////////////////////////////////////////////////////lado Servidor
     private Connection conexionDB;
     private Statement statement;
     private ClaseConexion claseConectar;
     private PreparedStatement pstm;
 
-//lado Servidor
-//lado escritorio
+///////////////////////////////////////////////////lado escritorio
     private int NIE;
     private String NombreEstudiante;
     private String ApellidoEstudiante;
@@ -27,6 +27,9 @@ public class Modelo_AsignacionNotas {
     private Double Nota;
     private Double Ponderacion;
 
+    
+    ///////////////////////////////////////////////////GETTERS Y SETTERS
+  
     public Connection getConexionDB() {
         return conexionDB;
     }
@@ -114,7 +117,8 @@ public class Modelo_AsignacionNotas {
     public void setPonderacion(Double Ponderacion) {
         this.Ponderacion = Ponderacion;
     }
-
+    
+    ///////////////////////////////////////////////////CONSTRUCTORES
     public Modelo_AsignacionNotas(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
             int NIE, String NombreActividad, String NombreEstudiante, String ApellidoEstudiante, String EstadoActividad, Double Nota, Double Ponderacion) {
         this.conexionDB = conexionDB;
@@ -252,7 +256,6 @@ SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
 
                 Modelo_AsignacionNotas Persona = new Modelo_AsignacionNotas();
 
-
                 DataPersonas.add(Persona);
             }
 
@@ -269,7 +272,7 @@ SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
         try {
             conexionDB = claseConectar.iniciarConexion(); // initiate a connection
 
-            String sql = " ";
+            String sql = " ";  
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, id);
             ResultSet consulta = pstm.executeQuery(); // execute the query
