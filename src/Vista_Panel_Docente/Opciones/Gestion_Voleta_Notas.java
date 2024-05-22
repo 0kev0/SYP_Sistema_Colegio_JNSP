@@ -549,7 +549,7 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
         modeloTabla.setNumRows(0);
 
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
-        System.out.println("buscando periodo: " + periodo);
+        System.out.println("buscando periodo desde cb: " + periodo);
 
         List_Modelo_GestionPromedios = Objeto_Modelo_GestionPromedios.Get_Promedio(NIE, 1, 1);
         System.out.println("###hay " + List_Modelo_GestionPromedios.size());
