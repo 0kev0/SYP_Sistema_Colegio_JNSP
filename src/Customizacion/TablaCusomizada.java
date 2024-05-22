@@ -20,7 +20,7 @@ public class TablaCusomizada extends DefaultTableCellRenderer {
             // Ajusta el tamaño de la imagen a 20px si es un ImageIcon
             if (labelCell.getIcon() instanceof ImageIcon imageIcon) {
                 Image image = imageIcon.getImage();
-                Image newImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+                Image newImage = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
                 imageIcon = new ImageIcon(newImage);
                 labelCell.setIcon(imageIcon);
             }

@@ -4,7 +4,6 @@ import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import static Funciones.Funciones.VaciarCampos;
 import static Funciones.Funciones.validarCampos;
-import Modelos.Tbl_Cliente1;
 import javax.swing.JOptionPane;
 
 
@@ -330,20 +329,20 @@ public class log_in1 extends javax.swing.JFrame {
 
     private void Btn_ReservarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ReservarMouseClicked
         String[] user = {TxbCorreo.getText(), TxbContraseña.getText()};
-
-        if (validarCampos(jp_Main)) {
-
-            Tbl_Cliente1 administrador = new Tbl_Cliente1();
-
-            if (administrador.ValidLogin(user) != null) {
-                System.out.println("\tINICIO SATISFACTORIO");
-
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "CREDENCIALES INCORRECTAS\n INTENTE NUEVAMENTE ");
-                VaciarCampos(jp_Main);
-            }
-
-        }
+//
+//        if (validarCampos(jp_Main)) {
+//
+//            Tbl_Cliente1 administrador = new Tbl_Cliente1();
+//
+//            if (administrador.ValidLogin(user) != null) {
+//                System.out.println("\tINICIO SATISFACTORIO");
+//
+//            } else {
+//                JOptionPane.showMessageDialog(rootPane, "CREDENCIALES INCORRECTAS\n INTENTE NUEVAMENTE ");
+//                VaciarCampos(jp_Main);
+//            }
+//
+//        }
 
 
     }//GEN-LAST:event_Btn_ReservarMouseClicked

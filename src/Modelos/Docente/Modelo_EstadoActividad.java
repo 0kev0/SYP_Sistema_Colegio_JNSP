@@ -75,6 +75,7 @@ public class Modelo_EstadoActividad {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
+        
         this.pstm = pstm;
         ////////////////////////////////////////////////
         this.idEstadoActividad = idEstadoActividad;
@@ -101,6 +102,7 @@ public class Modelo_EstadoActividad {
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             ArrayList<Modelo_EstadoActividad> DataListado = new ArrayList<>();
+            
             while (consulta.next()) {
                 Modelo_EstadoActividad Estudiante = new Modelo_EstadoActividad();
 

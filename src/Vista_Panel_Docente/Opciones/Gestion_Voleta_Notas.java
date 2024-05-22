@@ -4,12 +4,15 @@ import Customizacion.TablaCusomizada;
 import Funciones.Funciones;
 import static Funciones.Funciones.ValidNIE;
 import static Funciones.Funciones.ValidNombres;
-import Modelos.Docente.Modelo_GestionNotas;
 import Modelos.Docente.Modelo_GestionPromedios;
+import Modelos.Docente.Modelo_Periodos;
+import Modelos.Docente.Modelo_TomaAsistencia;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -23,11 +26,15 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
     private List<Modelos.Docente.Modelo_GestionPromedios> List_Modelo_GestionPromedios;
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
+    private final Modelo_TomaAsistencia Objeto_NIES = new Modelo_TomaAsistencia();
+    private List<Modelo_TomaAsistencia> List_NIES;
+
     public Gestion_Voleta_Notas() {
         initComponents();
         modeloTabla = (DefaultTableModel) Tbl_RegistroNotas.getModel();
         DiseñoTabla(Tbl_RegistroNotas);
         Get_ListadoNotas(Tbl_RegistroNotas);
+        Get_NIES(Cb_NIES);
     }
 
     @SuppressWarnings("unchecked")
@@ -51,6 +58,7 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
         Lb_Aerolinea3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         Lb_Aerolinea2 = new javax.swing.JLabel();
+        Cb_NIES = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
@@ -302,6 +310,18 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 350, 30));
 
+        Cb_NIES.setBackground(new java.awt.Color(224, 213, 170));
+        Cb_NIES.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
+        Cb_NIES.setForeground(new java.awt.Color(0, 0, 0));
+        Cb_NIES.setToolTipText("");
+        Cb_NIES.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Buscar por: ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
+        Cb_NIES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cb_NIESActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Cb_NIES, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 90, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -315,6 +335,20 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void Get_NIES(JComboBox ComboBox) {
+
+        DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
+
+        List_NIES = Objeto_NIES.GetListado(1);
+        System.out.println("hay " + List_NIES.size());
+
+        for (Modelo_TomaAsistencia item : List_NIES) {
+            ModeloComboBox.addElement(item.getNIE());
+        }
+
+        ComboBox.setModel(ModeloComboBox);
+    }
 
     public String parametrobusqueda() {
         switch (Cb_Busqueda.getSelectedItem().toString()) {
@@ -368,64 +402,6 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_Cb_BusquedaActionPerformed
 
-    private void TB_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyReleased
-        String ParametroBusqueda = parametrobusqueda();
-        String Palabra = TB_Buscar.getText();
-        int i = Cb_Busqueda.getSelectedIndex();
-        System.out.println("INDICE " + i);
-
-        switch (i) {
-            case 0 ->
-                ValidNIE(TB_Buscar, errorTb_Busqueda);
-            case 1 ->
-                ValidNombres(TB_Buscar, errorTb_Busqueda);
-            case 2 ->
-                ValidNombres(TB_Buscar, errorTb_Busqueda);
-
-            default ->
-                throw new AssertionError();
-        }
-
-        if (Palabra.equals("")) {
-            Get_ListadoNotas(Tbl_RegistroNotas);
-            Funciones.clearScreen();
-
-        } else {
-
-            int periodo = Cb_Periodo.getSelectedIndex() + 1;
-            modeloTabla.setNumRows(0);
-
-            System.out.println("buscando periodo: " + periodo + " y parametro: " + ParametroBusqueda);
-
-            List_Modelo_GestionPromedios = Objeto_Modelo_GestionPromedios.Get_Promedio(1234, 1,1);
-
-            try {
-                int size = List_Modelo_GestionPromedios.size();
-                System.out.println("*** *** ***hay " + size);
-
-                for (Modelo_GestionPromedios item : List_Modelo_GestionPromedios) {
-
-                    modeloTabla.addRow(new Object[]{
-                        item.getNombre(),
-                        0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
-                        item.getNota1(),                        
-                        item.getNota2(),
-                        item.getNota3(),
-                        item.getNota4(),
-                    
-                    });
-                }
-
-                Tbl_RegistroNotas.setModel(modeloTabla);
-            } catch (Error ex) {
-                System.out.println("$$$La lista obtenida esta vacia");
-            } catch (IndexOutOfBoundsException err) {
-                System.out.println("$$$Indice fuera del tamaño de la lista.");
-
-            }
-        }
-    }//GEN-LAST:event_TB_BuscarKeyReleased
-
     private void Cb_PeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_PeriodoActionPerformed
 //        String ParametroBusqueda = parametrobusqueda();
 //        String Palabra = TB_Buscar.getText();
@@ -463,17 +439,81 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_Cb_PeriodoActionPerformed
 
-    private void TB_BuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyTyped
+    private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
 
+    private void Btn_GuardarActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseEntered
+        Funciones.EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
+    }//GEN-LAST:event_Btn_GuardarActividadMouseEntered
+
+    private void Btn_GuardarActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseExited
+        Funciones.LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
+    }//GEN-LAST:event_Btn_GuardarActividadMouseExited
+
+    private void TB_BuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyTyped
 
     }//GEN-LAST:event_TB_BuscarKeyTyped
 
-    private void TB_BuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyPressed
-     }//GEN-LAST:event_TB_BuscarKeyPressed
+    private void TB_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyReleased
+        String ParametroBusqueda = parametrobusqueda();
+        String Palabra = TB_Buscar.getText();
+        int i = Cb_Busqueda.getSelectedIndex();
+        System.out.println("INDICE " + i);
 
-    private void TB_BuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_BuscarMouseEntered
-        Funciones.Mouse_EnterTextbox(TB_Buscar);
-    }//GEN-LAST:event_TB_BuscarMouseEntered
+        switch (i) {
+            case 0 ->
+                ValidNIE(TB_Buscar, errorTb_Busqueda);
+            case 1 ->
+                ValidNombres(TB_Buscar, errorTb_Busqueda);
+            case 2 ->
+                ValidNombres(TB_Buscar, errorTb_Busqueda);
+
+            default ->
+                throw new AssertionError();
+        }
+
+        if (Palabra.equals("")) {
+            Get_ListadoNotas(Tbl_RegistroNotas);
+            Funciones.clearScreen();
+
+        } else {
+
+            int periodo = Cb_Periodo.getSelectedIndex() + 1;
+            modeloTabla.setNumRows(0);
+
+            System.out.println("buscando periodo: " + periodo + " y parametro: " + ParametroBusqueda);
+
+            List_Modelo_GestionPromedios = Objeto_Modelo_GestionPromedios.Get_Promedio(1234, 1, 1);
+
+            try {
+                int size = List_Modelo_GestionPromedios.size();
+                System.out.println("*** hay " + size);
+
+                for (Modelo_GestionPromedios item : List_Modelo_GestionPromedios) {
+
+                    modeloTabla.addRow(new Object[]{
+                        item.getNombre(),
+                        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                        item.getNota1(),
+                        item.getNota2(),
+                        item.getNota3(),
+                        item.getNota4(),});
+                }
+
+                Tbl_RegistroNotas.setModel(modeloTabla);
+            } catch (Error ex) {
+                System.out.println("$$$La lista obtenida esta vacia");
+            } catch (IndexOutOfBoundsException err) {
+                System.out.println("$$$Indice fuera del tamaño de la lista.");
+
+            }
+        }
+    }//GEN-LAST:event_TB_BuscarKeyReleased
+
+    private void TB_BuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyPressed
+
+    }//GEN-LAST:event_TB_BuscarKeyPressed
 
     private void TB_BuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_BuscarMouseExited
         switch (Cb_Busqueda.getSelectedIndex()) {
@@ -494,50 +534,92 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
                 throw new AssertionError();
         }
 
-
     }//GEN-LAST:event_TB_BuscarMouseExited
 
-    private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
+    private void TB_BuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_BuscarMouseEntered
+        Funciones.Mouse_EnterTextbox(TB_Buscar);
+    }//GEN-LAST:event_TB_BuscarMouseEntered
 
-    private void Btn_GuardarActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseEntered
-        Funciones.EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
-    }//GEN-LAST:event_Btn_GuardarActividadMouseEntered
+    private void Cb_NIESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_NIESActionPerformed
+        int NIE = Integer.parseInt(Cb_NIES.getSelectedItem().toString());
+        
+         System.out.println("CARGANDO TODAS LAS NOTAS");
+//        int grado = Cb_Periodo.getSelectedIndex() + 1;
 
-    private void Btn_GuardarActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseExited
-        Funciones.LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
-    }//GEN-LAST:event_Btn_GuardarActividadMouseExited
+        modeloTabla.setNumRows(0);
 
-public void DiseñoTabla(JTable tabla) {
-    tabla.setDefaultRenderer(Object.class, new TablaCusomizada());
-    tabla.setRowHeight(30); // Altura de las filas de datos
-    tabla.getTableHeader().setBackground(Color.decode("#5C636E"));
-    tabla.getTableHeader().setForeground(Color.white);
-    Font fuente = new Font("Roboto", Font.BOLD, 12);
-    tabla.setFont(fuente);
-    tabla.getTableHeader().setFont(fuente);
+        int periodo = Cb_Periodo.getSelectedIndex() + 1;
+        System.out.println("buscando periodo desde cb: " + periodo);
 
-    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        List_Modelo_GestionPromedios = Objeto_Modelo_GestionPromedios.Get_Promedio(NIE, 1, 1);
+        System.out.println("###hay " + List_Modelo_GestionPromedios.size());
 
-    int numeroDeCeldas = 14; // Cambia este valor al número de celdas que necesites
+        for (Modelo_GestionPromedios item : List_Modelo_GestionPromedios) {
+            double tareas;
+            double parcial;
+            double promedio;
 
-    for (int i = 0; i < numeroDeCeldas; i++) {
-        tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            tareas = (item.getNotas().get(0) * .15 + item.getNotas().get(1) * .15 + item.getNotas().get(2) * .15 + item.getNotas().get(3) * .15);
+            tareas = Math.round(tareas * 100.0) / 100.0;
+
+            parcial = (item.getNotas().get(4)) * .30;
+            parcial = Math.round(parcial * 100.0) / 100.0;
+
+            promedio = Math.round((parcial + tareas) * 100.0) / 100.0;
+
+            System.out.println("Promedio tareas 60% = " + tareas + " del alumno :" + item.getNombre());
+
+            modeloTabla.addRow(new Object[]{
+                item.getNombre(),
+                item.getNotas().get(0),
+                item.getNotas().get(1),
+                item.getNotas().get(2),
+                item.getNotas().get(3),
+                tareas,
+                9,
+                item.getNotas().get(4),
+                parcial,
+                promedio,
+                0, 0,
+                item.getNota1(),
+                item.getNota2(),
+                item.getNota3(),
+                item.getNota4(),
+                (item.getNota1() + item.getNota2() + item.getNota3() + item.getNota4()) / 4
+
+            });
+        }
+
+        Tbl_RegistroNotas.setModel(modeloTabla);
+
+    }//GEN-LAST:event_Cb_NIESActionPerformed
+
+    public void DiseñoTabla(JTable tabla) {
+        tabla.setDefaultRenderer(Object.class, new TablaCusomizada());
+        tabla.setRowHeight(30); // Altura de las filas de datos
+        tabla.getTableHeader().setBackground(Color.decode("#5C636E"));
+        tabla.getTableHeader().setForeground(Color.white);
+        Font fuente = new Font("Roboto", Font.BOLD, 12);
+        tabla.setFont(fuente);
+        tabla.getTableHeader().setFont(fuente);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        int numeroDeCeldas = 14; // Cambia este valor al número de celdas que necesites
+
+        for (int i = 0; i < numeroDeCeldas; i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+
+        tabla.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+
+        JTableHeader header = tabla.getTableHeader();
+        header.setPreferredSize(new Dimension(60, 50)); // Ajusta la altura del encabezado
     }
-    
-
-    DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-    leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-
-    tabla.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
-
-    JTableHeader header = tabla.getTableHeader();
-    header.setPreferredSize(new Dimension(60, 50)); // Ajusta la altura del encabezado
-}
-
-
 
     public void Get_ListadoNotas(JTable tabla) {
         System.out.println("CARGANDO TODAS LAS NOTAS");
@@ -548,26 +630,44 @@ public void DiseñoTabla(JTable tabla) {
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
         System.out.println("buscando periodo: " + periodo);
 
-        List_Modelo_GestionPromedios = Objeto_Modelo_GestionPromedios.Get_Promedio(1234,1,1);
+        List_Modelo_GestionPromedios = Objeto_Modelo_GestionPromedios.Get_Promedio(1234, 1, 1);
         System.out.println("###hay " + List_Modelo_GestionPromedios.size());
 
-                for (Modelo_GestionPromedios item : List_Modelo_GestionPromedios) {
+        for (Modelo_GestionPromedios item : List_Modelo_GestionPromedios) {
+            double tareas;
+            double parcial;
+            double promedio;
 
-                    modeloTabla.addRow(new Object[]{
-                        item.getNombre(),
-                        item.getNotas().get(0),
-                        item.getNotas().get(1),
-                        item.getNotas().get(2),
-                        item.getNotas().get(3),
-                        0.0,0.0,0.0,0.0,0.0,
-                        item.getNota1(),                        
-                        item.getNota2(),
-                        item.getNota3(),
-                        item.getNota4(),
-                        item.getNota1() + item.getNota2() + item.getNota3() + item.getNota4()
-                    
-                    });
-                }
+            tareas = (item.getNotas().get(0) * .15 + item.getNotas().get(1) * .15 + item.getNotas().get(2) * .15 + item.getNotas().get(3) * .15);
+            tareas = Math.round(tareas * 100.0) / 100.0;
+
+            parcial = (item.getNotas().get(4)) * .30;
+            parcial = Math.round(parcial * 100.0) / 100.0;
+
+            promedio = Math.round((parcial + tareas) * 100.0) / 100.0;
+
+            System.out.println("Promedio tareas 60% = " + tareas + " del alumno :" + item.getNombre());
+
+            modeloTabla.addRow(new Object[]{
+                item.getNombre(),
+                item.getNotas().get(0),
+                item.getNotas().get(1),
+                item.getNotas().get(2),
+                item.getNotas().get(3),
+                tareas,
+                9,
+                item.getNotas().get(4),
+                parcial,
+                promedio,
+                0, 0,
+                item.getNota1(),
+                item.getNota2(),
+                item.getNota3(),
+                item.getNota4(),
+                (item.getNota1() + item.getNota2() + item.getNota3() + item.getNota4()) / 4
+
+            });
+        }
 
         tabla.setModel(modeloTabla);
     }
@@ -575,6 +675,7 @@ public void DiseñoTabla(JTable tabla) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_GuardarActividad;
     private javax.swing.JComboBox<String> Cb_Busqueda;
+    private javax.swing.JComboBox<String> Cb_NIES;
     private javax.swing.JComboBox<String> Cb_Periodo;
     private javax.swing.JLabel Lb_Aerolinea1;
     private javax.swing.JLabel Lb_Aerolinea2;

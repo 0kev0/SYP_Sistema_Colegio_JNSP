@@ -5,7 +5,6 @@ import static Funciones.Funciones.LeftMouse;
 import java.awt.Color;
 import Customizacion.*;
 
-
 public class Panel_Director extends javax.swing.JFrame {
 
     public Panel_Director() {
@@ -443,6 +442,9 @@ public class Panel_Director extends javax.swing.JFrame {
         Btn_Inventario_.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 3, 3, new java.awt.Color(255, 204, 0)));
         Btn_Inventario_.setPreferredSize(new java.awt.Dimension(180, 60));
         Btn_Inventario_.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_Inventario_MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_Inventario_MouseEntered(evt);
             }
@@ -459,7 +461,7 @@ public class Panel_Director extends javax.swing.JFrame {
         Btn_Inventario1.setLayout(Btn_Inventario1Layout);
         Btn_Inventario1Layout.setHorizontalGroup(
             Btn_Inventario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         Btn_Inventario1Layout.setVerticalGroup(
             Btn_Inventario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,29 +471,25 @@ public class Panel_Director extends javax.swing.JFrame {
         Lb_Inventario.setBackground(new java.awt.Color(7, 3, 26));
         Lb_Inventario.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
         Lb_Inventario.setForeground(new java.awt.Color(7, 3, 26));
-        Lb_Inventario.setText("Inventario");
+        Lb_Inventario.setText("Registos Inventario");
 
         javax.swing.GroupLayout Btn_Inventario_Layout = new javax.swing.GroupLayout(Btn_Inventario_);
         Btn_Inventario_.setLayout(Btn_Inventario_Layout);
         Btn_Inventario_Layout.setHorizontalGroup(
             Btn_Inventario_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Btn_Inventario1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-            .addGroup(Btn_Inventario_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(Btn_Inventario_Layout.createSequentialGroup()
-                    .addGap(44, 44, 44)
-                    .addComponent(Lb_Inventario)
-                    .addContainerGap(44, Short.MAX_VALUE)))
+            .addGroup(Btn_Inventario_Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Inventario)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Btn_Inventario_Layout.setVerticalGroup(
             Btn_Inventario_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Btn_Inventario_Layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addComponent(Lb_Inventario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Btn_Inventario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(Btn_Inventario_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(Btn_Inventario_Layout.createSequentialGroup()
-                    .addGap(14, 14, 14)
-                    .addComponent(Lb_Inventario)
-                    .addContainerGap(15, Short.MAX_VALUE)))
         );
 
         Btn_RegistroVentas.setBackground(new java.awt.Color(250, 244, 208));
@@ -674,7 +672,7 @@ public class Panel_Director extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_Empleados_MouseExited
 
     private void Btn_Inventario_MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseEntered
-        EnterMouse( Btn_Inventario_, Lb_Inventario, "#FFF099", "#FF9900");
+        EnterMouse(Btn_Inventario_, Lb_Inventario, "#FFF099", "#FF9900");
     }//GEN-LAST:event_Btn_Inventario_MouseEntered
 
     private void Btn_Inventario_MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseExited
@@ -692,6 +690,14 @@ public class Panel_Director extends javax.swing.JFrame {
     private void Btn_Modificar_cuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Modificar_cuentaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseClicked
+
+    private void Btn_Inventario_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseClicked
+        Gestion_Transacciones gest = new Gestion_Transacciones();
+        dispose();
+        gest.setVisible(true);
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Inventario_MouseClicked
 
     public static void main(String args[]) {
 
