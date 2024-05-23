@@ -1,5 +1,6 @@
 package Vista_Panel_Director;
 
+import Vista_Panel_Director.Opciones.Gestion_Transacciones;
 import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import java.awt.Color;
