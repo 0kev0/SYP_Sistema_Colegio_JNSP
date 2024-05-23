@@ -5,30 +5,7 @@
 -- Dumped from database version 16.0
 -- Dumped by pg_dump version 16.0
 
--- Started on 2024-05-22 13:19:12
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
--- TOC entry 5105 (class 1262 OID 17291)
--- Name: Db_Colegio-NSDP; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE "Db_Colegio-NSDP" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'English_United States.1252';
-
-
-ALTER DATABASE "Db_Colegio-NSDP" OWNER TO postgres;
-
-\connect -reuse-previous=on "dbname='Db_Colegio-NSDP'"
+-- Started on 2024-05-23 13:21:56
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -315,6 +292,9 @@ COPY public."Tbl_Asistencias" (id, "Docente_id", "Estudiante_id", "Fecha", "Esta
 --
 
 COPY public."Tbl_Descuentos" (id, "Tipo_descuento", "Descuento") FROM stdin;
+1	1 hijo registrado	0.12
+2	2 hijo registrado	0.18
+3	3 hijo registrado	0.30
 \.
 
 
@@ -350,14 +330,14 @@ COPY public."Tbl_Estado_pago" (id, "Estado") FROM stdin;
 
 COPY public."Tbl_Grados" (id, "Grado") FROM stdin;
 1	Primer Grado
-2	2
-3	3
-4	4
-5	5
-6	6
-7	7
-8	8
-9	9
+2	Segundo Grado
+3	Tercer Grado
+4	Cuarto Grado
+5	Quinto Grado
+6	Sexto Grado
+7	Septimo Grado
+8	Octavo Grado
+9	Noveno Grado
 \.
 
 
@@ -426,6 +406,40 @@ COPY public."Tbl_Materias" (id, "Nombre", "Grado_id") FROM stdin;
 --
 
 COPY public."Tbl_Matricula" (id, "Estudiante_id", "Responsables_id", "Año", "Fecha", "Monto_neto", "Descuento_id", "Monto_final", "Grado_id") FROM stdin;
+25	1251	8	2025	2024-04-26	100	3	82	8
+27	1253	1	2024	2024-04-26	100	2	82	8
+33	1259	6	2024	2024-04-26	100	3	82	5
+4	1237	2	2025	2023-01-26	100	2	82	7
+5	1230	3	2025	2023-01-26	100	1	82	7
+6	1235	4	2025	2023-01-26	100	1	82	2
+7	1231	5	2024	2023-01-26	100	2	82	2
+28	1254	1	2024	2024-03-26	100	3	82	1
+29	1255	2	2024	2025-03-26	100	2	82	1
+30	1256	4	2025	2025-03-26	100	3	82	1
+31	1257	5	2024	2024-03-26	100	1	82	5
+13	1234	11	2024	2025-01-26	100	1	82	2
+12	1238	10	2025	2025-01-26	100	2	82	2
+23	1248	7	2024	2025-01-26	100	3	82	7
+32	1258	8	2025	2025-01-26	100	2	82	5
+21	1246	6	2024	2025-02-26	100	2	82	3
+24	1249	9	2024	2025-02-26	100	2	82	3
+14	1239	12	2024	2025-02-26	100	2	82	2
+15	1240	4	2025	2025-02-26	100	3	82	4
+34	1260	7	2025	2025-04-26	100	3	82	5
+3	1234	1	2024	2023-02-02	100	1	88	7
+1	1236	2001	2023	2023-02-03	100	3	72	4
+2	1235	2000	2024	2025-02-05	100	2	82	3
+16	1241	5	2024	2025-04-26	100	1	82	4
+17	1242	6	2024	2025-04-26	100	2	82	4
+26	1252	4	2025	2025-04-26	100	1	82	8
+18	1243	7	2024	2025-04-26	100	2	82	7
+22	1247	8	2024	2025-04-26	100	3	82	7
+19	1244	8	2025	2025-04-26	100	1	82	3
+20	1245	8	2024	2025-04-26	100	2	82	3
+8	1236	6	2025	2023-04-26	100	2	82	2
+9	1232	7	2025	2024-04-26	100	3	82	2
+10	1237	8	2024	2024-04-26	100	3	82	2
+11	1233	9	2025	2024-04-26	100	2	82	2
 \.
 
 
@@ -598,7 +612,20 @@ COPY public."Tbl_Productos" (id, "Nombre", "Tipo_Producto_id", "Costo", "Precio"
 --
 
 COPY public."Tbl_Responsabless" (id, "Nombres_A", "Apellidos_A", "Tipo_Responsable_id", "Telefono_A", "Tipo_Responsable_id_B", "Nombres_B", "Apellidos_B", "Telefono_B", "Direccion", "Correo") FROM stdin;
-1	Juan	Bodoque	1	\N	\N	\N	\N	\N	\N	abc@GMAIL.COM
+1	Juan	Bodoque	1	234234	4	fgfdg	ssss	5543534	eeeeeeeeeeeeeeeeeeeeee	abc@GMAIL.COM
+2001	treat	gdsfg	3	342432	3	fgdfgdfg	gfdgf	545435345	ssssssssssssssss	dsdsfdgfg
+2000	hgfh	sgfdg	2	523434	2	fsfdfd	fdgfdg	5435	sssssssssssssssssssssssssss	dfsdfdsgw
+3	Juan	Pérez	1	12345678	2	María	González	98765432	Calle 123	juanperez@example.com
+4	Pedro	Gómez	2	87654321	3	Ana	López	54321678	Avenida 456	pedrogomez@example.com
+5	Luis	Hernández	3	56781234	4	Laura	Martínez	32147856	Calle 789	luishernandez@example.com
+6	María	González	4	43218765	1	Juan	Pérez	87654321	Avenida 987	mariagonzalez@example.com
+7	Ana	López	1	56781234	2	Pedro	Gómez	43218765	Calle 654	analopez@example.com
+8	Laura	Martínez	2	32147856	3	Luis	Hernández	56781234	Avenida 321	lauramartinez@example.com
+9	Carlos	Rodríguez	3	87654321	4	Sofía	García	43218765	Calle 987	carlosrodriguez@example.com
+10	Sofía	García	4	56781234	1	Carlos	Rodríguez	87654321	Avenida 654	sofiagarcia@example.com
+11	Pedro3	Gómez3	1	87654321	3	Ana3	López3	54321678	Avenida 456	pedrogomez@example.com
+12	Pedro2	Gómez2	2	87654321	3	Ana2	López2	54321678	Avenida 456	pedrogomez@example.com
+2	Rafael Humberto	Lino Lovo	3	6037-6783	1	vacio	vacio	vacio	ChinaMeca	Rl15202@ues.edu.sv
 \.
 
 
@@ -758,71 +785,71 @@ COPY public."tbl_Estudiante" ("NIE", "Nombres", "Apellidos", "Responsables_id", 
 22238	Carlos David	Campos Avalos	{28}	3	\N
 22239	Carla Johana	Ramirez Amaya	{29}	3	\N
 22240	Victor Roberto	Rodríguez Molina	{30}	3	\N
-21141	Alejandro Adiel	Flores Hernandez	{31}	4	\N
-21142	Rodolfo Daniel	Cuadra Hernández	{32}	4	\N
-21143	Andrea Michelle	Avelar Martínez	{33}	4	\N
-21144	Francisco Joel	Luna Nolasco	{34}	4	\N
 21145	Genesis Beatriz	Cruz Urrutia	{35}	4	\N
 21146	Gerson Osael	Sorto García	{36}	4	\N
 21147	Brenda Liliana	Bonilla Delgado	{37}	4	\N
 21148	César Augusto	Hernández Guevara	{38}	4	\N
 21149	Ivania Cristina	Ventura Membreño	{39}	4	\N
 21150	Emily Iveth	Portillo Velasquez	{40}	4	\N
-20701	Dinora Sofia	Romerio Rios	{41}	5	\N
-20702	Diana Lilian	Chevez Serrano	{42}	5	\N
-20703	Edgar Isaias	Cordova Ponce	{43}	5	\N
-20704	Cindy Elena	Morales Pozo	{44}	5	\N
-20705	Erick Isacc	Salamanca Sanchez	{45}	5	\N
-20706	Alicia Rosibel	García Trejo	{46}	5	\N
-20707	Paolo Fabián 	Blanco Majano	{47}	5	\N
-20708	Gabriel Maximiliano	Alvarado Mazariego	{48}	5	\N
-20709	Gustavo Ismael	Fuentes Benitez	{49}	5	\N
-20710	Hugo Humberto	Merlos García	{50}	5	\N
-19491	Camila Alejandra	Martínez Sorto	{51}	6	\N
-19492	Angel Matias	Hernandez Moreira	{52}	6	\N
-19493	Sonia Isabella	Juarez Salmeron	{53}	6	\N
-19494	David Joel	Aguilar Guandique	{54}	6	\N
-19495	Carla Julissa	Reyes Hernández	{55}	6	\N
-19496	Roberto Isaac	Barraza Solano	{56}	6	\N
-19497	Yeimi Izmar	Lemus Mendoza	{57}	6	\N
-19498	Adolfo Andres	Molina Romero	{58}	6	\N
-19499	Andrea Esmeralda	Giron García	{59}	6	\N
-19500	Arturo Elias	Zavala Solorzano	{60}	6	\N
-18191	Jimena Beatriz	Granados López	{61}	7	\N
-18192	Hector Benjamín	Ayala Gonzalez	{62}	7	\N
-18193	Brenda Daniela	Ramos Flores	{63}	7	\N
-18194	Antony César	Chavez Martínez	{64}	7	\N
-18195	Carmen Raquel	Hernandez González	{65}	7	\N
-18196	Jose Daniel	Rodríguez Alfaro	{66}	7	\N
-18197	David Emanuel	Moreno García	{67}	7	\N
-18198	Diana Iveth	Machuca Sanchez	{68}	7	\N
-18199	Edgar Samuel	Chavez Ramirez	{69}	7	\N
-18200	Alicia Elena	Villalta Torres	{70}	7	\N
-17110	Erick Armando	García Zelaya	{71}	8	\N
-17120	Katherine Estela	Salazar Martínez	{72}	8	\N
-17130	Francisco Fabián	Diaz Diaz	{73}	8	\N
-17140	Eliza Gabriela	Solis Manzano	{74}	8	\N
-17150	Luciano Gustavo	Lazo Moreno	{75}	8	\N
-17160	Hugo Jose	Martínez Membreño	{76}	8	\N
-17170	Camila Isabel	Perez Parada	{77}	8	\N
-17180	Marcos Mateo	Manzano Torres	{78}	8	\N
-17190	Melissa Isabella	Perez Gomez	{79}	8	\N
-17200	Jonathan Esau	Lizama Magaña	{80}	8	\N
-16091	Carla Amalia	Diaz Romero	{81}	9	\N
-16092	Julio Roberto	Guandique Sosa	{82}	9	\N
-16093	Ruth Jacqueline	Lemus Vazquez	{83}	9	\N
-16094	Ever Adolfo	Martínez Rivera	{84}	9	\N
-16095	Andrea Celeste	Casas López	{85}	9	\N
-16096	Juan Arturo	Rivera Avalos	{86}	9	\N
-16097	Melissa Beatriz	García Benitez	{87}	9	\N
-16098	Benjamín Franklin	Martínez Mendoza	{88}	9	\N
-16099	Brenda Sarai	López Lovo	{89}	9	\N
-16100	César Antonio	Paredes Rodríguez	{90}	9	\N
+12360	Erick Armando	García Zelaya	{71}	8	\N
+12370	Katherine Estela	Salazar Martínez	{72}	8	\N
+12380	Francisco Fabián	Diaz Diaz	{73}	8	\N
+12390	Eliza Gabriela	Solis Manzano	{74}	8	\N
+1240	Luciano Gustavo	Lazo Moreno	{75}	8	\N
+1246	Jimena Beatriz	Granados López	{61}	7	\N
+1247	Hector Benjamín	Ayala Gonzalez	{62}	7	\N
+1248	Brenda Daniela	Ramos Flores	{63}	7	\N
+1249	Antony César	Chavez Martínez	{64}	7	\N
+1236	Carla Amalia	Diaz Romero	{81}	9	\N
+1237	Julio Roberto	Guandique Sosa	{82}	9	\N
+1238	Ruth Jacqueline	Lemus Vazquez	{83}	9	\N
+1239	Ever Adolfo	Martínez Rivera	{84}	9	\N
+1230	Andrea Celeste	Casas López	{85}	9	\N
+1231	Juan Arturo	Rivera Avalos	{86}	9	\N
+1232	Melissa Beatriz	García Benitez	{87}	9	\N
+1233	Benjamín Franklin	Martínez Mendoza	{88}	9	\N
+12340	Brenda Sarai	López Lovo	{89}	9	\N
+12350	César Antonio	Paredes Rodríguez	{90}	9	\N
+1241	Hugo Jose	Martínez Membreño	{76}	8	\N
+1242	Camila Isabel	Perez Parada	{77}	8	\N
+1243	Marcos Mateo	Manzano Torres	{78}	8	\N
+1244	Melissa Isabella	Perez Gomez	{79}	8	\N
+1245	Jonathan Esau	Lizama Magaña	{80}	8	\N
+1250	Carmen Raquel	Hernandez González	{65}	7	\N
+1251	Jose Daniel	Rodríguez Alfaro	{66}	7	\N
+1252	David Emanuel	Moreno García	{67}	7	\N
+1253	Diana Iveth	Machuca Sanchez	{68}	7	\N
+1254	Edgar Samuel	Chavez Ramirez	{69}	7	\N
+1255	Alicia Elena	Villalta Torres	{70}	7	\N
+1256	Camila Alejandra	Martínez Sorto	{51}	6	\N
+1257	Angel Matias	Hernandez Moreira	{52}	6	\N
+1258	Sonia Isabella	Juarez Salmeron	{53}	6	\N
+1259	David Joel	Aguilar Guandique	{54}	6	\N
+1260	Carla Julissa	Reyes Hernández	{55}	6	\N
+1261	Roberto Isaac	Barraza Solano	{56}	6	\N
+1262	Yeimi Izmar	Lemus Mendoza	{57}	6	\N
+1263	Adolfo Andres	Molina Romero	{58}	6	\N
+1264	Andrea Esmeralda	Giron García	{59}	6	\N
+1265	Arturo Elias	Zavala Solorzano	{60}	6	\N
+1266	Dinora Sofia	Romerio Rios	{41}	5	\N
+1267	Diana Lilian	Chevez Serrano	{42}	5	\N
+1268	Edgar Isaias	Cordova Ponce	{43}	5	\N
+1269	Cindy Elena	Morales Pozo	{44}	5	\N
+1270	Erick Isacc	Salamanca Sanchez	{45}	5	\N
+1271	Alicia Rosibel	García Trejo	{46}	5	\N
+1272	Paolo Fabián 	Blanco Majano	{47}	5	\N
+1273	Gabriel Maximiliano	Alvarado Mazariego	{48}	5	\N
+1274	Gustavo Ismael	Fuentes Benitez	{49}	5	\N
+1275	Hugo Humberto	Merlos García	{50}	5	\N
+1276	Alejandro Adiel	Flores Hernandez	{31}	4	\N
+1277	Rodolfo Daniel	Cuadra Hernández	{32}	4	\N
+1278	Andrea Michelle	Avelar Martínez	{33}	4	\N
+1279	Francisco Joel	Luna Nolasco	{34}	4	\N
 \.
 
 
 --
--- TOC entry 5133 (class 0 OID 0)
+-- TOC entry 5132 (class 0 OID 0)
 -- Dependencies: 251
 -- Name: Tbl_Actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -831,7 +858,7 @@ SELECT pg_catalog.setval('public."Tbl_Actividades_id_seq"', 7, true);
 
 
 --
--- TOC entry 5134 (class 0 OID 0)
+-- TOC entry 5133 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: Tbl_Asistencias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -840,16 +867,16 @@ SELECT pg_catalog.setval('public."Tbl_Asistencias_id_seq"', 273, true);
 
 
 --
--- TOC entry 5135 (class 0 OID 0)
+-- TOC entry 5134 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: Tbl_Descuentos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Tbl_Descuentos_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."Tbl_Descuentos_id_seq"', 3, true);
 
 
 --
--- TOC entry 5136 (class 0 OID 0)
+-- TOC entry 5135 (class 0 OID 0)
 -- Dependencies: 261
 -- Name: Tbl_EstadoActividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -858,7 +885,7 @@ SELECT pg_catalog.setval('public."Tbl_EstadoActividad_id_seq"', 4, true);
 
 
 --
--- TOC entry 5137 (class 0 OID 0)
+-- TOC entry 5136 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: Tbl_Estado_pago_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -867,7 +894,7 @@ SELECT pg_catalog.setval('public."Tbl_Estado_pago_id_seq"', 1, false);
 
 
 --
--- TOC entry 5138 (class 0 OID 0)
+-- TOC entry 5137 (class 0 OID 0)
 -- Dependencies: 247
 -- Name: Tbl_Grados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -876,7 +903,7 @@ SELECT pg_catalog.setval('public."Tbl_Grados_id_seq"', 9, true);
 
 
 --
--- TOC entry 5139 (class 0 OID 0)
+-- TOC entry 5138 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: Tbl_Materias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -885,16 +912,16 @@ SELECT pg_catalog.setval('public."Tbl_Materias_id_seq"', 58, true);
 
 
 --
--- TOC entry 5140 (class 0 OID 0)
+-- TOC entry 5139 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: Tbl_Matricula_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Tbl_Matricula_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."Tbl_Matricula_id_seq"', 34, true);
 
 
 --
--- TOC entry 5141 (class 0 OID 0)
+-- TOC entry 5140 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: Tbl_Mensualidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -903,7 +930,7 @@ SELECT pg_catalog.setval('public."Tbl_Mensualidad_id_seq"', 1, false);
 
 
 --
--- TOC entry 5142 (class 0 OID 0)
+-- TOC entry 5141 (class 0 OID 0)
 -- Dependencies: 253
 -- Name: Tbl_Nota_Actividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -912,7 +939,7 @@ SELECT pg_catalog.setval('public."Tbl_Nota_Actividad_id_seq"', 98, true);
 
 
 --
--- TOC entry 5143 (class 0 OID 0)
+-- TOC entry 5142 (class 0 OID 0)
 -- Dependencies: 257
 -- Name: Tbl_Periodos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -921,7 +948,7 @@ SELECT pg_catalog.setval('public."Tbl_Periodos_id_seq"', 5, true);
 
 
 --
--- TOC entry 5144 (class 0 OID 0)
+-- TOC entry 5143 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: Tbl_Personal_NIE_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -930,7 +957,7 @@ SELECT pg_catalog.setval('public."Tbl_Personal_NIE_seq"', 1, false);
 
 
 --
--- TOC entry 5145 (class 0 OID 0)
+-- TOC entry 5144 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: Tbl_Personal_Rol_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -939,7 +966,7 @@ SELECT pg_catalog.setval('public."Tbl_Personal_Rol_id_seq"', 1, false);
 
 
 --
--- TOC entry 5146 (class 0 OID 0)
+-- TOC entry 5145 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: Tbl_Productos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -948,25 +975,25 @@ SELECT pg_catalog.setval('public."Tbl_Productos_id_seq"', 20, true);
 
 
 --
--- TOC entry 5147 (class 0 OID 0)
+-- TOC entry 5146 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: Tbl_Responsabless_Tipo_Responsable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Tbl_Responsabless_Tipo_Responsable_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."Tbl_Responsabless_Tipo_Responsable_id_seq"', 2, true);
 
 
 --
--- TOC entry 5148 (class 0 OID 0)
+-- TOC entry 5147 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: Tbl_Responsabless_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Tbl_Responsabless_id_seq"', 1, true);
+SELECT pg_catalog.setval('public."Tbl_Responsabless_id_seq"', 12, true);
 
 
 --
--- TOC entry 5149 (class 0 OID 0)
+-- TOC entry 5148 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: Tbl_Roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -975,7 +1002,7 @@ SELECT pg_catalog.setval('public."Tbl_Roles_id_seq"', 3, true);
 
 
 --
--- TOC entry 5150 (class 0 OID 0)
+-- TOC entry 5149 (class 0 OID 0)
 -- Dependencies: 259
 -- Name: Tbl_TipoActividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -984,7 +1011,7 @@ SELECT pg_catalog.setval('public."Tbl_TipoActividad_id_seq"', 5, true);
 
 
 --
--- TOC entry 5151 (class 0 OID 0)
+-- TOC entry 5150 (class 0 OID 0)
 -- Dependencies: 233
 -- Name: Tbl_Tipo_Producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -993,7 +1020,7 @@ SELECT pg_catalog.setval('public."Tbl_Tipo_Producto_id_seq"', 1, true);
 
 
 --
--- TOC entry 5152 (class 0 OID 0)
+-- TOC entry 5151 (class 0 OID 0)
 -- Dependencies: 255
 -- Name: Tbl_Tipo_Transaccion_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1002,7 +1029,7 @@ SELECT pg_catalog.setval('public."Tbl_Tipo_Transaccion_Id_seq"', 3, true);
 
 
 --
--- TOC entry 5153 (class 0 OID 0)
+-- TOC entry 5152 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: Tbl_Tipos_Responsables_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1011,7 +1038,7 @@ SELECT pg_catalog.setval('public."Tbl_Tipos_Responsables_id_seq"', 4, true);
 
 
 --
--- TOC entry 5154 (class 0 OID 0)
+-- TOC entry 5153 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: Tbl_Transaccion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1020,7 +1047,7 @@ SELECT pg_catalog.setval('public."Tbl_Transaccion_id_seq"', 39, true);
 
 
 --
--- TOC entry 5155 (class 0 OID 0)
+-- TOC entry 5154 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: Tbl_Usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1029,7 +1056,7 @@ SELECT pg_catalog.setval('public."Tbl_Usuarios_id_seq"', 2, true);
 
 
 --
--- TOC entry 5156 (class 0 OID 0)
+-- TOC entry 5155 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: Tbl_estado_aistencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1037,7 +1064,7 @@ SELECT pg_catalog.setval('public."Tbl_Usuarios_id_seq"', 2, true);
 SELECT pg_catalog.setval('public."Tbl_estado_aistencia_id_seq"', 3, true);
 
 
--- Completed on 2024-05-22 13:19:12
+-- Completed on 2024-05-23 13:21:56
 
 --
 -- PostgreSQL database dump complete
