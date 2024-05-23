@@ -250,7 +250,8 @@ FROM public."Tbl_Transaccion" AS TB_TR
             String sql = """
 SELECT TB_TR.id, "Detalle" , "Cantidad", "Fecha", "Monto", "Costo",TB_RE."Correo", "Estudiante_id"  ,"Costo", "Ganancia"
 FROM public."Tbl_Transaccion" AS TB_TR
-	INNER JOIN "Tbl_Responsabless" AS TB_RE ON TB_RE.id = TB_TR."Responsable_id"	
+	INNER JOIN "Tbl_Responsabless" AS TB_RE ON TB_RE.id = TB_TR."Responsable_id"
+                         	
 		WHERE 
 		EXTRACT(MONTH FROM TB_TR."Fecha") = ? 
 		AND EXTRACT(YEAR FROM TB_TR."Fecha") = ? ;""";
