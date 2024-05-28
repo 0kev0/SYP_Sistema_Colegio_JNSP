@@ -4,12 +4,16 @@ import Customizacion.TablaCusomizada;
 import Funciones.Funciones;
 import static Funciones.Funciones.ValidNIE;
 import static Funciones.Funciones.ValidNombres;
+import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_GestionNotas;
 import Modelos.Docente.Modelo_Materias;
+import Modelos.Docente.Modelo_TipoActividad;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -21,21 +25,27 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
     private final Modelos.Docente.Modelo_GestionNotas Objeto_GestionNotas = new Modelos.Docente.Modelo_GestionNotas();
     private List<Modelos.Docente.Modelo_GestionNotas> List_Notas;
-    private Modelo_Materias Objeto_Modelo_Materias = new Modelo_Materias();
-    private final String materia;
-    private final int idmateria;
 
+    private List<Modelo_Materias> List_Materias;
+    private final Modelo_Materias Objeto_Modelo_Materias = new Modelo_Materias();
+
+    private Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
     private DefaultTableModel modeloTabla = new DefaultTableModel();
+
+    private final int Grado;
+    private final int idMateriaGuia;
 
     public Gestion_Notas() {
         initComponents();
-        Objeto_Modelo_Materias = Objeto_Modelo_Materias.Get_Materia(9876);
-        materia = Objeto_Modelo_Materias.getNombreMateria();
-        idmateria = Objeto_Modelo_Materias.getidMateria();
+        Objeto_Docente = Objeto_Docente.Get_Docente(9876);
+        Grado = Objeto_Docente.getIdGradoGuia();
+        idMateriaGuia = Objeto_Docente.getIdMateriaImpartir();
+
+        Get_ListMAterias(Cb_Materias);
         modeloTabla = (DefaultTableModel) Tbl_RegistroNotas.getModel();
         DiseñoTabla(Tbl_RegistroNotas);
-        Get_ListadoNotas(Tbl_RegistroNotas);
-        Lb_MateriaGuia.setText(materia);
+        Get_ListadoNotas(Tbl_RegistroNotas, Grado, idMateriaGuia);
+        Lb_MateriaGuia.setText(Objeto_Docente.getMateriaImpartida());
     }
 
     @SuppressWarnings("unchecked")
@@ -53,6 +63,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         errorTb_Busqueda = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         Lb_MateriaGuia = new javax.swing.JLabel();
+        Cb_Materias = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
@@ -131,7 +142,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 Cb_BusquedaActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 134, -1));
+        jPanel1.add(Cb_Busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 134, -1));
 
         Cb_Periodo.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Periodo.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -144,7 +155,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 Cb_PeriodoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 140, 134, -1));
+        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(934, 140, 130, -1));
 
         TB_Buscar.setBackground(new java.awt.Color(224, 213, 170));
         TB_Buscar.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -170,7 +181,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 TB_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(TB_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 208, 50));
+        jPanel1.add(TB_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 208, 50));
 
         errorTb_Busqueda.setBackground(new java.awt.Color(23, 42, 56));
         errorTb_Busqueda.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -190,10 +201,10 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(Lb_MateriaGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,6 +215,18 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         );
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 230, -1));
+
+        Cb_Materias.setBackground(new java.awt.Color(224, 213, 170));
+        Cb_Materias.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
+        Cb_Materias.setForeground(new java.awt.Color(0, 0, 0));
+        Cb_Materias.setToolTipText("");
+        Cb_Materias.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Materias : ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
+        Cb_Materias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cb_MateriasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Cb_Materias, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 180, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -242,11 +265,21 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     }
 
     private void Cb_BusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_BusquedaActionPerformed
+        int filtro = Cb_Materias.getSelectedIndex();
+
+        List_Materias = Objeto_Modelo_Materias.GetListadoMaterias(Grado);
+
+        String materiaSeleccionada = List_Materias.get(filtro).getNombreMateria();
+        int Id_materiaSeleccionada = List_Materias.get(filtro).getidMateria();
+
+        Lb_MateriaGuia.setText(materiaSeleccionada);
+        Get_ListadoNotas_Materia(Tbl_RegistroNotas, Id_materiaSeleccionada);
+
         switch (Cb_Busqueda.getSelectedItem().toString()) {
             case "NIE" -> {
 
                 TB_Buscar.setToolTipText("Introduzca NIE");
-                Get_ListadoNotas(Tbl_RegistroNotas);
+                Get_ListadoNotas(Tbl_RegistroNotas, Grado, Id_materiaSeleccionada);
                 TB_Buscar.setText("Ingrese NIE");
 
             }
@@ -254,14 +287,14 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
             case "Apellido" -> {
 
                 TB_Buscar.setToolTipText("Introduzca NIE");
-                Get_ListadoNotas(Tbl_RegistroNotas);
+                Get_ListadoNotas(Tbl_RegistroNotas, Grado, Id_materiaSeleccionada);
                 TB_Buscar.setText("Ingrese Apellido");
 
             }
             case "Nombre" -> {
 
                 TB_Buscar.setToolTipText("Introduzca NIE");
-                Get_ListadoNotas(Tbl_RegistroNotas);
+                Get_ListadoNotas(Tbl_RegistroNotas, Grado, Id_materiaSeleccionada);
                 TB_Buscar.setText("Ingrese Nombre");
 
             }
@@ -277,6 +310,16 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         int i = Cb_Busqueda.getSelectedIndex();
         System.out.println("INDICE " + i);
 
+        int filtro = Cb_Materias.getSelectedIndex();
+
+        List_Materias = Objeto_Modelo_Materias.GetListadoMaterias(Grado);
+
+        String materiaSeleccionada = List_Materias.get(filtro).getNombreMateria();
+        int Id_materiaSeleccionada = List_Materias.get(filtro).getidMateria();
+
+        Lb_MateriaGuia.setText(materiaSeleccionada);
+        Get_ListadoNotas_Materia(Tbl_RegistroNotas, Id_materiaSeleccionada);
+
         switch (i) {
             case 0 ->
                 ValidNIE(TB_Buscar, errorTb_Busqueda);
@@ -290,7 +333,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         }
 
         if (Palabra.equals("")) {
-            Get_ListadoNotas(Tbl_RegistroNotas);
+            Get_ListadoNotas(Tbl_RegistroNotas, Grado,Id_materiaSeleccionada);
             Funciones.clearScreen();
 
         } else {
@@ -350,7 +393,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         System.out.println("buscando periodo: " + periodo + " y parametro: " + ParametroBusqueda);
 
         List<Modelo_GestionNotas> obj;
-        obj = Objeto_GestionNotas.GetRegistroNotas(1, periodo, idmateria);
+        obj = Objeto_GestionNotas.GetRegistroNotas(1, periodo, 1);
         System.out.println("*** *** ***hay " + obj.size());
 
         for (Modelo_GestionNotas item : obj) {
@@ -391,6 +434,20 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         Funciones.Mouse_EnterTextbox(TB_Buscar);
     }//GEN-LAST:event_TB_BuscarMouseEntered
 
+    public void Get_ListMAterias(JComboBox ComboBox) {
+
+        DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
+
+        List_Materias = Objeto_Modelo_Materias.GetListadoMaterias(Grado);
+        System.out.println("hay " + List_Materias.size());
+
+        for (Modelo_Materias item : List_Materias) {
+            ModeloComboBox.addElement(item.getNombreMateria());
+        }
+
+        ComboBox.setModel(ModeloComboBox);
+    }
+
     private void TB_BuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_BuscarMouseExited
         switch (Cb_Busqueda.getSelectedIndex()) {
             case 0 -> {
@@ -412,6 +469,20 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_TB_BuscarMouseExited
+
+    private void Cb_MateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_MateriasActionPerformed
+        int filtro = Cb_Materias.getSelectedIndex();
+
+        List_Materias = Objeto_Modelo_Materias.GetListadoMaterias(Grado);
+
+        String materiaSeleccionada = List_Materias.get(filtro).getNombreMateria();
+        int Id_materiaSeleccionada = List_Materias.get(filtro).getidMateria();
+
+        Lb_MateriaGuia.setText(materiaSeleccionada);
+        Get_ListadoNotas_Materia(Tbl_RegistroNotas, Id_materiaSeleccionada);
+
+
+    }//GEN-LAST:event_Cb_MateriasActionPerformed
 
     public void DiseñoTabla(JTable tabla) {
         tabla.setDefaultRenderer(Object.class,
@@ -443,10 +514,43 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
     }
 
-    public void Get_ListadoNotas(JTable tabla) {
+    public void Get_ListadoNotas(JTable tabla, int grado, int id_materia) {
         System.out.println("CARGANDO TODAS LAS NOTAS");
-//        int grado = Cb_Periodo.getSelectedIndex() + 1;
+        modeloTabla.setNumRows(0);
 
+        int periodo = Cb_Periodo.getSelectedIndex() + 1;
+        System.out.println("buscando periodo: " + periodo);
+
+        List_Notas = Objeto_GestionNotas.GetRegistroNotas(grado, periodo, id_materia);
+        System.out.println("###hay " + List_Notas.size());
+
+        for (Modelo_GestionNotas item : List_Notas) {
+            double prom = 0;
+            for (int i = 0; i < 4; i++) {
+                prom += item.getNotas().get(i) * .10;
+            }
+            prom += item.getNotas().get(4) * .50;
+            prom += item.getNotas().get(5) * .10;
+
+            modeloTabla.addRow(new Object[]{
+                item.getNIE(),
+                item.getApellido(),
+                item.getNombre(),
+                item.getNotas().get(0),
+                item.getNotas().get(1),
+                item.getNotas().get(2),
+                item.getNotas().get(3),
+                item.getNotas().get(4),
+                item.getNotas().get(5),
+                Math.round(prom * 100.0) / 100.0
+            });
+        }
+
+        tabla.setModel(modeloTabla);
+    }
+
+    public void Get_ListadoNotas_Materia(JTable tabla, int idmateria) {
+        System.out.println("CARGANDO TODAS LAS NOTAS");
         modeloTabla.setNumRows(0);
 
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
@@ -455,7 +559,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         List_Notas = Objeto_GestionNotas.GetRegistroNotas(1, periodo, idmateria);
         System.out.println("###hay " + List_Notas.size());
 
-        for (Modelos.Docente.Modelo_GestionNotas item : List_Notas) {
+        for (Modelo_GestionNotas item : List_Notas) {
             double prom = 0;
             for (int i = 0; i < 4; i++) {
                 prom += item.getNotas().get(i) * .10;
@@ -482,6 +586,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Cb_Busqueda;
+    private javax.swing.JComboBox<String> Cb_Materias;
     private javax.swing.JComboBox<String> Cb_Periodo;
     private javax.swing.JLabel Lb_Aerolinea1;
     private javax.swing.JLabel Lb_MateriaGuia;

@@ -1,6 +1,7 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import Funciones.Funciones;
 import static Funciones.Funciones.clearScreen;
 import static Funciones.Funciones.showMessageDialog;
 import Modelos.Docente.Modelo_TomaAsistencia;
@@ -31,7 +32,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
         initComponents();
         DiseñoTabla(Tbl_ListadoAsistencia);
         get_TblAsistencia(Tbl_ListadoAsistencia);
-        Lb_FechaActual.setText(obtenerFechaActual());
+        Lb_FechaActual.setText(Funciones.obtenerFechaActual());
         modeloTabla = (DefaultTableModel) Tbl_ListadoAsistencia.getModel();
 
         Tbl_ListadoAsistencia.addMouseListener(new MouseAdapter() {
@@ -400,16 +401,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
     }
 
 
-    public static String obtenerFechaActual() {
-        // Obtener la fecha y hora actual
-        Date fecha = new Date();
 
-        // Formatear la fecha como una cadena
-        SimpleDateFormat formato = new SimpleDateFormat("EEEE / dd / MMMM / yyyy", new Locale("es"));
-        String fechaFormateada = formato.format(fecha);
-
-        return fechaFormateada;
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -159,11 +159,11 @@ public class Modelo_Asignacion_Actividades {
             statement = conexionDB.createStatement();//crear consulta
 
             String sql = """
-SELECT Act.id , Act."Nombre_Actividad" , Mat."Nombre",TAct."TipoActividad", TAct."id_Act", Act."Descripcion" , TAct."Ponderacion"
+SELECT Act.id ,Act."Periodo_id", Act."Nombre_Actividad" , Mat."Nombre",TAct."TipoActividad", TAct."id_Act", Act."Descripcion" , TAct."Ponderacion"
 FROM public."Tbl_Actividades" AS Act 
 		INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
 		INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct."id_Act" = Act."TipoActividad_id"
-			WHERE Mat.id = ? ;""";
+			WHERE Mat.id = ? """;
 
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, grado);
@@ -176,6 +176,8 @@ FROM public."Tbl_Actividades" AS Act
                 Modelo_Asignacion_Actividades Actividades = new Modelo_Asignacion_Actividades();
                 Actividades.setIdTipoActividad(consulta.getInt("id_Act"));
                 Actividades.setIdActividad(consulta.getInt("id"));
+                Actividades.setPeriodo(consulta.getInt("Periodo_id"));
+
                 Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
                 Actividades.setMateria(consulta.getString("Nombre"));
                 Actividades.setTipoActividad(consulta.getString("TipoActividad"));
@@ -226,6 +228,77 @@ FROM public."Tbl_Actividades" AS Act
 
                 System.out.println("###" + Actividad.getNombreActividad());
 
+            }
+            conexionDB.close();
+            return Actividad;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Asignacion_Actividades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Modelo_Asignacion_Actividades ComprobarCant_Actividades(int grado, int id, int tipoActividad) {
+        try {
+            conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
+            statement = conexionDB.createStatement();//crear consulta
+
+            String sql = """
+SELECT 
+
+    SUM(CASE WHEN TAct."Ponderacion" = 0.10 THEN 1 ELSE 0 END) AS "Tareas",
+    SUM(CASE WHEN TAct."Ponderacion" = 0.05 THEN 1 ELSE 0 END) AS "autoevaluacion",
+    SUM(CASE WHEN TAct."Ponderacion" = 0.60 THEN 1 ELSE 0 END) AS "parcial"
+	
+FROM public."Tbl_Actividades" AS Act
+INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
+INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct."id_Act" = Act."TipoActividad_id"
+INNER JOIN "Tbl_Personal" AS TbPer ON TbPer."Materia_id" = Mat.id
+
+WHERE Mat.id = ? AND Act."Periodo_id" = ?
+	
+""";
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, grado);
+            pstm.setInt(2, id);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+
+            Modelo_Asignacion_Actividades Actividad = new Modelo_Asignacion_Actividades();
+            int parcial = 0;
+            int tarea = 0;
+            int autoE = 0;
+
+            while (consulta.next()) {
+
+                parcial += consulta.getInt("parcial");
+                tarea += consulta.getInt("Tareas");
+                autoE += consulta.getInt("autoevaluacion");
+
+                System.out.println("""
+                                   actividades: 
+                                   Tareas : """ + tarea + " parcial : " + parcial + " autoE : " + autoE);
+
+            }
+
+            switch (tipoActividad) {
+                case 0 -> {
+                    if (parcial == 1) {
+                        System.out.println("NO SE PUEDE AGREGAR OTRO PARCIAL, FALSE");
+                    }
+                }
+                case 1 -> {
+                    if (tarea == 4) {
+                        System.out.println("NO SE PUEDE AGREGAR OTRA TAREA, FALSE");
+                    }
+                }
+                case 2 -> {
+                    if (autoE == 1) {
+                        System.out.println("NO SE PUEDE AGREGAR OTRA AUTOEVALUACION, FALSE");
+                    }
+                }
+                default -> throw new AssertionError();
             }
             conexionDB.close();
             return Actividad;

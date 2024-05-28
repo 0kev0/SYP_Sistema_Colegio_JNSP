@@ -476,7 +476,7 @@ public class Panel_Docente extends javax.swing.JFrame {
             .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        Panel_bg.add(Desk, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 1100, 540));
+        Panel_bg.add(Desk, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 1100, 540));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

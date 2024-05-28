@@ -30,6 +30,10 @@ public class Modelo_Transacciones {
     private int id_tipo_transaccion;
     private int Cantidades;
     private String detalles;
+    private String Responsable;
+    private String Estudiante;
+    private String Correo;
+
     private Double montos;
     private Double ganancias;
     private Double Precio;
@@ -157,8 +161,43 @@ public class Modelo_Transacciones {
         this.fecha = fecha;
     }
 
+    public String getResponsable() {
+        return Responsable;
+    }
+
+    public void setResponsable(String Responsable) {
+        this.Responsable = Responsable;
+    }
+
+    public String getEstudiante() {
+        return Estudiante;
+    }
+
+    public void setEstudiante(String Estudiante) {
+        this.Estudiante = Estudiante;
+    }
+
+    public String getCorreo() {
+        return Correo;
+    }
+
+    public void setCorreo(String Correo) {
+        this.Correo = Correo;
+    }
+
+    public Modelo_Transacciones(int NIES_Responsable, int Estudiante_id, String Responsable, String Estudiante, String Correo) {
+        this.NIES_Responsable = NIES_Responsable;
+        this.Estudiante_id = Estudiante_id;
+        this.Responsable = Responsable;
+        this.Estudiante = Estudiante;
+        this.Correo = Correo;
+    }
+
+    
+    
     public Modelo_Transacciones(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
-            int id, int NIES_Responsable, int id_tipo_transaccion, int Estudiante_id, Date fecha, int Cantidades, String detalles, Double montos, Double Precio, Double ganancias, Double Costos) {
+            int id, int NIES_Responsable, int id_tipo_transaccion, int Estudiante_id, Date fecha, int Cantidades, String detalles,
+            Double montos, Double Precio, Double ganancias, Double Costos, String Responsable, String Estudiante) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
@@ -174,6 +213,8 @@ public class Modelo_Transacciones {
         this.Precio = Precio;
         this.fecha = fecha;
         this.Estudiante_id = Estudiante_id;
+        this.Estudiante = Estudiante;
+        this.Responsable = Responsable;
 
     }
 
@@ -188,6 +229,90 @@ public class Modelo_Transacciones {
      * @return
      * *******************************************************************************************************************
      */
+    public ArrayList<Modelo_Estudiante> Get_Estudiantes_delResponsable(int Id_Responsable) {
+        try {
+            System.out.println("---CARGAR PRODUCTOS");
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            statement = conexionDB.createStatement(); // Creamos la consulta
+
+            String ConsultaNotasPorNIE = """
+SELECT "NIE", "Nombres", "Apellidos"
+	FROM public."tbl_Estudiante"
+	WHERE "Responsables_id"= ?;""";
+
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
+            preparedStatement.setInt(1, Id_Responsable);
+
+            ResultSet Consulta_Productos = preparedStatement.executeQuery(); // Ejecutamos la consulta
+            //System.out.println("consulta:  " + preparedStatement.toString());
+
+            TiemSql();
+
+            ArrayList<Modelo_Estudiante> List_Estudiantes = new ArrayList<>();
+            while (Consulta_Productos.next()) {
+
+                Modelo_Estudiante estudiante = new Modelo_Estudiante();
+
+                estudiante.setNIE(Consulta_Productos.getInt("NIE"));
+                estudiante.setNombres_Estudiante(Consulta_Productos.getString("Nombres"));
+                estudiante.setApellidos_Estudiante(Consulta_Productos.getString("Apellidos"));
+
+                List_Estudiantes.add(estudiante);
+            }
+
+            System.out.println("\t-> Agregados: " + List_Estudiantes.size());
+            conexionDB.close();
+
+            return List_Estudiantes;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Responsables.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    public Modelo_Transacciones Get_DatosRecibo(int Id_Responsable, int NIE) {
+        try {
+            System.out.println("---CARGAR PRODUCTOS");
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            statement = conexionDB.createStatement(); // Creamos la consulta
+
+            String ConsultaNotasPorNIE = """
+SELECT "NIE", "Nombres", "Apellidos",Tbl_Res."Apellidos_A",Tbl_Res."Nombres_A",Tbl_Res."Correo"
+	FROM public."tbl_Estudiante"
+	INNER JOIN "Tbl_Responsabless" AS Tbl_Res ON Tbl_Res.id = "tbl_Estudiante"."Responsables_id"
+	WHERE "Responsables_id"= ? AND "NIE" = ?;""";
+
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
+            preparedStatement.setInt(1, Id_Responsable);
+            preparedStatement.setInt(2, NIE);
+
+            ResultSet Consulta_Productos = preparedStatement.executeQuery(); // Ejecutamos la consulta
+            //System.out.println("consulta:  " + preparedStatement.toString());
+
+            TiemSql();
+
+            Modelo_Transacciones Datos = new Modelo_Transacciones();
+            while (Consulta_Productos.next()) {
+                Datos.setEstudiante_id(Consulta_Productos.getInt("NIE"));
+                Datos.setEstudiante(Consulta_Productos.getString("Nombres") + " " + Consulta_Productos.getString("Apellidos"));
+                Datos.setResponsable(Consulta_Productos.getString("Nombres_A") + " " + Consulta_Productos.getString("Apellidos_A"));
+                Datos.setCorreo(Consulta_Productos.getString("Correo") );
+
+            }
+
+            conexionDB.close();
+
+            return Datos;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Responsables.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
     public ArrayList<Modelo_Transacciones> Get_Productos() {
         try {
             System.out.println("---CARGAR PRODUCTOS");
@@ -322,7 +447,7 @@ VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);""";
         return 0;
     }
 
-    public int Edit_VentaHecha(Modelo_Transacciones ProductoVendido) {
+    public int Edit_Resta_inventario(Modelo_Transacciones ProductoVendido) {
         try {
 
             String sql = """

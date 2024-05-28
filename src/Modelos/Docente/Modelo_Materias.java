@@ -107,30 +107,32 @@ public class Modelo_Materias {
     }
 
     /**
-     * @param idDocente
+     * @param Grado
      * @return
      * *******************************************************************************************************************
      */
-    public ArrayList<Modelo_Materias> GetListadoMaterias(int idDocente) {
+    public ArrayList<Modelo_Materias> GetListadoMaterias(int Grado) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             String sql = """
-SELECT "Nombre"
-	FROM public."Tbl_Materias"
-		WHERE  "Grado_id" = ? ;""";
+SELECT tbm.id, tbm."Nombre", tbm."Grado_id"
+	FROM public."Tbl_Materias" AS tbm
+                         WHERE tbm."Grado_id" = ?;""";
 
             pstm = conexionDB.prepareStatement(sql);
-            pstm.setInt(1, idDocente);
+            pstm.setInt(1, Grado);
 
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             ArrayList<Modelo_Materias> DataListado = new ArrayList<>();
             while (consulta.next()) {
-                Modelo_Materias Estudiante = new Modelo_Materias();
+                Modelo_Materias materia = new Modelo_Materias();
 
-                Estudiante.setNombreMateria(consulta.getString("Nombre"));
+                materia.setNombreMateria(consulta.getString("Nombre"));
+                materia.setidMateria(consulta.getInt("id"));
+                materia.setIdGrado(consulta.getInt("Grado_id"));
 
-                DataListado.add(Estudiante);
+                DataListado.add(materia);
             }
 
             conexionDB.close();

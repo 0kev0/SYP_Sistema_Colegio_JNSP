@@ -8,6 +8,7 @@ import java.awt.MenuItem;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import static java.lang.System.out;
+import java.text.SimpleDateFormat;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -20,6 +21,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Funciones {
 
@@ -85,6 +89,23 @@ public class Funciones {
         if (textbox.getText().equalsIgnoreCase("")) {
             textbox.setText(textoinicial);
         }
+    }
+
+    public static int Get_Year_Actual() {
+        // Obtener el año actual
+        int añoActual = Calendar.getInstance().get(Calendar.YEAR);
+        return añoActual;
+    }
+
+    public static String obtenerFechaActual() {
+        // Obtener la fecha y hora actual
+        Date fecha = new Date();
+
+        // Formatear la fecha como una cadena
+        SimpleDateFormat formato = new SimpleDateFormat("EEEE / dd / MMMM / yyyy", new Locale("es"));
+        String fechaFormateada = formato.format(fecha);
+
+        return fechaFormateada;
     }
 
     public static void DateValid(JTextField textbox, int maxlimit, JLabel error, int DigitLimit) {
@@ -168,6 +189,16 @@ public class Funciones {
                 timer.start();
             }
         });
+    }
+
+    public static int convertirStringAInt(String cadena) {
+        // Eliminar letras y espacios de la cadena
+        String cadenaSinLetras = cadena.replaceAll("[^0-9]", "");
+
+        // Convertir la cadena sin letras a un entero
+        int resultado = Integer.parseInt(cadenaSinLetras);
+
+        return resultado;
     }
 
     public static void ValidNIE(JTextField textbox, JLabel error) {
@@ -334,10 +365,12 @@ public class Funciones {
     public static boolean validarCampos(JPanel panel) {
         for (Component c : panel.getComponents()) {
             if (c instanceof JTextField jTextField) {
-                if (jTextField.getText().trim().isEmpty()) {
+                if (jTextField.getText().trim().isEmpty() || jTextField.getText().trim().toLowerCase().contains("ingrese")) {
+                    System.out.println(">" + jTextField.getText());
                     JOptionPane.showMessageDialog(c, "Campos vacios, por favor llene todos los campos ");
                     return false;
                 }
+
             }
         }
         return true;
@@ -408,7 +441,7 @@ public class Funciones {
         return 0;
     }
 
-     public static void showMessageDialog(String title, String message) {
+    public static void showMessageDialog(String title, String message) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }

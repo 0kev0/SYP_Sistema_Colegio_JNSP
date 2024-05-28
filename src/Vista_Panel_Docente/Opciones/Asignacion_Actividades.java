@@ -1,8 +1,10 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import Funciones.Funciones;
 import static Funciones.Funciones.clearScreen;
 import Modelos.Docente.Modelo_Asignacion_Actividades;
+import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_Materias;
 import Modelos.Docente.Modelo_Periodos;
 import Modelos.Docente.Modelo_TipoActividad;
@@ -36,13 +38,21 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     private final Modelo_TipoActividad Objeto_TipoActividad = new Modelo_TipoActividad();
     private List<Modelo_TipoActividad> List_TipoActividad;
 
+    private Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
+
     private DefaultTableModel modeloTabla = new DefaultTableModel();
     private final String materia;
     private final int idmateria;
+    private final int Grado;
 
     public Asignacion_Actividades() {
         clearScreen();
         initComponents();
+
+        Objeto_Docente = Objeto_Docente.Get_Docente(9876);
+        Grado = Objeto_Docente.getIdGradoGuia();
+
+        Lb_Materia_Periodo.setText(Objeto_Docente.getMateriaImpartida() + " " + Cb_Periodo.getSelectedItem().toString());
 
         Get_Periodos(Cb_Periodo);
         Get_TipoActividad(Cb_TipoActividad);
@@ -65,8 +75,8 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                 if (COL == 6) {
                     int id = Integer.parseInt(modeloTabla.getValueAt(ROW, 0).toString());
 
-                    Funciones.Funciones.showMessageDialog("Editar notas", "Se a habilitado editar la actividad, una vez editado vualva a presionar el icono ");
-                    Edicion_Actividad editar = new Edicion_Actividad(Objeto_Actividades.GetActividad(1, id),Tbl_Actividades);
+                    Funciones.showMessageDialog("Editar notas", "Se a habilitado editar la actividad, una vez editado vualva a presionar el icono ");
+                    Edicion_Actividad editar = new Edicion_Actividad(Objeto_Actividades.GetActividad(1, id), Tbl_Actividades);
                     editar.setVisible(true);
 
                 }
@@ -87,6 +97,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
 
             modeloTabla.addRow(new Object[]{
                 item.getIdActividad(),
+                item.getPeriodo(),
                 item.getNombreActividad(),
                 item.getMateria(),
                 item.getTipoActividad(),
@@ -171,11 +182,11 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Nombre actividad", "Asignatura", "Tipo", "Descripcion", "Ponderacion", "Editar"
+                "id", "Periodo", "Nombre actividad", "Asignatura", "Tipo", "Descripcion", "Ponderacion", "Editar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false
+                true, true, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -184,18 +195,20 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(Tbl_Actividades);
         if (Tbl_Actividades.getColumnModel().getColumnCount() > 0) {
-            Tbl_Actividades.getColumnModel().getColumn(1).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(150);
+            Tbl_Actividades.getColumnModel().getColumn(0).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(80);
             Tbl_Actividades.getColumnModel().getColumn(2).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(100);
+            Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(150);
             Tbl_Actividades.getColumnModel().getColumn(3).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(4).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(250);
+            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(5).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(250);
             Tbl_Actividades.getColumnModel().getColumn(6).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(50);
+            Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(7).setResizable(false);
+            Tbl_Actividades.getColumnModel().getColumn(7).setPreferredWidth(50);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 800, 350));
@@ -400,31 +413,38 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
-        // TODO add your handling code here:
+        String nobreActividad = TB_NombreActividad.getText();
+        String descripcion = TB_DescripcionActividad.getText();
+        int periodo = Cb_Periodo.getSelectedIndex() + 1;
+
+        if (Funciones.validarCampos(jPanel1)) {
+            Objeto_Actividades.ComprobarCant_Actividades(Grado, periodo, 0);
+        }
+
     }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
 
     private void Btn_GuardarActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseEntered
-        Funciones.Funciones.EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
+        Funciones.EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
     }//GEN-LAST:event_Btn_GuardarActividadMouseEntered
 
     private void Btn_GuardarActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseExited
-        Funciones.Funciones.LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
+        Funciones.LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_GuardarActividadMouseExited
 
     private void TB_NombreActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividadMouseEntered
-        Funciones.Funciones.Mouse_EnterTextbox(TB_NombreActividad);
+        Funciones.Mouse_EnterTextbox(TB_NombreActividad);
     }//GEN-LAST:event_TB_NombreActividadMouseEntered
 
     private void TB_DescripcionActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_DescripcionActividadMouseEntered
-        Funciones.Funciones.Mouse_EnterTextbox(TB_DescripcionActividad);
+        Funciones.Mouse_EnterTextbox(TB_DescripcionActividad);
     }//GEN-LAST:event_TB_DescripcionActividadMouseEntered
 
     private void TB_DescripcionActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_DescripcionActividadMouseExited
-        Funciones.Funciones.Mouse_LeftTextbox("Ingrese descripcion", TB_DescripcionActividad);
+        Funciones.Mouse_LeftTextbox("Ingrese descripcion", TB_DescripcionActividad);
     }//GEN-LAST:event_TB_DescripcionActividadMouseExited
 
     private void TB_NombreActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividadMouseExited
-        Funciones.Funciones.Mouse_LeftTextbox("Ingrese nombre", TB_NombreActividad);
+        Funciones.Mouse_LeftTextbox("Ingrese nombre", TB_NombreActividad);
     }//GEN-LAST:event_TB_NombreActividadMouseExited
 
     private void Cb_PeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_PeriodoActionPerformed
