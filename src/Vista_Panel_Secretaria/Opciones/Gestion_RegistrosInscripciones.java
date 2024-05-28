@@ -43,7 +43,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         modeloTabla = (DefaultTableModel) Tbl_RegistroInscripcion.getModel();
 
-        Get_Cb_Grados(Cb_Grados);
+        Get_Cb_Grados(Cb_Grados,List_Grados,Objeto_Grados);
         Get_Tbl_Inscripciones(Tbl_RegistroInscripcion);
         DiseñoTabla(Tbl_RegistroInscripcion);
 
@@ -336,7 +336,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void Get_Cb_Grados(JComboBox ComboBox) {
+    public static void Get_Cb_Grados(JComboBox ComboBox,List<Modelo_Grados> List_Grados,Modelo_Grados Objeto_Grados ) {
 
         DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
 
@@ -461,6 +461,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
 
             Utilidades += item.getMonto();
         }
+        
         tabla.setModel(modeloTabla);
         Lb_Total.setText(Utilidades + " $");
 
@@ -578,37 +579,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gestion_RegistrosInscripciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gestion_RegistrosInscripciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gestion_RegistrosInscripciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gestion_RegistrosInscripciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Gestion_RegistrosInscripciones().setVisible(true);

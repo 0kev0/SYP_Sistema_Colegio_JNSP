@@ -162,10 +162,11 @@ public class Modelo_GestionNotas {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             statement = conexionDB.createStatement(); // Creamos la consulta
 
-            ArrayList<Integer> ListaNies = Get_ListadoNIES(); // Lista para almacenar los NIE de los estudiantes del grado
+            ArrayList<Integer> ListaNies = Get_ListadoNIES(grado); // Lista para almacenar los NIE de los estudiantes del grado
 
             ArrayList<Modelo_GestionNotas> ListadoNotas = new ArrayList<>(); // Lista para almacenar los datos de actividades
 
+            System.out.println("buscando periodo " + periodo + " y id materia " + idmateria);
             for (Integer nie : ListaNies) {
 
                 String ConsultaNotasPorNIE = """
@@ -177,7 +178,7 @@ tbA."Nombre_Actividad"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
                 	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"
                 	
-                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND tbA."Materia_id" = ?;
+                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND tbA."Materia_id" = ? ;
             """;
 
                 PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
@@ -233,7 +234,7 @@ tbA."Nombre_Actividad"
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             statement = conexionDB.createStatement(); // Creamos la consulta
 
-            ArrayList<Integer> ListaNies = Get_ListadoNIES(); // Lista para almacenar los NIE de los estudiantes del grado
+            ArrayList<Integer> ListaNies = Get_ListadoNIES(grado); // Lista para almacenar los NIE de los estudiantes del grado
 
             ArrayList<Modelo_GestionNotas> ListadoNotas = new ArrayList<>(); // Lista para almacenar los datos de actividades
 
@@ -297,18 +298,20 @@ tbA."Nombre_Actividad"
         return null;
     }
 
-    public ArrayList<Integer> Get_ListadoNIES() throws SQLException {
+    public ArrayList<Integer> Get_ListadoNIES(int grado) throws SQLException {
         System.out.println("---CARGAR NIES");
         conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
         statement = conexionDB.createStatement(); // Creamos la consulta
         String sql_lista = """
             SELECT "NIE" FROM public."tbl_Estudiante"
-            WHERE "Grado_id" = 1;
+            WHERE "Grado_id" = ? ;
         """;
 
         ArrayList<Integer> ListaNies = new ArrayList<>(); // Lista para almacenar los NIE de los estudiantes del grado
+        PreparedStatement preparedStatement = conexionDB.prepareStatement(sql_lista);
+        preparedStatement.setInt(1, grado);
 
-        ResultSet ConsultaListaNies = statement.executeQuery(sql_lista); // Ejecutamos la consulta con la query dada
+        ResultSet ConsultaListaNies = preparedStatement.executeQuery(); // Ejecutamos la consulta con la query dada
 
         while (ConsultaListaNies.next()) {
             ListaNies.add(ConsultaListaNies.getInt("NIE"));
@@ -386,7 +389,6 @@ tbA."Nombre_Actividad"
                     }
 
                     NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
-
 
                     if (NotaAlumno.getNIE() != 0) {
                         BusquedaNota.add(NotaAlumno); // Agregar el estudiante a la lista de actividades
@@ -472,14 +474,14 @@ tbA."Nombre_Actividad"
     }
 //adaprar los dos tipos de busquyeda
 
-    public ArrayList<Modelo_GestionNotas> getBusquedaNombres(String Palabra, String ParametroBusqueda, int Periodo, int grado,int idmat) {
+    public ArrayList<Modelo_GestionNotas> getBusquedaNombres(String Palabra, String ParametroBusqueda, int Periodo, int grado, int idmat) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             statement = conexionDB.createStatement(); // Creamos la consulta
 
             System.out.println("====>BUSQUEDA POR " + ParametroBusqueda);
 
-                String BusquedaGeneral = """
+            String BusquedaGeneral = """
 SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
 tna."NotaObtenida",
 tbA."Nombre_Actividad"
@@ -491,13 +493,13 @@ tbA."Nombre_Actividad"
                                                                                                                                                                                             
                       WHERE tbA."Periodo_id" = ? AND TbMat.id = ? AND """;
 
-                BusquedaGeneral += " unaccent( " + ParametroBusqueda + " ) " + " LIKE unaccent( ? ) ;";
+            BusquedaGeneral += " unaccent( " + ParametroBusqueda + " ) " + " LIKE unaccent( ? ) ;";
 
-                pstm = conexionDB.prepareStatement(BusquedaGeneral);
+            pstm = conexionDB.prepareStatement(BusquedaGeneral);
 
-                pstm.setInt(1, Periodo);
-                pstm.setInt(2, idmat);
-                pstm.setString(3, Palabra + "%");
+            pstm.setInt(1, Periodo);
+            pstm.setInt(2, idmat);
+            pstm.setString(3, Palabra + "%");
 
             ArrayList<Modelo_GestionNotas> NotaBuscar = new ArrayList<>(); // Lista para almacenar los datos de actividades
 

@@ -1,15 +1,11 @@
 package Vista_Panel_Secretaria;
 
 import Vista_Panel_Secretaria.Opciones.Ventas;
-import Vista_Panel_Docente.*;
 import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import java.awt.Color;
 import static Funciones.Funciones.CentrarFrames;
-import Vista_Panel_Docente.Opciones.Asignacion_Actividades;
 import Vista_Panel_Docente.Opciones.Asignacion_Notas;
-import Vista_Panel_Docente.Opciones.Registro_Asistencia;
-import Vista_Panel_Docente.Opciones.Gestion_Notas;
 import Vista_Panel_Docente.Opciones.Gestion_Voleta_Notas;
 import Vista_Panel_Docente.Opciones.Toma_Asistencia;
 import Vista_Panel_Secretaria.Opciones.Gestion_RegistrosInscripciones;
@@ -390,7 +386,7 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Lb_AsignarNOtas.setBackground(new java.awt.Color(7, 3, 26));
         Lb_AsignarNOtas.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
         Lb_AsignarNOtas.setForeground(new java.awt.Color(7, 3, 26));
-        Lb_AsignarNOtas.setText("Mensualidades");
+        Lb_AsignarNOtas.setText("Pago Mensualidades");
 
         Btn_Inventario9.setBackground(new java.awt.Color(255, 255, 102));
         Btn_Inventario9.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 0, 0, new java.awt.Color(255, 153, 0)));
@@ -552,6 +548,11 @@ public class Panel_Secretaria extends javax.swing.JFrame {
 
         Gestion_Voleta_Notas gest = new Gestion_Voleta_Notas();
 
+// Configura el JInternalFrame
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
+
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
@@ -582,7 +583,10 @@ public class Panel_Secretaria extends javax.swing.JFrame {
 
     private void Btn_Asignar_NotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Asignar_NotasMouseClicked
         Asignacion_Notas gest = new Asignacion_Notas();
-
+// Configura el JInternalFrame
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
@@ -591,7 +595,10 @@ public class Panel_Secretaria extends javax.swing.JFrame {
 
     private void Btn_TomaAsistenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_TomaAsistenciaMouseClicked
         Toma_Asistencia gest = new Toma_Asistencia();
-
+// Configura el JInternalFrame
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
@@ -600,7 +607,10 @@ public class Panel_Secretaria extends javax.swing.JFrame {
 
     private void Btn_RegistroAsistenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegistroAsistenciaMouseClicked
         Ventas gest = new Ventas();
-
+// Configura el JInternalFrame
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
@@ -609,10 +619,8 @@ public class Panel_Secretaria extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Panel_Secretaria().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Panel_Secretaria().setVisible(true);
         });
     }
 
