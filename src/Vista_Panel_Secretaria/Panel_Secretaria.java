@@ -8,6 +8,7 @@ import static Funciones.Funciones.CentrarFrames;
 import Vista_Panel_Docente.Opciones.Asignacion_Notas;
 import Vista_Panel_Docente.Opciones.Gestion_Voleta_Notas;
 import Vista_Panel_Docente.Opciones.Toma_Asistencia;
+import Vista_Panel_Docente.Panel_Docente;
 import Vista_Panel_Secretaria.Opciones.Gestion_RegistrosInscripciones;
 import Vista_Panel_Secretaria.Opciones.Panel_Inscripcion;
 
@@ -49,6 +50,9 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_Asignar_Notas = new javax.swing.JPanel();
         Lb_AsignarNOtas = new javax.swing.JLabel();
         Btn_Inventario9 = new javax.swing.JPanel();
+        Btn_Inscripcion1 = new Customizacion.Custom_Buttons();
+        Btn_Inventario2 = new javax.swing.JPanel();
+        Lb_Inventario1 = new javax.swing.JLabel();
         Desk = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,7 +123,7 @@ public class Panel_Secretaria extends javax.swing.JFrame {
             .addGroup(Btn_Gestion_InscripcionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Lb_MAtricula)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         Btn_Gestion_InscripcionesLayout.setVerticalGroup(
             Btn_Gestion_InscripcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +162,7 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_Inventario10.setLayout(Btn_Inventario10Layout);
         Btn_Inventario10Layout.setHorizontalGroup(
             Btn_Inventario10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 197, Short.MAX_VALUE)
         );
         Btn_Inventario10Layout.setVerticalGroup(
             Btn_Inventario10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,14 +177,14 @@ public class Panel_Secretaria extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_TomaAsistenciaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Lb_Empleado)
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
         Btn_TomaAsistenciaLayout.setVerticalGroup(
             Btn_TomaAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Btn_TomaAsistenciaLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addComponent(Lb_Empleado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Btn_Inventario10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -207,7 +211,7 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_Inventario1.setLayout(Btn_Inventario1Layout);
         Btn_Inventario1Layout.setHorizontalGroup(
             Btn_Inventario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 197, Short.MAX_VALUE)
         );
         Btn_Inventario1Layout.setVerticalGroup(
             Btn_Inventario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,10 +228,10 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_InscripcionLayout.setHorizontalGroup(
             Btn_InscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Btn_Inventario1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_InscripcionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(Btn_InscripcionLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
                 .addComponent(Lb_Inventario)
-                .addGap(24, 24, 24))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Btn_InscripcionLayout.setVerticalGroup(
             Btn_InscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,7 +265,7 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_Inventario13.setLayout(Btn_Inventario13Layout);
         Btn_Inventario13Layout.setHorizontalGroup(
             Btn_Inventario13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 192, Short.MAX_VALUE)
         );
         Btn_Inventario13Layout.setVerticalGroup(
             Btn_Inventario13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,17 +282,17 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_RegistroAsistenciaLayout.setHorizontalGroup(
             Btn_RegistroAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Btn_Inventario13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-            .addGroup(Btn_RegistroAsistenciaLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_RegistroAsistenciaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Lb_RegistroVentas)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
         Btn_RegistroAsistenciaLayout.setVerticalGroup(
             Btn_RegistroAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Btn_RegistroAsistenciaLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addComponent(Lb_RegistroVentas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Btn_Inventario13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -320,7 +324,7 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_Inventario.setLayout(Btn_InventarioLayout);
         Btn_InventarioLayout.setHorizontalGroup(
             Btn_InventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 197, Short.MAX_VALUE)
         );
         Btn_InventarioLayout.setVerticalGroup(
             Btn_InventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,17 +336,17 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_Modificar_cuentaLayout.setHorizontalGroup(
             Btn_Modificar_cuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Btn_Inventario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-            .addGroup(Btn_Modificar_cuentaLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_Modificar_cuentaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Lb_ModificarCuenta)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
         Btn_Modificar_cuentaLayout.setVerticalGroup(
             Btn_Modificar_cuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Btn_Modificar_cuentaLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addComponent(Lb_ModificarCuenta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Btn_Inventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -396,7 +400,7 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_Inventario9.setLayout(Btn_Inventario9Layout);
         Btn_Inventario9Layout.setHorizontalGroup(
             Btn_Inventario9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 197, Short.MAX_VALUE)
         );
         Btn_Inventario9Layout.setVerticalGroup(
             Btn_Inventario9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,10 +412,10 @@ public class Panel_Secretaria extends javax.swing.JFrame {
         Btn_Asignar_NotasLayout.setHorizontalGroup(
             Btn_Asignar_NotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Btn_Inventario9, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-            .addGroup(Btn_Asignar_NotasLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_Asignar_NotasLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Lb_AsignarNOtas)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         Btn_Asignar_NotasLayout.setVerticalGroup(
             Btn_Asignar_NotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,23 +426,81 @@ public class Panel_Secretaria extends javax.swing.JFrame {
                 .addComponent(Btn_Inventario9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        Btn_Inscripcion1.setBackground(new java.awt.Color(250, 244, 208));
+        Btn_Inscripcion1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 3, 3, new java.awt.Color(255, 204, 0)));
+        Btn_Inscripcion1.setPreferredSize(new java.awt.Dimension(180, 60));
+        Btn_Inscripcion1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_Inscripcion1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_Inscripcion1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_Inscripcion1MouseExited(evt);
+            }
+        });
+
+        Btn_Inventario2.setBackground(new java.awt.Color(255, 255, 102));
+        Btn_Inventario2.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 0, 0, new java.awt.Color(255, 153, 0)));
+        Btn_Inventario2.setPreferredSize(new java.awt.Dimension(2, 15));
+
+        javax.swing.GroupLayout Btn_Inventario2Layout = new javax.swing.GroupLayout(Btn_Inventario2);
+        Btn_Inventario2.setLayout(Btn_Inventario2Layout);
+        Btn_Inventario2Layout.setHorizontalGroup(
+            Btn_Inventario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 197, Short.MAX_VALUE)
+        );
+        Btn_Inventario2Layout.setVerticalGroup(
+            Btn_Inventario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 12, Short.MAX_VALUE)
+        );
+
+        Lb_Inventario1.setBackground(new java.awt.Color(7, 3, 26));
+        Lb_Inventario1.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        Lb_Inventario1.setForeground(new java.awt.Color(7, 3, 26));
+        Lb_Inventario1.setText("Buscar ");
+
+        javax.swing.GroupLayout Btn_Inscripcion1Layout = new javax.swing.GroupLayout(Btn_Inscripcion1);
+        Btn_Inscripcion1.setLayout(Btn_Inscripcion1Layout);
+        Btn_Inscripcion1Layout.setHorizontalGroup(
+            Btn_Inscripcion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Btn_Inventario2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+            .addGroup(Btn_Inscripcion1Layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(Lb_Inventario1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        Btn_Inscripcion1Layout.setVerticalGroup(
+            Btn_Inscripcion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Btn_Inscripcion1Layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addComponent(Lb_Inventario1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Btn_Inventario2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout Panel_IzqLayout = new javax.swing.GroupLayout(Panel_Izq);
         Panel_Izq.setLayout(Panel_IzqLayout);
         Panel_IzqLayout.setHorizontalGroup(
             Panel_IzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_IzqLayout.createSequentialGroup()
                 .addGroup(Panel_IzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Panel_IzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Btn_Modificar_cuenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                        .addComponent(Btn_Inscripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                        .addComponent(Btn_Gestion_Inscripciones, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                        .addComponent(Btn_TomaAsistencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                        .addComponent(Btn_Asignar_Notas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                    .addComponent(Btn_RegistroAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Panel_IzqLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(Btn_Regresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(Panel_IzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Panel_IzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(Btn_Modificar_cuenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(Btn_Inscripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(Btn_Gestion_Inscripciones, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(Btn_TomaAsistencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(Btn_Asignar_Notas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                            .addComponent(Btn_RegistroAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(Panel_IzqLayout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(Btn_Regresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(Btn_Inscripcion1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                .addContainerGap())
         );
         Panel_IzqLayout.setVerticalGroup(
             Panel_IzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,7 +517,9 @@ public class Panel_Secretaria extends javax.swing.JFrame {
                 .addComponent(Btn_RegistroAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Btn_Modificar_cuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(Btn_Inscripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(Btn_Regresar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -501,7 +565,9 @@ public class Panel_Secretaria extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseExited
 
     private void Btn_Regresar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseClicked
-        // TODO add your handling code here:
+        Panel_Docente gest = new Panel_Docente();
+        dispose();
+        gest.setVisible(true);
     }//GEN-LAST:event_Btn_Regresar1MouseClicked
 
     private void Btn_Regresar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseEntered
@@ -617,6 +683,18 @@ public class Panel_Secretaria extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Btn_RegistroAsistenciaMouseClicked
 
+    private void Btn_Inscripcion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inscripcion1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Inscripcion1MouseClicked
+
+    private void Btn_Inscripcion1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inscripcion1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Inscripcion1MouseEntered
+
+    private void Btn_Inscripcion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inscripcion1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Inscripcion1MouseExited
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -629,10 +707,12 @@ public class Panel_Secretaria extends javax.swing.JFrame {
     private javax.swing.JPanel Btn_Asignar_Notas;
     private javax.swing.JPanel Btn_Gestion_Inscripciones;
     private javax.swing.JPanel Btn_Inscripcion;
+    private javax.swing.JPanel Btn_Inscripcion1;
     private javax.swing.JPanel Btn_Inventario;
     private javax.swing.JPanel Btn_Inventario1;
     private javax.swing.JPanel Btn_Inventario10;
     private javax.swing.JPanel Btn_Inventario13;
+    private javax.swing.JPanel Btn_Inventario2;
     private javax.swing.JPanel Btn_Inventario8;
     private javax.swing.JPanel Btn_Inventario9;
     private javax.swing.JPanel Btn_Modificar_cuenta;
@@ -644,6 +724,7 @@ public class Panel_Secretaria extends javax.swing.JFrame {
     private javax.swing.JLabel Lb_AsignarNOtas;
     private javax.swing.JLabel Lb_Empleado;
     private javax.swing.JLabel Lb_Inventario;
+    private javax.swing.JLabel Lb_Inventario1;
     private javax.swing.JLabel Lb_Logo;
     private javax.swing.JLabel Lb_MAtricula;
     private javax.swing.JLabel Lb_ModificarCuenta;

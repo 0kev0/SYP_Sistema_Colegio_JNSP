@@ -2,7 +2,6 @@ package Vista_Panel_Secretaria.Opciones;
 
 import Funciones.Funciones;
 import Modelos.Secretaria.Modelo_Transacciones;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Recibo1 extends javax.swing.JFrame {

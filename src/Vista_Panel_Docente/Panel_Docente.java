@@ -10,7 +10,7 @@ import Vista_Panel_Docente.Opciones.Registro_Asistencia;
 import Vista_Panel_Docente.Opciones.Gestion_Notas;
 import Vista_Panel_Docente.Opciones.Gestion_Voleta_Notas;
 import Vista_Panel_Docente.Opciones.Toma_Asistencia;
-
+import Vista_Panel_Secretaria.Panel_Secretaria;
 
 public class Panel_Docente extends javax.swing.JFrame {
 
@@ -502,7 +502,9 @@ public class Panel_Docente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseExited
 
     private void Btn_Regresar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseClicked
-        // TODO add your handling code here:
+        Panel_Secretaria gest = new Panel_Secretaria();
+        dispose();
+        gest.setVisible(true);
     }//GEN-LAST:event_Btn_Regresar1MouseClicked
 
     private void Btn_Regresar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseEntered
@@ -530,7 +532,7 @@ public class Panel_Docente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_TomaAsistenciaMouseExited
 
     private void Btn_Inventario_MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseEntered
-        EnterMouse( Btn_Inventario_, Lb_Inventario, "#FFF099", "#FF9900");
+        EnterMouse(Btn_Inventario_, Lb_Inventario, "#FFF099", "#FF9900");
     }//GEN-LAST:event_Btn_Inventario_MouseEntered
 
     private void Btn_Inventario_MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseExited
@@ -552,7 +554,7 @@ public class Panel_Docente extends javax.swing.JFrame {
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
-        
+
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseClicked
 
     private void Btn_Inventario_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseClicked
@@ -575,8 +577,8 @@ public class Panel_Docente extends javax.swing.JFrame {
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
-        gest.show();  
-        
+        gest.show();
+
     }//GEN-LAST:event_Btn_AsignarActividadesMouseClicked
 
     private void Btn_Asignar_NotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Asignar_NotasMouseClicked
@@ -584,7 +586,7 @@ public class Panel_Docente extends javax.swing.JFrame {
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
-        gest.show(); 
+        gest.show();
 
     }//GEN-LAST:event_Btn_Asignar_NotasMouseClicked
 
@@ -593,8 +595,8 @@ public class Panel_Docente extends javax.swing.JFrame {
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
-        gest.show(); 
-        
+        gest.show();
+
     }//GEN-LAST:event_Btn_TomaAsistenciaMouseClicked
 
     private void Btn_RegistroAsistenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegistroAsistenciaMouseClicked
@@ -602,7 +604,7 @@ public class Panel_Docente extends javax.swing.JFrame {
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
-        gest.show(); 
+        gest.show();
 
     }//GEN-LAST:event_Btn_RegistroAsistenciaMouseClicked
 

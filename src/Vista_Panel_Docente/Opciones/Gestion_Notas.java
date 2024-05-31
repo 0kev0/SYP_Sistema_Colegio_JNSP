@@ -46,6 +46,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         DiseñoTabla(Tbl_RegistroNotas);
         Get_ListadoNotas(Tbl_RegistroNotas, Grado, idMateriaGuia);
         Lb_MateriaGuia.setText(Objeto_Docente.getMateriaImpartida());
+
     }
 
     @SuppressWarnings("unchecked")
@@ -160,14 +161,23 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         TB_Buscar.setBackground(new java.awt.Color(224, 213, 170));
         TB_Buscar.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         TB_Buscar.setForeground(new java.awt.Color(0, 0, 0));
-        TB_Buscar.setText("Ingrese NIE");
         TB_Buscar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Buscar", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
         TB_Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TB_BuscarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 TB_BuscarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 TB_BuscarMouseExited(evt);
+            }
+        });
+        TB_Buscar.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                TB_BuscarInputMethodTextChanged(evt);
             }
         });
         TB_Buscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -305,8 +315,11 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Cb_BusquedaActionPerformed
 
     private void TB_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyReleased
-        String ParametroBusqueda = parametrobusqueda();
         String Palabra = TB_Buscar.getText();
+
+        System.out.println("#######################palabra es " + Palabra);
+
+        String ParametroBusqueda = parametrobusqueda();
         int i = Cb_Busqueda.getSelectedIndex();
         System.out.println("INDICE " + i);
 
@@ -333,7 +346,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         }
 
         if (Palabra.equals("")) {
-            Get_ListadoNotas(Tbl_RegistroNotas, Grado,Id_materiaSeleccionada);
+            Get_ListadoNotas(Tbl_RegistroNotas, Grado, Id_materiaSeleccionada);
             Funciones.clearScreen();
 
         } else {
@@ -345,13 +358,13 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
             List<Modelo_GestionNotas> obj;
 
-            obj = Objeto_GestionNotas.getBusqueda(Palabra, ParametroBusqueda, periodo, 1, 1);
+            List_Notas = Objeto_GestionNotas.Get_Busqueda(Palabra, ParametroBusqueda, periodo, 1, 1);
 
             try {
-                int size = obj.size();
+                int size = List_Notas.size();
                 System.out.println("*** *** ***hay " + size);
 
-                for (Modelo_GestionNotas item : obj) {
+                for (Modelo_GestionNotas item : List_Notas) {
 
                     double prom = 0;
                     for (int y = 0; y < 4; y++) {
@@ -382,6 +395,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
             }
         }
+
     }//GEN-LAST:event_TB_BuscarKeyReleased
 
     private void Cb_PeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_PeriodoActionPerformed
@@ -427,9 +441,6 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_TB_BuscarKeyTyped
 
-    private void TB_BuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyPressed
-     }//GEN-LAST:event_TB_BuscarKeyPressed
-
     private void TB_BuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_BuscarMouseEntered
         Funciones.Mouse_EnterTextbox(TB_Buscar);
     }//GEN-LAST:event_TB_BuscarMouseEntered
@@ -449,24 +460,25 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     }
 
     private void TB_BuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_BuscarMouseExited
-        switch (Cb_Busqueda.getSelectedIndex()) {
-            case 0 -> {
-                Funciones.Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(0), TB_Buscar);
+        if (TB_Buscar.getText().isBlank()) {
+            switch (Cb_Busqueda.getSelectedIndex()) {
+                case 0 -> {
+                    Funciones.Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(0), TB_Buscar);
 
+                }
+
+                case 1 -> {
+                    Funciones.Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(1), TB_Buscar);
+
+                }
+                case 2 -> {
+                    Funciones.Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(2), TB_Buscar);
+
+                }
+                default ->
+                    throw new AssertionError();
             }
-
-            case 1 -> {
-                Funciones.Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(1), TB_Buscar);
-
-            }
-            case 2 -> {
-                Funciones.Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(2), TB_Buscar);
-
-            }
-            default ->
-                throw new AssertionError();
         }
-
 
     }//GEN-LAST:event_TB_BuscarMouseExited
 
@@ -483,6 +495,19 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_Cb_MateriasActionPerformed
+
+    private void TB_BuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyPressed
+
+
+    }//GEN-LAST:event_TB_BuscarKeyPressed
+
+    private void TB_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_BuscarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TB_BuscarMouseClicked
+
+    private void TB_BuscarInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_TB_BuscarInputMethodTextChanged
+
+    }//GEN-LAST:event_TB_BuscarInputMethodTextChanged
 
     public void DiseñoTabla(JTable tabla) {
         tabla.setDefaultRenderer(Object.class,
@@ -519,7 +544,6 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         modeloTabla.setNumRows(0);
 
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
-        System.out.println("buscando periodo: " + periodo);
 
         List_Notas = Objeto_GestionNotas.GetRegistroNotas(grado, periodo, id_materia);
         System.out.println("###hay " + List_Notas.size());

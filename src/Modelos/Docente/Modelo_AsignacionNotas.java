@@ -26,10 +26,10 @@ public class Modelo_AsignacionNotas {
     private String NombreActividad;
     private Double Nota;
     private Double Ponderacion;
+    private int periodo;
+    private int id_Actividad;
 
-    
     ///////////////////////////////////////////////////GETTERS Y SETTERS
-  
     public Connection getConexionDB() {
         return conexionDB;
     }
@@ -117,10 +117,27 @@ public class Modelo_AsignacionNotas {
     public void setPonderacion(Double Ponderacion) {
         this.Ponderacion = Ponderacion;
     }
-    
+
+    public int getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(int periodo) {
+        this.periodo = periodo;
+    }
+
+    public int getId_Actividad() {
+        return id_Actividad;
+    }
+
+    public void setId_Actividad(int id_Actividad) {
+        this.id_Actividad = id_Actividad;
+    }
+
     ///////////////////////////////////////////////////CONSTRUCTORES
     public Modelo_AsignacionNotas(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
-            int NIE, String NombreActividad, String NombreEstudiante, String ApellidoEstudiante, String EstadoActividad, Double Nota, Double Ponderacion) {
+            int NIE, String NombreActividad, String NombreEstudiante, String ApellidoEstudiante, String EstadoActividad, Double Nota,
+            Double Ponderacion, int periodo, int id_Actividad) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
@@ -133,6 +150,8 @@ public class Modelo_AsignacionNotas {
         this.EstadoActividad = EstadoActividad;
         this.Nota = Nota;
         this.Ponderacion = Ponderacion;
+        this.periodo = periodo;
+        this.id_Actividad = id_Actividad;
 
     }
 
@@ -151,16 +170,17 @@ public class Modelo_AsignacionNotas {
             statement = conexionDB.createStatement();//crear consulta
             System.out.println("###BUSQUEDA GENERAL");
             String sql = """
-SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
+SELECT Tbl_NAct."Actividad_id",Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", Tb_Act."Periodo_id",
                 Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
                  Tbl_NAct."NotaObtenida"
+				 
                            FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
       INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
       INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
       INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact."id_Act" = Tb_Act."TipoActividad_id"
       INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id"
       INNER JOIN "Tbl_Grados" AS TbGr ON TbGr.id = Tb_Est."Grado_id"
-      WHERE TbGr.id = ? ;""";
+      WHERE TbGr.id = ? ; """;
 
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, grado);
@@ -171,10 +191,11 @@ SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
             while (consulta.next()) {
 
                 Modelo_AsignacionNotas Actividades = new Modelo_AsignacionNotas();
-
+                Actividades.setId_Actividad(consulta.getInt("Actividad_id"));
                 Actividades.setNIE(consulta.getInt("NIE"));
                 Actividades.setNombreEstudiante(consulta.getString("Nombres"));
                 Actividades.setApellidoEstudiante(consulta.getString("Apellidos"));
+                Actividades.setPeriodo(consulta.getInt("Periodo_id"));
                 Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
                 Actividades.setEstadoActividad(consulta.getString("EstadoActividad"));
                 Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
@@ -192,27 +213,32 @@ SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
         return null;
     }
 
-    public ArrayList<Modelo_AsignacionNotas> get_ListadoActividades_Filtrada(int Criterio, String Parametro) {
+    public ArrayList<Modelo_AsignacionNotas> get_ListadoActividades_Filtrada(int Criterio, int periodo, int grado, String Parametro) {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
             System.out.println("###BUSQUEDA FILTRADA\n criterio de busqueda : " + Parametro + "\n Id del criterio  " + Criterio);
 
             String sql = """
-      SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", 
-                              			Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
-                              			Tbl_NAct."NotaObtenida"
-                                                  FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
-                                                  INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
-                                                  INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
-                  								INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact.id = Tb_Act."TipoActividad_id"
-                                                  INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id"
-            					
-            					WHERE """ + Parametro;
+SELECT Tbl_NAct."Actividad_id",Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", Tb_Act."Periodo_id",
+                Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
+                 Tbl_NAct."NotaObtenida"
+				 
+      FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
+      INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
+      INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
+      INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact."id_Act" = Tb_Act."TipoActividad_id"
+      INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id"
+      INNER JOIN "Tbl_Grados" AS TbGr ON TbGr.id = Tb_Est."Grado_id"
+                                 
+	WHERE Tb_Act."Periodo_id" = ?  AND TbGr.id = ?  AND  """ + "  " + Parametro;
 
             pstm = conexionDB.prepareStatement(sql);
-            pstm.setInt(1, Criterio);
+            pstm.setInt(1, periodo);
+            pstm.setInt(2, grado);
+            pstm.setInt(3, Criterio);
 
+            System.out.println("consulta" + pstm.toString());
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             ArrayList<Modelo_AsignacionNotas> DataActividades = new ArrayList<>();
@@ -227,6 +253,8 @@ SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
                 Actividades.setEstadoActividad(consulta.getString("EstadoActividad"));
                 Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
                 Actividades.setNota(consulta.getDouble("NotaObtenida"));
+                Actividades.setPeriodo(consulta.getInt("Periodo_id"));
+                Actividades.setId_Actividad(consulta.getInt("Actividad_id"));
 
                 DataActividades.add(Actividades);
             }
@@ -272,7 +300,7 @@ SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
         try {
             conexionDB = claseConectar.iniciarConexion(); // initiate a connection
 
-            String sql = " ";  
+            String sql = " ";
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, id);
             ResultSet consulta = pstm.executeQuery(); // execute the query
@@ -323,30 +351,27 @@ SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
         return 0;
     }
 
-    public int editPersonas(Modelo_AsignacionNotas PersonasEdit) {
+    public int Edit_AsignarNotas(Modelo_AsignacionNotas NotaEdit) {
         try {
 
             String sql = """
-                         UPDATE public."Tbl_Cliente"
-                         	SET  nombre=?, "apellido paterno"=?, "apellido materno"=?, tipo_documneto=?, num_documento=?, direccion=?, telefono=?, email=?, "Password"=?, "id_Membresia"=?
-                         	WHERE idpersona=?;""";
+UPDATE public."Tbl_Nota_Actividad"
+SET  "NotaObtenida"= ? , "EstadoActividad_id"=1
+WHERE "Actividad_id" = ? and "Estudiante_id" = ? ;
+                         """;
 
             conexionDB = claseConectar.iniciarConexion();
             pstm = conexionDB.prepareStatement(sql);
 
-            //   System.out.println("id a modificar" + PersonasEdit.getId());
-//            pstm.setString(1, PersonasEdit.getNombre());
-//            pstm.setString(2, PersonasEdit.getApellido_paterno());
-//            pstm.setString(3, PersonasEdit.getApellido_materno());
-//            pstm.setString(4, PersonasEdit.getTipo_doc());
-//            pstm.setString(5, PersonasEdit.getNum_doc());
-//            pstm.setString(6, PersonasEdit.getDireccion());
-//            pstm.setString(7, PersonasEdit.getTelefono());
-//            pstm.setString(8, PersonasEdit.getEmail());
-//            pstm.setString(9, PersonasEdit.getPassword());
-//            pstm.setInt(10, PersonasEdit.getIdMembresia());
-//            pstm.setInt(11, PersonasEdit.getId());
+            System.out.println("id a modificar" + NotaEdit.getId_Actividad());
+
+            pstm.setDouble(1, NotaEdit.getNota());
+            pstm.setInt(2, NotaEdit.getId_Actividad());
+            pstm.setInt(3, NotaEdit.getNIE());
+            System.out.println(">>" + pstm.toString());
+
             int respuesta = pstm.executeUpdate();
+            conexionDB.close();
 
             return respuesta;
 
@@ -368,6 +393,7 @@ SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
 
             pstm.setInt(1, id_membresia);
             pstm.setInt(2, id);
+            conexionDB.close();
 
             int respuesta = pstm.executeUpdate();
             //  System.out.println("cambio->> el ID: " + NIE + " membresia " + idMembresia + " >? " + respuesta);
@@ -387,6 +413,7 @@ SELECT Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
             pstm = conexionDB.prepareCall(sql);
 
             pstm.setInt(1, id);
+            conexionDB.close();
 
             int respuesta = pstm.executeUpdate();
 

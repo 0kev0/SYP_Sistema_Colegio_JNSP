@@ -72,11 +72,11 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
             public void mouseClicked(MouseEvent e) {
                 int COL = Tbl_Actividades.columnAtPoint(e.getPoint());
                 int ROW = Tbl_Actividades.rowAtPoint(e.getPoint());
-                if (COL == 6) {
+                if (COL == 7) {
                     int id = Integer.parseInt(modeloTabla.getValueAt(ROW, 0).toString());
 
                     Funciones.showMessageDialog("Editar notas", "Se a habilitado editar la actividad, una vez editado vualva a presionar el icono ");
-                    Edicion_Actividad editar = new Edicion_Actividad(Objeto_Actividades.GetActividad(1, id), Tbl_Actividades);
+                    Edicion_Actividad editar = new Edicion_Actividad(Objeto_Actividades.GetActividad(Grado, id), Tbl_Actividades);
                     editar.setVisible(true);
 
                 }
@@ -99,7 +99,6 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                 item.getIdActividad(),
                 item.getPeriodo(),
                 item.getNombreActividad(),
-                item.getMateria(),
                 item.getTipoActividad(),
                 item.getDescripcion(),
                 item.getPonderacion(),
@@ -182,11 +181,11 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Periodo", "Nombre actividad", "Asignatura", "Tipo", "Descripcion", "Ponderacion", "Editar"
+                "id", "Periodo", "Nombre actividad", "Tipo", "Descripcion", "Ponderacion", "Editar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -195,20 +194,18 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(Tbl_Actividades);
         if (Tbl_Actividades.getColumnModel().getColumnCount() > 0) {
-            Tbl_Actividades.getColumnModel().getColumn(0).setPreferredWidth(80);
-            Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(0).setPreferredWidth(40);
+            Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(40);
             Tbl_Actividades.getColumnModel().getColumn(2).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(150);
             Tbl_Actividades.getColumnModel().getColumn(3).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(4).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(100);
+            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(250);
             Tbl_Actividades.getColumnModel().getColumn(5).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(250);
+            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(6).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(80);
-            Tbl_Actividades.getColumnModel().getColumn(7).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(7).setPreferredWidth(50);
+            Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 800, 350));
@@ -415,11 +412,53 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
         String nobreActividad = TB_NombreActividad.getText();
         String descripcion = TB_DescripcionActividad.getText();
-        int periodo = Cb_Periodo.getSelectedIndex() + 1;
+        int periodo = Cb_Periodo.getSelectedIndex();
+        int TipoActividad = Cb_TipoActividad.getSelectedIndex() + 1;
+        int cantidad_actividades = Tbl_Actividades.getRowCount();
 
-        if (Funciones.validarCampos(jPanel1)) {
-            Objeto_Actividades.ComprobarCant_Actividades(Grado, periodo, 0);
+        if (periodo != 0) {
+
+            if (Funciones.validarCampos(jPanel1)) {
+
+                if (Objeto_Actividades.ComprobarCant_Actividades(Grado, periodo, TipoActividad)) {
+
+                    Objeto_Actividades.setNombreActividad(nobreActividad);
+                    Objeto_Actividades.setDescripcion(descripcion);
+                    Objeto_Actividades.setIdTipoActividad(TipoActividad);
+                    Objeto_Actividades.setId_Materia(idmateria);
+                    Objeto_Actividades.setPeriodo(periodo);
+
+                    Objeto_Actividades.Insert_Actividad(Objeto_Actividades,Grado);
+
+                    modeloTabla = (DefaultTableModel) Tbl_Actividades.getModel();
+                    modeloTabla.setNumRows(0);
+
+                    System.out.println("id mat : " + idmateria);
+                    List_Actividades = Objeto_Actividades.GetActividades_PorPeriodo(idmateria, periodo);
+                    System.out.println("hay " + List_Actividades.size());
+
+                    ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
+                    for (Modelo_Asignacion_Actividades item : List_Actividades) {
+
+                        modeloTabla.addRow(new Object[]{
+                            item.getIdActividad(),
+                            item.getPeriodo(),
+                            item.getNombreActividad(),
+                            item.getTipoActividad(),
+                            item.getDescripcion(),
+                            item.getPonderacion(),
+                            new JLabel(iconoEditar)});
+                    }
+
+                    Tbl_Actividades.setModel(modeloTabla);
+                }
+            }
         }
+        if (periodo == 0) {
+            Funciones.showMessageDialog("Problema", "Cambie al periodo que desea ingresar actividad.");
+
+        }
+
 
     }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
 
@@ -448,7 +487,34 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TB_NombreActividadMouseExited
 
     private void Cb_PeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_PeriodoActionPerformed
-        // TODO add your handling code here:
+        int periodo = Cb_Periodo.getSelectedIndex();
+
+        if (periodo == 0) {
+
+            Get_Tbl_Actividades(Tbl_Actividades);
+        } else {
+            modeloTabla = (DefaultTableModel) Tbl_Actividades.getModel();
+            modeloTabla.setNumRows(0);
+
+            System.out.println("id mat : " + idmateria);
+            List_Actividades = Objeto_Actividades.GetActividades_PorPeriodo(idmateria, periodo);
+            System.out.println("hay " + List_Actividades.size());
+
+            ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
+            for (Modelo_Asignacion_Actividades item : List_Actividades) {
+
+                modeloTabla.addRow(new Object[]{
+                    item.getIdActividad(),
+                    item.getPeriodo(),
+                    item.getNombreActividad(),
+                    item.getTipoActividad(),
+                    item.getDescripcion(),
+                    item.getPonderacion(),
+                    new JLabel(iconoEditar)});
+            }
+
+            Tbl_Actividades.setModel(modeloTabla);
+        }
     }//GEN-LAST:event_Cb_PeriodoActionPerformed
 
     private void Cb_TipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_TipoActividadActionPerformed
@@ -468,17 +534,17 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        int numeroDeCeldas = 5; // Cambia este valor al número de celdas que necesites
+        int numeroDeCeldas = Tbl_Actividades.getColumnCount(); // Cambia este valor al número de celdas que necesites
 
-        for (int i = 0; i < numeroDeCeldas; i++) {
+        for (int i = 0; i < numeroDeCeldas-1; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 
-        tabla.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
-        tabla.getColumnModel().getColumn(3).setCellRenderer(leftRenderer);
+        tabla.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
+        tabla.getColumnModel().getColumn(4).setCellRenderer(leftRenderer);
 
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));

@@ -1,6 +1,9 @@
 package Modelos.Docente;
 
 import Conexion.ClaseConexion;
+import static Funciones.Funciones.TiemSql;
+import Modelos.Secretaria.Modelo_Estudiante;
+import Modelos.Secretaria.Modelo_Responsables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +26,8 @@ public class Modelo_Asignacion_Actividades {
 
 //lado escritorio
     private int Periodo;
+
+    private int Id_Materia;
 
     private String TipoActividad;
     private String Materia;
@@ -126,8 +131,17 @@ public class Modelo_Asignacion_Actividades {
         this.idTipoActividad = idTipoActividad;
     }
 
+    public int getId_Materia() {
+        return Id_Materia;
+    }
+
+    public void setId_Materia(int Id_Materia) {
+        this.Id_Materia = Id_Materia;
+    }
+
     public Modelo_Asignacion_Actividades(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
-            int id, String nombre, String password, String tipo_usuario, String Descripcion, Double Ponderacion, int idActividad, int idTipoActividad) {
+            int id, String nombre, String password, String tipo_usuario, String Descripcion, Double Ponderacion, int idActividad,
+            int idTipoActividad, int Id_Materia) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
@@ -141,6 +155,7 @@ public class Modelo_Asignacion_Actividades {
         this.Ponderacion = Ponderacion;
         this.idActividad = idActividad;
         this.idTipoActividad = idTipoActividad;
+        this.Id_Materia = Id_Materia;
 
     }
 
@@ -163,10 +178,58 @@ SELECT Act.id ,Act."Periodo_id", Act."Nombre_Actividad" , Mat."Nombre",TAct."Tip
 FROM public."Tbl_Actividades" AS Act 
 		INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
 		INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct."id_Act" = Act."TipoActividad_id"
-			WHERE Mat.id = ? """;
+			WHERE Mat.id = ? 
+                         ORDER BY TAct."Ponderacion" ASC;""";
 
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, grado);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+
+            ArrayList<Modelo_Asignacion_Actividades> DataActividades = new ArrayList<>();
+            while (consulta.next()) {
+
+                Modelo_Asignacion_Actividades Actividades = new Modelo_Asignacion_Actividades();
+                Actividades.setIdTipoActividad(consulta.getInt("id_Act"));
+                Actividades.setIdActividad(consulta.getInt("id"));
+                Actividades.setPeriodo(consulta.getInt("Periodo_id"));
+
+                Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
+                Actividades.setMateria(consulta.getString("Nombre"));
+                Actividades.setTipoActividad(consulta.getString("TipoActividad"));
+                Actividades.setDescripcion(consulta.getString("Descripcion"));
+                Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
+
+                System.out.println("###" + Actividades.getNombreActividad());
+
+                DataActividades.add(Actividades);
+            }
+            System.out.println("$$$ " + DataActividades.size());
+            conexionDB.close();
+            return DataActividades;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Asignacion_Actividades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Modelo_Asignacion_Actividades> GetActividades_PorPeriodo(int grado, int periodo) {
+        try {
+            conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
+            statement = conexionDB.createStatement();//crear consulta
+
+            String sql = """
+SELECT Act.id ,Act."Periodo_id", Act."Nombre_Actividad" , Mat."Nombre",TAct."TipoActividad", TAct."id_Act", Act."Descripcion" , TAct."Ponderacion"
+FROM public."Tbl_Actividades" AS Act 
+		INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
+		INNER JOIN "Tbl_TipoActividad" AS TAct ON TAct."id_Act" = Act."TipoActividad_id"
+			WHERE Mat.id = ? AND Act."Periodo_id" = ?
+                         ORDER BY TAct."Ponderacion" ASC; """;
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, grado);
+            pstm.setInt(2, periodo);
 
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
@@ -238,17 +301,17 @@ FROM public."Tbl_Actividades" AS Act
         return null;
     }
 
-    public Modelo_Asignacion_Actividades ComprobarCant_Actividades(int grado, int id, int tipoActividad) {
+    public boolean ComprobarCant_Actividades(int grado, int id, int tipoActividad) {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
-
+            boolean verificar = false;
             String sql = """
 SELECT 
 
-    SUM(CASE WHEN TAct."Ponderacion" = 0.10 THEN 1 ELSE 0 END) AS "Tareas",
-    SUM(CASE WHEN TAct."Ponderacion" = 0.05 THEN 1 ELSE 0 END) AS "autoevaluacion",
-    SUM(CASE WHEN TAct."Ponderacion" = 0.60 THEN 1 ELSE 0 END) AS "parcial"
+    SUM(CASE WHEN Act."TipoActividad_id" = 1 THEN 1 ELSE 0 END) AS "Tareas",
+    SUM(CASE WHEN Act."TipoActividad_id" = 2 THEN 1 ELSE 0 END) AS "autoevaluacion",
+    SUM(CASE WHEN Act."TipoActividad_id" = 3 THEN 1 ELSE 0 END) AS "parcial"
 	
 FROM public."Tbl_Actividades" AS Act
 INNER JOIN "Tbl_Materias" AS Mat ON Mat.id = Act."Materia_id"
@@ -281,32 +344,44 @@ WHERE Mat.id = ? AND Act."Periodo_id" = ?
                                    Tareas : """ + tarea + " parcial : " + parcial + " autoE : " + autoE);
 
             }
-
+            String mensaje = "";
             switch (tipoActividad) {
-                case 0 -> {
-                    if (parcial == 1) {
-                        System.out.println("NO SE PUEDE AGREGAR OTRO PARCIAL, FALSE");
-                    }
-                }
                 case 1 -> {
                     if (tarea == 4) {
-                        System.out.println("NO SE PUEDE AGREGAR OTRA TAREA, FALSE");
+                        mensaje = "NO SE PUEDE AGREGAR OTRA AUTO-EVALUACION";
+
                     }
                 }
                 case 2 -> {
                     if (autoE == 1) {
-                        System.out.println("NO SE PUEDE AGREGAR OTRA AUTOEVALUACION, FALSE");
+                        mensaje = "NO SE PUEDE AGREGAR OTRO PARCIAL";
+
                     }
                 }
-                default -> throw new AssertionError();
+                case 3 -> {
+
+                    if (parcial == 1) {
+                        mensaje = "NO SE PUEDE AGREGAR OTRA TAREA";
+                    }
+                }
+                default -> {
+                    throw new AssertionError();
+
+                }
             }
+
+            if (mensaje.isBlank()) {
+                Funciones.Funciones.showMessageDialog("Exito", "Actividad asignada correctamente.");
+                verificar = true;
+            }
+
             conexionDB.close();
-            return Actividad;
+            return verificar;
 
         } catch (SQLException ex) {
             Logger.getLogger(Modelo_Asignacion_Actividades.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return false;
     }
 
     public ArrayList<Modelo_Asignacion_Actividades> GetInforme() {
@@ -389,28 +464,92 @@ WHERE Mat.id = ? AND Act."Periodo_id" = ?
         return null;
     }
 
-    public int insertNuevoCliente(Modelo_Asignacion_Actividades PersonasInsert) {
+    public int Get_idActividad() {
+        try {
+            System.out.println("---CARGAR PRODUCTOS");
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            statement = conexionDB.createStatement(); // Creamos la consulta
+
+            String UltimoId = """
+SELECT id
+FROM public."Tbl_Actividades"
+ORDER BY id DESC
+LIMIT 1;""";
+
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(UltimoId);
+
+            ResultSet Conaulta_Inscripcion = preparedStatement.executeQuery(); // Ejecutamos la consulta
+            //System.out.println("consulta:  " + preparedStatement.toString());
+
+            TiemSql();
+
+            int id = 0;
+
+            while (Conaulta_Inscripcion.next()) {
+                id = Conaulta_Inscripcion.getInt("id");
+
+            }
+
+            conexionDB.close();
+
+            return id;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Responsables.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return 0;
+    }
+
+    public int Insert_Actividad(Modelo_Asignacion_Actividades ActividadNueva, int grado) {
         try {
             String sql = """
-                         INSERT INTO public."Tbl_Cliente"( nombre, "apellido paterno", "apellido materno", tipo_documneto, num_documento, direccion, telefono, email, "Password", "id_Membresia")
-                         \tVALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);""";
+            INSERT INTO public."Tbl_Actividades"("Nombre_Actividad", "Materia_id", "TipoActividad_id", "Descripcion", "Periodo_id")
+            VALUES (?, ?, ?, ?, ?);
+        """;
 
             conexionDB = claseConectar.iniciarConexion();
-            pstm = conexionDB.prepareCall(sql);
+            pstm = conexionDB.prepareStatement(sql);
 
-//            pstm.setString(1, PersonasInsert.getNombre());
-//            pstm.setString(2, PersonasInsert.getApellido_paterno());
-//            pstm.setString(3, PersonasInsert.getApellido_materno());
-//            pstm.setString(4, PersonasInsert.getTipo_doc());
-//            pstm.setString(5, PersonasInsert.getNum_doc());
-//            pstm.setString(6, PersonasInsert.getDireccion());
-//            pstm.setString(7, PersonasInsert.getTelefono());
-//            pstm.setString(8, PersonasInsert.getEmail());
-//            pstm.setString(9, PersonasInsert.getPassword());
-//            pstm.setInt(10, PersonasInsert.getIdMembresia());//Sin membresia
+            pstm.setString(1, ActividadNueva.getNombreActividad());
+            pstm.setInt(2, ActividadNueva.getId_Materia());
+            pstm.setInt(3, ActividadNueva.getIdTipoActividad());
+            pstm.setString(4, ActividadNueva.getDescripcion());
+            pstm.setInt(5, ActividadNueva.getPeriodo());
+
             int respuesta = pstm.executeUpdate();
 
             System.out.println(">>" + respuesta);
+
+            String ConsultaNotasPorNIE = """
+            SELECT "NIE" FROM public."tbl_Estudiante" WHERE "Grado_id" = ?;
+        """;
+
+            conexionDB = claseConectar.iniciarConexion();
+            pstm = conexionDB.prepareStatement(ConsultaNotasPorNIE);
+            pstm.setInt(1, grado);
+
+            ResultSet consultaEstudiantes = pstm.executeQuery();
+
+            String insert = """
+            INSERT INTO public."Tbl_Nota_Actividad"("Estudiante_id", "Actividad_id", "NotaObtenida", "EstadoActividad_id")
+            VALUES (?, ?, ?, ?);
+        """;
+            int ActividadAgregada = Get_idActividad(); // Supongo que Get_idActividad() obtiene el ID de la actividad recién agregada
+
+            while (consultaEstudiantes.next()) {
+                conexionDB = claseConectar.iniciarConexion();
+                pstm = conexionDB.prepareStatement(insert);
+                pstm.setInt(1, consultaEstudiantes.getInt("NIE"));
+                pstm.setInt(2, ActividadAgregada);
+                pstm.setDouble(3, 0.0);
+                pstm.setInt(4, 2);
+                System.out.println("se agrego actividad ");
+
+                int result = pstm.executeUpdate();
+                System.out.println(">>" + result);
+            }
+            conexionDB.close();
 
             return respuesta;
 

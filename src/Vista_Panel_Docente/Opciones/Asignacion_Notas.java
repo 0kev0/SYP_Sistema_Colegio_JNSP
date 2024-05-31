@@ -1,13 +1,18 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import Funciones.Funciones;
 import Modelos.Docente.Modelo_AsignacionNotas;
+import Modelos.Docente.Modelo_Asignacion_Actividades;
+import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_EstadoActividad;
 import Modelos.Docente.Modelo_Periodos;
 import Modelos.Docente.Modelo_TipoActividad;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -35,6 +40,9 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
+    private final Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
+    private int grado = Objeto_Docente.Get_Docente(9876).getIdGradoGuia();
+
     public Asignacion_Notas() {
         initComponents();
         DiseñoTabla(Tbl_Actividades);
@@ -42,6 +50,40 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         Get_Tabla_NotaActividades(Tbl_Actividades);
         Get_TipoActividad(Cb_TipoActividad);
         Get_Periodos(Cb_Periodo);
+
+        Tbl_Actividades.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int COL = Tbl_Actividades.columnAtPoint(e.getPoint());
+                int ROW = Tbl_Actividades.rowAtPoint(e.getPoint());
+                if (COL == 9) {
+                    String estado = modeloTabla.getValueAt(ROW, 6).toString();
+                    // Check if the estado is "Pendiente"
+                    if ("Pendiente".equals(estado)) {
+                        int idActividad = Integer.parseInt(Tbl_Actividades.getValueAt(ROW, 0).toString());
+                        int nie = Integer.parseInt(Tbl_Actividades.getValueAt(ROW, 1).toString());
+
+                        String nombre = Tbl_Actividades.getValueAt(ROW, 2).toString();
+                        String apellido = Tbl_Actividades.getValueAt(ROW, 3).toString();
+                        int periodo = Integer.parseInt(Tbl_Actividades.getValueAt(ROW, 4).toString());
+                        String actividad = Tbl_Actividades.getValueAt(ROW, 5).toString();
+
+                        Modelo_AsignacionNotas Objeto_AsignarNota = new Modelo_AsignacionNotas();
+                        Objeto_AsignarNota.setApellidoEstudiante(apellido);
+                        Objeto_AsignarNota.setNombreEstudiante(nombre);
+                        Objeto_AsignarNota.setNombreActividad(actividad);
+                        Objeto_AsignarNota.setNIE(nie);
+
+                        Asignar_Nota notaObtenida = new Asignar_Nota(idActividad, periodo, Objeto_AsignarNota, Tbl_Actividades);
+                        notaObtenida.setVisible(true);
+
+                        System.out.println("Editable column: " + COL);
+                    } else {
+                        Funciones.showMessageDialog("Problema", "Ya se a calificado la actividad.");
+                    }
+                }
+            }
+        });
 
     }
 
@@ -89,11 +131,11 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "NIE", "Nombres", "Apellidos", "Actividad", "Estado", "Ponderacion", "Nota", "Editar"
+                "id", "NIE", "Nombres", "Apellidos", "Periodo", "Actividad", "Estado", "Ponderacion", "Nota", "Editar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -105,19 +147,23 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             Tbl_Actividades.getColumnModel().getColumn(0).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(0).setPreferredWidth(70);
             Tbl_Actividades.getColumnModel().getColumn(1).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(150);
+            Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(70);
             Tbl_Actividades.getColumnModel().getColumn(2).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(150);
             Tbl_Actividades.getColumnModel().getColumn(3).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(150);
             Tbl_Actividades.getColumnModel().getColumn(4).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(100);
+            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(80);
             Tbl_Actividades.getColumnModel().getColumn(5).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(100);
+            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(150);
             Tbl_Actividades.getColumnModel().getColumn(6).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(7).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(7).setPreferredWidth(60);
+            Tbl_Actividades.getColumnModel().getColumn(7).setPreferredWidth(100);
+            Tbl_Actividades.getColumnModel().getColumn(8).setResizable(false);
+            Tbl_Actividades.getColumnModel().getColumn(8).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(9).setResizable(false);
+            Tbl_Actividades.getColumnModel().getColumn(9).setPreferredWidth(60);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 850, 350));
@@ -352,31 +398,26 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
 
     private void Btn_GuardarActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseEntered
-        Funciones.Funciones.EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
+        Funciones.EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
     }//GEN-LAST:event_Btn_GuardarActividadMouseEntered
 
     private void Btn_GuardarActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseExited
-        Funciones.Funciones.LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
+        Funciones.LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_GuardarActividadMouseExited
 
     private void Cb_EstadoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_EstadoActividadActionPerformed
         int id_IdEstado = Cb_EstadoActividad.getSelectedIndex() + 1;
 
-        if (id_IdEstado == 4) {
-            Get_Tabla_NotaActividades(Tbl_Actividades);
-            System.out.println("all");
-        } else {
-            Get_Tabla_NotaActividades_Filtrada(Tbl_Actividades, id_IdEstado, " Tb_EsAc.id = ?");
-        }
+        Get_Tabla_NotaActividades_Filtrada(Tbl_Actividades, id_IdEstado, "  Tb_EsAc.id = ?  ");
 
 
     }//GEN-LAST:event_Cb_EstadoActividadActionPerformed
 
     private void Cb_TipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_TipoActividadActionPerformed
-
         int id_TipoActividad = Cb_TipoActividad.getSelectedIndex() + 1;
 
-        Get_Tabla_NotaActividades_Filtrada(Tbl_Actividades, id_TipoActividad, " Tb_Act.\"TipoActividad_id\" = ?");
+        Get_Tabla_NotaActividades_Filtrada(Tbl_Actividades, id_TipoActividad, "  Tb_Act.\"TipoActividad_id\" = ?  ");
+
 
     }//GEN-LAST:event_Cb_TipoActividadActionPerformed
 
@@ -387,21 +428,25 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             Get_Tabla_NotaActividades(Tbl_Actividades);
             System.out.println("all");
         } else {
-            Get_Tabla_NotaActividades_Filtrada(Tbl_Actividades, id_periodo, " Tb_Act.\"Periodo_id\" = ? ");
+            Get_Tabla_NotaActividades_Filtrada(Tbl_Actividades, id_periodo, " Tb_Act.\"Periodo_id\" = ?  ");
         }
 
     }//GEN-LAST:event_Cb_PeriodoActionPerformed
 
     private void Btn_LimpiarFiltrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseClicked
+        Cb_Periodo.setSelectedIndex(0);
+        Cb_EstadoActividad.setSelectedIndex(0);
+        Cb_TipoActividad.setSelectedIndex(0);
         Get_Tabla_NotaActividades(Tbl_Actividades);
+
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseClicked
 
     private void Btn_LimpiarFiltrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseEntered
-        Funciones.Funciones.EnterMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#FFF099", "#FF9900");
+        Funciones.EnterMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#FFF099", "#FF9900");
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseEntered
 
     private void Btn_LimpiarFiltrosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseExited
-        Funciones.Funciones.LeftMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#E2D784", "#000000");
+        Funciones.LeftMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseExited
 
     public void DiseñoTabla(JTable tabla) {
@@ -417,10 +462,10 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < Tbl_Actividades.getColumnCount() - 1; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-        
+
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -440,15 +485,17 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
         ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
 
-        ListObjeto = Objeto.getListadoActividades(1);
+        ListObjeto = Objeto.getListadoActividades(grado);
         System.out.println("hay " + ListObjeto.size());
 
         for (Modelo_AsignacionNotas item : ListObjeto) {
 
             modeloTabla.addRow(new Object[]{
+                item.getId_Actividad(),
                 item.getNIE(),
                 item.getNombreEstudiante(),
                 item.getApellidoEstudiante(),
+                item.getPeriodo(),
                 item.getNombreActividad(),
                 item.getEstadoActividad(),
                 item.getPonderacion(),
@@ -461,20 +508,23 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
     public void Get_Tabla_NotaActividades_Filtrada(JTable tabla, int Criterio, String Parametro) {
 
+        int periodo = Cb_Periodo.getSelectedIndex();
         modeloTabla = (DefaultTableModel) tabla.getModel();
         modeloTabla.setNumRows(0);
 
         ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
 
-        ListObjeto = Objeto.get_ListadoActividades_Filtrada(Criterio, Parametro);
+        ListObjeto = Objeto.get_ListadoActividades_Filtrada(Criterio, periodo, grado, Parametro);
         System.out.println("hay " + ListObjeto.size());
 
         for (Modelo_AsignacionNotas item : ListObjeto) {
 
             modeloTabla.addRow(new Object[]{
+                item.getId_Actividad(),
                 item.getNIE(),
                 item.getNombreEstudiante(),
                 item.getApellidoEstudiante(),
+                item.getPeriodo(),
                 item.getNombreActividad(),
                 item.getEstadoActividad(),
                 item.getPonderacion(),

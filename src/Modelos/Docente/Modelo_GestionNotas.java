@@ -28,6 +28,7 @@ public class Modelo_GestionNotas {
     private String Apellido;
     private Double Promedio;
     private Double Nota;
+    private String tipoactividad;
     private List<Double> notas;
 
     public Connection getConexionDB() {
@@ -126,8 +127,16 @@ public class Modelo_GestionNotas {
         this.Grado = Grado;
     }
 
+    public String getTipoactividad() {
+        return tipoactividad;
+    }
+
+    public void setTipoactividad(String tipoactividad) {
+        this.tipoactividad = tipoactividad;
+    }
+
     public Modelo_GestionNotas(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
-            int NIE, String Nombre, String Apellido, Double Nota, List<Double> notas, Double Promedio) {
+            int NIE, String Nombre, String Apellido, Double Nota, List<Double> notas, Double Promedio, String tipoactividad) {
 
         //LADO DEL SERVIDOR
         this.conexionDB = conexionDB;
@@ -142,6 +151,7 @@ public class Modelo_GestionNotas {
         this.Promedio = Promedio;
         this.Nota = Nota;
         this.notas = notas;
+        this.tipoactividad = tipoactividad;
 
     }
 
@@ -170,15 +180,15 @@ public class Modelo_GestionNotas {
             for (Integer nie : ListaNies) {
 
                 String ConsultaNotasPorNIE = """
-SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
-tna."NotaObtenida",
-tbA."Nombre_Actividad"
+SELECT tbA."TipoActividad_id", TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
+tna."NotaObtenida",tbA."Nombre_Actividad",tbtA."TipoActividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
                 	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"
                 	
-                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND tbA."Materia_id" = ? ;
+                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND tbA."Materia_id" = ?
+					ORDER BY tbA."TipoActividad_id" ASC ;
             """;
 
                 PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
@@ -189,13 +199,12 @@ tbA."Nombre_Actividad"
                 ResultSet consulta_Notas = preparedStatement.executeQuery(); // Ejecutamos la consulta
                 //System.out.println("consulta:  " + preparedStatement.toString());
 
-                TiemSql();
-
+//                TiemSql();
                 ArrayList<Double> notas = new ArrayList<>(); // Lista para almacenar las notas del estudiante
                 Modelo_GestionNotas NotaAlumno = new Modelo_GestionNotas();
 
                 while (consulta_Notas.next()) {
-
+                    System.out.println("nota obtenida " + consulta_Notas.getDouble("NotaObtenida") + " de la actividad " + consulta_Notas.getString("TipoActividad"));
                     notas.add(consulta_Notas.getDouble("NotaObtenida"));
                     NotaAlumno.setNIE(nie);
                     NotaAlumno.setApellido(consulta_Notas.getString("Apellidos"));
@@ -210,14 +219,12 @@ tbA."Nombre_Actividad"
 
                 NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
                 if (NotaAlumno.getNIE() != 0) {
-                    System.out.println("\n>agregando NIE: " + NotaAlumno.getNIE() + " y NOMBRE " + NotaAlumno.getNombre());
                     ListadoNotas.add(NotaAlumno); // Agregar el estudiante a la lista de actividades
 
                 }
 
             }
 
-            System.out.println("\t-> Agregados: " + ListadoNotas.size());
             conexionDB.close();
 
             return ListadoNotas;
@@ -241,16 +248,15 @@ tbA."Nombre_Actividad"
             for (Integer nie : ListaNies) {
 
                 String ConsultaNotasPorNIE = """
-SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
-tna."NotaObtenida",
-tbA."Nombre_Actividad"
+SELECT tbA."TipoActividad_id", TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
+tna."NotaObtenida",tbA."Nombre_Actividad",tbtA."TipoActividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
                 	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"
-                                                                                                          	
-                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ?;
-            """;
+                	
+                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND tbA."Materia_id" = 1
+					ORDER BY tbA."TipoActividad_id" ASC """;
 
                 PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
                 preparedStatement.setInt(1, nie);
@@ -319,7 +325,7 @@ tbA."Nombre_Actividad"
         return ListaNies;
     }
 
-    public ArrayList<Modelo_GestionNotas> getBusqueda(String Palabra, String ParametroBusqueda, int Periodo, int grado, int idmat) {
+    public ArrayList<Modelo_GestionNotas> Get_Busqueda(String Palabra, String ParametroBusqueda, int Periodo, int grado, int idmat) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             statement = conexionDB.createStatement(); // Creamos la consulta
@@ -327,7 +333,7 @@ tbA."Nombre_Actividad"
             ArrayList<Integer> ListaNies = new ArrayList<>(); // Lista para almacenar los NIE de los estudiantes
 
             if (ParametroBusqueda.equalsIgnoreCase(" TbEst.\"NIE\" ")) {
-                System.out.println("====>BUSQUEDA NIE");
+                System.out.println("====>BUSQUEDA NIE : " + Palabra);
 
                 String BUsquedaPorNIE = """
                 SELECT "NIE" FROM public."tbl_Estudiante"
@@ -350,16 +356,15 @@ tbA."Nombre_Actividad"
 
                 for (Integer nie : ListaNies) {
                     String ConsultaNotasPorNIE = """
-SELECT TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
-tna."NotaObtenida",
-tbA."Nombre_Actividad"
+SELECT tbA."TipoActividad_id", TbEst."NIE", TbEst."Apellidos", TbEst."Nombres" ,
+tna."NotaObtenida",tbA."Nombre_Actividad",tbtA."TipoActividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id" 
-					INNER JOIN "Tbl_Materias" AS TbMat ON TbMat.id = tbA."Materia_id"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-               	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND TbMat.id = ? ;""";
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"
+                	
+                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND tbA."Materia_id" = ?
+					ORDER BY tbA."TipoActividad_id" ASC  ;""";
 
                     PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
                     preparedStatement.setInt(1, nie);
@@ -430,17 +435,30 @@ tbA."Nombre_Actividad"
                 ResultSet consulta_Notas = pstm.executeQuery(); // execute the query
                 TiemSql();
 
-                ArrayList<Double> notas = new ArrayList<>(); // Lista para almacenar las notas del estudiante
                 Modelo_GestionNotas NotaAlumno = new Modelo_GestionNotas();
 
-                int i = 1;
+                int i = 0;
+                int nieAnterior = 0; // Variable para almacenar el NIE anterior
+
                 while (consulta_Notas.next()) {
-                    System.out.println(i + "agregando nota de: " + consulta_Notas.getString("Nombres"));
-                    notas.add(consulta_Notas.getDouble("NotaObtenida"));
-                    NotaAlumno.setNIE(consulta_Notas.getInt("NIE"));
-                    NotaAlumno.setApellido(consulta_Notas.getString("Apellidos"));
-                    NotaAlumno.setNombre(consulta_Notas.getString("Nombres"));
-                    NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
+
+                    int nieActual = consulta_Notas.getInt("NIE"); // Obtener el NIE actual
+                    System.out.println("nie anterior " + nieAnterior + " nie actual " + nieActual);
+
+                    if (nieAnterior != nieActual) {
+                        Modelo_GestionNotas NotaAlumnonew = new Modelo_GestionNotas();
+
+                        System.out.println("El NIE ha cambiado"); // Realizar acciones si el NIE ha cambiado
+                        System.out.println(i + "agregando nota de: " + consulta_Notas.getString("Nombres"));
+                        notas.add(consulta_Notas.getDouble("NotaObtenida"));
+                        NotaAlumnonew.setNIE(nieActual);
+                        NotaAlumnonew.setApellido(consulta_Notas.getString("Apellidos"));
+                        NotaAlumnonew.setNombre(consulta_Notas.getString("Nombres"));
+                        NotaAlumnonew.setNotas(notas); // Asignar la lista de notas al estudiante
+                    }
+
+                    nieAnterior = nieActual; // Actualizar el NIE anterior con el NIE actual
+
                     i++;
                 }
 
@@ -459,6 +477,7 @@ tbA."Nombre_Actividad"
                     BusquedaNota.add(NotaAlumno); // Agregar el estudiante a la lista de actividades
 
                 }
+
                 System.out.println("-> Agregados: " + BusquedaNota.size());
                 conexionDB.close();
 
