@@ -4,16 +4,22 @@ import Vista_Panel_Director.Opciones.Gestion_Transacciones;
 import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import java.awt.Color;
+
 import Customizacion.*;
+import Vista_Panel_Director.Opciones.Gestion_Matriculas;
+import Vista_Panel_Director.Opciones.Gestion_Personal;
 
 public class Panel_Director extends javax.swing.JFrame {
 
     public Panel_Director() {
         getContentPane().setBackground(new Color(250, 250, 250));
-
+        
         initComponents();
+        
 
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -23,7 +29,8 @@ public class Panel_Director extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Lb_Info = new javax.swing.JLabel();
-        Lb_Salmo1 = new javax.swing.JLabel();
+        Lb_SalmoDia = new javax.swing.JLabel();
+        Lb_Salmo2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Lb_Aerolinea1 = new javax.swing.JLabel();
         Lb_Logo = new javax.swing.JLabel();
@@ -70,16 +77,21 @@ public class Panel_Director extends javax.swing.JFrame {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 420, -1));
 
         Lb_Info.setBackground(new java.awt.Color(17, 66, 50));
-        Lb_Info.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        Lb_Info.setFont(new java.awt.Font("Segoe UI Variable", 1, 24)); // NOI18N
         Lb_Info.setForeground(new java.awt.Color(17, 66, 50));
         Lb_Info.setText("Bienvenido Director");
-        jPanel2.add(Lb_Info, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
+        jPanel2.add(Lb_Info, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 240, 40));
 
-        Lb_Salmo1.setBackground(new java.awt.Color(17, 66, 50));
-        Lb_Salmo1.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
-        Lb_Salmo1.setForeground(new java.awt.Color(17, 66, 50));
-        Lb_Salmo1.setText("EL salmo del dia");
-        jPanel2.add(Lb_Salmo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
+        Lb_SalmoDia.setBackground(new java.awt.Color(17, 66, 50));
+        Lb_SalmoDia.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        Lb_SalmoDia.setForeground(new java.awt.Color(17, 66, 50));
+        jPanel2.add(Lb_SalmoDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 180, 20));
+
+        Lb_Salmo2.setBackground(new java.awt.Color(17, 66, 50));
+        Lb_Salmo2.setFont(new java.awt.Font("Segoe UI Variable", 1, 20)); // NOI18N
+        Lb_Salmo2.setForeground(new java.awt.Color(17, 66, 50));
+        Lb_Salmo2.setText("El salmo del dia");
+        jPanel2.add(Lb_Salmo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 180, 20));
 
         Panel_bg.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 420, 350));
 
@@ -341,6 +353,9 @@ public class Panel_Director extends javax.swing.JFrame {
         Btn_Matriculas_.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 3, 3, new java.awt.Color(255, 204, 0)));
         Btn_Matriculas_.setPreferredSize(new java.awt.Dimension(180, 60));
         Btn_Matriculas_.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_Matriculas_MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_Matriculas_MouseEntered(evt);
             }
@@ -392,6 +407,9 @@ public class Panel_Director extends javax.swing.JFrame {
         Btn_Empleados_.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 3, 3, new java.awt.Color(255, 204, 0)));
         Btn_Empleados_.setPreferredSize(new java.awt.Dimension(180, 60));
         Btn_Empleados_.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_Empleados_MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_Empleados_MouseEntered(evt);
             }
@@ -658,6 +676,7 @@ public class Panel_Director extends javax.swing.JFrame {
 
     private void Btn_Matriculas_MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Matriculas_MouseEntered
         EnterMouse(Btn_Matriculas_, Lb_MAtricula, "#FFF099", "#FF9900");
+        
     }//GEN-LAST:event_Btn_Matriculas_MouseEntered
 
     private void Btn_Matriculas_MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Matriculas_MouseExited
@@ -700,6 +719,18 @@ public class Panel_Director extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_Btn_Inventario_MouseClicked
 
+    private void Btn_Matriculas_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Matriculas_MouseClicked
+        Gestion_Matriculas gest = new Gestion_Matriculas();
+        dispose();
+        gest.setVisible(true);
+    }//GEN-LAST:event_Btn_Matriculas_MouseClicked
+
+    private void Btn_Empleados_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Empleados_MouseClicked
+        Gestion_Personal gest = new Gestion_Personal();
+        dispose();
+        gest.setVisible(true);
+    }//GEN-LAST:event_Btn_Empleados_MouseClicked
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -740,7 +771,8 @@ public class Panel_Director extends javax.swing.JFrame {
     private javax.swing.JLabel Lb_Ordenar1;
     private javax.swing.JLabel Lb_RecordNotas;
     private javax.swing.JLabel Lb_RegistroVentas;
-    private javax.swing.JLabel Lb_Salmo1;
+    private javax.swing.JLabel Lb_Salmo2;
+    private javax.swing.JLabel Lb_SalmoDia;
     private javax.swing.JPanel PAnel_Der;
     private javax.swing.JPanel Panel_Izq;
     private javax.swing.JPanel Panel_bg;

@@ -12,11 +12,26 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Vista_Panel_Secretaria/Opciones/Recibo1.java</file>
-            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Vista_Panel_Secretaria/Opciones/Ventas.java</file>
-            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Modelos/Secretaria/Modelo_Responsables.java</file>
-            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Modelos/Secretaria/Modelo_Transacciones.java</file>
-            <file>file:/C:/Users/kVo/Desktop/AñO%20ll%20Cic%20ll/visual/Año%20ll%20Ciclo%20ll/JaVa/Colegio_JNSP/src/Vista_Panel_Secretaria/Panel_Secretaria.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Director/Opciones/Gestion_Transacciones.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Modelo/Director/Modelo_Gestion_Personal.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Modelos/Secretaria/Modelo_Estudiante.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Secretaria/Opciones/Panel_Inscripcion.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Modelo/Director/Modelo_Gestion_Matriculas.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Conexion/ClaseConexion.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Secretaria/Opciones/Gestion_RegistrosInscripciones.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Director/Opciones/Gestion_Matriculas.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Modelos/Secretaria/Modelo_RegistrosInscripciones.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Director/Opciones/Gestion_Personal.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Secretaria/Panel_Secretaria.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Modelos/Docente/Modelo_Materias.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Docente/Opciones/Registro_Asistencia.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Director/Panel_Director.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Modelos/Secretaria/Modelo_Productos.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Modelo/Director/Modelo_Gestion_Transacciones.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Start/Start.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Docente/Panel_Docente.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Modelos/Secretaria/Modelo_Matricula.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/SYP_Sistema_Colegio_JNSP/src/Vista_Panel_Secretaria/Opciones/Recibo1.java</file>
         </group>
     </open-files>
 </project-private>

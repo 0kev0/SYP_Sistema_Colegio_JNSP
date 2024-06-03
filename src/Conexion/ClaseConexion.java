@@ -17,8 +17,8 @@ public class ClaseConexion {
 //        this.url = "jdbc:postgresql://ep-young-moon-a53deizt.us-east-2.aws.neon.tech/testeo?user=testeo_owner&password=zgYOavhK9w6U&sslmode=require";
 
         this.usuario = "postgres";
-        this.pass = "RR19118";
-        this.url = "jdbc:postgresql://localhost:5432/Db_Colegio-NSDP";
+        this.pass = "morataya123";
+        this.url = "jdbc:postgresql://localhost:5432/Db_Colegio-JNSP";
 
     }
 
