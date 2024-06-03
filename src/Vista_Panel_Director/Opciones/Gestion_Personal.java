@@ -5,7 +5,11 @@
 package Vista_Panel_Director.Opciones;
 
 import Modelo.Director.Modelo_Gestion_Personal;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,7 +18,9 @@ import javax.swing.table.DefaultTableModel;
  * @author diego
  */
 public class Gestion_Personal extends javax.swing.JFrame {
-
+    
+   private ArrayList<Modelo_Gestion_Personal> listPersonal;
+   private Modelo_Gestion_Personal personalObjeto;
      
     /**
      * Creates new form Gestion_Personal
@@ -23,9 +29,33 @@ public class Gestion_Personal extends javax.swing.JFrame {
          
         initComponents();
         
+        
+        listPersonal = new ArrayList<>();
+        personalObjeto = new Modelo_Gestion_Personal();
+
+        cargarPersonal();
+        
     }
 
- 
+    
+      public void cargarPersonal() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) jTablaPersonal.getModel();
+        modeloTabla.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+        listPersonal = personalObjeto.getPersonal();
+
+        for (Modelo_Gestion_Personal personalItem : listPersonal) {
+            modeloTabla.addRow(new Object[]{
+                    personalItem.getNIE(),
+                    personalItem.getNombres(),
+                    personalItem.getApellidos(),
+                    personalItem.getRol_id(),
+                    personalItem.getGrado_id(),
+                    personalItem.getMateria_id()
+            });
+        }
+    }
+   
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -37,7 +67,7 @@ public class Gestion_Personal extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         Lb_Aerolinea3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_Personal = new javax.swing.JTable();
+        jTablaPersonal = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,17 +133,25 @@ public class Gestion_Personal extends javax.swing.JFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
 
-        jTable_Personal.setModel(new javax.swing.table.DefaultTableModel(
+        jTablaPersonal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "NIE", "Nombres", "Apellidos", "Rol ID", "Grado ID", "Materia ID"
             }
-        ));
-        jScrollPane1.setViewportView(jTable_Personal);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false
+            };
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 920, 300));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTablaPersonal);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 910, 310));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,6 +209,6 @@ public class Gestion_Personal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable_Personal;
+    private javax.swing.JTable jTablaPersonal;
     // End of variables declaration//GEN-END:variables
 }
