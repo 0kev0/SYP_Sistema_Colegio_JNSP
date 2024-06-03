@@ -3,11 +3,12 @@ package Vista_Panel_Docente.Opciones;
 import Customizacion.TablaCusomizada;
 import Funciones.Funciones;
 import Modelos.Docente.Modelo_AsignacionNotas;
-import Modelos.Docente.Modelo_Asignacion_Actividades;
 import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_EstadoActividad;
+import Modelos.Docente.Modelo_Grados;
 import Modelos.Docente.Modelo_Periodos;
 import Modelos.Docente.Modelo_TipoActividad;
+import static Vista_Panel_Docente.Opciones.Asignacion_Actividades.Get_Cb_Grados;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -26,6 +27,9 @@ import javax.swing.table.JTableHeader;
 
 public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
+    public Asignacion_Notas() {
+    }
+
     private final Modelo_AsignacionNotas Objeto = new Modelo_AsignacionNotas();
     private List<Modelo_AsignacionNotas> ListObjeto;
 
@@ -40,16 +44,28 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
-    private final Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
-    private int grado = Objeto_Docente.Get_Docente(9876).getIdGradoGuia();
+    private final Modelo_Grados Objeto_Grados = new Modelo_Grados();
+    private List<Modelo_Grados> List_Grados;
 
-    public Asignacion_Notas() {
+    private Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
+    private int grado;
+    private String Materia;
+
+    public Asignacion_Notas(Modelo_DocenteGuia docente) {
         initComponents();
         DiseñoTabla(Tbl_Actividades);
         Get_EstadosActividades(Cb_EstadoActividad);
         Get_Tabla_NotaActividades(Tbl_Actividades);
         Get_TipoActividad(Cb_TipoActividad);
         Get_Periodos(Cb_Periodo);
+        Get_Cb_Grados(Cb_Grado, List_Grados, Objeto_Grados);
+
+        Objeto_Docente = docente;
+
+        this.grado = Objeto_Docente.getIdGradoGuia();
+        this.Materia = Objeto_Docente.getMateriaImpartida();
+
+        Lb_Materia_Grado.setText(docente.getMateriaImpartida() + " Grado: " + grado);
 
         Tbl_Actividades.addMouseListener(new MouseAdapter() {
             @Override
@@ -95,7 +111,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tbl_Actividades = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        Lb_Aerolinea1 = new javax.swing.JLabel();
+        Lb_Materia_Grado = new javax.swing.JLabel();
         Cb_TipoActividad = new javax.swing.JComboBox<>();
         Cb_Periodo = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
@@ -109,6 +125,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         Btn_LimpiarFiltros = new javax.swing.JPanel();
         Lb_LimpiarFiltros = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        Cb_Grado = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
@@ -171,10 +188,10 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
 
-        Lb_Aerolinea1.setBackground(new java.awt.Color(255, 255, 255));
-        Lb_Aerolinea1.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
-        Lb_Aerolinea1.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Aerolinea1.setText("materia");
+        Lb_Materia_Grado.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Materia_Grado.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
+        Lb_Materia_Grado.setForeground(new java.awt.Color(0, 0, 0));
+        Lb_Materia_Grado.setText("materia y grado");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -184,8 +201,8 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(104, 104, 104)))
+                    .addComponent(Lb_Materia_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(27, 27, 27)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,11 +210,11 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                     .addContainerGap(14, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Lb_Materia_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, 180, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 260, -1));
 
         Cb_TipoActividad.setBackground(new java.awt.Color(224, 213, 170));
         Cb_TipoActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -209,7 +226,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 Cb_TipoActividadActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_TipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 160, -1));
+        jPanel1.add(Cb_TipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 160, -1));
 
         Cb_Periodo.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Periodo.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -221,7 +238,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 Cb_PeriodoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 160, -1));
+        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 160, -1));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -294,10 +311,11 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 Cb_EstadoActividadActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_EstadoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 160, -1));
+        jPanel1.add(Cb_EstadoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 160, -1));
 
         Btn_GuardarActividad.setBackground(new java.awt.Color(226, 215, 132));
         Btn_GuardarActividad.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
+        Btn_GuardarActividad.setEnabled(false);
         Btn_GuardarActividad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Btn_GuardarActividadMouseClicked(evt);
@@ -313,30 +331,26 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         Lb_Guardar.setBackground(new java.awt.Color(255, 255, 255));
         Lb_Guardar.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
         Lb_Guardar.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Guardar.setText("Asignar Notas");
+        Lb_Guardar.setText("Cuadrar notas parciales");
 
         javax.swing.GroupLayout Btn_GuardarActividadLayout = new javax.swing.GroupLayout(Btn_GuardarActividad);
         Btn_GuardarActividad.setLayout(Btn_GuardarActividadLayout);
         Btn_GuardarActividadLayout.setHorizontalGroup(
             Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-            .addGroup(Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_GuardarActividadLayout.createSequentialGroup()
-                    .addContainerGap(21, Short.MAX_VALUE)
-                    .addComponent(Lb_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+            .addGroup(Btn_GuardarActividadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Guardar, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addContainerGap())
         );
         Btn_GuardarActividadLayout.setVerticalGroup(
             Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 43, Short.MAX_VALUE)
-            .addGroup(Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_GuardarActividadLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Lb_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(Btn_GuardarActividadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 200, 50));
+        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 450, 240, 50));
 
         Btn_LimpiarFiltros.setBackground(new java.awt.Color(226, 215, 132));
         Btn_LimpiarFiltros.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -373,11 +387,23 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 .addComponent(Lb_LimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 140, 40));
+        jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 140, 40));
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("hay que restrinjirlo a la materia que imparte el docente guia ");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 400, -1));
+
+        Cb_Grado.setBackground(new java.awt.Color(224, 213, 170));
+        Cb_Grado.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
+        Cb_Grado.setForeground(new java.awt.Color(0, 0, 0));
+        Cb_Grado.setToolTipText("");
+        Cb_Grado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Grados  a evaluar: ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
+        Cb_Grado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cb_GradoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Cb_Grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -448,6 +474,13 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     private void Btn_LimpiarFiltrosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseExited
         Funciones.LeftMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseExited
+
+    private void Cb_GradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_GradoActionPerformed
+        grado = Cb_Grado.getSelectedIndex() + 1;
+        Lb_Materia_Grado.setText(Materia + " Grado: " + grado);
+
+
+    }//GEN-LAST:event_Cb_GradoActionPerformed
 
     public void DiseñoTabla(JTable tabla) {
         tabla.setDefaultRenderer(Object.class,
@@ -582,13 +615,14 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel Btn_GuardarActividad;
     private javax.swing.JPanel Btn_LimpiarFiltros;
     private javax.swing.JComboBox<String> Cb_EstadoActividad;
+    private javax.swing.JComboBox<String> Cb_Grado;
     private javax.swing.JComboBox<String> Cb_Periodo;
     private javax.swing.JComboBox<String> Cb_TipoActividad;
-    private javax.swing.JLabel Lb_Aerolinea1;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
     private javax.swing.JLabel Lb_Guardar;
     private javax.swing.JLabel Lb_LimpiarFiltros;
+    private javax.swing.JLabel Lb_Materia_Grado;
     private javax.swing.JTable Tbl_Actividades;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

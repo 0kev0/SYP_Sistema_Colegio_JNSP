@@ -1,6 +1,7 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_RegistroAsistencia;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,9 +21,12 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
     private final Modelo_RegistroAsistencia Objeto = new Modelo_RegistroAsistencia();
     private List<Modelo_RegistroAsistencia> ListObjeto;
     private DefaultTableModel modeloTabla = new DefaultTableModel();
+    private final int Grado;
 
-    public Registro_Asistencia() {
+    public Registro_Asistencia(Modelo_DocenteGuia docente) {
         initComponents();
+        this.Grado = docente.getIdGradoGuia();
+
         modeloTabla = (DefaultTableModel) Tbl_RegistroAsistencia.getModel();
         DiseñoTabla(Tbl_RegistroAsistencia);
         Cargar_Listado_Registro(Tbl_RegistroAsistencia);
@@ -337,7 +341,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
     public void Cargar_Listado_Registro(JTable tabla) {
         modeloTabla.setNumRows(0);
 
-        ListObjeto = Objeto.GetListado(1);
+        ListObjeto = Objeto.GetListado(Grado);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
 
         for (Modelo_RegistroAsistencia item : ListObjeto) {

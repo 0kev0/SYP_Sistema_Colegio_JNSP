@@ -31,6 +31,7 @@ public final class Asignar_Nota extends javax.swing.JFrame {
 
     public Asignar_Nota(int idActividad, int periodo, Modelo_AsignacionNotas Objeto_AsignarNota, JTable tbl_Actividades) {
         initComponents();
+        setLocationRelativeTo(this);
 
         this.idActividad = idActividad;
         this.tbl_Act = tbl_Actividades;

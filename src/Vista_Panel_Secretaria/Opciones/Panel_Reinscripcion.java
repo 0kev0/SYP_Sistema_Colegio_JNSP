@@ -87,7 +87,7 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         Lb_Aerolinea6 = new javax.swing.JLabel();
         Lb_Crearcuenta = new javax.swing.JLabel();
-        Txb_NIE1 = new javax.swing.JTextField();
+        Txb_idResponsables = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -399,6 +399,9 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
             }
         });
         Txb_NIE.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Txb_NIEKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 Txb_NIEKeyTyped(evt);
             }
@@ -567,22 +570,22 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
 
         jPanel4.add(Btn_Inscribir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 10, -1, 50));
 
-        Txb_NIE1.setBackground(new java.awt.Color(17, 66, 50));
-        Txb_NIE1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        Txb_NIE1.setForeground(new java.awt.Color(255, 255, 255));
-        Txb_NIE1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo de esponsables :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 196, 54))); // NOI18N
-        Txb_NIE1.setCaretColor(new java.awt.Color(203, 174, 104));
-        Txb_NIE1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Txb_idResponsables.setBackground(new java.awt.Color(17, 66, 50));
+        Txb_idResponsables.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        Txb_idResponsables.setForeground(new java.awt.Color(255, 255, 255));
+        Txb_idResponsables.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo de esponsables :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 196, 54))); // NOI18N
+        Txb_idResponsables.setCaretColor(new java.awt.Color(203, 174, 104));
+        Txb_idResponsables.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Txb_NIE1MouseClicked(evt);
+                Txb_idResponsablesMouseClicked(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                Txb_NIE1MouseExited(evt);
+                Txb_idResponsablesMouseExited(evt);
             }
         });
-        Txb_NIE1.addKeyListener(new java.awt.event.KeyAdapter() {
+        Txb_idResponsables.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                Txb_NIE1KeyTyped(evt);
+                Txb_idResponsablesKeyTyped(evt);
             }
         });
 
@@ -651,45 +654,42 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(Txb_NIE1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Txb_idResponsables, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel1))
-                            .addComponent(loading1)
                             .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(Txb_NIE, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
                                 .addComponent(Txb_Nombre_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(Txb_Apellido_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Cb_Edad, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Cb_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Txb_NIE, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Cb_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(loading1))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Cb_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Cb_Edad, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Txb_NIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(loading1)
-                        .addGap(44, 44, 44)
+                .addComponent(loading1)
+                .addGap(43, 43, 43)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Txb_NIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Cb_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Cb_Edad, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Txb_Nombre_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Txb_Apellido_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(errorNombre)))
+                            .addComponent(Txb_Apellido_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errorNombre)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Txb_NIE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Txb_idResponsables, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -859,7 +859,7 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
 
             Responsables.setApellidos_A(Txb_ApellidosResponsableA.getText());
             Responsables.setNombres_A(Txb_NombresResponsableA.getText());
-            Responsables.setId_Tipoa(Cb_TipoResponsableA.getSelectedIndex());
+            Responsables.setId_TipoA(Cb_TipoResponsableA.getSelectedIndex());
             Responsables.setTelefonoA(TxbTelefono1.getText());
 
             Responsables.setApellidos_B(Txb_ApellidosResponsableB.getText());
@@ -872,7 +872,7 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
 
             if (Responsables.Insert_Responsables(Responsables) > 0) {
 
-                int idresponsable = Responsables.Get_IdReciente()+1;
+                int idresponsable = Responsables.Get_IdReciente() + 1;
                 System.out.println("Responsables agregados id " + idresponsable);
 
                 Modelo_Estudiante EstudianteNuevo = new Modelo_Estudiante();
@@ -887,13 +887,11 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
                 if (EstudianteNuevo.Insert_Estudiante(EstudianteNuevo) > 0) {
                     int NIE = EstudianteNuevo.getNIE();
                     int id_grado = EstudianteNuevo.getId_Grado();
-                                Date fecha = new Date();
-
+                    Date fecha = new Date();
 
                     int Year = Funciones.Get_Year_Actual();
                     //valores de prueba
                     int descuento_id = 0;
-                    
 
                     Modelo_Matricula Matricula = new Modelo_Matricula();
                     Matricula.setNIE(NIE);
@@ -1015,7 +1013,7 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
     }//GEN-LAST:event_Txb_NIEKeyTyped
 
     private void Btn_InscripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_InscripcionMouseClicked
-        Panel_Reinscripcion gest = new Panel_Reinscripcion();
+        Panel_Inscripcion gest = new Panel_Inscripcion();
         dispose();
         gest.setVisible(true);
     }//GEN-LAST:event_Btn_InscripcionMouseClicked
@@ -1028,17 +1026,57 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
         Funciones.LeftMouse(Btn_Inscripcion, Lb_Inventario, "#FAF4D0", "#000000");
     }//GEN-LAST:event_Btn_InscripcionMouseExited
 
-    private void Txb_NIE1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_NIE1MouseClicked
+    private void Txb_idResponsablesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_idResponsablesMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Txb_NIE1MouseClicked
+    }//GEN-LAST:event_Txb_idResponsablesMouseClicked
 
-    private void Txb_NIE1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_NIE1MouseExited
+    private void Txb_idResponsablesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_idResponsablesMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_Txb_NIE1MouseExited
+    }//GEN-LAST:event_Txb_idResponsablesMouseExited
 
-    private void Txb_NIE1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_NIE1KeyTyped
+    private void Txb_idResponsablesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_idResponsablesKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_Txb_NIE1KeyTyped
+    }//GEN-LAST:event_Txb_idResponsablesKeyTyped
+
+    private void Txb_NIEKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_NIEKeyReleased
+        int NIE = Integer.parseInt(Txb_NIE.getText());
+        Modelo_Estudiante Estudiante = new Modelo_Estudiante();
+        Estudiante = Estudiante.Get_DataEstudiante(NIE);
+
+        if (Estudiante.getNIE() != 0) {
+            Txb_NIE.setText(Integer.toString(Estudiante.getNIE()));
+            Txb_Nombre_Alumno.setText(Estudiante.getNombres_Estudiante());
+            Txb_Apellido_Alumno.setText(Estudiante.getApellidos_Estudiante());
+            Cb_Edad.setSelectedIndex(Estudiante.getEdad() - 1);
+            Cb_Grado.setSelectedIndex(Estudiante.getId_Grado() - 1);
+
+            Txb_idResponsables.setText(Integer.toString(Estudiante.getId_Responsables()));
+            
+            int idResponsable = Estudiante.getId_Responsables();
+
+            Modelo_Responsables responsable = new Modelo_Responsables();
+            responsable = responsable.Get_DataResponsable(idResponsable);
+
+            if (responsable.getId() != 0) {
+                Txb_ApellidosResponsableA.setText(responsable.getApellidos_A());
+                Txb_NombresResponsableA.setText(responsable.getNombres_A());
+                TxbTelefono1.setText(responsable.getTelefonoA());
+                Cb_TipoResponsableA.setSelectedIndex(responsable.getId_TipoA() - 1);
+
+                Txb_ApellidosResponsableB.setText(responsable.getApellidos_B());
+                Txb_NombresResponsableB.setText(responsable.getNombres_B());
+                TxbTelefono2.setText(responsable.getTelefonoB());
+                Cb_TipoResponsable_B.setSelectedIndex(responsable.getId_TipoB() - 1);
+
+                Txb_Direccion.setText(responsable.getDireccion());
+                Txb_Correo.setText(responsable.getCorreo());
+
+            }  
+
+        }
+
+// verificar y cargar datos de padres .
+    }//GEN-LAST:event_Txb_NIEKeyReleased
 
     public static void clearTxb(JTextField TextBox) {
         TextBox.setText("");
@@ -1079,10 +1117,10 @@ public class Panel_Reinscripcion extends javax.swing.JFrame {
     private javax.swing.JTextField Txb_Correo;
     private javax.swing.JTextField Txb_Direccion;
     private javax.swing.JTextField Txb_NIE;
-    private javax.swing.JTextField Txb_NIE1;
     private javax.swing.JTextField Txb_Nombre_Alumno;
     private javax.swing.JTextField Txb_NombresResponsableA;
     private javax.swing.JTextField Txb_NombresResponsableB;
+    private javax.swing.JTextField Txb_idResponsables;
     private javax.swing.JLabel errorNombre;
     private javax.swing.JLabel errorNombre3;
     private javax.swing.JLabel errorNombre4;

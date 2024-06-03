@@ -4,8 +4,8 @@ import Customizacion.TablaCusomizada;
 import Funciones.Funciones;
 import static Funciones.Funciones.ValidNIE;
 import static Funciones.Funciones.ValidNombres;
+import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_GestionPromedios;
-import Modelos.Docente.Modelo_Periodos;
 import Modelos.Docente.Modelo_TomaAsistencia;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,9 +28,12 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
     private final Modelo_TomaAsistencia Objeto_NIES = new Modelo_TomaAsistencia();
     private List<Modelo_TomaAsistencia> List_NIES;
+    private int Grado ;
 
-    public Gestion_Voleta_Notas() {
+    public Gestion_Voleta_Notas(Modelo_DocenteGuia docente) {
         initComponents();
+        
+        this.Grado = docente.getIdGradoGuia();
         modeloTabla = (DefaultTableModel) Tbl_RegistroNotas.getModel();
         DiseñoTabla(Tbl_RegistroNotas);
         Get_ListadoNotas(Tbl_RegistroNotas);
@@ -484,7 +487,7 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
             System.out.println("buscando periodo: " + periodo + " y parametro: " + ParametroBusqueda);
 
-            List_Modelo_GestionPromedios = Objeto_Modelo_GestionPromedios.Get_Promedio(1234, 1, 1);
+            List_Modelo_GestionPromedios = Objeto_Modelo_GestionPromedios.Get_Promedio(1234, Grado, periodo);
 
             try {
                 int size = List_Modelo_GestionPromedios.size();

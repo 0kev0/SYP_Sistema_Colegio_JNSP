@@ -492,7 +492,7 @@ public class Buscador_Id extends javax.swing.JFrame {
 
             Responsables.setApellidos_A(Txb_ApellidosResponsableA.getText());
             Responsables.setNombres_A(Txb_NombresResponsableA.getText());
-            Responsables.setId_Tipoa(Cb_TipoResponsableA.getSelectedIndex());
+            Responsables.setId_TipoA(Cb_TipoResponsableA.getSelectedIndex());
             Responsables.setTelefonoA(TxbTelefono1.getText());
 
             Responsables.setApellidos_B(Txb_ApellidosResponsableB.getText());

@@ -300,6 +300,87 @@ SELECT  			Tb_Mat.id,Tb_Resp."Apellidos_A",Tb_Resp."Nombres_A",Tb_TipR."Tipo_de_
         return null;
     }
 
+    public ArrayList<Modelo_Estudiante> Get_NIES_ParaMEnsualidades() {
+        try {
+            System.out.println("---CARGAR PRODUCTOS");
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            statement = conexionDB.createStatement(); // Creamos la consulta
+
+            String ConsultaNotasPorNIE = """
+SELECT "NIE" FROM public."tbl_Estudiante";""";
+
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
+
+            ResultSet Conaulta_Inscripcion = preparedStatement.executeQuery();
+
+            TiemSql();
+
+            ArrayList<Modelo_Estudiante> Lista_NIES = new ArrayList<>();
+
+            while (Conaulta_Inscripcion.next()) {
+
+                Modelo_Estudiante NewNIE = new Modelo_Estudiante();
+
+                NewNIE.setNIE(Conaulta_Inscripcion.getInt("NIE"));
+
+                Lista_NIES.add(NewNIE);
+            }
+
+            System.out.println("\t-> Agregados: " + Lista_NIES.size());
+            conexionDB.close();
+
+            return Lista_NIES;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Estudiante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    public Modelo_Estudiante Get_DataEstudiante(int NIE) {
+        try {
+            System.out.println("---CARGAR PRODUCTOS");
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            statement = conexionDB.createStatement(); // Creamos la consulta
+
+            String ConsultaNotasPorNIE = """
+SELECT "NIE", "Nombres", "Apellidos", "Grado_id", "Edad", "Responsables_id"
+	FROM public."tbl_Estudiante" 
+	WHERE "NIE" = ? ;""";
+
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
+            preparedStatement.setInt(1, NIE);
+
+            ResultSet Conaulta_Inscripcion = preparedStatement.executeQuery();
+
+            TiemSql();
+            Modelo_Estudiante DataEstudiante = new Modelo_Estudiante();
+            System.out.println("sql> " + preparedStatement.toString());
+            while (Conaulta_Inscripcion.next()) {
+
+                DataEstudiante.setNIE(Conaulta_Inscripcion.getInt("NIE"));
+                DataEstudiante.setNombres_Estudiante(Conaulta_Inscripcion.getString("Nombres"));
+                DataEstudiante.setApellidos_Estudiante(Conaulta_Inscripcion.getString("Apellidos"));
+//                DataEsrudiante.setGrado(Conaulta_Inscripcion.getString("Tipo_Responsable_id"));
+                DataEstudiante.setId_Grado(Conaulta_Inscripcion.getInt("Grado_id"));
+                DataEstudiante.setEdad(Conaulta_Inscripcion.getInt("Edad"));
+                DataEstudiante.setId_Responsables(Conaulta_Inscripcion.getInt("Responsables_id"));
+
+
+            }
+
+            conexionDB.close();
+
+            return DataEstudiante;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Responsables.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
     public ArrayList<Modelo_Estudiante> Get_Inscripciones_Filtro_Year(int Year) {
         try {
             System.out.println("---CARGAR PRODUCTOS");

@@ -5,10 +5,11 @@ import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import java.awt.Color;
 import static Funciones.Funciones.CentrarFrames;
+import Log_Iin.log_in1;
 import Vista_Panel_Docente.Opciones.Asignacion_Notas;
 import Vista_Panel_Docente.Opciones.Gestion_Voleta_Notas;
 import Vista_Panel_Docente.Opciones.Toma_Asistencia;
-import Vista_Panel_Docente.Panel_Docente;
+import Vista_Panel_Secretaria.Opciones.Gestion_Mensualidades;
 import Vista_Panel_Secretaria.Opciones.Gestion_RegistrosInscripciones;
 import Vista_Panel_Secretaria.Opciones.Panel_Inscripcion;
 
@@ -565,9 +566,10 @@ public class Panel_Secretaria extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseExited
 
     private void Btn_Regresar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseClicked
-        Panel_Docente gest = new Panel_Docente();
+        log_in1 gest = new log_in1();
         dispose();
         gest.setVisible(true);
+
     }//GEN-LAST:event_Btn_Regresar1MouseClicked
 
     private void Btn_Regresar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseEntered
@@ -611,17 +613,17 @@ public class Panel_Secretaria extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_RegistroAsistenciaMouseExited
 
     private void Btn_Modificar_cuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Modificar_cuentaMouseClicked
-
-        Gestion_Voleta_Notas gest = new Gestion_Voleta_Notas();
-
-// Configura el JInternalFrame
-        gest.setResizable(false);
-        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
-        gest.setVisible(true);
-
-        CentrarFrames(Desk, gest);
-        Desk.add(gest);
-        gest.show();
+//
+////        Gestion_Voleta_Notas gest = new Gestion_Voleta_Notas();
+//
+//// Configura el JInternalFrame
+//        gest.setResizable(false);
+//        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+//        gest.setVisible(true);
+//
+//        CentrarFrames(Desk, gest);
+//        Desk.add(gest);
+//        gest.show();
 
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseClicked
 
@@ -648,7 +650,7 @@ public class Panel_Secretaria extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_Gestion_InscripcionesMouseClicked
 
     private void Btn_Asignar_NotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Asignar_NotasMouseClicked
-        Asignacion_Notas gest = new Asignacion_Notas();
+        Gestion_Mensualidades gest = new Gestion_Mensualidades();
 // Configura el JInternalFrame
         gest.setResizable(false);
         gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());

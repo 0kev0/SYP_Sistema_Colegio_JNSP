@@ -25,14 +25,19 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
 
     private Modelo_Asignacion_Actividades Objeto_Actividades = new Modelo_Asignacion_Actividades();
     private final JTable tbl_Act;
+    private final String materia ;
 
-    public Edicion_Actividad(Modelo_Asignacion_Actividades ObjetoEditable, JTable tbl_Actividades) {
+    public Edicion_Actividad(Modelo_Asignacion_Actividades ObjetoEditable,String _materia, JTable tbl_Actividades) {
         initComponents();
-        Get_Periodos(Cb_Periodo);
+       // Get_Periodos(Cb_Periodo);
         Get_TipoActividad(Cb_TipoActividad);
         this.Objeto_Actividades = ObjetoEditable;
         this.tbl_Act = tbl_Actividades;
-        Cb_Periodo.setSelectedIndex(ObjetoEditable.getPeriodo() + 1);
+        this.materia = _materia;
+        
+//        Cb_Periodo.setSelectedIndex(ObjetoEditable.getPeriodo() + 1);
+//        Cb_Grado.setSelectedIndex(ObjetoEditable.getGrado()+ 1);
+
         Cb_TipoActividad.setSelectedIndex(ObjetoEditable.getIdTipoActividad() - 1);
 
         System.out.println("id t " + ObjetoEditable.getIdTipoActividad() + " id p " + ObjetoEditable.getIdTipoActividad());
@@ -78,7 +83,6 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Cb_TipoActividad = new javax.swing.JComboBox<>();
-        Cb_Periodo = new javax.swing.JComboBox<>();
         TB_NombreActividad = new javax.swing.JTextField();
         TB_DescripcionActividad = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -87,6 +91,7 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         Lb_Aerolinea3 = new javax.swing.JLabel();
         Btn_GuardarActividad = new javax.swing.JPanel();
         Lb_Guardar = new javax.swing.JLabel();
+        TB_NombreActividad1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,20 +112,6 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         });
         jPanel1.add(Cb_TipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 134, -1));
 
-        Cb_Periodo.setBackground(new java.awt.Color(224, 213, 170));
-        Cb_Periodo.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
-        Cb_Periodo.setForeground(new java.awt.Color(0, 0, 0));
-        Cb_Periodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1er periodo", "2do periodo", "3er periodo", "4to periodo" }));
-        Cb_Periodo.setToolTipText("");
-        Cb_Periodo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Periodo: ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        Cb_Periodo.setEnabled(false);
-        Cb_Periodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cb_PeriodoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 134, -1));
-
         TB_NombreActividad.setBackground(new java.awt.Color(224, 213, 170));
         TB_NombreActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         TB_NombreActividad.setForeground(new java.awt.Color(0, 0, 0));
@@ -134,7 +125,7 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
                 TB_NombreActividadMouseExited(evt);
             }
         });
-        jPanel1.add(TB_NombreActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 208, 50));
+        jPanel1.add(TB_NombreActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 208, 50));
 
         TB_DescripcionActividad.setBackground(new java.awt.Color(224, 213, 170));
         TB_DescripcionActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -149,7 +140,7 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
                 TB_DescripcionActividadMouseExited(evt);
             }
         });
-        jPanel1.add(TB_DescripcionActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 208, 50));
+        jPanel1.add(TB_DescripcionActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 208, 50));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -250,6 +241,21 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
 
         jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 200, 50));
 
+        TB_NombreActividad1.setBackground(new java.awt.Color(224, 213, 170));
+        TB_NombreActividad1.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
+        TB_NombreActividad1.setForeground(new java.awt.Color(0, 0, 0));
+        TB_NombreActividad1.setText("Ingrese el nombre");
+        TB_NombreActividad1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Nombre de la actividad", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
+        TB_NombreActividad1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TB_NombreActividad1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TB_NombreActividad1MouseExited(evt);
+            }
+        });
+        jPanel1.add(TB_NombreActividad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 208, 50));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,10 +273,6 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
     private void Cb_TipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_TipoActividadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Cb_TipoActividadActionPerformed
-
-    private void Cb_PeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_PeriodoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Cb_PeriodoActionPerformed
 
     private void TB_NombreActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividadMouseEntered
         Funciones.Mouse_EnterTextbox(TB_NombreActividad);
@@ -290,24 +292,27 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
 
     private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
 
-        if (!validarCampos(jPanel1)) {
-            System.out.println("faltan campos");
-        } else {
-            Modelo_Asignacion_Actividades edit = new Modelo_Asignacion_Actividades();
-            edit.setNombreActividad(TB_NombreActividad.getText());
-            edit.setIdTipoActividad(Cb_TipoActividad.getSelectedIndex()+1);
-            edit.setDescripcion(TB_DescripcionActividad.getText());
-            edit.setIdActividad(Objeto_Actividades.getIdActividad());
+//        int periodo = Cb_Periodo.getSelectedIndex();
+//        int grado = Cb_Grado.getSelectedIndex() + 1;
 
-            edit.Edit_Actividad(edit);
-
-            showMessageDialog("Edicion exitosa", "la actividad fue editada exitosamente");
-            Asignacion_Actividades Objeto_Actividades = new Asignacion_Actividades();
-
-            Objeto_Actividades.Get_Tbl_Actividades(tbl_Act);
-
-            dispose();
-        }
+//        if (!validarCampos(jPanel1)) {
+//            System.out.println("faltan campos");
+//        } else {
+//            Modelo_Asignacion_Actividades edit = new Modelo_Asignacion_Actividades();
+//            edit.setNombreActividad(TB_NombreActividad.getText());
+//            edit.setIdTipoActividad(Cb_TipoActividad.getSelectedIndex() + 1);
+//            edit.setDescripcion(TB_DescripcionActividad.getText());
+//            edit.setIdActividad(Objeto_Actividades.getIdActividad());
+//
+//            edit.Edit_Actividad(edit);
+//
+//            showMessageDialog("Edicion exitosa", "la actividad fue editada exitosamente");
+//            Asignacion_Actividades ActividadEditada = new Asignacion_Actividades();
+//
+//            ActividadEditada.Get_Tbl_Actividades(tbl_Act, materia, grado, periodo);
+//
+//            dispose();
+//        }
 
 
     }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
@@ -320,55 +325,29 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_GuardarActividadMouseExited
 
-    /**
-     * @param args the command line arguments
-     */
+    private void TB_NombreActividad1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividad1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TB_NombreActividad1MouseEntered
+
+    private void TB_NombreActividad1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividad1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TB_NombreActividad1MouseExited
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
 
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Edicion_Actividad.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Edicion_Actividad.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Edicion_Actividad.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Edicion_Actividad.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_GuardarActividad;
-    private javax.swing.JComboBox<String> Cb_Periodo;
     private javax.swing.JComboBox<String> Cb_TipoActividad;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
     private javax.swing.JLabel Lb_Guardar;
     private javax.swing.JTextField TB_DescripcionActividad;
     private javax.swing.JTextField TB_NombreActividad;
+    private javax.swing.JTextField TB_NombreActividad1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

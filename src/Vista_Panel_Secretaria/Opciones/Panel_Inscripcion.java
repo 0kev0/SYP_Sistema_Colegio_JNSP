@@ -87,7 +87,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         Lb_Aerolinea6 = new javax.swing.JLabel();
         Lb_Crearcuenta = new javax.swing.JLabel();
-        Txb_NIE1 = new javax.swing.JTextField();
+        Txb_idPadres = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -567,22 +567,28 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
 
         jPanel4.add(Btn_Inscribir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 10, -1, 50));
 
-        Txb_NIE1.setBackground(new java.awt.Color(17, 66, 50));
-        Txb_NIE1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        Txb_NIE1.setForeground(new java.awt.Color(255, 255, 255));
-        Txb_NIE1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo de esponsables :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 196, 54))); // NOI18N
-        Txb_NIE1.setCaretColor(new java.awt.Color(203, 174, 104));
-        Txb_NIE1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Txb_idPadres.setBackground(new java.awt.Color(17, 66, 50));
+        Txb_idPadres.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        Txb_idPadres.setForeground(new java.awt.Color(255, 255, 255));
+        Txb_idPadres.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo de esponsables :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 196, 54))); // NOI18N
+        Txb_idPadres.setCaretColor(new java.awt.Color(203, 174, 104));
+        Txb_idPadres.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Txb_NIE1MouseClicked(evt);
+                Txb_idPadresMouseClicked(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                Txb_NIE1MouseExited(evt);
+                Txb_idPadresMouseExited(evt);
             }
         });
-        Txb_NIE1.addKeyListener(new java.awt.event.KeyAdapter() {
+        Txb_idPadres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Txb_idPadresKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Txb_idPadresKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                Txb_NIE1KeyTyped(evt);
+                Txb_idPadresKeyTyped(evt);
             }
         });
 
@@ -651,7 +657,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(Txb_NIE1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Txb_idPadres, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel1))
                             .addComponent(loading1)
@@ -689,7 +695,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Txb_NIE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Txb_idPadres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -859,7 +865,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
 
             Responsables.setApellidos_A(Txb_ApellidosResponsableA.getText());
             Responsables.setNombres_A(Txb_NombresResponsableA.getText());
-            Responsables.setId_Tipoa(Cb_TipoResponsableA.getSelectedIndex());
+            Responsables.setId_TipoA(Cb_TipoResponsableA.getSelectedIndex());
             Responsables.setTelefonoA(TxbTelefono1.getText());
 
             Responsables.setApellidos_B(Txb_ApellidosResponsableB.getText());
@@ -872,7 +878,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
 
             if (Responsables.Insert_Responsables(Responsables) > 0) {
 
-                int idresponsable = Responsables.Get_IdReciente()+1;
+                int idresponsable = Responsables.Get_IdReciente() + 1;
                 System.out.println("Responsables agregados id " + idresponsable);
 
                 Modelo_Estudiante EstudianteNuevo = new Modelo_Estudiante();
@@ -887,13 +893,11 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                 if (EstudianteNuevo.Insert_Estudiante(EstudianteNuevo) > 0) {
                     int NIE = EstudianteNuevo.getNIE();
                     int id_grado = EstudianteNuevo.getId_Grado();
-                                Date fecha = new Date();
-
+                    Date fecha = new Date();
 
                     int Year = Funciones.Get_Year_Actual();
                     //valores de prueba
                     int descuento_id = 0;
-                    
 
                     Modelo_Matricula Matricula = new Modelo_Matricula();
                     Matricula.setNIE(NIE);
@@ -1015,7 +1019,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     }//GEN-LAST:event_Txb_NIEKeyTyped
 
     private void Btn_InscripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_InscripcionMouseClicked
-        Panel_Inscripcion gest = new Panel_Inscripcion();
+        Panel_Reinscripcion gest = new Panel_Reinscripcion();
         dispose();
         gest.setVisible(true);
     }//GEN-LAST:event_Btn_InscripcionMouseClicked
@@ -1028,17 +1032,46 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         Funciones.LeftMouse(Btn_Inscripcion, Lb_Inventario, "#FAF4D0", "#000000");
     }//GEN-LAST:event_Btn_InscripcionMouseExited
 
-    private void Txb_NIE1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_NIE1MouseClicked
+    private void Txb_idPadresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_idPadresMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Txb_NIE1MouseClicked
+    }//GEN-LAST:event_Txb_idPadresMouseClicked
 
-    private void Txb_NIE1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_NIE1MouseExited
+    private void Txb_idPadresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_idPadresMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_Txb_NIE1MouseExited
+    }//GEN-LAST:event_Txb_idPadresMouseExited
 
-    private void Txb_NIE1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_NIE1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Txb_NIE1KeyTyped
+    private void Txb_idPadresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_idPadresKeyTyped
+
+
+    }//GEN-LAST:event_Txb_idPadresKeyTyped
+
+    private void Txb_idPadresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_idPadresKeyPressed
+
+    }//GEN-LAST:event_Txb_idPadresKeyPressed
+
+    private void Txb_idPadresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_idPadresKeyReleased
+        // verificar y cargar datos de padres .
+        int id = Integer.parseInt(Txb_idPadres.getText());
+        Modelo_Responsables responsable = new Modelo_Responsables();
+        responsable = responsable.Get_DataResponsable(id);
+
+        if (responsable.getId() != 0) {
+            Txb_ApellidosResponsableA.setText(responsable.getApellidos_A());
+            Txb_NombresResponsableA.setText(responsable.getNombres_A());
+            TxbTelefono1.setText(responsable.getTelefonoA());
+            Cb_TipoResponsableA.setSelectedIndex(responsable.getId_TipoA() -1);
+
+            Txb_ApellidosResponsableB.setText(responsable.getApellidos_B());
+            Txb_NombresResponsableB.setText(responsable.getNombres_B());
+            TxbTelefono2.setText(responsable.getTelefonoB());
+            Cb_TipoResponsable_B.setSelectedIndex(responsable.getId_TipoB()-1 );
+
+            Txb_Direccion.setText(responsable.getDireccion());
+            Txb_Correo.setText(responsable.getCorreo());
+
+        }
+
+    }//GEN-LAST:event_Txb_idPadresKeyReleased
 
     public static void clearTxb(JTextField TextBox) {
         TextBox.setText("");
@@ -1046,10 +1079,8 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Panel_Inscripcion().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Panel_Inscripcion().setVisible(true);
         });
     }
 
@@ -1079,10 +1110,10 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     private javax.swing.JTextField Txb_Correo;
     private javax.swing.JTextField Txb_Direccion;
     private javax.swing.JTextField Txb_NIE;
-    private javax.swing.JTextField Txb_NIE1;
     private javax.swing.JTextField Txb_Nombre_Alumno;
     private javax.swing.JTextField Txb_NombresResponsableA;
     private javax.swing.JTextField Txb_NombresResponsableB;
+    private javax.swing.JTextField Txb_idPadres;
     private javax.swing.JLabel errorNombre;
     private javax.swing.JLabel errorNombre3;
     private javax.swing.JLabel errorNombre4;

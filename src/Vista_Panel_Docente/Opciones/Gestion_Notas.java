@@ -7,7 +7,6 @@ import static Funciones.Funciones.ValidNombres;
 import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_GestionNotas;
 import Modelos.Docente.Modelo_Materias;
-import Modelos.Docente.Modelo_TipoActividad;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -23,6 +22,11 @@ import javax.swing.table.JTableHeader;
 
 public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
+    public Gestion_Notas() {
+        initComponents();
+
+    }
+
     private final Modelos.Docente.Modelo_GestionNotas Objeto_GestionNotas = new Modelos.Docente.Modelo_GestionNotas();
     private List<Modelos.Docente.Modelo_GestionNotas> List_Notas;
 
@@ -32,12 +36,14 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     private Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
-    private final int Grado;
-    private final int idMateriaGuia;
+    private int Grado;
+    private int idMateriaGuia;
 
-    public Gestion_Notas() {
+    public Gestion_Notas(Modelo_DocenteGuia Docente) {
         initComponents();
-        Objeto_Docente = Objeto_Docente.Get_Docente(9876);
+        Objeto_Docente = Docente;
+
+        System.out.println("grado del docente guia" + Objeto_Docente.getIdGradoGuia());
         Grado = Objeto_Docente.getIdGradoGuia();
         idMateriaGuia = Objeto_Docente.getIdMateriaImpartir();
 
@@ -214,7 +220,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Lb_MateriaGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,7 +230,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 230, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 10, 320, -1));
 
         Cb_Materias.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Materias.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -399,35 +405,35 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TB_BuscarKeyReleased
 
     private void Cb_PeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_PeriodoActionPerformed
-        String ParametroBusqueda = parametrobusqueda();
-        String Palabra = TB_Buscar.getText();
-        int periodo = Cb_Periodo.getSelectedIndex() + 1;
+        System.out.println("CARGANDO TODAS LAS NOTAS");
         modeloTabla.setNumRows(0);
+        String Materia = Cb_Materias.getSelectedItem().toString();
+        int periodo = Cb_Periodo.getSelectedIndex() + 1;
 
-        System.out.println("buscando periodo: " + periodo + " y parametro: " + ParametroBusqueda);
+        List_Notas = Objeto_GestionNotas.GetRegistroNotas(Grado, periodo, Materia);
+        System.out.println("###hay " + List_Notas.size());
+        for (Modelo_GestionNotas item : List_Notas) {
+            System.out.println("Notas ver 2 tareas " + item.getTareas().size() + " parcial " + item.getParcial() + " auto " + item.getAutoE());
 
-        List<Modelo_GestionNotas> obj;
-        obj = Objeto_GestionNotas.GetRegistroNotas(1, periodo, 1);
-        System.out.println("*** *** ***hay " + obj.size());
-
-        for (Modelo_GestionNotas item : obj) {
             double prom = 0;
             for (int i = 0; i < 4; i++) {
-                prom += item.getNotas().get(i) * .10;
+                prom += item.getTareas().get(i) * .15;
+                System.out.println("bien " + item.getTareas().get(i));
             }
-            prom += item.getNotas().get(4) * .50;
-            prom += item.getNotas().get(5) * .10;
+
+            prom += item.getParcial() * .50;
+            prom += item.getAutoE() * .10;
 
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
                 item.getApellido(),
                 item.getNombre(),
-                item.getNotas().get(0),
-                item.getNotas().get(1),
-                item.getNotas().get(2),
-                item.getNotas().get(3),
-                item.getNotas().get(4),
-                item.getNotas().get(5),
+                item.getTareas().get(0),
+                item.getTareas().get(1),
+                item.getTareas().get(2),
+                item.getTareas().get(3),
+                item.getParcial(),
+                item.getAutoE(),
                 Math.round(prom * 100.0) / 100.0
             });
         }
@@ -542,30 +548,34 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     public void Get_ListadoNotas(JTable tabla, int grado, int id_materia) {
         System.out.println("CARGANDO TODAS LAS NOTAS");
         modeloTabla.setNumRows(0);
+        String Materia = Cb_Materias.getSelectedItem().toString();
 
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
 
-        List_Notas = Objeto_GestionNotas.GetRegistroNotas(grado, periodo, id_materia);
+        List_Notas = Objeto_GestionNotas.GetRegistroNotas(grado, periodo, Materia);
         System.out.println("###hay " + List_Notas.size());
-
         for (Modelo_GestionNotas item : List_Notas) {
+            System.out.println("Notas ver 2 tareas " + item.getTareas().size() + " parcial " + item.getParcial() + " auto " + item.getAutoE());
+
             double prom = 0;
             for (int i = 0; i < 4; i++) {
-                prom += item.getNotas().get(i) * .10;
+                prom += item.getTareas().get(i) * .15;
+                System.out.println("bien " + item.getTareas().get(i));
             }
-            prom += item.getNotas().get(4) * .50;
-            prom += item.getNotas().get(5) * .10;
+
+            prom += item.getParcial() * .50;
+            prom += item.getAutoE() * .10;
 
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
                 item.getApellido(),
                 item.getNombre(),
-                item.getNotas().get(0),
-                item.getNotas().get(1),
-                item.getNotas().get(2),
-                item.getNotas().get(3),
-                item.getNotas().get(4),
-                item.getNotas().get(5),
+                item.getTareas().get(0),
+                item.getTareas().get(1),
+                item.getTareas().get(2),
+                item.getTareas().get(3),
+                item.getParcial(),
+                item.getAutoE(),
                 Math.round(prom * 100.0) / 100.0
             });
         }
@@ -576,31 +586,34 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     public void Get_ListadoNotas_Materia(JTable tabla, int idmateria) {
         System.out.println("CARGANDO TODAS LAS NOTAS");
         modeloTabla.setNumRows(0);
+        String Materia = Cb_Materias.getSelectedItem().toString();
 
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
-        System.out.println("buscando periodo: " + periodo);
 
-        List_Notas = Objeto_GestionNotas.GetRegistroNotas(1, periodo, idmateria);
+        List_Notas = Objeto_GestionNotas.GetRegistroNotas(Grado, periodo, Materia);
         System.out.println("###hay " + List_Notas.size());
-
         for (Modelo_GestionNotas item : List_Notas) {
+            System.out.println("Notas ver 2 tareas " + item.getTareas().size() + " parcial " + item.getParcial() + " auto " + item.getAutoE());
+
             double prom = 0;
             for (int i = 0; i < 4; i++) {
-                prom += item.getNotas().get(i) * .10;
+                prom += item.getTareas().get(i) * .15;
+                System.out.println("bien " + item.getTareas().get(i));
             }
-            prom += item.getNotas().get(4) * .50;
-            prom += item.getNotas().get(5) * .10;
+
+            prom += item.getParcial() * .50;
+            prom += item.getAutoE() * .10;
 
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
                 item.getApellido(),
                 item.getNombre(),
-                item.getNotas().get(0),
-                item.getNotas().get(1),
-                item.getNotas().get(2),
-                item.getNotas().get(3),
-                item.getNotas().get(4),
-                item.getNotas().get(5),
+                item.getTareas().get(0),
+                item.getTareas().get(1),
+                item.getTareas().get(2),
+                item.getTareas().get(3),
+                item.getParcial(),
+                item.getAutoE(),
                 Math.round(prom * 100.0) / 100.0
             });
         }

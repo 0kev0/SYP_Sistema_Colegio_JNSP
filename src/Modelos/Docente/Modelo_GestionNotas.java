@@ -28,6 +28,10 @@ public class Modelo_GestionNotas {
     private String Apellido;
     private Double Promedio;
     private Double Nota;
+    private List<Double> Tareas;
+    private Double Parcial;
+    private Double AutoE;
+
     private String tipoactividad;
     private List<Double> notas;
 
@@ -135,24 +139,48 @@ public class Modelo_GestionNotas {
         this.tipoactividad = tipoactividad;
     }
 
-    public Modelo_GestionNotas(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
-            int NIE, String Nombre, String Apellido, Double Nota, List<Double> notas, Double Promedio, String tipoactividad) {
+    public Double getParcial() {
+        return Parcial;
+    }
 
-        //LADO DEL SERVIDOR
+    public void setParcial(Double Parcial) {
+        this.Parcial = Parcial;
+    }
+
+    public Double getAutoE() {
+        return AutoE;
+    }
+
+    public void setAutoE(Double AutoE) {
+        this.AutoE = AutoE;
+    }
+
+    public List<Double> getTareas() {
+        return Tareas;
+    }
+
+    public void setTareas(List<Double> Tareas) {
+        this.Tareas = Tareas;
+    }
+
+    public Modelo_GestionNotas(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm, int NIE, int NIES, int Grado, String Nombre, String Apellido, Double Promedio, Double Nota, List<Double> Tareas, Double Parcial, Double AutoE, String tipoactividad, List<Double> notas) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
         this.pstm = pstm;
-
-        //LADO APLICAION ESCRITORIO
+        //////////////////////////////////////
         this.NIE = NIE;
+        this.NIES = NIES;
+        this.Grado = Grado;
         this.Nombre = Nombre;
         this.Apellido = Apellido;
         this.Promedio = Promedio;
         this.Nota = Nota;
-        this.notas = notas;
+        this.Tareas = Tareas;
+        this.Parcial = Parcial;
+        this.AutoE = AutoE;
         this.tipoactividad = tipoactividad;
-
+        this.notas = notas;
     }
 
     public Modelo_GestionNotas() {
@@ -162,11 +190,12 @@ public class Modelo_GestionNotas {
     /**
      * @param grado
      * @param periodo
+     * @param materia
      * @param idmateria
      * @return
      * *******************************************************************************************************************
      */
-    public ArrayList<Modelo_GestionNotas> GetRegistroNotas(int grado, int periodo, int idmateria) {
+    public ArrayList<Modelo_GestionNotas> GetRegistroNotas(int grado, int periodo, String materia) {
         try {
             System.out.println("---CARGAR NOTAS");
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
@@ -176,7 +205,7 @@ public class Modelo_GestionNotas {
 
             ArrayList<Modelo_GestionNotas> ListadoNotas = new ArrayList<>(); // Lista para almacenar los datos de actividades
 
-            System.out.println("buscando periodo " + periodo + " y id materia " + idmateria);
+            System.out.println("buscando periodo " + periodo + " y id materia " + materia + " grado " + grado);
             for (Integer nie : ListaNies) {
 
                 String ConsultaNotasPorNIE = """
@@ -185,16 +214,20 @@ tna."NotaObtenida",tbA."Nombre_Actividad",tbtA."TipoActividad"
                 	FROM public."Tbl_Nota_Actividad" AS tna
                 	INNER JOIN "tbl_Estudiante" AS TbEst ON TbEst."NIE" = tna."Estudiante_id"
                 	INNER JOIN "Tbl_Actividades" AS tbA ON tbA.id = tna."Actividad_id"
-                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"
+                	INNER JOIN "Tbl_TipoActividad" AS tbtA ON tbtA."id_Act" = tbA."TipoActividad_id"                
+                 INNER JOIN "Tbl_Materias" AS TBM ON TBM.id = tbA."Materia_id"
                 	
-                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND tbA."Materia_id" = ?
+                	WHERE TbEst."NIE" = ? AND tbA."Periodo_id" = ? AND TBM."Nombre" = ? AND TBM."Grado_id"= ?
 					ORDER BY tbA."TipoActividad_id" ASC ;
             """;
 
                 PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
                 preparedStatement.setInt(1, nie);
                 preparedStatement.setInt(2, periodo);
-                preparedStatement.setInt(3, idmateria);
+                preparedStatement.setString(3, materia);
+                preparedStatement.setInt(4, grado);
+
+                System.out.println("" + preparedStatement.toString());
 
                 ResultSet consulta_Notas = preparedStatement.executeQuery(); // Ejecutamos la consulta
                 //System.out.println("consulta:  " + preparedStatement.toString());
@@ -202,20 +235,52 @@ tna."NotaObtenida",tbA."Nombre_Actividad",tbtA."TipoActividad"
 //                TiemSql();
                 ArrayList<Double> notas = new ArrayList<>(); // Lista para almacenar las notas del estudiante
                 Modelo_GestionNotas NotaAlumno = new Modelo_GestionNotas();
-
+                int tipoActividad = 0;
+                int i = 0;
                 while (consulta_Notas.next()) {
                     System.out.println("nota obtenida " + consulta_Notas.getDouble("NotaObtenida") + " de la actividad " + consulta_Notas.getString("TipoActividad"));
-                    notas.add(consulta_Notas.getDouble("NotaObtenida"));
                     NotaAlumno.setNIE(nie);
                     NotaAlumno.setApellido(consulta_Notas.getString("Apellidos"));
                     NotaAlumno.setNombre(consulta_Notas.getString("Nombres"));
-                    NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
+                    // notas.add(consulta_Notas.getDouble("NotaObtenida"));
+                    //NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
 
+                    tipoActividad = consulta_Notas.getInt("TipoActividad_id");
+
+                    switch (tipoActividad) {
+                        case 1 -> {
+                            //tarea
+                            notas.add(i, consulta_Notas.getDouble("NotaObtenida"));
+
+                        }
+                        case 2 -> {
+                            //autoE
+                            NotaAlumno.setAutoE(consulta_Notas.getDouble("NotaObtenida"));
+                        }
+                        case 3 -> {
+                            //examen
+                            NotaAlumno.setParcial(consulta_Notas.getDouble("NotaObtenida"));
+
+                        }
+
+                        default ->
+                            throw new AssertionError();
+                    }
                 }
 
-                while (notas.size() < 6) {
+                if (NotaAlumno.getAutoE() == null) {
+                    NotaAlumno.setAutoE(0.0);
+                }
+
+                if (NotaAlumno.getParcial()== null) {
+                    NotaAlumno.setParcial(0.0);
+                }
+                
+                while (notas.size() < 4) {
                     notas.add(0.0);
                 }
+
+                NotaAlumno.setTareas(notas);
 
                 NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
                 if (NotaAlumno.getNIE() != 0) {

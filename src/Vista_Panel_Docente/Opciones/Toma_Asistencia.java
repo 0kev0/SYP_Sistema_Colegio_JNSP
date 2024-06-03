@@ -4,6 +4,7 @@ import Customizacion.TablaCusomizada;
 import Funciones.Funciones;
 import static Funciones.Funciones.clearScreen;
 import static Funciones.Funciones.showMessageDialog;
+import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_TomaAsistencia;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,13 +24,19 @@ import javax.swing.table.JTableHeader;
 
 public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
+    public Toma_Asistencia() {
+
+    }
     private final Modelo_TomaAsistencia Objeto = new Modelo_TomaAsistencia();
     private List<Modelo_TomaAsistencia> ListObjeto;
     private DefaultTableModel modeloTabla = new DefaultTableModel();
+    private int Grado;
 
-    public Toma_Asistencia() {
+    public Toma_Asistencia(Modelo_DocenteGuia docente) {
         clearScreen();
         initComponents();
+        this.Grado = docente.getIdGradoGuia();
+        
         DiseñoTabla(Tbl_ListadoAsistencia);
         get_TblAsistencia(Tbl_ListadoAsistencia);
         Lb_FechaActual.setText(Funciones.obtenerFechaActual());
@@ -283,12 +290,13 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
                         System.out.println("¡Debe ingresar una justificación!");
                         columnaSeleccionada = true;
                         all_fine = false;
-                    showMessageDialog("ERROR", "Hay justificaciones sin llenar el motivo.");break;
+                        showMessageDialog("ERROR", "Hay justificaciones sin llenar el motivo.");
+                        break;
                     }
                     if (asistenciaMarcada) {
                         columnaSeleccionada = true;
                         all_fine = true;
-                        break; 
+                        break;
                     }
 
                 }
@@ -298,7 +306,8 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
                 } else {
                     all_fine = false;
                     System.out.println("[-] Asistencia sin marcar del NIE: " + modeloTabla.getValueAt(i, 0));
-                    showMessageDialog("ERROR", "Asistencias sin marcar del NIE");break;
+                    showMessageDialog("ERROR", "Asistencias sin marcar del NIE");
+                    break;
                 }
 
             }
@@ -362,7 +371,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        
+
         int numeroDeCeldas = 2; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
@@ -379,12 +388,11 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
     }
 
-
-  public void get_TblAsistencia(JTable tabla) {
+    public void get_TblAsistencia(JTable tabla) {
         modeloTabla = (DefaultTableModel) tabla.getModel();
         modeloTabla.setNumRows(0);
 
-        ListObjeto = Objeto.GetListado(1);
+        ListObjeto = Objeto.GetListado(Grado);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
 
         for (Modelo_TomaAsistencia item : ListObjeto) {
@@ -399,9 +407,6 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
         tabla.setModel(modeloTabla);
     }
-
-
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
