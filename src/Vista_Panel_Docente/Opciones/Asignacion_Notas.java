@@ -54,11 +54,12 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     public Asignacion_Notas(Modelo_DocenteGuia docente) {
         initComponents();
         DiseñoTabla(Tbl_Actividades);
-        Get_EstadosActividades(Cb_EstadoActividad);
-        Get_Tabla_NotaActividades(Tbl_Actividades);
         Get_TipoActividad(Cb_TipoActividad);
         Get_Periodos(Cb_Periodo);
         Get_Cb_Grados(Cb_Grado, List_Grados, Objeto_Grados);
+        Get_EstadosActividades(Cb_EstadoActividad);
+
+        Get_Tabla_NotaActividades(Tbl_Actividades);
 
         Objeto_Docente = docente;
 
@@ -72,6 +73,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             public void mouseClicked(MouseEvent e) {
                 int COL = Tbl_Actividades.columnAtPoint(e.getPoint());
                 int ROW = Tbl_Actividades.rowAtPoint(e.getPoint());
+
                 if (COL == 9) {
                     String estado = modeloTabla.getValueAt(ROW, 6).toString();
                     // Check if the estado is "Pendiente"
@@ -434,7 +436,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     private void Cb_EstadoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_EstadoActividadActionPerformed
         int id_IdEstado = Cb_EstadoActividad.getSelectedIndex() + 1;
 
-        Get_Tabla_NotaActividades_Filtrada(Tbl_Actividades, id_IdEstado, "  Tb_EsAc.id = ?  ");
+        Get_Tabla_NotaActividades(Tbl_Actividades);
 
 
     }//GEN-LAST:event_Cb_EstadoActividadActionPerformed
@@ -442,7 +444,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     private void Cb_TipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_TipoActividadActionPerformed
         int id_TipoActividad = Cb_TipoActividad.getSelectedIndex() + 1;
 
-        Get_Tabla_NotaActividades_Filtrada(Tbl_Actividades, id_TipoActividad, "  Tb_Act.\"TipoActividad_id\" = ?  ");
+        Get_Tabla_NotaActividades(Tbl_Actividades);
 
 
     }//GEN-LAST:event_Cb_TipoActividadActionPerformed
@@ -454,7 +456,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             Get_Tabla_NotaActividades(Tbl_Actividades);
             System.out.println("all");
         } else {
-            Get_Tabla_NotaActividades_Filtrada(Tbl_Actividades, id_periodo, " Tb_Act.\"Periodo_id\" = ?  ");
+            Get_Tabla_NotaActividades(Tbl_Actividades);
         }
 
     }//GEN-LAST:event_Cb_PeriodoActionPerformed
@@ -517,8 +519,12 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         modeloTabla.setNumRows(0);
 
         ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
+        int Grado = Cb_Grado.getSelectedIndex()+1;
+        int Periodo = Cb_Periodo.getSelectedIndex()+1;
+        int Actividad = Cb_TipoActividad.getSelectedIndex()+1;
+        int Estado = Cb_EstadoActividad.getSelectedIndex()+1;
 
-        ListObjeto = Objeto.getListadoActividades(grado);
+        ListObjeto = Objeto.getListadoActividades(Grado, Periodo, Estado, Actividad);
         System.out.println("hay " + ListObjeto.size());
 
         for (Modelo_AsignacionNotas item : ListObjeto) {
@@ -539,15 +545,16 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         tabla.setModel(modeloTabla);
     }
 
-    public void Get_Tabla_NotaActividades_Filtrada(JTable tabla, int Criterio, String Parametro) {
+    public void Get_Tabla_NotaActividades_Todas(JTable tabla, int Criterio, String Parametro) {
 
         int periodo = Cb_Periodo.getSelectedIndex();
         modeloTabla = (DefaultTableModel) tabla.getModel();
         modeloTabla.setNumRows(0);
 
         ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
+        int Grado = Cb_Grado.getSelectedIndex();
 
-        ListObjeto = Objeto.get_ListadoActividades_Filtrada(Criterio, periodo, grado, Parametro);
+        ListObjeto = Objeto.get_NotasTodos(Grado);
         System.out.println("hay " + ListObjeto.size());
 
         for (Modelo_AsignacionNotas item : ListObjeto) {

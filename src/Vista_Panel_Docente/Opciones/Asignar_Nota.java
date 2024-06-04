@@ -91,6 +91,10 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         TB_Periodo = new javax.swing.JTextField();
         TB_NIE2 = new javax.swing.JTextField();
         errorTb_Nota = new javax.swing.JLabel();
+        Btn_Regresar2 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        Lb_Aerolinea9 = new javax.swing.JLabel();
+        Lb_Ordenar2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -278,11 +282,56 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         errorTb_Nota.setText("Error");
         jPanel1.add(errorTb_Nota, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, 200, -1));
 
+        Btn_Regresar2.setBackground(new java.awt.Color(152, 5, 5));
+        Btn_Regresar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_Regresar2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_Regresar2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_Regresar2MouseExited(evt);
+            }
+        });
+        Btn_Regresar2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel10.setBackground(new java.awt.Color(255, 10, 10));
+
+        Lb_Aerolinea9.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Aerolinea9.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        Lb_Aerolinea9.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Lb_Aerolinea9))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lb_Aerolinea9, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        Btn_Regresar2.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 35, 149, 12));
+
+        Lb_Ordenar2.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        Lb_Ordenar2.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_Ordenar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/back (1).png"))); // NOI18N
+        Lb_Ordenar2.setText("Regresar");
+        Lb_Ordenar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar2.add(Lb_Ordenar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 12, 130, 20));
+
+        jPanel1.add(Btn_Regresar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 90, 130, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,6 +419,18 @@ public final class Asignar_Nota extends javax.swing.JFrame {
 
     }//GEN-LAST:event_TB_NotaKeyTyped
 
+    private void Btn_Regresar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar2MouseClicked
+        dispose();
+    }//GEN-LAST:event_Btn_Regresar2MouseClicked
+
+    private void Btn_Regresar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar2MouseEntered
+        Funciones.EnterMouse(Btn_Regresar, Lb_Ordenar, "#D90707", "#000000");
+    }//GEN-LAST:event_Btn_Regresar2MouseEntered
+
+    private void Btn_Regresar2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar2MouseExited
+        Funciones.LeftMouse(Btn_Regresar, Lb_Ordenar, "#980505", "#FFFFFF");
+    }//GEN-LAST:event_Btn_Regresar2MouseExited
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -410,9 +471,18 @@ public final class Asignar_Nota extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_AsignarNota;
+    private javax.swing.JPanel Btn_Regresar;
+    private javax.swing.JPanel Btn_Regresar1;
+    private javax.swing.JPanel Btn_Regresar2;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
+    private javax.swing.JLabel Lb_Aerolinea7;
+    private javax.swing.JLabel Lb_Aerolinea8;
+    private javax.swing.JLabel Lb_Aerolinea9;
     private javax.swing.JLabel Lb_Guardar;
+    private javax.swing.JLabel Lb_Ordenar;
+    private javax.swing.JLabel Lb_Ordenar1;
+    private javax.swing.JLabel Lb_Ordenar2;
     private javax.swing.JTextField TB_NIE2;
     private javax.swing.JTextField TB_NombreActividad;
     private javax.swing.JTextField TB_NombreAlumno;
@@ -420,8 +490,11 @@ public final class Asignar_Nota extends javax.swing.JFrame {
     private javax.swing.JTextField TB_Periodo;
     private javax.swing.JLabel errorTb_Nota;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 
 }

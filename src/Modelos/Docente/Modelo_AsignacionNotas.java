@@ -161,10 +161,14 @@ public class Modelo_AsignacionNotas {
 
     /**
      * @param grado
+     * @param Periodo
+     * @param idEstado
+     * @param TipoActividad
      * @return
      * *******************************************************************************************************************
      */
-    public ArrayList<Modelo_AsignacionNotas> getListadoActividades(int grado) {
+    
+    public ArrayList<Modelo_AsignacionNotas> getListadoActividades(int grado, int Periodo, int idEstado, int TipoActividad) {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
@@ -180,11 +184,15 @@ SELECT Tbl_NAct."Actividad_id",Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
       INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact."id_Act" = Tb_Act."TipoActividad_id"
       INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id"
       INNER JOIN "Tbl_Grados" AS TbGr ON TbGr.id = Tb_Est."Grado_id"
-      WHERE TbGr.id = ? ; """;
+      WHERE TbGr.id = ? AND Tb_Act."Periodo_id" = ? AND Tb_EsAc.id = ? AND Tb_Tact."id_Act"= ? ; """;
 
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, grado);
+            pstm.setInt(2, Periodo);
+            pstm.setInt(3, idEstado);
+            pstm.setInt(4, TipoActividad);
 
+            System.out.println("sql> "+ pstm.toString());
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             ArrayList<Modelo_AsignacionNotas> DataActividades = new ArrayList<>();
@@ -213,48 +221,43 @@ SELECT Tbl_NAct."Actividad_id",Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
         return null;
     }
 
-    public ArrayList<Modelo_AsignacionNotas> get_ListadoActividades_Filtrada(int Criterio, int periodo, int grado, String Parametro) {
+ public ArrayList<Modelo_AsignacionNotas> get_NotasTodos(int grado) {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
-            System.out.println("###BUSQUEDA FILTRADA\n criterio de busqueda : " + Parametro + "\n Id del criterio  " + Criterio);
-
+            System.out.println("###BUSQUEDA GENERAL");
             String sql = """
 SELECT Tbl_NAct."Actividad_id",Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos", Tb_Act."Periodo_id",
                 Tb_Act."Nombre_Actividad", Tb_Tact."Ponderacion",Tb_EsAc."EstadoActividad",
                  Tbl_NAct."NotaObtenida"
 				 
-      FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
+                           FROM public."Tbl_Nota_Actividad" AS Tbl_NAct
       INNER JOIN "Tbl_EstadoActividad" AS Tb_EsAc ON  Tb_EsAc.id = Tbl_NAct."EstadoActividad_id"
       INNER JOIN "Tbl_Actividades" AS Tb_Act ON Tb_Act.id = Tbl_NAct."Actividad_id"
       INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact."id_Act" = Tb_Act."TipoActividad_id"
       INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id"
       INNER JOIN "Tbl_Grados" AS TbGr ON TbGr.id = Tb_Est."Grado_id"
-                                 
-	WHERE Tb_Act."Periodo_id" = ?  AND TbGr.id = ?  AND  """ + "  " + Parametro;
+      WHERE TbGr.id = ? """;
 
             pstm = conexionDB.prepareStatement(sql);
-            pstm.setInt(1, periodo);
-            pstm.setInt(2, grado);
-            pstm.setInt(3, Criterio);
+            pstm.setInt(1, grado);
 
-            System.out.println("consulta" + pstm.toString());
+
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             ArrayList<Modelo_AsignacionNotas> DataActividades = new ArrayList<>();
             while (consulta.next()) {
 
                 Modelo_AsignacionNotas Actividades = new Modelo_AsignacionNotas();
-
+                Actividades.setId_Actividad(consulta.getInt("Actividad_id"));
                 Actividades.setNIE(consulta.getInt("NIE"));
                 Actividades.setNombreEstudiante(consulta.getString("Nombres"));
                 Actividades.setApellidoEstudiante(consulta.getString("Apellidos"));
+                Actividades.setPeriodo(consulta.getInt("Periodo_id"));
                 Actividades.setNombreActividad(consulta.getString("Nombre_Actividad"));
                 Actividades.setEstadoActividad(consulta.getString("EstadoActividad"));
                 Actividades.setPonderacion(consulta.getDouble("Ponderacion"));
                 Actividades.setNota(consulta.getDouble("NotaObtenida"));
-                Actividades.setPeriodo(consulta.getInt("Periodo_id"));
-                Actividades.setId_Actividad(consulta.getInt("Actividad_id"));
 
                 DataActividades.add(Actividades);
             }

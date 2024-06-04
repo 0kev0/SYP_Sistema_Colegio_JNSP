@@ -317,7 +317,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="INtroducir fecha y que se despliegue la asistencia tomada de ese dia, ademas de que se muestre en el lb fecha"/>
+            <Property name="text" type="java.lang.String" value="al darle click a una fila que muestre un resumen de asistencias, una tabla con fechas por mes con los dias con detalles"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

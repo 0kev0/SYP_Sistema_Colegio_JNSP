@@ -199,7 +199,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("INtroducir fecha y que se despliegue la asistencia tomada de ese dia, ademas de que se muestre en el lb fecha");
+        jLabel1.setText("al darle click a una fila que muestre un resumen de asistencias, una tabla con fechas por mes con los dias con detalles");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 620, -1));
 
         Cb_Dia.setBackground(new java.awt.Color(224, 213, 170));

@@ -1,9 +1,13 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
-import Funciones.Funciones;
+import static Funciones.Funciones.EnterMouse;
+import static Funciones.Funciones.LeftMouse;
+import static Funciones.Funciones.Mouse_EnterTextbox;
+import static Funciones.Funciones.Mouse_LeftTextbox;
 import static Funciones.Funciones.ValidNIE;
 import static Funciones.Funciones.ValidNombres;
+import static Funciones.Funciones.clearScreen;
 import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_GestionPromedios;
 import Modelos.Docente.Modelo_TomaAsistencia;
@@ -22,17 +26,17 @@ import javax.swing.table.JTableHeader;
 
 public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
-    private final Modelos.Docente.Modelo_GestionPromedios Objeto_Modelo_GestionPromedios = new Modelos.Docente.Modelo_GestionPromedios();
-    private List<Modelos.Docente.Modelo_GestionPromedios> List_Modelo_GestionPromedios;
+    private final Modelo_GestionPromedios Objeto_Modelo_GestionPromedios = new Modelo_GestionPromedios();
+    private List<Modelo_GestionPromedios> List_Modelo_GestionPromedios;
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
     private final Modelo_TomaAsistencia Objeto_NIES = new Modelo_TomaAsistencia();
     private List<Modelo_TomaAsistencia> List_NIES;
-    private int Grado ;
+    private int Grado;
 
     public Gestion_Voleta_Notas(Modelo_DocenteGuia docente) {
         initComponents();
-        
+
         this.Grado = docente.getIdGradoGuia();
         modeloTabla = (DefaultTableModel) Tbl_RegistroNotas.getModel();
         DiseñoTabla(Tbl_RegistroNotas);
@@ -447,11 +451,11 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
 
     private void Btn_GuardarActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseEntered
-        Funciones.EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
+        EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
     }//GEN-LAST:event_Btn_GuardarActividadMouseEntered
 
     private void Btn_GuardarActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseExited
-        Funciones.LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
+        LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_GuardarActividadMouseExited
 
     private void TB_BuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_BuscarKeyTyped
@@ -478,7 +482,7 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
         if (Palabra.equals("")) {
             Get_ListadoNotas(Tbl_RegistroNotas);
-            Funciones.clearScreen();
+            clearScreen();
 
         } else {
 
@@ -521,16 +525,16 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
     private void TB_BuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_BuscarMouseExited
         switch (Cb_Busqueda.getSelectedIndex()) {
             case 0 -> {
-                Funciones.Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(0), TB_Buscar);
+                Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(0), TB_Buscar);
 
             }
 
             case 1 -> {
-                Funciones.Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(1), TB_Buscar);
+                Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(1), TB_Buscar);
 
             }
             case 2 -> {
-                Funciones.Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(2), TB_Buscar);
+                Mouse_LeftTextbox("Ingrese " + Cb_Busqueda.getItemAt(2), TB_Buscar);
 
             }
             default ->
@@ -540,13 +544,13 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TB_BuscarMouseExited
 
     private void TB_BuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_BuscarMouseEntered
-        Funciones.Mouse_EnterTextbox(TB_Buscar);
+        Mouse_EnterTextbox(TB_Buscar);
     }//GEN-LAST:event_TB_BuscarMouseEntered
 
     private void Cb_NIESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_NIESActionPerformed
         int NIE = Integer.parseInt(Cb_NIES.getSelectedItem().toString());
-        
-         System.out.println("CARGANDO TODAS LAS NOTAS");
+
+        System.out.println("CARGANDO TODAS LAS NOTAS");
 //        int grado = Cb_Periodo.getSelectedIndex() + 1;
 
         modeloTabla.setNumRows(0);
