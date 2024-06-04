@@ -1,7 +1,6 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
-import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_RegistroAsistencia;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,12 +20,9 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
     private final Modelo_RegistroAsistencia Objeto = new Modelo_RegistroAsistencia();
     private List<Modelo_RegistroAsistencia> ListObjeto;
     private DefaultTableModel modeloTabla = new DefaultTableModel();
-    private final int Grado;
 
-    public Registro_Asistencia(Modelo_DocenteGuia docente) {
+    public Registro_Asistencia() {
         initComponents();
-        this.Grado = docente.getIdGradoGuia();
-
         modeloTabla = (DefaultTableModel) Tbl_RegistroAsistencia.getModel();
         DiseñoTabla(Tbl_RegistroAsistencia);
         Cargar_Listado_Registro(Tbl_RegistroAsistencia);
@@ -199,7 +195,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("al darle click a una fila que muestre un resumen de asistencias, una tabla con fechas por mes con los dias con detalles");
+        jLabel1.setText("INtroducir fecha y que se despliegue la asistencia tomada de ese dia, ademas de que se muestre en el lb fecha");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 620, -1));
 
         Cb_Dia.setBackground(new java.awt.Color(224, 213, 170));
@@ -341,7 +337,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
     public void Cargar_Listado_Registro(JTable tabla) {
         modeloTabla.setNumRows(0);
 
-        ListObjeto = Objeto.GetListado(Grado);
+        ListObjeto = Objeto.GetListado(1);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
 
         for (Modelo_RegistroAsistencia item : ListObjeto) {

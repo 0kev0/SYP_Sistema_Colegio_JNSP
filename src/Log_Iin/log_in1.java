@@ -4,13 +4,8 @@ import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import static Funciones.Funciones.VaciarCampos;
 import static Funciones.Funciones.validarCampos;
-import Log_Iin.Usuario.Modelo_Usuario;
-import Modelos.Docente.Modelo_DocenteGuia;
-import Vista_Panel_Director.Panel_Director;
-import Vista_Panel_Docente.Panel_Docente;
-import Vista_Panel_Secretaria.Panel_Secretaria;
-import javax.crypto.AEADBadTagException;
 import javax.swing.JOptionPane;
+
 
 public class log_in1 extends javax.swing.JFrame {
 
@@ -127,7 +122,7 @@ public class log_in1 extends javax.swing.JFrame {
         TxbCorreo.setBackground(new java.awt.Color(5, 89, 91));
         TxbCorreo.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         TxbCorreo.setForeground(new java.awt.Color(255, 255, 255));
-        TxbCorreo.setText("0000");
+        TxbCorreo.setText("Ing.Paiz");
         TxbCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Correo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Sylfaen", 1, 18), new java.awt.Color(251, 212, 0))); // NOI18N
         TxbCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -143,7 +138,7 @@ public class log_in1 extends javax.swing.JFrame {
         TxbContraseña.setBackground(new java.awt.Color(5, 89, 91));
         TxbContraseña.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         TxbContraseña.setForeground(new java.awt.Color(255, 255, 255));
-        TxbContraseña.setText("0");
+        TxbContraseña.setText("Programacion Orientada a Objetos");
         TxbContraseña.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Sylfaen", 1, 18), new java.awt.Color(251, 212, 0))); // NOI18N
         TxbContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -288,7 +283,7 @@ public class log_in1 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(Btn_Reservar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -316,7 +311,9 @@ public class log_in1 extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -331,54 +328,21 @@ public class log_in1 extends javax.swing.JFrame {
     }//GEN-LAST:event_TxbCorreoActionPerformed
 
     private void Btn_ReservarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ReservarMouseClicked
-        String PASS = TxbContraseña.getText();
-        int NIE = Integer.parseInt(TxbCorreo.getText());
-
-        if (validarCampos(jp_Main)) {
-
-            Modelo_Usuario USER = new Modelo_Usuario();
-            USER = USER.Validar_Usuario(PASS, NIE);
-
-            if (USER != null) {
-                System.out.println("\tINICIO SATISFACTORIO");
-                Funciones.Funciones.showMessageDialog("BIENVENIDO", "Bienvenido " + USER.getNIE() + USER.getApellidos() + " " + USER.getNombres());
-
-                int rol = USER.getId_Rol();
-                System.out.println("rol " + USER.getId_Rol());
-                switch (rol) {
-                    case 1 -> {
-                        //docente
-                        Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
-                        Objeto_Docente = Objeto_Docente.Get_Docente(NIE);
-
-                        System.out.println("Docente guia del grado  " + Objeto_Docente.getIdGradoGuia() + " materia " + Objeto_Docente.getMateriaImpartida());
-
-                        Panel_Docente docente = new Panel_Docente(Objeto_Docente);
-                        docente.setVisible(true);
-                        dispose();
-                    }
-                    case 2 -> {
-                        //secretaria
-                        Panel_Secretaria Secretaria = new Panel_Secretaria();
-                        Secretaria.setVisible(true);
-                        dispose();
-                    }
-                    case 3 -> {
-                        //director
-                        Panel_Director Director = new Panel_Director();
-                        Director.setVisible(true);
-                        dispose();
-                    }
-                    default ->
-                        throw new AssertionError();
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "CREDENCIALES INCORRECTAS\n INTENTE NUEVAMENTE ");
-                VaciarCampos(jp_Main);
-            }
-
-        }
+        String[] user = {TxbCorreo.getText(), TxbContraseña.getText()};
+//
+//        if (validarCampos(jp_Main)) {
+//
+//            Tbl_Cliente1 administrador = new Tbl_Cliente1();
+//
+//            if (administrador.ValidLogin(user) != null) {
+//                System.out.println("\tINICIO SATISFACTORIO");
+//
+//            } else {
+//                JOptionPane.showMessageDialog(rootPane, "CREDENCIALES INCORRECTAS\n INTENTE NUEVAMENTE ");
+//                VaciarCampos(jp_Main);
+//            }
+//
+//        }
 
 
     }//GEN-LAST:event_Btn_ReservarMouseClicked
