@@ -1,8 +1,8 @@
 package Vista_Panel_Secretaria.Opciones;
 
-import Funciones.Funciones;
+import static Funciones.Funciones.EnterMouse;
+import static Funciones.Funciones.LeftMouse;
 import Modelos.Secretaria.Modelo_Transacciones;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Recibo1 extends javax.swing.JFrame {
@@ -15,13 +15,22 @@ public class Recibo1 extends javax.swing.JFrame {
 
         lb_Responsable.setText("Responsable :" + Datos.getResponsable());
         Lb_Estudiante.setText("Estudiante : " + Datos.getEstudiante());
+        Lb_Correo.setText("Correo : " + Datos.getCorreo());
 
         Double sub_total = 0.0;
-        for (Modelo_Transacciones item : ResumenCompra) {
-            Detalle += "- " +  item.getDetalles() + "\nCantidad: " + item.getCantidades() + " Precio : "+ item.getPrecio() + " Sub-Total : " + item.getMontos() + "\n";
-            sub_total += item.getMontos();
+        if (ResumenCompra.size() > 1) {
+            for (Modelo_Transacciones item : ResumenCompra) {
+                Detalle += "- " + item.getDetalles() + "\nCantidad: " + item.getCantidades() + " Precio : " + item.getPrecio() + " Sub-Total : " + item.getMontos() + "\n";
+                sub_total += item.getMontos();
+            }
+        } else {
+            for (Modelo_Transacciones item : ResumenCompra) {
+                Detalle += "- " + item.getDetalles() + " Cantidad: " + item.getCantidades() +  " Sub-Total : " + item.getMontos() ;
+                sub_total = item.getMontos();
+            }
         }
-Tb_Concepto.setText(Detalle);
+
+        Tb_Concepto.setText(Detalle);
         Lb_SubTotal.setText("Sub_Total: $ " + sub_total);
 
 //        Double Descuent = sub_total * person_.getMembresia();
@@ -346,11 +355,11 @@ Tb_Concepto.setText(Detalle);
     }//GEN-LAST:event_Btn_RegresarMouseClicked
 
     private void Btn_RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseEntered
-        Funciones.EnterMouse(Btn_Regresar, Lb_Ordenar, "#D90707", "#000000");
+        EnterMouse(Btn_Regresar, Lb_Ordenar, "#D90707", "#000000");
     }//GEN-LAST:event_Btn_RegresarMouseEntered
 
     private void Btn_RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseExited
-        Funciones.LeftMouse(Btn_Regresar, Lb_Ordenar, "#980505", "#FFFFFF");
+        LeftMouse(Btn_Regresar, Lb_Ordenar, "#980505", "#FFFFFF");
     }//GEN-LAST:event_Btn_RegresarMouseExited
 
     public Recibo1() {
@@ -360,10 +369,8 @@ Tb_Concepto.setText(Detalle);
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Recibo1().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Recibo1().setVisible(true);
         });
     }
 

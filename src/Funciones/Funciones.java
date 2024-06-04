@@ -96,6 +96,12 @@ public class Funciones {
         int añoActual = Calendar.getInstance().get(Calendar.YEAR);
         return añoActual;
     }
+    
+        public static int Get_MES_Actual() {
+        // Obtener el año actual
+        int mesActual = Calendar.getInstance().get(Calendar.MONTH);
+        return mesActual;
+    }
 
     public static String obtenerFechaActual() {
         // Obtener la fecha y hora actual
@@ -400,6 +406,7 @@ public class Funciones {
         cant.setText("Items : ");
         subt.setText("Sub-Total: $ ");
     }
+
 
     public void setImage(JLabel label, String rutaImagen) {
         ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));

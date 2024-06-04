@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class Panel_Inscripcion extends javax.swing.JFrame {
@@ -58,20 +57,10 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         Txb_Correo = new javax.swing.JTextField();
         Cb_TipoResponsableA = new javax.swing.JComboBox<>();
         errorNombre = new javax.swing.JLabel();
-        errorApellidoMaterno = new javax.swing.JLabel();
         LbErrorDirecc = new javax.swing.JLabel();
         LbErrorCorreo = new javax.swing.JLabel();
-        Btn_Regresar = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        Lb_Aerolinea7 = new javax.swing.JLabel();
-        Lb_Ordenar = new javax.swing.JLabel();
-        Btn_Inscribir = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        Lb_Aerolinea6 = new javax.swing.JLabel();
-        Lb_Crearcuenta = new javax.swing.JLabel();
         LbErrorTel = new javax.swing.JLabel();
         LbErrorTel1 = new javax.swing.JLabel();
-        errorNombre2 = new javax.swing.JLabel();
         Txb_ApellidosResponsableA = new javax.swing.JTextField();
         Txb_NombresResponsableA = new javax.swing.JTextField();
         errorNombre3 = new javax.swing.JLabel();
@@ -87,6 +76,19 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         TxbTelefono2 = new javax.swing.JTextField();
         Txb_NIE = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
+        Btn_Inscripcion = new Customizacion.Custom_Buttons();
+        Btn_Inventario1 = new javax.swing.JPanel();
+        Lb_Inventario = new javax.swing.JLabel();
+        Btn_Regresar = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        Lb_Aerolinea7 = new javax.swing.JLabel();
+        Lb_Ordenar = new javax.swing.JLabel();
+        Btn_Inscribir = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        Lb_Aerolinea6 = new javax.swing.JLabel();
+        Lb_Crearcuenta = new javax.swing.JLabel();
+        Txb_idPadres = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -205,11 +207,6 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         errorNombre.setForeground(new java.awt.Color(23, 42, 56));
         errorNombre.setText("Error");
 
-        errorApellidoMaterno.setBackground(new java.awt.Color(23, 42, 56));
-        errorApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        errorApellidoMaterno.setForeground(new java.awt.Color(23, 42, 56));
-        errorApellidoMaterno.setText("Error");
-
         LbErrorDirecc.setBackground(new java.awt.Color(23, 42, 56));
         LbErrorDirecc.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         LbErrorDirecc.setForeground(new java.awt.Color(23, 42, 56));
@@ -220,107 +217,6 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         LbErrorCorreo.setForeground(new java.awt.Color(23, 42, 56));
         LbErrorCorreo.setText("Error");
 
-        Btn_Regresar.setBackground(new java.awt.Color(152, 5, 5));
-        Btn_Regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Btn_Regresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Btn_RegresarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Btn_RegresarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Btn_RegresarMouseExited(evt);
-            }
-        });
-        Btn_Regresar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel8.setBackground(new java.awt.Color(255, 10, 10));
-
-        Lb_Aerolinea7.setBackground(new java.awt.Color(255, 255, 255));
-        Lb_Aerolinea7.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        Lb_Aerolinea7.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Lb_Aerolinea7))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Lb_Aerolinea7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        Btn_Regresar.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 35, 149, 12));
-
-        Lb_Ordenar.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
-        Lb_Ordenar.setForeground(new java.awt.Color(255, 255, 255));
-        Lb_Ordenar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/back (1).png"))); // NOI18N
-        Lb_Ordenar.setText("Regresar");
-        Lb_Ordenar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Btn_Regresar.add(Lb_Ordenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 130, 30));
-
-        Btn_Inscribir.setBackground(new java.awt.Color(64, 124, 62));
-        Btn_Inscribir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Btn_Inscribir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Btn_InscribirMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Btn_InscribirMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Btn_InscribirMouseExited(evt);
-            }
-        });
-
-        jPanel7.setBackground(new java.awt.Color(40, 200, 35));
-
-        Lb_Aerolinea6.setBackground(new java.awt.Color(255, 255, 255));
-        Lb_Aerolinea6.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        Lb_Aerolinea6.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Lb_Aerolinea6))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Lb_Aerolinea6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        Lb_Crearcuenta.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
-        Lb_Crearcuenta.setForeground(new java.awt.Color(255, 255, 255));
-        Lb_Crearcuenta.setText("Registrar");
-        Lb_Crearcuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        javax.swing.GroupLayout Btn_InscribirLayout = new javax.swing.GroupLayout(Btn_Inscribir);
-        Btn_Inscribir.setLayout(Btn_InscribirLayout);
-        Btn_InscribirLayout.setHorizontalGroup(
-            Btn_InscribirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Btn_InscribirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Lb_Crearcuenta)
-                .addContainerGap(16, Short.MAX_VALUE))
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        Btn_InscribirLayout.setVerticalGroup(
-            Btn_InscribirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Btn_InscribirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Lb_Crearcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         LbErrorTel.setBackground(new java.awt.Color(23, 42, 56));
         LbErrorTel.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         LbErrorTel.setForeground(new java.awt.Color(23, 42, 56));
@@ -330,11 +226,6 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         LbErrorTel1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         LbErrorTel1.setForeground(new java.awt.Color(23, 42, 56));
         LbErrorTel1.setText("Error");
-
-        errorNombre2.setBackground(new java.awt.Color(23, 42, 56));
-        errorNombre2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        errorNombre2.setForeground(new java.awt.Color(23, 42, 56));
-        errorNombre2.setText("Error");
 
         Txb_ApellidosResponsableA.setBackground(new java.awt.Color(17, 66, 50));
         Txb_ApellidosResponsableA.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
@@ -517,15 +408,212 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 0, 0, 0, new java.awt.Color(0, 126, 112)));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Btn_Inscripcion.setBackground(new java.awt.Color(250, 244, 208));
+        Btn_Inscripcion.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 3, 3, new java.awt.Color(255, 204, 0)));
+        Btn_Inscripcion.setPreferredSize(new java.awt.Dimension(180, 60));
+        Btn_Inscripcion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_InscripcionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_InscripcionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_InscripcionMouseExited(evt);
+            }
+        });
+
+        Btn_Inventario1.setBackground(new java.awt.Color(255, 255, 102));
+        Btn_Inventario1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 0, 0, new java.awt.Color(255, 153, 0)));
+        Btn_Inventario1.setPreferredSize(new java.awt.Dimension(2, 15));
+
+        javax.swing.GroupLayout Btn_Inventario1Layout = new javax.swing.GroupLayout(Btn_Inventario1);
+        Btn_Inventario1.setLayout(Btn_Inventario1Layout);
+        Btn_Inventario1Layout.setHorizontalGroup(
+            Btn_Inventario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 147, Short.MAX_VALUE)
+        );
+        Btn_Inventario1Layout.setVerticalGroup(
+            Btn_Inventario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        Lb_Inventario.setBackground(new java.awt.Color(7, 3, 26));
+        Lb_Inventario.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        Lb_Inventario.setForeground(new java.awt.Color(7, 3, 26));
+        Lb_Inventario.setText("Reinscripcion");
+
+        javax.swing.GroupLayout Btn_InscripcionLayout = new javax.swing.GroupLayout(Btn_Inscripcion);
+        Btn_Inscripcion.setLayout(Btn_InscripcionLayout);
+        Btn_InscripcionLayout.setHorizontalGroup(
+            Btn_InscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Btn_Inventario1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_InscripcionLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Lb_Inventario)
+                .addGap(17, 17, 17))
+        );
+        Btn_InscripcionLayout.setVerticalGroup(
+            Btn_InscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Btn_InscripcionLayout.createSequentialGroup()
+                .addComponent(Lb_Inventario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Btn_Inventario1, javax.swing.GroupLayout.DEFAULT_SIZE, 13, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(Btn_Inscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 150, 50));
+
+        Btn_Regresar.setBackground(new java.awt.Color(152, 5, 5));
+        Btn_Regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_RegresarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_RegresarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_RegresarMouseExited(evt);
+            }
+        });
+        Btn_Regresar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel8.setBackground(new java.awt.Color(255, 10, 10));
+
+        Lb_Aerolinea7.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Aerolinea7.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        Lb_Aerolinea7.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Lb_Aerolinea7))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lb_Aerolinea7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        Btn_Regresar.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 35, 149, 12));
+
+        Lb_Ordenar.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        Lb_Ordenar.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_Ordenar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/back (1).png"))); // NOI18N
+        Lb_Ordenar.setText("Regresar");
+        Lb_Ordenar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar.add(Lb_Ordenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 130, 30));
+
+        jPanel4.add(Btn_Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, -1, -1));
+
+        Btn_Inscribir.setBackground(new java.awt.Color(64, 124, 62));
+        Btn_Inscribir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Inscribir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_InscribirMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_InscribirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_InscribirMouseExited(evt);
+            }
+        });
+
+        jPanel7.setBackground(new java.awt.Color(40, 200, 35));
+
+        Lb_Aerolinea6.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Aerolinea6.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        Lb_Aerolinea6.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 119, Short.MAX_VALUE)
+                .addComponent(Lb_Aerolinea6))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lb_Aerolinea6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        Lb_Crearcuenta.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        Lb_Crearcuenta.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_Crearcuenta.setText("Registrar");
+        Lb_Crearcuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout Btn_InscribirLayout = new javax.swing.GroupLayout(Btn_Inscribir);
+        Btn_Inscribir.setLayout(Btn_InscribirLayout);
+        Btn_InscribirLayout.setHorizontalGroup(
+            Btn_InscribirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(Btn_InscribirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Crearcuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        Btn_InscribirLayout.setVerticalGroup(
+            Btn_InscribirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Btn_InscribirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Crearcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(Btn_Inscribir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 10, -1, 50));
+
+        Txb_idPadres.setBackground(new java.awt.Color(17, 66, 50));
+        Txb_idPadres.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        Txb_idPadres.setForeground(new java.awt.Color(255, 255, 255));
+        Txb_idPadres.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo de esponsables :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 196, 54))); // NOI18N
+        Txb_idPadres.setCaretColor(new java.awt.Color(203, 174, 104));
+        Txb_idPadres.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txb_idPadresMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Txb_idPadresMouseExited(evt);
+            }
+        });
+        Txb_idPadres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Txb_idPadresKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Txb_idPadresKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                Txb_idPadresKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setText("el codigo que introduzca se verifica si tiene hijos para el descuento  ");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(LbErrorDirecc, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Txb_Direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(LbErrorCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 391, Short.MAX_VALUE))
+                                    .addComponent(Txb_Correo)))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -564,20 +652,16 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(errorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(64, 64, 64))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(LbErrorDirecc, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Txb_Direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(45, 45, 45)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(LbErrorCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Txb_Correo))))
-                        .addGap(74, 74, 74))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(loading1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(Txb_idPadres, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1))
+                            .addComponent(loading1)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(Txb_Nombre_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(Txb_Apellido_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -587,18 +671,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                                 .addComponent(Cb_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(Txb_NIE, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 113, Short.MAX_VALUE))))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(errorNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(errorApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Btn_Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Btn_Inscribir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -619,7 +692,15 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                             .addComponent(Txb_Apellido_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(errorNombre)))
-                .addGap(4, 4, 4)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Txb_idPadres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(errorNombre3)
@@ -645,7 +726,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                     .addComponent(errorNombre6)
                     .addComponent(errorNombre5)
                     .addComponent(LbErrorTel1))
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(Txb_Direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -655,16 +736,9 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                         .addComponent(Txb_Correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LbErrorCorreo)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Btn_Inscribir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(errorNombre2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(errorApellidoMaterno))
-                    .addComponent(Btn_Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -791,7 +865,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
 
             Responsables.setApellidos_A(Txb_ApellidosResponsableA.getText());
             Responsables.setNombres_A(Txb_NombresResponsableA.getText());
-            Responsables.setId_Tipoa(Cb_TipoResponsableA.getSelectedIndex());
+            Responsables.setId_TipoA(Cb_TipoResponsableA.getSelectedIndex());
             Responsables.setTelefonoA(TxbTelefono1.getText());
 
             Responsables.setApellidos_B(Txb_ApellidosResponsableB.getText());
@@ -804,7 +878,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
 
             if (Responsables.Insert_Responsables(Responsables) > 0) {
 
-                int idresponsable = Responsables.Get_IdReciente();
+                int idresponsable = Responsables.Get_IdReciente() + 1;
                 System.out.println("Responsables agregados id " + idresponsable);
 
                 Modelo_Estudiante EstudianteNuevo = new Modelo_Estudiante();
@@ -819,13 +893,11 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                 if (EstudianteNuevo.Insert_Estudiante(EstudianteNuevo) > 0) {
                     int NIE = EstudianteNuevo.getNIE();
                     int id_grado = EstudianteNuevo.getId_Grado();
-                                Date fecha = new Date();
-
+                    Date fecha = new Date();
 
                     int Year = Funciones.Get_Year_Actual();
                     //valores de prueba
                     int descuento_id = 0;
-                    
 
                     Modelo_Matricula Matricula = new Modelo_Matricula();
                     Matricula.setNIE(NIE);
@@ -921,7 +993,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     }//GEN-LAST:event_Txb_Nombre_AlumnoMouseClicked
 
     private void Txb_Apellido_AlumnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_Apellido_AlumnoKeyTyped
-        Funciones.ValidNombres(Txb_Apellido_Alumno, errorApellidoMaterno);
+//        Funciones.ValidNombres(Txb_Apellido_Alumno, errorApellidoMaterno);
     }//GEN-LAST:event_Txb_Apellido_AlumnoKeyTyped
 
     private void Txb_Apellido_AlumnoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_Apellido_AlumnoMouseExited
@@ -946,21 +1018,76 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Txb_NIEKeyTyped
 
+    private void Btn_InscripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_InscripcionMouseClicked
+        Panel_Reinscripcion gest = new Panel_Reinscripcion();
+        dispose();
+        gest.setVisible(true);
+    }//GEN-LAST:event_Btn_InscripcionMouseClicked
+
+    private void Btn_InscripcionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_InscripcionMouseEntered
+        Funciones.EnterMouse(Btn_Inscripcion, Lb_Inventario, "#FFF099", "#FF9900");
+    }//GEN-LAST:event_Btn_InscripcionMouseEntered
+
+    private void Btn_InscripcionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_InscripcionMouseExited
+        Funciones.LeftMouse(Btn_Inscripcion, Lb_Inventario, "#FAF4D0", "#000000");
+    }//GEN-LAST:event_Btn_InscripcionMouseExited
+
+    private void Txb_idPadresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_idPadresMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Txb_idPadresMouseClicked
+
+    private void Txb_idPadresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txb_idPadresMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Txb_idPadresMouseExited
+
+    private void Txb_idPadresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_idPadresKeyTyped
+
+
+    }//GEN-LAST:event_Txb_idPadresKeyTyped
+
+    private void Txb_idPadresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_idPadresKeyPressed
+
+    }//GEN-LAST:event_Txb_idPadresKeyPressed
+
+    private void Txb_idPadresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_idPadresKeyReleased
+        // verificar y cargar datos de padres .
+        int id = Integer.parseInt(Txb_idPadres.getText());
+        Modelo_Responsables responsable = new Modelo_Responsables();
+        responsable = responsable.Get_DataResponsable(id);
+
+        if (responsable.getId() != 0) {
+            Txb_ApellidosResponsableA.setText(responsable.getApellidos_A());
+            Txb_NombresResponsableA.setText(responsable.getNombres_A());
+            TxbTelefono1.setText(responsable.getTelefonoA());
+            Cb_TipoResponsableA.setSelectedIndex(responsable.getId_TipoA() -1);
+
+            Txb_ApellidosResponsableB.setText(responsable.getApellidos_B());
+            Txb_NombresResponsableB.setText(responsable.getNombres_B());
+            TxbTelefono2.setText(responsable.getTelefonoB());
+            Cb_TipoResponsable_B.setSelectedIndex(responsable.getId_TipoB()-1 );
+
+            Txb_Direccion.setText(responsable.getDireccion());
+            Txb_Correo.setText(responsable.getCorreo());
+
+        }
+
+    }//GEN-LAST:event_Txb_idPadresKeyReleased
+
     public static void clearTxb(JTextField TextBox) {
         TextBox.setText("");
     }
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Panel_Inscripcion().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Panel_Inscripcion().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_Inscribir;
+    private javax.swing.JPanel Btn_Inscripcion;
+    private javax.swing.JPanel Btn_Inventario1;
     private javax.swing.JPanel Btn_Regresar;
     private javax.swing.JComboBox<String> Cb_Edad;
     private javax.swing.JComboBox<String> Cb_Grado;
@@ -973,6 +1100,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     private javax.swing.JLabel Lb_Aerolinea6;
     private javax.swing.JLabel Lb_Aerolinea7;
     private javax.swing.JLabel Lb_Crearcuenta;
+    private javax.swing.JLabel Lb_Inventario;
     private javax.swing.JLabel Lb_Ordenar;
     private javax.swing.JTextField TxbTelefono1;
     private javax.swing.JTextField TxbTelefono2;
@@ -985,13 +1113,13 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     private javax.swing.JTextField Txb_Nombre_Alumno;
     private javax.swing.JTextField Txb_NombresResponsableA;
     private javax.swing.JTextField Txb_NombresResponsableB;
-    private javax.swing.JLabel errorApellidoMaterno;
+    private javax.swing.JTextField Txb_idPadres;
     private javax.swing.JLabel errorNombre;
-    private javax.swing.JLabel errorNombre2;
     private javax.swing.JLabel errorNombre3;
     private javax.swing.JLabel errorNombre4;
     private javax.swing.JLabel errorNombre5;
     private javax.swing.JLabel errorNombre6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

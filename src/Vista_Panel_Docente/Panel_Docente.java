@@ -4,6 +4,8 @@ import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import java.awt.Color;
 import static Funciones.Funciones.CentrarFrames;
+import Log_Iin.log_in1;
+import Modelos.Docente.Modelo_DocenteGuia;
 import Vista_Panel_Docente.Opciones.Asignacion_Actividades;
 import Vista_Panel_Docente.Opciones.Asignacion_Notas;
 import Vista_Panel_Docente.Opciones.Registro_Asistencia;
@@ -11,14 +13,21 @@ import Vista_Panel_Docente.Opciones.Gestion_Notas;
 import Vista_Panel_Docente.Opciones.Gestion_Voleta_Notas;
 import Vista_Panel_Docente.Opciones.Toma_Asistencia;
 
-
 public class Panel_Docente extends javax.swing.JFrame {
 
     public Panel_Docente() {
         getContentPane().setBackground(new Color(250, 250, 250));
-
         initComponents();
+    }
 
+    private Modelo_DocenteGuia DocenteGuia ;
+
+    public Panel_Docente(Modelo_DocenteGuia Docente) {
+        getContentPane().setBackground(new Color(250, 250, 250));
+        initComponents();
+        this.DocenteGuia = Docente;
+
+        Lb_Nombre.setText("Bienvenido: " + DocenteGuia.getApellidos() + " " + DocenteGuia.getNombres() + " GUia grado: " + DocenteGuia.getIdGradoGuia());
     }
 
     @SuppressWarnings("unchecked")
@@ -27,8 +36,9 @@ public class Panel_Docente extends javax.swing.JFrame {
 
         Panel_bg = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        Lb_Aerolinea1 = new javax.swing.JLabel();
+        Lb_Nombre = new javax.swing.JLabel();
         Lb_Logo = new javax.swing.JLabel();
+        Lb_Aerolinea2 = new javax.swing.JLabel();
         Panel_Izq = new javax.swing.JPanel();
         Btn_AsignarActividades = new javax.swing.JPanel();
         Lb_MAtricula = new javax.swing.JLabel();
@@ -63,14 +73,20 @@ public class Panel_Docente extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(0, 126, 112)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Lb_Aerolinea1.setBackground(new java.awt.Color(251, 238, 122));
-        Lb_Aerolinea1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        Lb_Aerolinea1.setForeground(new java.awt.Color(203, 202, 104));
-        Lb_Aerolinea1.setText("Colegio Josefino Nuestra Señora De La Paz ");
-        jPanel3.add(Lb_Aerolinea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 540, 70));
+        Lb_Nombre.setBackground(new java.awt.Color(251, 238, 122));
+        Lb_Nombre.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        Lb_Nombre.setForeground(new java.awt.Color(203, 202, 104));
+        Lb_Nombre.setText("Bienvenido:");
+        jPanel3.add(Lb_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 610, 70));
 
         Lb_Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LOGO blsnco 80x80_1.jpg"))); // NOI18N
         jPanel3.add(Lb_Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 70));
+
+        Lb_Aerolinea2.setBackground(new java.awt.Color(251, 238, 122));
+        Lb_Aerolinea2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        Lb_Aerolinea2.setForeground(new java.awt.Color(203, 202, 104));
+        Lb_Aerolinea2.setText("Colegio Josefino Nuestra Señora De La Paz ");
+        jPanel3.add(Lb_Aerolinea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 540, 70));
 
         Panel_bg.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 80));
 
@@ -502,7 +518,9 @@ public class Panel_Docente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseExited
 
     private void Btn_Regresar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseClicked
-        // TODO add your handling code here:
+        log_in1 gest = new log_in1();
+        dispose();
+        gest.setVisible(true);
     }//GEN-LAST:event_Btn_Regresar1MouseClicked
 
     private void Btn_Regresar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseEntered
@@ -530,7 +548,7 @@ public class Panel_Docente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_TomaAsistenciaMouseExited
 
     private void Btn_Inventario_MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseEntered
-        EnterMouse( Btn_Inventario_, Lb_Inventario, "#FFF099", "#FF9900");
+        EnterMouse(Btn_Inventario_, Lb_Inventario, "#FFF099", "#FF9900");
     }//GEN-LAST:event_Btn_Inventario_MouseEntered
 
     private void Btn_Inventario_MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseExited
@@ -547,16 +565,18 @@ public class Panel_Docente extends javax.swing.JFrame {
 
     private void Btn_Modificar_cuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Modificar_cuentaMouseClicked
 
-        Gestion_Voleta_Notas gest = new Gestion_Voleta_Notas();
+        Gestion_Voleta_Notas gest = new Gestion_Voleta_Notas(DocenteGuia);
+                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
-        
+
     }//GEN-LAST:event_Btn_Modificar_cuentaMouseClicked
 
     private void Btn_Inventario_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseClicked
-        Gestion_Notas gest = new Gestion_Notas();
+        Gestion_Notas gest = new Gestion_Notas(DocenteGuia);
+                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
@@ -571,47 +591,50 @@ public class Panel_Docente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_Asignar_NotasMouseExited
 
     private void Btn_AsignarActividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarActividadesMouseClicked
-        Asignacion_Actividades gest = new Asignacion_Actividades();
+        Asignacion_Actividades gest = new Asignacion_Actividades(DocenteGuia);
+                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
-        gest.show();  
-        
+        gest.show();
+
     }//GEN-LAST:event_Btn_AsignarActividadesMouseClicked
 
     private void Btn_Asignar_NotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Asignar_NotasMouseClicked
-        Asignacion_Notas gest = new Asignacion_Notas();
+        Asignacion_Notas gest = new Asignacion_Notas(DocenteGuia);
+
+                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
-        gest.show(); 
+        gest.show();
 
     }//GEN-LAST:event_Btn_Asignar_NotasMouseClicked
 
     private void Btn_TomaAsistenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_TomaAsistenciaMouseClicked
-        Toma_Asistencia gest = new Toma_Asistencia();
+        Toma_Asistencia gest = new Toma_Asistencia(DocenteGuia);
+                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
-        gest.show(); 
-        
+        gest.show();
+
     }//GEN-LAST:event_Btn_TomaAsistenciaMouseClicked
 
     private void Btn_RegistroAsistenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegistroAsistenciaMouseClicked
-        Registro_Asistencia gest = new Registro_Asistencia();
+        Registro_Asistencia gest = new Registro_Asistencia(DocenteGuia);
+                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
-        gest.show(); 
+        gest.show();
 
     }//GEN-LAST:event_Btn_RegistroAsistenciaMouseClicked
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Panel_Docente().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Panel_Docente().setVisible(true);
         });
     }
 
@@ -631,13 +654,14 @@ public class Panel_Docente extends javax.swing.JFrame {
     private javax.swing.JPanel Btn_Regresar1;
     private javax.swing.JPanel Btn_TomaAsistencia;
     private javax.swing.JDesktopPane Desk;
-    private javax.swing.JLabel Lb_Aerolinea1;
+    private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_AsignarNOtas;
     private javax.swing.JLabel Lb_Empleado;
     private javax.swing.JLabel Lb_Inventario;
     private javax.swing.JLabel Lb_Logo;
     private javax.swing.JLabel Lb_MAtricula;
     private javax.swing.JLabel Lb_ModificarCuenta;
+    private javax.swing.JLabel Lb_Nombre;
     private javax.swing.JLabel Lb_Ordenar1;
     private javax.swing.JLabel Lb_RegistroVentas;
     private javax.swing.JPanel Panel_Izq;
