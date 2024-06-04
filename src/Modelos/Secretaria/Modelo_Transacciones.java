@@ -1,5 +1,6 @@
 package Modelos.Secretaria;
 
+import Modelos.Docente.*;
 import Conexion.ClaseConexion;
 import static Funciones.Funciones.TiemSql;
 import java.sql.Connection;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

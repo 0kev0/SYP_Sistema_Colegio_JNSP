@@ -1,5 +1,6 @@
 package Modelos.Secretaria;
 
+import Modelos.Docente.*;
 import Conexion.ClaseConexion;
 import static Funciones.Funciones.TiemSql;
 import java.sql.Connection;
@@ -8,7 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,8 +38,6 @@ public class Modelo_Responsables {
 
     private String Direccion;
     private String Correo;
-
-    private int CantidadInscritos;
 
     public Connection getConexionDB() {
         return conexionDB;
@@ -159,11 +159,11 @@ public class Modelo_Responsables {
         this.Correo = Correo;
     }
 
-    public int getId_TipoA() {
+    public int getId_Tipoa() {
         return id_Tipoa;
     }
 
-    public void setId_TipoA(int id_Tipoa) {
+    public void setId_Tipoa(int id_Tipoa) {
         this.id_Tipoa = id_Tipoa;
     }
 
@@ -175,17 +175,9 @@ public class Modelo_Responsables {
         this.id_TipoB = id_TipoB;
     }
 
-    public int getCantidadInscritos() {
-        return CantidadInscritos;
-    }
-
-    public void setCantidadInscritos(int CantidadInscritos) {
-        this.CantidadInscritos = CantidadInscritos;
-    }
-
     public Modelo_Responsables(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
             int id, String Apellidos_A, String Nombres_A, String TipoResponsables_A, String TelefonoA, int id_Tipoa,
-            String Apellidos_B, String Nombres_B, String TipoResponsables_B, String TelefonoB, int id_TipoB, int CantidadInscritos,
+            String Apellidos_B, String Nombres_B, String TipoResponsables_B, String TelefonoB, int id_TipoB,
             String Direccion, String Correo) {
         this.conexionDB = conexionDB;
         this.statement = statement;
@@ -204,8 +196,6 @@ public class Modelo_Responsables {
         this.TipoResponsables_B = TipoResponsables_B;
         this.TelefonoB = TelefonoB;
         this.id_TipoB = id_TipoB;
-
-        this.CantidadInscritos = CantidadInscritos;
 
         this.Direccion = Direccion;
         this.Correo = Correo;
@@ -318,100 +308,6 @@ LIMIT 1;""";
         }
 
         return 0;
-    }
-
-    public String Get_CorreoporNIE(int NIE) {
-        try {
-            System.out.println("---CARGAR PRODUCTOS");
-            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
-            statement = conexionDB.createStatement(); // Creamos la consulta
-
-            String SqlCorreo = """
-SELECT  "Correo"
-	FROM public."Tbl_Responsabless" AS TBR
-	INNER JOIN "tbl_Estudiante" AS TBE ON TBE."Responsables_id" = TBR.id
-	WHERE TBE."NIE" = ? ; """;
-
-            PreparedStatement preparedStatement = conexionDB.prepareStatement(SqlCorreo);
-            preparedStatement.setInt(1, NIE);
-
-            ResultSet Conaulta_Inscripcion = preparedStatement.executeQuery();
-            String CorreoBuscado = "";
-            TiemSql();
-
-            while (Conaulta_Inscripcion.next()) {
-                CorreoBuscado = Conaulta_Inscripcion.getString("Correo");
-
-            }
-
-            conexionDB.close();
-
-            return CorreoBuscado;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Modelo_Responsables.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return "";
-    }
-
-    public Modelo_Responsables Get_DataResponsable(int NIE) {
-        try {
-            System.out.println("---CARGAR PRODUCTOS");
-            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
-            statement = conexionDB.createStatement(); // Creamos la consulta
-
-            String ConsultaNotasPorNIE = """
-SELECT TBR.id, "Nombres_A", "Apellidos_A", "Telefono_A", "Tipo_Responsable_id",
-    "Tipo_Responsable_id_B", "Nombres_B", "Apellidos_B", "Telefono_B",
-    "Direccion", "Correo",
-    (SELECT COUNT(*) FROM public."tbl_Estudiante" WHERE "Responsables_id" = TBR.id) AS Cantidad_Estudiantes
-FROM public."Tbl_Responsabless" AS TBR
-INNER JOIN "Tbl_Tipos_Responsables" AS TBTR ON TBTR.id = TBR."Tipo_Responsable_id_B"
-WHERE TBR.id =  ? ; """;
-
-            PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
-            preparedStatement.setInt(1, NIE);
-
-            ResultSet Conaulta_Inscripcion = preparedStatement.executeQuery();
-
-            TiemSql();
-            Modelo_Responsables DataResponsable = new Modelo_Responsables();
-            System.out.println("sql> " + preparedStatement.toString());
-            while (Conaulta_Inscripcion.next()) {
-
-                DataResponsable.setId(Conaulta_Inscripcion.getInt("id"));
-                DataResponsable.setApellidos_A(Conaulta_Inscripcion.getString("Apellidos_A"));
-                DataResponsable.setNombres_A(Conaulta_Inscripcion.getString("Nombres_A"));
-                DataResponsable.setId_TipoA(Conaulta_Inscripcion.getInt("Tipo_Responsable_id"));
-                DataResponsable.setTelefonoA(Conaulta_Inscripcion.getString("Telefono_A"));
-
-                DataResponsable.setApellidos_B(Conaulta_Inscripcion.getString("Apellidos_B"));
-                DataResponsable.setNombres_B(Conaulta_Inscripcion.getString("Nombres_B"));
-                DataResponsable.setId_TipoB(Conaulta_Inscripcion.getInt("Tipo_Responsable_id_B"));
-                DataResponsable.setTelefonoB(Conaulta_Inscripcion.getString("Telefono_B"));
-
-                DataResponsable.setCantidadInscritos(Conaulta_Inscripcion.getInt("Cantidad_Estudiantes"));
-                DataResponsable.setCorreo(Conaulta_Inscripcion.getString("Correo"));
-                DataResponsable.setDireccion(Conaulta_Inscripcion.getString("Direccion"));
-                
-                System.out.println("sql> cant hijos> " + Conaulta_Inscripcion.getInt("Cantidad_Estudiantes"));
-
-            }
-            
-            if (null != DataResponsable) {
-                Funciones.Funciones.showMessageDialog("info", "Datos encontrados");
-            }
-
-            conexionDB.close();
-
-            return DataResponsable;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Modelo_Responsables.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
     }
 
     public ArrayList<Modelo_Responsables> Get_Inscripciones_Filtro_Grados(int grado) {
@@ -656,7 +552,7 @@ INSERT INTO public."Tbl_Responsabless"(
 
             pstm.setString(1, Responsables.getNombres_A());
             pstm.setString(2, Responsables.getApellidos_A());
-            pstm.setInt(3, Responsables.getId_TipoA());
+            pstm.setInt(3, Responsables.getId_Tipoa());
             pstm.setString(4, Responsables.getTelefonoA());
 
             pstm.setString(5, Responsables.getNombres_B());

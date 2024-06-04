@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -131,7 +132,6 @@ public class Modelo_DocenteGuia {
     public Modelo_DocenteGuia Get_Docente(int NIE) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
-            System.out.println("nie " + NIE);
             String sql = """
 SELECT "NIE", "Nombres", "Apellidos", "Rol_id", tbM."Grado_id", tbM."Nombre",TbP."Materia_id"
 	FROM public."Tbl_Personal" AS TbP
@@ -153,8 +153,6 @@ SELECT "NIE", "Nombres", "Apellidos", "Rol_id", tbM."Grado_id", tbM."Nombre",TbP
                 docente.setIdMateriaImpartir(consulta.getInt("Materia_id"));
 
             }
-            
-            System.out.println("" + docente.getNombres()+docente.getNIE()+docente.getIdGradoGuia());
 
             conexionDB.close();
             return docente;
@@ -164,9 +162,6 @@ SELECT "NIE", "Nombres", "Apellidos", "Rol_id", tbM."Grado_id", tbM."Nombre",TbP
         }
         return null;
     }
-    
-
-    
 //
 //    public Modelo_DocenteGuia Get_Materia(int idDocente) {
 //        try {
