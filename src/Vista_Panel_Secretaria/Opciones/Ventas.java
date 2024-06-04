@@ -1,15 +1,14 @@
 package Vista_Panel_Secretaria.Opciones;
 
 import Modelos.Secretaria.Modelo_Productos;
-import Vista_Panel_Docente.Opciones.*;
 import Customizacion.TablaCusomizada;
 import Funciones.Funciones;
 import static Funciones.Funciones.ValidNIE;
 import static Funciones.Funciones.clearScreen;
-import Modelos.Docente.Modelo_Asignacion_Actividades;
 import Modelos.Docente.Modelo_Materias;
 import Modelos.Docente.Modelo_Periodos;
-import Modelos.Docente.Modelo_TipoActividad;
+import Modelos.Secretaria.Modelo_Estudiante;
+import Modelos.Secretaria.Modelo_Responsables;
 import Modelos.Secretaria.Modelo_TipoProducto;
 import Modelos.Secretaria.Modelo_Transacciones;
 import java.awt.Color;
@@ -17,6 +16,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,45 +32,51 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public final class Ventas extends javax.swing.JInternalFrame {
-
+    
     private final Modelo_Productos Objeto_Modelo_Productos = new Modelo_Productos();
     private List<Modelo_Productos> List_Productos;
-
+    
     private Modelo_Materias Objeto_Modelo_Materias = new Modelo_Materias();
     private List<Modelo_Materias> List_Materias;
-
+    
     private final Modelo_Periodos Objeto_Periodos = new Modelo_Periodos();
     private List<Modelo_Periodos> List_Periodos;
-
+    
     private final Modelo_TipoProducto Objeto_TipoProducto = new Modelo_TipoProducto();
     private List<Modelo_TipoProducto> List_TipoProducto;
-
+    
+    private final Modelo_Responsables Objeto_Responsable = new Modelo_Responsables();
+    private List<Modelo_Estudiante> List_Estudiantes;
+    
     private ArrayList<Modelo_Productos> Carrito = new ArrayList<>();
-
+    
+    private final List<Modelo_Transacciones> Recibo = new ArrayList<>();
+    
     private DefaultTableModel modeloTabla_Productos = new DefaultTableModel();
     private DefaultTableModel modeloTabla_Carrito = new DefaultTableModel();
-
+    
     private final String materia;
     private final int idmateria;
-
+    
     public Ventas() {
         clearScreen();
         initComponents();
 
+        // Configura el JInternalFrame
         modeloTabla_Productos = (DefaultTableModel) Tbl_Productos.getModel();
         modeloTabla_Carrito = (DefaultTableModel) Tbl_Carrito.getModel();
-
+        
         int[] izqProdcutos = {1, 2};
         int[] izqCarrito = {1};
-
+        
         DiseñoTabla(Tbl_Productos, izqProdcutos);
         DiseñoTabla(Tbl_Carrito, izqCarrito);
-
+        
         Get_TiposProductos(Cb_TipoProducto);
         Cb_TipoProducto.setSelectedIndex(3);
-
+        
         Get_Tbl_Productos(Tbl_Productos);
-
+        
         Objeto_Modelo_Materias = Objeto_Modelo_Materias.Get_Materia(9876);
         materia = Objeto_Modelo_Materias.getNombreMateria();
         idmateria = Objeto_Modelo_Materias.getidMateria();
@@ -81,47 +87,47 @@ public final class Ventas extends javax.swing.JInternalFrame {
             public void mouseClicked(MouseEvent e) {
                 int COL = Tbl_Productos.columnAtPoint(e.getPoint());
                 int ROW = Tbl_Productos.rowAtPoint(e.getPoint());
-
+                
                 if (COL == 6) {
                     int id = Integer.parseInt(modeloTabla_Productos.getValueAt(ROW, 0).toString());
                     String nombre = modeloTabla_Productos.getValueAt(ROW, 1).toString();
                     double Precio = Double.parseDouble(modeloTabla_Productos.getValueAt(ROW, 3).toString());
                     int Cantidad = 1;
                     int cantDisponible = Integer.parseInt(modeloTabla_Productos.getValueAt(ROW, 5).toString());
-
+                    
                     System.out.println("item tomado" + id);
-
+                    
                     Modelo_Productos productoAgregado = new Modelo_Productos();
-
+                    
                     productoAgregado.setid(id);
                     productoAgregado.setNombre_Producto(nombre);
                     productoAgregado.setPrecio(Precio);
                     productoAgregado.setCant_venta(Cantidad);
-
+                    
                     boolean productoYaExiste = false;
                     int index = 0;
-
+                    
                     if (cantDisponible > 0) {
                         for (Modelo_Productos producto : Carrito) {
                             if (producto.getid() == id) {
                                 productoYaExiste = true;
                                 producto.setCant_venta(producto.getCant_venta() + 1);
                                 modeloTabla_Productos.setValueAt(cantDisponible - 1, ROW, 5);
-
+                                
                                 break;
                             }
                         }
-
+                        
                         if (productoYaExiste) {
                             System.out.println("¡El producto ya está en el carrito!");
                             ActualizarCarrito(Tbl_Carrito);
-
+                            
                         } else {
                             // Agrega el producto a la lista
                             modeloTabla_Productos.setValueAt(cantDisponible - 1, ROW, 5);
                             Carrito.add(productoAgregado);
                             ActualizarCarrito(Tbl_Carrito);
-
+                            
                             System.out.println("Producto agregado al carrito.");
                         }
                     } else {
@@ -139,34 +145,34 @@ public final class Ventas extends javax.swing.JInternalFrame {
 //                        //editar.setVisible(true);
 //                    }
                 }
-
+                
             }
         });
-
+        
         Tbl_Carrito.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int COL = Tbl_Productos.columnAtPoint(e.getPoint());
                 int ROW = Tbl_Productos.rowAtPoint(e.getPoint());
-
+                
                 if (COL == 6) {
                     int id = Integer.parseInt(modeloTabla_Carrito.getValueAt(ROW, 0).toString());
                     int cant = Integer.parseInt(modeloTabla_Carrito.getValueAt(ROW, 3).toString());
-
+                    
                     if (cant == 1) {
                         System.out.println("A borrar");
                         for (int i = 0; i < Carrito.size(); i++) {
                             Modelo_Productos producto = Carrito.get(i);
                             if (producto.getid() == id) {
                                 Carrito.remove(i);
-
+                                
                                 producto.setCant_venta(producto.getCant_venta() - 1);
                                 System.out.println("restado de " + producto.getNombre_Producto() + producto.getCant_venta());
-
+                                
                                 for (int x = 0; x < modeloTabla_Productos.getRowCount(); x++) {
-
+                                    
                                     if (Integer.parseInt(modeloTabla_Productos.getValueAt(x, 0).toString()) == id) {
-
+                                        
                                         int cantidad = Integer.parseInt(modeloTabla_Productos.getValueAt(x, 5).toString());
                                         System.out.println("A sumar 1 a " + cantidad);
                                         modeloTabla_Productos.setValueAt(cantidad + 1, x, 5);
@@ -174,40 +180,40 @@ public final class Ventas extends javax.swing.JInternalFrame {
                                     }
                                 }
                                 ActualizarCarrito(Tbl_Carrito);
-
+                                
                             }
                         }
                     }
-
+                    
                     if (cant > 1) {
                         System.out.println("A restar");
-
+                        
                         for (int i = 0; i < Carrito.size(); i++) {
                             Modelo_Productos producto = Carrito.get(i);
-
+                            
                             if (producto.getid() == id) {
                                 System.out.println("A restar de " + producto.getNombre_Producto() + producto.getCant_venta());
-
+                                
                                 producto.setCant_venta(producto.getCant_venta() - 1);
                                 System.out.println("restado de " + producto.getNombre_Producto() + producto.getCant_venta());
-
+                                
                                 for (int x = 0; x < modeloTabla_Productos.getRowCount(); x++) {
-
+                                    
                                     if (Integer.parseInt(modeloTabla_Productos.getValueAt(x, 0).toString()) == id) {
-
+                                        
                                         int cantidad = Integer.parseInt(modeloTabla_Productos.getValueAt(x, 5).toString());
                                         System.out.println("A sumar 1 a " + cantidad);
                                         modeloTabla_Productos.setValueAt(cantidad + 1, x, 5);
                                         break; // Salimos del bucle una vez que encontramos el producto
                                     }
                                 }
-
+                                
                                 ActualizarCarrito(Tbl_Carrito);
-
+                                
                                 break; // Salimos del bucle una vez que encontramos el producto
                             }
                         }
-
+                        
                     }
 //                    System.out.println("item tomado" + id);
 //                    int item = Integer.parseInt(modeloTabla_Productos.getValueAt(ROW, 1).toString());
@@ -221,14 +227,14 @@ public final class Ventas extends javax.swing.JInternalFrame {
                     //editar.setVisible(true);
 
                 }
-
+                
             }
         });
     }
-
+    
     public void ActualizarCarrito(JTable tabla) {
         modeloTabla_Carrito.setNumRows(0);
-
+        
         System.out.print("hay en carrito: " + Carrito.size());
         //List_Actividades = Objeto_Actividades.GetActividades(idmateria);
         //System.out.println("hay " + List_Actividades.size());
@@ -236,13 +242,13 @@ public final class Ventas extends javax.swing.JInternalFrame {
         //ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
         ImageIcon icono_add = new ImageIcon(getClass().getResource("/Imagenes/add.png"));
         ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/Imagenes/remove.png"));
-
+        
         double Total = 0.0;
-
+        
         for (Modelo_Productos item : Carrito) {
             System.out.println("hola con item " + item.getNombre_Producto());
             double subTotal = item.getPrecio() * item.getCant_venta();
-
+            
             modeloTabla_Carrito.addRow(new Object[]{
                 item.getid(),
                 item.getNombre_Producto(),
@@ -250,18 +256,18 @@ public final class Ventas extends javax.swing.JInternalFrame {
                 item.getCant_venta(),
                 subTotal,
                 new JLabel(iconoEliminar)
-
+            
             });
             Total += subTotal;
         }
-
+        
         Lb_Total.setText(Double.toString(Total) + " $");
         tabla.setModel(modeloTabla_Carrito);
     }
-
+    
     public void Del_Carrito(JTable tabla, List<Integer> product) {
         modeloTabla_Carrito.setNumRows(0);
-
+        
         System.out.println("id mat : " + idmateria);
         //List_Actividades = Objeto_Actividades.GetActividades(idmateria);
         //System.out.println("hay " + List_Actividades.size());
@@ -269,32 +275,32 @@ public final class Ventas extends javax.swing.JInternalFrame {
         //ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
         ImageIcon icono_add = new ImageIcon(getClass().getResource("/Imagenes/add.png"));
         ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/Imagenes/remove.png"));
-
+        
         for (Integer item : product) {
-
+            
             modeloTabla_Carrito.addRow(new Object[]{
                 item, item, item, item, item,
                 new JLabel(icono_add),
                 new JLabel(iconoEliminar)
-
+            
             });
         }
-
+        
         tabla.setModel(modeloTabla_Carrito);
     }
-
+    
     public void Get_Tbl_Productos(JTable tabla) {
         modeloTabla_Productos.setNumRows(0);
-
+        
         List_Productos = Objeto_Modelo_Productos.Get_Productos();
         System.out.println("hay " + List_Productos.size());
 
         //ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
         ImageIcon icono_add = new ImageIcon(getClass().getResource("/Imagenes/add.png"));
         ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/Imagenes/remove.png"));
-
+        
         for (Modelo_Productos item : List_Productos) {
-
+            
             modeloTabla_Productos.addRow(new Object[]{
                 item.getid(),
                 item.getNombre_Producto(),
@@ -303,17 +309,17 @@ public final class Ventas extends javax.swing.JInternalFrame {
                 item.getCosto(),
                 item.getCant_Disponible(),
                 new JLabel(icono_add)
-
+            
             });
         }
-
+        
         tabla.setModel(modeloTabla_Productos);
     }
-
+    
     public void Get_Tbl_Productos_filtrada(JTable tabla) {
         int op = Cb_TipoProducto.getSelectedIndex() + 1;
         modeloTabla_Productos.setNumRows(0);
-
+        
         System.out.println("buscando id tipo " + op);
         
         List_Productos = Objeto_Modelo_Productos.Get_Productos_filtrado(op);
@@ -322,9 +328,9 @@ public final class Ventas extends javax.swing.JInternalFrame {
         //ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
         ImageIcon icono_add = new ImageIcon(getClass().getResource("/Imagenes/add.png"));
         ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/Imagenes/remove.png"));
-
+        
         for (Modelo_Productos item : List_Productos) {
-
+            
             modeloTabla_Productos.addRow(new Object[]{
                 item.getid(),
                 item.getNombre_Producto(),
@@ -333,45 +339,45 @@ public final class Ventas extends javax.swing.JInternalFrame {
                 item.getCosto(),
                 item.getCant_Disponible(),
                 new JLabel(icono_add)
-
+            
             });
         }
-
+        
         tabla.setModel(modeloTabla_Productos);
     }
-
+    
     public void Get_TiposProductos(JComboBox ComboBox) {
-
+        
         DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
-
+        
         List_TipoProducto = Objeto_TipoProducto.Get_TipoProductos();
         System.out.println("hay " + List_TipoProducto.size());
-
+        
         for (Modelo_TipoProducto item : List_TipoProducto) {
             ModeloComboBox.addElement(item.getTipoProducto());
         }
-
+        
         ComboBox.setModel(ModeloComboBox);
     }
-
-    public void Get_TipoActividad(JComboBox ComboBox) {
+    
+    public void Get_Estudiantes(JComboBox ComboBox, int idResponsable) {
         try {
             DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
-
-            List_TipoProducto = Objeto_TipoProducto.Get_TipoProductos();
+            
+            List_Estudiantes = Objeto_Responsable.Get_Estudiantes_delResponsable(idResponsable);
             System.out.println("hay " + List_TipoProducto.size());
-
-            for (Modelo_TipoProducto item : List_TipoProducto) {
-                ModeloComboBox.addElement(item.getTipoProducto());
+            
+            for (Modelo_Estudiante item : List_Estudiantes) {
+                ModeloComboBox.addElement(item.getNIE() + " " + item.getNombres_Estudiante());
             }
-
+            
             ComboBox.setModel(ModeloComboBox);
         } catch (Exception e) {
             // Manejo de excepciones aquí
             System.err.println("Error al cargar los elementos en el combo box: " + e.getMessage());
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -381,7 +387,6 @@ public final class Ventas extends javax.swing.JInternalFrame {
         Lb_Total = new javax.swing.JLabel();
         Cb_TipoProducto = new javax.swing.JComboBox<>();
         TB_CodigoResponsable = new javax.swing.JTextField();
-        TB_NIE = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         Lb_Aerolinea2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -397,7 +402,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
         jPanel6 = new javax.swing.JPanel();
         Lb_Materia_Periodo1 = new javax.swing.JLabel();
         errorTb_CodigoResponsable = new javax.swing.JLabel();
-        errorTb_NIE = new javax.swing.JLabel();
+        Cb_Estudiantes = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
@@ -449,7 +454,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
                 Cb_TipoProductoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_TipoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 180, -1));
+        jPanel1.add(Cb_TipoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 180, -1));
 
         TB_CodigoResponsable.setBackground(new java.awt.Color(224, 213, 170));
         TB_CodigoResponsable.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -472,27 +477,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
                 TB_CodigoResponsableKeyTyped(evt);
             }
         });
-        jPanel1.add(TB_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 270, 50));
-
-        TB_NIE.setBackground(new java.awt.Color(224, 213, 170));
-        TB_NIE.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
-        TB_NIE.setForeground(new java.awt.Color(0, 0, 0));
-        TB_NIE.setText("Ingrese NIE del estudiante");
-        TB_NIE.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "NIE estudiante", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        TB_NIE.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TB_NIEMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TB_NIEMouseExited(evt);
-            }
-        });
-        TB_NIE.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                TB_NIEKeyReleased(evt);
-            }
-        });
-        jPanel1.add(TB_NIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 270, 50));
+        jPanel1.add(TB_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 180, 50));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -567,7 +552,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
         Lb_Guardar.setBackground(new java.awt.Color(255, 255, 255));
         Lb_Guardar.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
         Lb_Guardar.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Guardar.setText("Guardar actividad");
+        Lb_Guardar.setText("Realizar Venta");
 
         javax.swing.GroupLayout Btn_VenderLayout = new javax.swing.GroupLayout(Btn_Vender);
         Btn_Vender.setLayout(Btn_VenderLayout);
@@ -703,13 +688,19 @@ public final class Ventas extends javax.swing.JInternalFrame {
         errorTb_CodigoResponsable.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         errorTb_CodigoResponsable.setForeground(new java.awt.Color(23, 42, 56));
         errorTb_CodigoResponsable.setText("Error");
-        jPanel1.add(errorTb_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 280, -1));
+        jPanel1.add(errorTb_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 280, -1));
 
-        errorTb_NIE.setBackground(new java.awt.Color(23, 42, 56));
-        errorTb_NIE.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        errorTb_NIE.setForeground(new java.awt.Color(23, 42, 56));
-        errorTb_NIE.setText("Error");
-        jPanel1.add(errorTb_NIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 280, -1));
+        Cb_Estudiantes.setBackground(new java.awt.Color(224, 213, 170));
+        Cb_Estudiantes.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
+        Cb_Estudiantes.setForeground(new java.awt.Color(0, 0, 0));
+        Cb_Estudiantes.setToolTipText("");
+        Cb_Estudiantes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Estudiantes :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
+        Cb_Estudiantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cb_EstudiantesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Cb_Estudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 180, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -727,36 +718,40 @@ public final class Ventas extends javax.swing.JInternalFrame {
 
     private void Btn_VenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_VenderMouseClicked
         System.out.println("conteo: " + modeloTabla_Carrito.getRowCount());
-        if (!Funciones.validarCampos(jPanel1) || TB_NIE.getText().contains("Ingrese") || TB_CodigoResponsable.getText().contains("Ingrese") || modeloTabla_Carrito.getRowCount() == 0) {
+        if (!Funciones.validarCampos(jPanel1) || modeloTabla_Carrito.getRowCount() == 0) {
             Funciones.showMessageDialog("Error", "Hay campos invalidos");
         } else {
-
+            
             Date fecha = new Date();
-
+            
             int respuesta = JOptionPane.showConfirmDialog(rootPane, "Resumen de compra\n Total de: " + Lb_Total.getText(), "Compra", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
+            
             switch (respuesta) {
                 case JOptionPane.YES_OPTION -> {
+                    int responsableid = Integer.parseInt(TB_CodigoResponsable.getText());//padre                       
+                    int NIE = Funciones.convertirStringAInt(Cb_Estudiantes.getSelectedItem().toString());
+                    
                     for (int fila = 0; fila < Tbl_Carrito.getRowCount(); fila++) {
-
+                        
                         Modelo_Transacciones transaccion = new Modelo_Transacciones();
-
+                        
                         String detalle = Tbl_Carrito.getValueAt(fila, 1).toString();
                         int id = Integer.parseInt(Tbl_Carrito.getValueAt(fila, 0).toString());
                         int cant = Integer.parseInt(Tbl_Carrito.getValueAt(fila, 3).toString());
                         double Sub_Total = Double.parseDouble(Tbl_Carrito.getValueAt(fila, 4).toString());
+                        double precio = Double.parseDouble(Tbl_Carrito.getValueAt(fila, 2).toString());
+                        
                         int tipo = 3;
                         double Precio = Double.parseDouble(Tbl_Carrito.getValueAt(fila, 2).toString());
                         double ganancia = Double.parseDouble(Tbl_Carrito.getValueAt(fila, 4).toString());
-                        int responsableid = Integer.parseInt(TB_CodigoResponsable.getText());//padre
-                        int NIE = Integer.parseInt(TB_NIE.getText());
-
+                        
                         double Costo = Objeto_Modelo_Productos.Get_Data(id);
                         double Ganancia = Sub_Total - (cant * Costo);
-
+                        
                         transaccion.setId(id);
                         transaccion.setDetalles(detalle);
                         transaccion.setCantidades(cant);
+                        transaccion.setPrecio(Precio);
                         transaccion.setMontos(Sub_Total);
                         transaccion.setId_tipo_transaccion(tipo);
                         transaccion.setCostos(Precio);
@@ -765,20 +760,26 @@ public final class Ventas extends javax.swing.JInternalFrame {
                         transaccion.setEstudiante_id(NIE);
                         transaccion.setFecha(fecha);
                         transaccion.setGanancias(Ganancia);
-
+                        
                         transaccion.Insert_Transaccion(transaccion);
-                        transaccion.Edit_VentaHecha(transaccion);
-
+                        transaccion.Edit_Resta_inventario(transaccion);
+                        Recibo.add(transaccion);
+                        
                         Get_Tbl_Productos(Tbl_Productos);
-
+                        
                     }
+                    Modelo_Transacciones Datos = new Modelo_Transacciones();
+                    Datos = Datos.Get_DatosRecibo(responsableid, NIE);
+                    
+                    Recibo1 resumenDeCompra = new Recibo1(Recibo, Datos);
+                    resumenDeCompra.setVisible(true);
                 }
                 case JOptionPane.NO_OPTION ->
                     Funciones.showMessageDialog("Info", "Orden cancelada");
                 default -> {
                 }
             }
-
+            
         }
 
 // TODO add your handling code here:
@@ -796,39 +797,34 @@ public final class Ventas extends javax.swing.JInternalFrame {
         Funciones.Mouse_EnterTextbox(TB_CodigoResponsable);
     }//GEN-LAST:event_TB_CodigoResponsableMouseEntered
 
-    private void TB_NIEMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NIEMouseEntered
-        Funciones.Mouse_EnterTextbox(TB_NIE);
-    }//GEN-LAST:event_TB_NIEMouseEntered
-
-    private void TB_NIEMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NIEMouseExited
-        Funciones.Mouse_LeftTextbox("Ingrese NIE del estudiante", TB_NIE);
-    }//GEN-LAST:event_TB_NIEMouseExited
-
     private void TB_CodigoResponsableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_CodigoResponsableMouseExited
         Funciones.Mouse_LeftTextbox("Ingrese el codigo del responsable", TB_CodigoResponsable);
     }//GEN-LAST:event_TB_CodigoResponsableMouseExited
 
     private void Cb_TipoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_TipoProductoActionPerformed
-
+        
         modeloTabla_Productos.setNumRows(0);
         Get_Tbl_Productos_filtrada(Tbl_Productos);
     }//GEN-LAST:event_Cb_TipoProductoActionPerformed
 
-    private void TB_NIEKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_NIEKeyReleased
-        ValidNIE(TB_NIE, errorTb_NIE);
-    }//GEN-LAST:event_TB_NIEKeyReleased
-
     private void TB_CodigoResponsableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_CodigoResponsableKeyReleased
-
+        ValidNIE(TB_CodigoResponsable, errorTb_CodigoResponsable);
+        if (!TB_CodigoResponsable.getText().isBlank()) {
+            int Id_Responsable = Integer.parseInt(TB_CodigoResponsable.getText());
+            Get_Estudiantes(Cb_Estudiantes, Id_Responsable);
+        }
 
     }//GEN-LAST:event_TB_CodigoResponsableKeyReleased
 
     private void TB_CodigoResponsableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_CodigoResponsableKeyTyped
-        ValidNIE(TB_CodigoResponsable, errorTb_CodigoResponsable);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_TB_CodigoResponsableKeyTyped
 
+    private void Cb_EstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_EstudiantesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Cb_EstudiantesActionPerformed
+    
     public void DiseñoTabla(JTable tabla, int[] izq) {
         tabla.setDefaultRenderer(Object.class,
                 new TablaCusomizada());
@@ -838,31 +834,32 @@ public final class Ventas extends javax.swing.JInternalFrame {
         Font fuente = new Font("Roboto", Font.BOLD, 12);
         tabla.setFont(fuente);
         tabla.getTableHeader().setFont(fuente);
-
+        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
+        
         int numeroDeCeldas = tabla.getColumnCount() - 1; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-
+        
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-
+        
         for (int i = 0; i < izq.length; i++) {
             tabla.getColumnModel().getColumn(izq[i]).setCellRenderer(leftRenderer);
         }
-
+        
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));
-
+        
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_Vender;
+    private javax.swing.JComboBox<String> Cb_Estudiantes;
     private javax.swing.JComboBox<String> Cb_TipoProducto;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
@@ -871,11 +868,9 @@ public final class Ventas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Lb_Materia_Periodo2;
     private javax.swing.JLabel Lb_Total;
     private javax.swing.JTextField TB_CodigoResponsable;
-    private javax.swing.JTextField TB_NIE;
     private javax.swing.JTable Tbl_Carrito;
     private javax.swing.JTable Tbl_Productos;
     private javax.swing.JLabel errorTb_CodigoResponsable;
-    private javax.swing.JLabel errorTb_NIE;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

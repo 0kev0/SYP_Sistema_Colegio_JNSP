@@ -7,6 +7,7 @@ import Funciones.Funciones;
 import Modelos.Docente.Modelo_Grados;
 import Modelos.Secretaria.Modelo_RegistrosInscripciones;
 import Modelos.Secretaria.Modelo_TipoProducto;
+import Vista_Panel_Secretaria.Panel_Secretaria;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -43,7 +44,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         modeloTabla = (DefaultTableModel) Tbl_RegistroInscripcion.getModel();
 
-        Get_Cb_Grados(Cb_Grados);
+        Get_Cb_Grados(Cb_Grados,List_Grados,Objeto_Grados);
         Get_Tbl_Inscripciones(Tbl_RegistroInscripcion);
         DiseñoTabla(Tbl_RegistroInscripcion);
 
@@ -71,6 +72,8 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         errorTb_NIE = new javax.swing.JLabel();
         Cb_Año = new javax.swing.JComboBox<>();
         Cb_Mes = new javax.swing.JComboBox<>();
+        Btn_Regresar1 = new javax.swing.JPanel();
+        Lb_Ordenar1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -322,6 +325,30 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         });
         jPanel1.add(Cb_Mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 134, -1));
 
+        Btn_Regresar1.setBackground(new java.awt.Color(152, 5, 5));
+        Btn_Regresar1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 10, 0, new java.awt.Color(247, 17, 17)));
+        Btn_Regresar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_Regresar1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_Regresar1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_Regresar1MouseExited(evt);
+            }
+        });
+        Btn_Regresar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Lb_Ordenar1.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        Lb_Ordenar1.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_Ordenar1.setText("Regresar");
+        Lb_Ordenar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar1.add(Lb_Ordenar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 130, 40));
+
+        jPanel1.add(Btn_Regresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -336,7 +363,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void Get_Cb_Grados(JComboBox ComboBox) {
+    public static void Get_Cb_Grados(JComboBox ComboBox,List<Modelo_Grados> List_Grados,Modelo_Grados Objeto_Grados ) {
 
         DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
 
@@ -393,6 +420,21 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
     private void Cb_MesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_MesActionPerformed
         Get_Inscripciones_FiltroMes(Tbl_RegistroInscripcion);
     }//GEN-LAST:event_Cb_MesActionPerformed
+
+    private void Btn_Regresar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseClicked
+       Panel_Secretaria Menu = new Panel_Secretaria();
+       dispose();
+       Menu.setVisible(true);
+        
+    }//GEN-LAST:event_Btn_Regresar1MouseClicked
+
+    private void Btn_Regresar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseEntered
+        Funciones.EnterMouse(Btn_Regresar1, Lb_Ordenar1, "#FFF099", "#FF9900");
+    }//GEN-LAST:event_Btn_Regresar1MouseEntered
+
+    private void Btn_Regresar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Regresar1MouseExited
 
     public void Get_Inscripciones_FiltroGrado(JTable tabla) {
         int Grado = Cb_Grados.getSelectedIndex() + 1;
@@ -461,6 +503,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
 
             Utilidades += item.getMonto();
         }
+        
         tabla.setModel(modeloTabla);
         Lb_Total.setText(Utilidades + " $");
 
@@ -578,37 +621,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gestion_RegistrosInscripciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gestion_RegistrosInscripciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gestion_RegistrosInscripciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gestion_RegistrosInscripciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Gestion_RegistrosInscripciones().setVisible(true);
@@ -617,12 +630,14 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Btn_Regresar1;
     private javax.swing.JComboBox<String> Cb_Año;
     private javax.swing.JComboBox<String> Cb_Grados;
     private javax.swing.JComboBox<String> Cb_Mes;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
     private javax.swing.JLabel Lb_Materia_Periodo2;
+    private javax.swing.JLabel Lb_Ordenar1;
     private javax.swing.JLabel Lb_Total;
     private javax.swing.JTextField TB_CodigoResponsable;
     private javax.swing.JTextField TB_NIE;
