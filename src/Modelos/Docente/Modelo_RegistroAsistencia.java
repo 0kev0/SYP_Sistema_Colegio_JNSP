@@ -25,6 +25,7 @@ public class Modelo_RegistroAsistencia {
 
 //lado escritorio
     private int NIE;
+    private int id;
     private String NombreEstudiante;
     private String ApellidoEstudiante;
     private String EstadoAsistencia;
@@ -168,15 +169,23 @@ public class Modelo_RegistroAsistencia {
         this.EstadoAsistencia = EstadoAsistencia;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Modelo_RegistroAsistencia(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
-            int id, String ApellidoEstudiante, String NombreEstudiante, int CantAsistencias, String Justificacion, Date Fecha,
-            int idEstadoAsistencia, int idDocente, int idEstado, int CantAusencias, int CantAusenciaJustificadas, String EstadoAsistencia) {
+            int NIE, String ApellidoEstudiante, String NombreEstudiante, int CantAsistencias, String Justificacion, Date Fecha,
+            int idEstadoAsistencia, int idDocente, int idEstado, int CantAusencias, int CantAusenciaJustificadas, String EstadoAsistencia, int id) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
         this.pstm = pstm;
         ////////////////////////////////////////////////
-        this.NIE = id;
+        this.NIE = NIE;
         this.Fecha = Fecha;
         this.idDocente = idDocente;
         this.idEstado = idEstado;
@@ -188,6 +197,7 @@ public class Modelo_RegistroAsistencia {
         this.CantAusencias = CantAusencias;
         this.CantAusenciaJustificadas = CantAusenciaJustificadas;
         this.EstadoAsistencia = EstadoAsistencia;
+        this.id = id;
 
     }
 
@@ -344,7 +354,7 @@ SELECT tbEst."NIE", tbEst."Nombres", tbEst."Apellidos",
         return null;
     }
 
-    public ArrayList<Modelo_RegistroAsistencia> Get_DetalleAsistencia(int NIE, int Grado, int Mes) {
+    public ArrayList<Modelo_RegistroAsistencia> Get_List_DetalleAsistencia(int NIE, int Grado, int Mes) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             int Year = Funciones.Funciones.Get_Year_Actual();
@@ -386,6 +396,52 @@ SELECT TbAsi."Fecha" , TBE."Estado" , TbAsi."Justificacion",tbEst."NIE"
             System.out.println("hay en > " + DataListado.size());
             conexionDB.close();
             return DataListado;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_RegistroAsistencia.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
+        }
+        return null;
+    }
+
+    public Modelo_RegistroAsistencia Get_DetalleAsistencia(int NIE, int Grado, int Mes) {
+        try {
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            int Year = Funciones.Funciones.Get_Year_Actual();
+            System.out.println("dia mes/ year " + Mes + "/" + Year);
+            String sql = """
+            SELECT TbAsi.id, TbAsi."Fecha" , TBE."Estado" , TbAsi."Justificacion",
+                        tbEst."NIE",tbEst."Apellidos",tbEst."Nombres"
+                                                                                                                              	
+                            FROM public."Tbl_Asistencias" AS TbAsi
+                            INNER JOIN "tbl_Estudiante" AS tbEst ON tbEst."NIE" = TbAsi."Estudiante_id"
+                            INNER JOIN "Tbl_estado_aistencia" AS TBE ON TBE.id = TbAsi."Estado_id"
+                                     
+                                    WHERE EXTRACT(MONTH FROM TbAsi."Fecha") = ? 
+                                    AND EXTRACT(YEAR FROM TbAsi."Fecha") = ? 
+                                    AND tbEst."Grado_id" = ? 
+                                    AND tbEst."NIE" = ? ;""";
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, Mes);
+            pstm.setInt(2, Year);
+            pstm.setInt(3, Grado);
+            pstm.setInt(4, NIE);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+            System.out.println("sql>" + pstm.toString());
+            Modelo_RegistroAsistencia Data_Estudiante = new Modelo_RegistroAsistencia();
+
+            while (consulta.next()) {
+                Data_Estudiante.setId(consulta.getInt("id"));
+                Data_Estudiante.setNIE(consulta.getInt("NIE"));
+                Data_Estudiante.setFecha(consulta.getDate("Fecha"));
+                Data_Estudiante.setEstadoAsistencia(consulta.getString("Estado"));
+                Data_Estudiante.setNombreEstudiante(consulta.getString("Nombres"));
+                Data_Estudiante.setApellidoEstudiante(consulta.getString("Apellidos"));
+                System.out.println("fecha" + consulta.getDate("Fecha"));
+            }
+            conexionDB.close();
+            return Data_Estudiante;
 
         } catch (SQLException ex) {
             Logger.getLogger(Modelo_RegistroAsistencia.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
@@ -477,31 +533,28 @@ SELECT TbAsi."Fecha" , TBE."Estado" , TbAsi."Justificacion",tbEst."NIE"
         return 0;
     }
 
-    public int editPersonas(Modelo_RegistroAsistencia PersonasEdit) {
+    public int Edit_Asistencia(Modelo_RegistroAsistencia AsistenciaEdit) {
         try {
 
             String sql = """
-                         UPDATE public."Tbl_Cliente"
-                         	SET  nombre=?, "apellido paterno"=?, "apellido materno"=?, tipo_documneto=?, num_documento=?, direccion=?, telefono=?, email=?, "Password"=?, "id_Membresia"=?
-                         	WHERE idpersona=?;""";
+UPDATE public."Tbl_Asistencias"
+                         	SET "Estado_id"= ?, "Justificacion"= ?
+                         	WHERE id= ? ;""";
 
             conexionDB = claseConectar.iniciarConexion();
             pstm = conexionDB.prepareStatement(sql);
 
-            //   System.out.println("id a modificar" + PersonasEdit.getNIE());
-//            pstm.setString(1, PersonasEdit.getNombre());
-//            pstm.setString(2, PersonasEdit.getApellido_paterno());
-//            pstm.setString(3, PersonasEdit.getApellido_materno());
-//            pstm.setString(4, PersonasEdit.getTipo_doc());
-//            pstm.setString(5, PersonasEdit.getNum_doc());
-//            pstm.setString(6, PersonasEdit.getDireccion());
-//            pstm.setString(7, PersonasEdit.getTelefono());
-//            pstm.setString(8, PersonasEdit.getEmail());
-//            pstm.setString(9, PersonasEdit.getPassword());
-//            pstm.setInt(10, PersonasEdit.getIdMembresia());
-//            pstm.setInt(11, PersonasEdit.getNIE());
+            System.out.println("id a modificar" + AsistenciaEdit.getNIE());
+            pstm.setInt(1, AsistenciaEdit.getIdEstado());
+            pstm.setString(2, AsistenciaEdit.getJustificacion());
+            pstm.setInt(3, AsistenciaEdit.getId());
+
+            System.out.println("sQL > " + pstm.toString());
             int respuesta = pstm.executeUpdate();
 
+            if (respuesta > 0) {
+                Funciones.Funciones.showMessageDialog("info", "Se edito la asistencia del NIE : " + AsistenciaEdit.getNIE() + "\n En la fecha: " + AsistenciaEdit.getFecha() + "correctamente");
+            }
             return respuesta;
 
         } catch (SQLException ex) {

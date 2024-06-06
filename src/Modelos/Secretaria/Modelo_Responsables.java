@@ -413,6 +413,64 @@ WHERE TBR.id =  ? ; """;
 
         return null;
     }
+    
+    
+    public Modelo_Responsables Get_DataResponsable_porNIE(int NIE) {
+        try {
+            System.out.println("---CARGAR PRODUCTOS");
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            statement = conexionDB.createStatement(); // Creamos la consulta
+
+            String ConsultaNotasPorNIE = """
+SELECT TBR.id, "Nombres_A", "Apellidos_A", "Telefono_A", "Tipo_Responsable_id",
+    "Tipo_Responsable_id_B", "Nombres_B", "Apellidos_B", "Telefono_B",
+    "Direccion", "Correo"
+	
+FROM public."Tbl_Responsabless" AS TBR
+INNER JOIN "tbl_Estudiante" AS TBE ON TBE."Responsables_id" = TBR.id
+WHERE TBE."NIE" = ? """;
+
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
+            preparedStatement.setInt(1, NIE);
+
+            ResultSet Conaulta_Inscripcion = preparedStatement.executeQuery();
+
+            TiemSql();
+            Modelo_Responsables DataResponsable = new Modelo_Responsables();
+            System.out.println("sql> " + preparedStatement.toString());
+            while (Conaulta_Inscripcion.next()) {
+
+                DataResponsable.setId(Conaulta_Inscripcion.getInt("id"));
+                DataResponsable.setApellidos_A(Conaulta_Inscripcion.getString("Apellidos_A"));
+                DataResponsable.setNombres_A(Conaulta_Inscripcion.getString("Nombres_A"));
+                DataResponsable.setId_TipoA(Conaulta_Inscripcion.getInt("Tipo_Responsable_id"));
+                DataResponsable.setTelefonoA(Conaulta_Inscripcion.getString("Telefono_A"));
+
+                DataResponsable.setApellidos_B(Conaulta_Inscripcion.getString("Apellidos_B"));
+                DataResponsable.setNombres_B(Conaulta_Inscripcion.getString("Nombres_B"));
+                DataResponsable.setId_TipoB(Conaulta_Inscripcion.getInt("Tipo_Responsable_id_B"));
+                DataResponsable.setTelefonoB(Conaulta_Inscripcion.getString("Telefono_B"));
+
+                DataResponsable.setCorreo(Conaulta_Inscripcion.getString("Correo"));
+                DataResponsable.setDireccion(Conaulta_Inscripcion.getString("Direccion"));
+                
+
+            }
+            
+            if (null != DataResponsable) {
+                Funciones.Funciones.showMessageDialog("info", "Datos encontrados");
+            }
+
+            conexionDB.close();
+
+            return DataResponsable;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Responsables.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
 
     public ArrayList<Modelo_Responsables> Get_Inscripciones_Filtro_Grados(int grado) {
         try {

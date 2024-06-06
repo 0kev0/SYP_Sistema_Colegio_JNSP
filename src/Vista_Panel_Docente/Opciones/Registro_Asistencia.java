@@ -21,54 +21,56 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public final class Registro_Asistencia extends javax.swing.JInternalFrame {
-
+    
     private final Modelo_RegistroAsistencia Objeto = new Modelo_RegistroAsistencia();
     private List<Modelo_RegistroAsistencia> ListObjeto;
-
+    
     private List<Modelo_RegistroAsistencia> ListDetallesAsistencia;
-
+    
     private DefaultTableModel modeloTabla = new DefaultTableModel();
     private int Grado;
-
+    
     public Registro_Asistencia() {
-
+        
     }
-
+    
     public Registro_Asistencia(Modelo_DocenteGuia docente) {
         initComponents();
         this.Grado = docente.getIdGradoGuia();
-
+        int mesActual = Funciones.Get_MES_Actual()-1;
+        
         modeloTabla = (DefaultTableModel) Tbl_RegistroAsistencia.getModel();
         DiseñoTabla(Tbl_RegistroAsistencia);
         Cargar_Listado_Registro(Tbl_RegistroAsistencia);
-
+        System.out.println("mes num" + mesActual);
+        Cb_BuscarPorMes_.setSelectedIndex(mesActual);
         Tbl_RegistroAsistencia.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int COL = Tbl_RegistroAsistencia.columnAtPoint(e.getPoint());
                 int ROW = Tbl_RegistroAsistencia.rowAtPoint(e.getPoint());
-
+                
                 if (COL == 6) {
                     int NIE = Integer.parseInt(Tbl_RegistroAsistencia.getValueAt(ROW, 0).toString());
                     int Mes = Funciones.Get_MES_Actual();
                     int year = Funciones.Get_Year_Actual();
-
+                    
                     Modelo_RegistroAsistencia registro = new Modelo_RegistroAsistencia();
-                    ListDetallesAsistencia = registro.Get_DetalleAsistencia(NIE, Grado, Mes);
+                    ListDetallesAsistencia = registro.Get_List_DetalleAsistencia(NIE, Grado, Mes);
                     System.out.println("hay > " + ListDetallesAsistencia.size());
-
+                    
                     Modelo_Estudiante DataEstudiante = new Modelo_Estudiante();
                     DataEstudiante = DataEstudiante.Get_DataEstudiante(NIE);
-
+                    
                     DetallesAsistencia RESUMEN = new DetallesAsistencia(ListDetallesAsistencia, DataEstudiante);
                     RESUMEN.setVisible(true);
-
+                    
                 }
             }
         });
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -344,7 +346,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
     private void Btn_LimpiarFiltrosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseExited
         Funciones.LeftMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseExited
-
+    
     public void DiseñoTabla(JTable tabla) {
         tabla.setDefaultRenderer(Object.class,
                 new TablaCusomizada());
@@ -354,35 +356,35 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         Font fuente = new Font("Roboto", Font.BOLD, 12);
         tabla.setFont(fuente);
         tabla.getTableHeader().setFont(fuente);
-
+        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
+        
         int numeroDeCeldas = Tbl_RegistroAsistencia.getColumnCount() - 1; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-
+        
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-
+        
         tabla.getColumnModel().getColumn(1).setCellRenderer(leftRenderer);
         tabla.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
-
+        
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));
-
+        
     }
-
+    
     public void Cargar_Listado_Registro(JTable tabla) {
         modeloTabla.setNumRows(0);
-
+        
         ListObjeto = Objeto.GetListado(Grado);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
-
+        
         ImageIcon VerDetalles = new ImageIcon(getClass().getResource("/Imagenes/VerDetalles.png"));
-
+        
         for (Modelo_RegistroAsistencia item : ListObjeto) {
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
@@ -393,19 +395,19 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 item.getCantAusenciaJustificadas(),
                 new JLabel(VerDetalles)});
         }
-
+        
         tabla.setModel(modeloTabla);
     }
-
+    
     public void Cargar_Listado_Registro_Busqueda(JTable tabla) {
         int mes = Cb_BuscarPorMes_.getSelectedIndex() + 1;
         int Year = Integer.parseInt(Cb_Año.getSelectedItem().toString());
         modeloTabla.setNumRows(0);
-
+        
         System.out.println("buscando por año: " + Year + "  por mes : " + mes);
         ListObjeto = Objeto.GetListadoCustom(1, mes, Year);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
-
+        
         for (Modelo_RegistroAsistencia item : ListObjeto) {
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
@@ -415,21 +417,21 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 item.getCantAusencias(),
                 item.getCantAusenciaJustificadas()});
         }
-
+        
         tabla.setModel(modeloTabla);
     }
-
+    
     public void Cargar_Listado_Registro_Busqueda_dia(JTable tabla) {
         int mes = Cb_BuscarPorMes_.getSelectedIndex() + 1;
         int Year = Integer.parseInt(Cb_Año.getSelectedItem().toString());
         int dia = Integer.parseInt(Cb_Dia.getSelectedItem().toString());
-
+        
         modeloTabla.setNumRows(0);
-
+        
         System.out.println("buscando por año: " + Year + "  por mes : " + mes + " por dia: " + dia);
         ListObjeto = Objeto.GetListadoCustom_dia(Grado, dia, mes, Year);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
-
+        
         for (Modelo_RegistroAsistencia item : ListObjeto) {
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
@@ -439,7 +441,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 item.getCantAusencias(),
                 item.getCantAusenciaJustificadas()});
         }
-
+        
         tabla.setModel(modeloTabla);
     }
 

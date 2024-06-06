@@ -307,7 +307,7 @@ SELECT  			Tb_Mat.id,Tb_Resp."Apellidos_A",Tb_Resp."Nombres_A",Tb_TipR."Tipo_de_
             statement = conexionDB.createStatement(); // Creamos la consulta
 
             String ConsultaNotasPorNIE = """
-SELECT "NIE" FROM public."tbl_Estudiante";""";
+SELECT "NIE" FROM public."tbl_Estudiante"; """;
 
             PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
 
@@ -366,7 +366,6 @@ SELECT "NIE", "Nombres", "Apellidos", "Grado_id", "Edad", "Responsables_id"
                 DataEstudiante.setId_Grado(Conaulta_Inscripcion.getInt("Grado_id"));
                 DataEstudiante.setEdad(Conaulta_Inscripcion.getInt("Edad"));
                 DataEstudiante.setId_Responsables(Conaulta_Inscripcion.getInt("Responsables_id"));
-
 
             }
 
@@ -581,35 +580,27 @@ INSERT INTO public."tbl_Estudiante"(
         return 0;
     }
 
-    public int Edit_VentaHecha(Modelo_Estudiante ProductoVendido) {
+    public int EDIT_Reinscripcion(int NIE, int Grado, int Edad) {
         try {
-
             String sql = """
-                         UPDATE public."Tbl_Productos" SET   "Cantidad_Disponible" = ? WHERE id = ?;""";
+                     UPDATE public."tbl_Estudiante"
+                     SET "Grado_id" = ?, "Edad" = ?
+                     WHERE "NIE" = ?;""";
 
             conexionDB = claseConectar.iniciarConexion();
-            pstm = conexionDB.prepareStatement(sql);
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(sql);
+            preparedStatement.setInt(1, Grado);
+            preparedStatement.setInt(2, Edad);
+            preparedStatement.setInt(3, NIE);
+            
+            System.out.println("SQL > " + pstm.toString() );
 
-//            int id = ProductoVendido.getId();
-//            Modelo_Productos cantidad = new Modelo_Productos();
-//            int cantidaddisponible = cantidad.Get_Data_Cant(id);
-//
-////            int nuevoTotal = cantidaddisponible - ProductoVendido.getCantidades();
-////
-//            System.out.println("tome la cantidad " + cantidaddisponible);
-//            System.out.println("para vender " + ProductoVendido.Cantidades);
-//            System.out.println("y queda " + nuevoTotal);
-//
-//            System.out.println("id a modificar" + ProductoVendido.getId());
-//            pstm.setInt(1, ProductoVendido.getCantidades());
-//            pstm.setInt(2, nuevoTotal);
-            int respuesta = pstm.executeUpdate();
+            int respuesta = preparedStatement.executeUpdate();
 
             return respuesta;
-
+            
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Modelo_Estudiante.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Modelo_Estudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return 0;
     }

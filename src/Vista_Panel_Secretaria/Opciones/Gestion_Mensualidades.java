@@ -311,7 +311,7 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
         Lb_AsignarMensualidades.setBackground(new java.awt.Color(255, 255, 255));
         Lb_AsignarMensualidades.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
         Lb_AsignarMensualidades.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_AsignarMensualidades.setText("Asignar mensualidad");
+        Lb_AsignarMensualidades.setText("Pagar por adelantado");
 
         javax.swing.GroupLayout Btn_AsignarMensualidadLayout = new javax.swing.GroupLayout(Btn_AsignarMensualidad);
         Btn_AsignarMensualidad.setLayout(Btn_AsignarMensualidadLayout);
@@ -443,15 +443,16 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Cb_GradoActionPerformed
 
     public void verificarTalonarioMensual() {
+        // asignara el talonario de mensualidad del mes actual si no se a asignado ya
         int year = Funciones.Get_Year_Actual();
         int mes = Funciones.Get_MES_Actual();
 
-        System.out.println("ingresando en mes " + mes + " year " + year);
+        if (!Mensualidad.Validartalonario(mes)) {
+            System.out.println("ingresando en mes " + mes + " year " + year);
 
-        Modelo_Mensualidad Mesnualidad = new Modelo_Mensualidad();
-        Mesnualidad.Insert_Mensualidad_MesActual(year, mes);
-        Get_list_MesActual_Mensualidades(Tbl_Mensualidades);
-
+            Modelo_Mensualidad Mesnualidad = new Modelo_Mensualidad();
+            Mesnualidad.Insert_Mensualidad_MesActual(year, mes);
+        }
     }
 
     public static void Get_Cb_Grados(JComboBox ComboBox, List<Modelo_Grados> List_Grados, Modelo_Grados Objeto_Grados) {

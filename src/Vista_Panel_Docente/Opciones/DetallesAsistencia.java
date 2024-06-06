@@ -2,16 +2,19 @@ package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
 import static Funciones.Funciones.EnterMouse;
+import static Funciones.Funciones.Get_MES_Actual;
 import static Funciones.Funciones.LeftMouse;
-import Modelos.Docente.Modelo_EstadoActividad;
 import Modelos.Docente.Modelo_RegistroAsistencia;
 import Modelos.Docente.Modelo_TipoAsistencia;
 import Modelos.Secretaria.Modelo_Estudiante;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -21,105 +24,149 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public final class DetallesAsistencia extends javax.swing.JFrame {
-
+    
     private final Registro_Asistencia asist = new Registro_Asistencia();
     private Modelo_Estudiante estudiante = new Modelo_Estudiante();
-
+    
     private final Modelo_TipoAsistencia ObjetoEstadoAsistencias = new Modelo_TipoAsistencia();
     private List<Modelo_TipoAsistencia> ListEstadosAsistencias;
-
+    
     private DefaultTableModel modeloTabla = new DefaultTableModel();
     private List<Modelo_RegistroAsistencia> ListDetallesAsistencia;
-
-    private Modelo_RegistroAsistencia objetoRegistro = new Modelo_RegistroAsistencia();
-
+    
+    private Modelo_RegistroAsistencia objetoRegistro;
+    private DetallesAsistencia Form;
+    
     public DetallesAsistencia() {
+        this.objetoRegistro = new Modelo_RegistroAsistencia();
         initComponents();
     }
-
+    
     public DetallesAsistencia(List<Modelo_RegistroAsistencia> ListDetallesAsistencia_, Modelo_Estudiante DataEstudiante_) {
         initComponents();
         setLocationRelativeTo(this);
-
+        
+        int mesActual = Get_MES_Actual() - 1;
+        this.objetoRegistro = new Modelo_RegistroAsistencia();
+        this.Form = this;
+        
         Lb_Info.setText("NIE : " + DataEstudiante_.getNIE());
         this.modeloTabla = (DefaultTableModel) Tbl_RegistroAsistencia.getModel();
         this.ListDetallesAsistencia = ListDetallesAsistencia_;
         this.estudiante = DataEstudiante_;
         Get_TipoAsistencias(Cb_Tipo);
-
+        
+        Cb_BuscarPorMes_.setSelectedIndex(mesActual);
+        
         DiseñoTabla(Tbl_RegistroAsistencia);
         Cargar_Listado_Registro_Busqueda(Tbl_RegistroAsistencia);
-
+        
+        Tbl_RegistroAsistencia.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int COL = Tbl_RegistroAsistencia.columnAtPoint(e.getPoint());
+                int ROW = Tbl_RegistroAsistencia.rowAtPoint(e.getPoint());
+                
+                if (COL == 3) {
+                    String asistencia = Tbl_RegistroAsistencia.getValueAt(ROW, 0).toString();
+                    if (asistencia.equalsIgnoreCase("Ausente")) {
+                        int MesActual = Get_MES_Actual();
+                        int NIE = DataEstudiante_.getNIE();
+                        int grado = estudiante.getId_Grado();
+                        
+                        Modelo_RegistroAsistencia EditarRegistro = new Modelo_RegistroAsistencia();
+                        EditarRegistro = EditarRegistro.Get_DetalleAsistencia(NIE, grado, MesActual);
+                        
+                        Editar_Asistencia Edicion = new Editar_Asistencia(EditarRegistro, Tbl_RegistroAsistencia, Form);
+                        Form.setVisible(false);
+                        Edicion.setVisible(true);
+                    }
+                 
+                }
+            }
+        });
     }
-
+    
     public void Get_TipoAsistencias(JComboBox ComboBox) {
-
+        
         DefaultComboBoxModel ModeloComboBox = new DefaultComboBoxModel();
-
+        
         ListEstadosAsistencias = ObjetoEstadoAsistencias.Get_EstadosAsistencias();
         System.out.println("hay " + ListEstadosAsistencias.size());
-
+        
         for (Modelo_TipoAsistencia item : ListEstadosAsistencias) {
             ModeloComboBox.addElement(item.getEstadoAsistencia());
         }
-
+        
         ComboBox.setModel(ModeloComboBox);
     }
-
+    
     public void Cargar_Listado_Registro_Busqueda(JTable tabla) {
         int mes = Cb_BuscarPorMes_.getSelectedIndex() + 1;
         modeloTabla.setNumRows(0);
-
+        
         System.out.println("buscando por mes : " + mes);
         System.out.println("Hay " + ListDetallesAsistencia.size() + " registros en la lista.");
-
+        
+        ImageIcon IconEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit.png"));
+        
         for (Modelo_RegistroAsistencia item : ListDetallesAsistencia) {
             modeloTabla.addRow(new Object[]{
                 item.getFecha(),
                 item.getEstadoAsistencia(),
-                item.getJustificacion()});
+                item.getJustificacion(),
+                new JLabel(IconEditar)});
+            
         }
-
+        
         tabla.setModel(modeloTabla);
     }
-
+    
     public void Cargar_Listado_Registro_Busqueda_Detalles(JTable tabla) {
         int mes = Cb_BuscarPorMes_.getSelectedIndex() + 1;
-
+        
         modeloTabla.setNumRows(0);
-
-        ListDetallesAsistencia = objetoRegistro.Get_DetalleAsistencia(estudiante.getNIE(), estudiante.getId_Grado(), mes);
+        
+        ListDetallesAsistencia = objetoRegistro.Get_List_DetalleAsistencia(estudiante.getNIE(), estudiante.getId_Grado(), mes);
         System.out.println("Hay " + ListDetallesAsistencia.size() + " registros en la lista.");
-
+        
+        ImageIcon IconEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit.png"));
+        
         for (Modelo_RegistroAsistencia item : ListDetallesAsistencia) {
             modeloTabla.addRow(new Object[]{
                 item.getFecha(),
                 item.getEstadoAsistencia(),
-                item.getJustificacion()});
+                item.getJustificacion(),
+                new JLabel(IconEditar)});
+            
         }
-
+        
         tabla.setModel(modeloTabla);
     }
-
+    
     public void Cargar_Listado_Registro_Busqueda_FiltradaTipo(JTable tabla) {
         int mes = Cb_BuscarPorMes_.getSelectedIndex() + 1;
         int Tipo = Cb_Tipo.getSelectedIndex() + 1;
-
+        
         modeloTabla.setNumRows(0);
-
+        
         ListDetallesAsistencia = objetoRegistro.Get_DetalleAsistencia_FiltroTipoAsistencia(estudiante.getNIE(), estudiante.getId_Grado(), mes, Tipo);
         System.out.println("Hay " + ListDetallesAsistencia.size() + " registros en la lista.");
-
+        
+        ImageIcon IconEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit.png"));
+        
         for (Modelo_RegistroAsistencia item : ListDetallesAsistencia) {
             modeloTabla.addRow(new Object[]{
                 item.getFecha(),
                 item.getEstadoAsistencia(),
-                item.getJustificacion()});
+                item.getJustificacion(),
+                new JLabel(IconEditar)});
+            
         }
-
+        
         tabla.setModel(modeloTabla);
     }
-
+    
     public void DiseñoTabla(JTable tabla) {
         tabla.setDefaultRenderer(Object.class,
                 new TablaCusomizada());
@@ -129,26 +176,26 @@ public final class DetallesAsistencia extends javax.swing.JFrame {
         Font fuente = new Font("Roboto", Font.BOLD, 12);
         tabla.setFont(fuente);
         tabla.getTableHeader().setFont(fuente);
-
+        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-        int numeroDeCeldas = Tbl_RegistroAsistencia.getColumnCount(); // Cambia este valor al número de celdas que necesites
+        
+        int numeroDeCeldas = Tbl_RegistroAsistencia.getColumnCount() - 1; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-
+        
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-
+        
         tabla.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
-
+        
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 45));
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -182,14 +229,14 @@ public final class DetallesAsistencia extends javax.swing.JFrame {
         Tbl_RegistroAsistencia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 153, 51)));
         Tbl_RegistroAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Fecha", "Asistencia", "justificacion"
+                "Fecha", "Asistencia", "justificacion", "Editar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -198,10 +245,14 @@ public final class DetallesAsistencia extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tbl_RegistroAsistencia);
         if (Tbl_RegistroAsistencia.getColumnModel().getColumnCount() > 0) {
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(0).setResizable(false);
             Tbl_RegistroAsistencia.getColumnModel().getColumn(0).setPreferredWidth(100);
-            Tbl_RegistroAsistencia.getColumnModel().getColumn(0).setMaxWidth(100);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(1).setResizable(false);
             Tbl_RegistroAsistencia.getColumnModel().getColumn(1).setPreferredWidth(200);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(2).setResizable(false);
             Tbl_RegistroAsistencia.getColumnModel().getColumn(2).setPreferredWidth(200);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(3).setResizable(false);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(3).setPreferredWidth(80);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 600, 290));
@@ -433,15 +484,15 @@ public final class DetallesAsistencia extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseClicked
 
     private void Btn_LimpiarFiltrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseEntered
-        Funciones.Funciones.EnterMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#FFF099", "#FF9900");
+        EnterMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#FFF099", "#FF9900");
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseEntered
 
     private void Btn_LimpiarFiltrosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseExited
-        Funciones.Funciones.LeftMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#E2D784", "#000000");
+        LeftMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseExited
 
     private void Btn_RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseClicked
-
+        
         dispose();
     }//GEN-LAST:event_Btn_RegresarMouseClicked
 
@@ -452,7 +503,7 @@ public final class DetallesAsistencia extends javax.swing.JFrame {
     private void Btn_RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseExited
         LeftMouse(Btn_Regresar, Lb_Ordenar, "#980505", "#FFFFFF");
     }//GEN-LAST:event_Btn_RegresarMouseExited
-
+    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             new DetallesAsistencia().setVisible(true);

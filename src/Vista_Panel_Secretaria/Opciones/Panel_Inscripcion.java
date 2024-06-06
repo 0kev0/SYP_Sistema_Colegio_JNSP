@@ -6,17 +6,22 @@ import Modelos.Secretaria.Modelo_Estudiante;
 import Modelos.Secretaria.Modelo_Matricula;
 import Modelos.Secretaria.Modelo_Responsables;
 import Modelos.Secretaria.Modelo_TipoResponsable;
+import Modelos.Secretaria.Modelo_Transacciones;
 import Vista_Panel_Secretaria.Panel_Secretaria;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class Panel_Inscripcion extends javax.swing.JFrame {
 
     private final Modelo_Grados Objeto_Grados = new Modelo_Grados();
     private List<Modelo_Grados> List_Grados;
+
+    private final List<Modelo_Transacciones> Recibo = new ArrayList<>();
 
     private final Modelo_TipoResponsable Objeto_TipoResponsables = new Modelo_TipoResponsable();
     private List<Modelo_TipoResponsable> List_TipoResponsables;
@@ -88,7 +93,10 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
         Lb_Aerolinea6 = new javax.swing.JLabel();
         Lb_Crearcuenta = new javax.swing.JLabel();
         Txb_idPadres = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        Btn_Buscar = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        Lb_Aerolinea8 = new javax.swing.JLabel();
+        Lb_Buscar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -592,7 +600,62 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("el codigo que introduzca se verifica si tiene hijos para el descuento  ");
+        Btn_Buscar.setBackground(new java.awt.Color(64, 124, 62));
+        Btn_Buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_BuscarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_BuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_BuscarMouseExited(evt);
+            }
+        });
+
+        jPanel9.setBackground(new java.awt.Color(40, 200, 35));
+
+        Lb_Aerolinea8.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Aerolinea8.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        Lb_Aerolinea8.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Lb_Aerolinea8))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lb_Aerolinea8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        Lb_Buscar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        Lb_Buscar.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_Buscar.setText("Buscar");
+        Lb_Buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout Btn_BuscarLayout = new javax.swing.GroupLayout(Btn_Buscar);
+        Btn_Buscar.setLayout(Btn_BuscarLayout);
+        Btn_BuscarLayout.setHorizontalGroup(
+            Btn_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_BuscarLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(Lb_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        Btn_BuscarLayout.setVerticalGroup(
+            Btn_BuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Btn_BuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Buscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 3, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -658,8 +721,8 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(Txb_idPadres, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(loading1)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(Txb_Nombre_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -692,15 +755,11 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                             .addComponent(Txb_Apellido_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(errorNombre)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Txb_idPadres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(Txb_idPadres, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_Buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(errorNombre3)
@@ -913,6 +972,52 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                     }
                     System.out.println("Exito se matriculo al joven " + EstudianteNuevo.getApellidos_Estudiante() + " "
                             + EstudianteNuevo.getNombres_Estudiante() + " NIE " + EstudianteNuevo.getNIE());
+
+                    int respuesta = JOptionPane.showConfirmDialog(rootPane, "Resumen de compra\n Total de: " + 100, "Inscripcion", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+                    switch (respuesta) {
+                        case JOptionPane.YES_OPTION -> {
+
+                            Modelo_Transacciones transaccion = new Modelo_Transacciones();
+
+                            String detalle = "Inscripcion alumno " + EstudianteNuevo.getNombres_Estudiante();
+                            int cant = 1;
+                            double Sub_Total = 100;
+
+                            int tipo = 3;//id de transaccion de tipo inscripcion
+                            double Precio = 100;
+                            double ganancia = 100;
+
+                            double Costo = 0;
+                            double Ganancia = Sub_Total - (cant * Costo);
+
+                            transaccion.setDetalles(detalle);
+                            transaccion.setCantidades(cant);
+                            transaccion.setPrecio(Precio);
+                            transaccion.setMontos(Sub_Total);
+                            transaccion.setId_tipo_transaccion(tipo);
+                            transaccion.setCostos(Precio);
+                            transaccion.setGanancias(ganancia);
+                            transaccion.setNIES_Responsable(idresponsable);
+                            transaccion.setEstudiante_id(NIE);
+                            transaccion.setFecha(fecha);
+                            transaccion.setGanancias(Ganancia);
+
+                            transaccion.Insert_Transaccion(transaccion);
+                            transaccion.Edit_Resta_inventario(transaccion);
+                            Recibo.add(transaccion);
+
+                            Modelo_Transacciones Datos = new Modelo_Transacciones();
+                            Datos = Datos.Get_DatosRecibo(idresponsable, NIE);
+
+                            Recibo1 resumenDeCompra = new Recibo1(Recibo, Datos);
+                            resumenDeCompra.setVisible(true);
+                        }
+                        case JOptionPane.NO_OPTION ->
+                            Funciones.showMessageDialog("Info", "Orden cancelada");
+                        default -> {
+                        }
+                    }
                 }
 
             }
@@ -1051,6 +1156,11 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
 
     private void Txb_idPadresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txb_idPadresKeyReleased
         // verificar y cargar datos de padres .
+
+
+    }//GEN-LAST:event_Txb_idPadresKeyReleased
+
+    private void Btn_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_BuscarMouseClicked
         int id = Integer.parseInt(Txb_idPadres.getText());
         Modelo_Responsables responsable = new Modelo_Responsables();
         responsable = responsable.Get_DataResponsable(id);
@@ -1059,19 +1169,27 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
             Txb_ApellidosResponsableA.setText(responsable.getApellidos_A());
             Txb_NombresResponsableA.setText(responsable.getNombres_A());
             TxbTelefono1.setText(responsable.getTelefonoA());
-            Cb_TipoResponsableA.setSelectedIndex(responsable.getId_TipoA() -1);
+            Cb_TipoResponsableA.setSelectedIndex(responsable.getId_TipoA());
 
             Txb_ApellidosResponsableB.setText(responsable.getApellidos_B());
             Txb_NombresResponsableB.setText(responsable.getNombres_B());
             TxbTelefono2.setText(responsable.getTelefonoB());
-            Cb_TipoResponsable_B.setSelectedIndex(responsable.getId_TipoB()-1 );
+            Cb_TipoResponsable_B.setSelectedIndex(responsable.getId_TipoB());
 
             Txb_Direccion.setText(responsable.getDireccion());
             Txb_Correo.setText(responsable.getCorreo());
 
         }
 
-    }//GEN-LAST:event_Txb_idPadresKeyReleased
+    }//GEN-LAST:event_Btn_BuscarMouseClicked
+
+    private void Btn_BuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_BuscarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_BuscarMouseEntered
+
+    private void Btn_BuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_BuscarMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_BuscarMouseExited
 
     public static void clearTxb(JTextField TextBox) {
         TextBox.setText("");
@@ -1085,6 +1203,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Btn_Buscar;
     private javax.swing.JPanel Btn_Inscribir;
     private javax.swing.JPanel Btn_Inscripcion;
     private javax.swing.JPanel Btn_Inventario1;
@@ -1099,6 +1218,8 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     private javax.swing.JLabel LbErrorTel1;
     private javax.swing.JLabel Lb_Aerolinea6;
     private javax.swing.JLabel Lb_Aerolinea7;
+    private javax.swing.JLabel Lb_Aerolinea8;
+    private javax.swing.JLabel Lb_Buscar;
     private javax.swing.JLabel Lb_Crearcuenta;
     private javax.swing.JLabel Lb_Inventario;
     private javax.swing.JLabel Lb_Ordenar;
@@ -1119,12 +1240,12 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     private javax.swing.JLabel errorNombre4;
     private javax.swing.JLabel errorNombre5;
     private javax.swing.JLabel errorNombre6;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel loading1;
     // End of variables declaration//GEN-END:variables
 }
