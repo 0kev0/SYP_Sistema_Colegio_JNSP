@@ -4,14 +4,22 @@
  */
 package Vista_Panel_Director.Opciones;
 
+import Customizacion.TablaCusomizada;
 import Modelo.Director.Modelo_Gestion_Personal;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -32,6 +40,7 @@ public class Gestion_Personal extends javax.swing.JFrame {
         
         listPersonal = new ArrayList<>();
         personalObjeto = new Modelo_Gestion_Personal();
+        DiseñoTabla(jTablaPersonal);
 
         cargarPersonal();
         
@@ -55,6 +64,39 @@ public class Gestion_Personal extends javax.swing.JFrame {
         }
     }
    
+      public void DiseñoTabla(JTable tabla) {
+        tabla.setDefaultRenderer(Object.class,
+                new TablaCusomizada());
+        tabla.setRowHeight(40);
+        tabla.getTableHeader().setBackground(Color.decode("#5C636E"));
+        tabla.getTableHeader().setForeground(Color.white);
+        Font fuente = new Font("Roboto", Font.BOLD, 12);
+        tabla.setFont(fuente);
+        tabla.getTableHeader().setFont(fuente);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        
+        //Esto renderiza el texto en el centro 
+        
+
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+
+        //aca pone las columnas que quieras que el texto aparezca a la izquierda
+        tabla.getColumnModel().getColumn(1).setCellRenderer(leftRenderer);
+        tabla.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
+        tabla.getColumnModel().getColumn(3).setCellRenderer(leftRenderer);
+        tabla.getColumnModel().getColumn(4).setCellRenderer(leftRenderer);
+        tabla.getColumnModel().getColumn(5).setCellRenderer(leftRenderer);
+        
+       
+
+        JTableHeader header = tabla.getTableHeader();
+        header.setPreferredSize(new Dimension(60, 45));
+
+    }
     
 
     @SuppressWarnings("unchecked")
@@ -151,7 +193,7 @@ public class Gestion_Personal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTablaPersonal);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 910, 310));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 910, 310));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,7 +203,7 @@ public class Gestion_Personal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

@@ -4,9 +4,10 @@ import Vista_Panel_Director.Opciones.Gestion_Transacciones;
 import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import java.awt.Color;
-
 import Customizacion.*;
+import Modelo.Director.Salmos;
 import Vista_Panel_Director.Opciones.Gestion_Matriculas;
+import Vista_Panel_Director.Opciones.Gestion_Notas_Director;
 import Vista_Panel_Director.Opciones.Gestion_Personal;
 
 public class Panel_Director extends javax.swing.JFrame {
@@ -16,7 +17,12 @@ public class Panel_Director extends javax.swing.JFrame {
         
         initComponents();
         
-
+        Salmos salmos = new Salmos();
+        String salmoDelDia = salmos.getSalmoDelDia();
+        
+        
+        // Mostrar el Salmo en el JLabel
+        Lb_SalmoDia.setText("<html>" + salmoDelDia + "</html>");
     }
     
     
@@ -74,24 +80,24 @@ public class Panel_Director extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BG_Custom.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 420, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 126, 420, 220));
 
         Lb_Info.setBackground(new java.awt.Color(17, 66, 50));
         Lb_Info.setFont(new java.awt.Font("Segoe UI Variable", 1, 24)); // NOI18N
         Lb_Info.setForeground(new java.awt.Color(17, 66, 50));
         Lb_Info.setText("Bienvenido Director");
-        jPanel2.add(Lb_Info, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 240, 40));
+        jPanel2.add(Lb_Info, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 240, -1));
 
         Lb_SalmoDia.setBackground(new java.awt.Color(17, 66, 50));
-        Lb_SalmoDia.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        Lb_SalmoDia.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         Lb_SalmoDia.setForeground(new java.awt.Color(17, 66, 50));
-        jPanel2.add(Lb_SalmoDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 180, 20));
+        jPanel2.add(Lb_SalmoDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 400, 60));
 
         Lb_Salmo2.setBackground(new java.awt.Color(17, 66, 50));
         Lb_Salmo2.setFont(new java.awt.Font("Segoe UI Variable", 1, 20)); // NOI18N
         Lb_Salmo2.setForeground(new java.awt.Color(17, 66, 50));
         Lb_Salmo2.setText("El salmo del dia");
-        jPanel2.add(Lb_Salmo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 180, 20));
+        jPanel2.add(Lb_Salmo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 170, 20));
 
         Panel_bg.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 420, 350));
 
@@ -170,6 +176,9 @@ public class Panel_Director extends javax.swing.JFrame {
         Btn_ResumenNotas.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 0, new java.awt.Color(255, 204, 0)));
         Btn_ResumenNotas.setPreferredSize(new java.awt.Dimension(180, 60));
         Btn_ResumenNotas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_ResumenNotasMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_ResumenNotasMouseEntered(evt);
             }
@@ -730,6 +739,12 @@ public class Panel_Director extends javax.swing.JFrame {
         dispose();
         gest.setVisible(true);
     }//GEN-LAST:event_Btn_Empleados_MouseClicked
+
+    private void Btn_ResumenNotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ResumenNotasMouseClicked
+        Gestion_Notas_Director gest = new Gestion_Notas_Director();
+        dispose();
+        gest.setVisible(true);
+    }//GEN-LAST:event_Btn_ResumenNotasMouseClicked
 
     public static void main(String args[]) {
 
