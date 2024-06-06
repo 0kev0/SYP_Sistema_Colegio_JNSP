@@ -94,7 +94,7 @@ public class Modelo_Periodos {
     public ArrayList<Modelo_Periodos> Get_EstadosActividades() {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
-            String sql = "SELECT \"NombrePeriodo\" FROM public.\"Tbl_Periodos\";";
+            String sql = "SELECT id, \"Periodo\", \"NombrePeriodo\" FROM public.\"Tbl_Periodos\" ORDER BY id ASC;";
 
             pstm = conexionDB.prepareStatement(sql);
 

@@ -10,7 +10,7 @@ import static Funciones.Funciones.validarCampos;
 import Modelos.Docente.Modelo_AsignacionNotas;
 import Modelos.Docente.Modelo_Asignacion_Actividades;
 import Modelos.Docente.Modelo_Periodos;
-import Modelos.Docente.Modelo_TipoActividad;
+import Modelos.Docente.Modelo_TipoActividades;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -21,20 +21,23 @@ public final class Asignar_Nota extends javax.swing.JFrame {
     private final Modelo_Periodos Objeto_Periodos = new Modelo_Periodos();
     private List<Modelo_Periodos> List_Periodos;
 
-    private final Modelo_TipoActividad Objeto_TipoActividad = new Modelo_TipoActividad();
-    private List<Modelo_TipoActividad> List_TipoActividad;
+    private final Modelo_TipoActividades Objeto_TipoActividad = new Modelo_TipoActividades();
+    private List<Modelo_TipoActividades> List_TipoActividad;
 
     private final Modelo_Asignacion_Actividades Objeto_Actividades = new Modelo_Asignacion_Actividades();
-
+    private Asignacion_Notas Objeto;
     private final JTable tbl_Act;
     private final int idActividad;
+    private final int grado;
 
-    public Asignar_Nota(int idActividad, int periodo, Modelo_AsignacionNotas Objeto_AsignarNota, JTable tbl_Actividades) {
+    public Asignar_Nota(int idActividad, int periodo, int _grado, Modelo_AsignacionNotas Objeto_AsignarNota, JTable tbl_Actividades, Asignacion_Notas _objeto) {
         initComponents();
         setLocationRelativeTo(this);
 
         this.idActividad = idActividad;
         this.tbl_Act = tbl_Actividades;
+        this.grado = _grado;
+        this.Objeto = _objeto;
 
         TB_NIE2.setText(Integer.toString(Objeto_AsignarNota.getNIE()));
         TB_Periodo.setText(Integer.toString(periodo));
@@ -63,7 +66,7 @@ public final class Asignar_Nota extends javax.swing.JFrame {
             List_TipoActividad = Objeto_TipoActividad.Get_EstadosActividades();
             System.out.println("hay " + List_TipoActividad.size());
 
-            for (Modelo_TipoActividad item : List_TipoActividad) {
+            for (Modelo_TipoActividades item : List_TipoActividad) {
                 ModeloComboBox.addElement(item.getTipoActividad());
             }
 
@@ -91,10 +94,10 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         TB_Periodo = new javax.swing.JTextField();
         TB_NIE2 = new javax.swing.JTextField();
         errorTb_Nota = new javax.swing.JLabel();
-        Btn_Regresar2 = new javax.swing.JPanel();
+        Btn_Regresar = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         Lb_Aerolinea9 = new javax.swing.JLabel();
-        Lb_Ordenar2 = new javax.swing.JLabel();
+        Lb_Ordenar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,14 +110,6 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         TB_NombreActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         TB_NombreActividad.setForeground(new java.awt.Color(0, 0, 0));
         TB_NombreActividad.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Nombre de la actividad", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        TB_NombreActividad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TB_NombreActividadMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TB_NombreActividadMouseExited(evt);
-            }
-        });
         jPanel1.add(TB_NombreActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 300, 50));
 
         TB_NombreAlumno.setEditable(false);
@@ -122,14 +117,6 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         TB_NombreAlumno.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         TB_NombreAlumno.setForeground(new java.awt.Color(0, 0, 0));
         TB_NombreAlumno.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Nombre alumno : ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        TB_NombreAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TB_NombreAlumnoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TB_NombreAlumnoMouseExited(evt);
-            }
-        });
         jPanel1.add(TB_NombreAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 430, 50));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
@@ -251,14 +238,6 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         TB_Periodo.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         TB_Periodo.setForeground(new java.awt.Color(0, 0, 0));
         TB_Periodo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Periodo: ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        TB_Periodo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TB_PeriodoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TB_PeriodoMouseExited(evt);
-            }
-        });
         jPanel1.add(TB_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 120, 50));
 
         TB_NIE2.setEditable(false);
@@ -266,14 +245,6 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         TB_NIE2.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         TB_NIE2.setForeground(new java.awt.Color(0, 0, 0));
         TB_NIE2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "NIE :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        TB_NIE2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TB_NIE2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TB_NIE2MouseExited(evt);
-            }
-        });
         jPanel1.add(TB_NIE2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 120, 50));
 
         errorTb_Nota.setBackground(new java.awt.Color(23, 42, 56));
@@ -282,20 +253,20 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         errorTb_Nota.setText("Error");
         jPanel1.add(errorTb_Nota, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, 200, -1));
 
-        Btn_Regresar2.setBackground(new java.awt.Color(152, 5, 5));
-        Btn_Regresar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Btn_Regresar2.addMouseListener(new java.awt.event.MouseAdapter() {
+        Btn_Regresar.setBackground(new java.awt.Color(152, 5, 5));
+        Btn_Regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Btn_Regresar2MouseClicked(evt);
+                Btn_RegresarMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Btn_Regresar2MouseEntered(evt);
+                Btn_RegresarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                Btn_Regresar2MouseExited(evt);
+                Btn_RegresarMouseExited(evt);
             }
         });
-        Btn_Regresar2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Btn_Regresar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel10.setBackground(new java.awt.Color(255, 10, 10));
 
@@ -316,16 +287,16 @@ public final class Asignar_Nota extends javax.swing.JFrame {
             .addComponent(Lb_Aerolinea9, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        Btn_Regresar2.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 35, 149, 12));
+        Btn_Regresar.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 35, 149, 12));
 
-        Lb_Ordenar2.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
-        Lb_Ordenar2.setForeground(new java.awt.Color(255, 255, 255));
-        Lb_Ordenar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/back (1).png"))); // NOI18N
-        Lb_Ordenar2.setText("Regresar");
-        Lb_Ordenar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Btn_Regresar2.add(Lb_Ordenar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 12, 130, 20));
+        Lb_Ordenar.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        Lb_Ordenar.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_Ordenar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/back (1).png"))); // NOI18N
+        Lb_Ordenar.setText("Regresar");
+        Lb_Ordenar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar.add(Lb_Ordenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 12, 130, 20));
 
-        jPanel1.add(Btn_Regresar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 90, 130, -1));
+        jPanel1.add(Btn_Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 90, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -341,25 +312,10 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TB_NombreActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividadMouseEntered
-        Funciones.Mouse_EnterTextbox(TB_NombreActividad);
-    }//GEN-LAST:event_TB_NombreActividadMouseEntered
-
-    private void TB_NombreActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividadMouseExited
-        Mouse_LeftTextbox("Ingrese nombre", TB_NombreActividad);
-    }//GEN-LAST:event_TB_NombreActividadMouseExited
-
-    private void TB_NombreAlumnoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreAlumnoMouseEntered
-        Mouse_EnterTextbox(TB_NombreAlumno);
-    }//GEN-LAST:event_TB_NombreAlumnoMouseEntered
-
-    private void TB_NombreAlumnoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreAlumnoMouseExited
-        Mouse_LeftTextbox("Ingrese descripcion", TB_NombreAlumno);
-    }//GEN-LAST:event_TB_NombreAlumnoMouseExited
-
     private void Btn_AsignarNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarNotaMouseClicked
         int NIE = Integer.parseInt(TB_NIE2.getText());
         double notaObtenida = Double.parseDouble(TB_Nota.getText());
+        
         if (!validarCampos(jPanel1)) {
             System.out.println("faltan campos");
         } else {
@@ -372,9 +328,8 @@ public final class Asignar_Nota extends javax.swing.JFrame {
             edit.Edit_AsignarNotas(edit);
 
             showMessageDialog("Edicion exitosa", "la actividad fue editada exitosamente");
-            Asignacion_Notas RefreshTabla = new Asignacion_Notas();
 
-            RefreshTabla.Get_Tabla_NotaActividades(tbl_Act);
+            Objeto.Get_Tabla_NotaActividades_Todas(tbl_Act);
 
             dispose();
         }
@@ -397,39 +352,23 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TB_NotaMouseExited
 
-    private void TB_PeriodoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_PeriodoMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TB_PeriodoMouseEntered
-
-    private void TB_PeriodoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_PeriodoMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TB_PeriodoMouseExited
-
-    private void TB_NIE2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NIE2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TB_NIE2MouseEntered
-
-    private void TB_NIE2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NIE2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TB_NIE2MouseExited
-
     private void TB_NotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_NotaKeyTyped
-        Funciones.ValidEnteros(TB_Nota, errorTb_Nota);
+        Funciones.ValidarNota(TB_Nota, errorTb_Nota);
 
 
     }//GEN-LAST:event_TB_NotaKeyTyped
 
-    private void Btn_Regresar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar2MouseClicked
+    private void Btn_RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseClicked
         dispose();
-    }//GEN-LAST:event_Btn_Regresar2MouseClicked
+    }//GEN-LAST:event_Btn_RegresarMouseClicked
 
-    private void Btn_Regresar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar2MouseEntered
+    private void Btn_RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseEntered
         Funciones.EnterMouse(Btn_Regresar, Lb_Ordenar, "#D90707", "#000000");
-    }//GEN-LAST:event_Btn_Regresar2MouseEntered
+    }//GEN-LAST:event_Btn_RegresarMouseEntered
 
-    private void Btn_Regresar2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Regresar2MouseExited
+    private void Btn_RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseExited
         Funciones.LeftMouse(Btn_Regresar, Lb_Ordenar, "#980505", "#FFFFFF");
-    }//GEN-LAST:event_Btn_Regresar2MouseExited
+    }//GEN-LAST:event_Btn_RegresarMouseExited
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -472,17 +411,11 @@ public final class Asignar_Nota extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_AsignarNota;
     private javax.swing.JPanel Btn_Regresar;
-    private javax.swing.JPanel Btn_Regresar1;
-    private javax.swing.JPanel Btn_Regresar2;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
-    private javax.swing.JLabel Lb_Aerolinea7;
-    private javax.swing.JLabel Lb_Aerolinea8;
     private javax.swing.JLabel Lb_Aerolinea9;
     private javax.swing.JLabel Lb_Guardar;
     private javax.swing.JLabel Lb_Ordenar;
-    private javax.swing.JLabel Lb_Ordenar1;
-    private javax.swing.JLabel Lb_Ordenar2;
     private javax.swing.JTextField TB_NIE2;
     private javax.swing.JTextField TB_NombreActividad;
     private javax.swing.JTextField TB_NombreAlumno;
@@ -493,8 +426,6 @@ public final class Asignar_Nota extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 
 }

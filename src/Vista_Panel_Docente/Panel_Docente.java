@@ -20,7 +20,7 @@ public class Panel_Docente extends javax.swing.JFrame {
         initComponents();
     }
 
-    private Modelo_DocenteGuia DocenteGuia ;
+    private Modelo_DocenteGuia DocenteGuia;
 
     public Panel_Docente(Modelo_DocenteGuia Docente) {
         getContentPane().setBackground(new Color(250, 250, 250));
@@ -566,7 +566,6 @@ public class Panel_Docente extends javax.swing.JFrame {
     private void Btn_Modificar_cuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Modificar_cuentaMouseClicked
 
         Gestion_Voleta_Notas gest = new Gestion_Voleta_Notas(DocenteGuia);
-                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
@@ -576,7 +575,6 @@ public class Panel_Docente extends javax.swing.JFrame {
 
     private void Btn_Inventario_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseClicked
         Gestion_Notas gest = new Gestion_Notas(DocenteGuia);
-                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
@@ -592,7 +590,6 @@ public class Panel_Docente extends javax.swing.JFrame {
 
     private void Btn_AsignarActividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarActividadesMouseClicked
         Asignacion_Actividades gest = new Asignacion_Actividades(DocenteGuia);
-                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
@@ -603,8 +600,6 @@ public class Panel_Docente extends javax.swing.JFrame {
     private void Btn_Asignar_NotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Asignar_NotasMouseClicked
         Asignacion_Notas gest = new Asignacion_Notas(DocenteGuia);
 
-                System.out.println(">" +DocenteGuia.getMateriaImpartida());
-
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
@@ -613,7 +608,6 @@ public class Panel_Docente extends javax.swing.JFrame {
 
     private void Btn_TomaAsistenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_TomaAsistenciaMouseClicked
         Toma_Asistencia gest = new Toma_Asistencia(DocenteGuia);
-                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);
@@ -623,7 +617,6 @@ public class Panel_Docente extends javax.swing.JFrame {
 
     private void Btn_RegistroAsistenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegistroAsistenciaMouseClicked
         Registro_Asistencia gest = new Registro_Asistencia(DocenteGuia);
-                System.out.println(">" +DocenteGuia.getMateriaImpartida());
 
         CentrarFrames(Desk, gest);
         Desk.add(gest);

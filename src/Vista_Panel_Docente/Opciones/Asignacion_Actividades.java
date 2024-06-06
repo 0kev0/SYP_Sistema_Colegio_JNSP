@@ -8,7 +8,7 @@ import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_Grados;
 import Modelos.Docente.Modelo_Materias;
 import Modelos.Docente.Modelo_Periodos;
-import Modelos.Docente.Modelo_TipoActividad;
+import Modelos.Docente.Modelo_TipoActividades;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -38,8 +38,8 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     private final Modelo_Periodos Objeto_Periodos = new Modelo_Periodos();
     private List<Modelo_Periodos> List_Periodos;
 
-    private final Modelo_TipoActividad Objeto_TipoActividad = new Modelo_TipoActividad();
-    private List<Modelo_TipoActividad> List_TipoActividad;
+    private final Modelo_TipoActividades Objeto_TipoActividad = new Modelo_TipoActividades();
+    private List<Modelo_TipoActividades> List_TipoActividad;
 
     private Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
 
@@ -52,26 +52,24 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     private int Grado;
 
     public Asignacion_Actividades(Modelo_DocenteGuia DocenteGuia) {
-        clearScreen();
         initComponents();
+        clearScreen();
 
         this.materia = DocenteGuia.getMateriaImpartida();
         Get_Cb_Grados(Cb_Grado, List_Grados, Objeto_Grados);
+        Get_Periodos(Cb_Periodo);
+        Get_TipoActividad(Cb_TipoActividad);
 
         Objeto_Docente = DocenteGuia;
         Grado = Objeto_Docente.getIdGradoGuia();
         System.out.println("docente guia " + Objeto_Docente.getNombres() + Objeto_Docente.getNIE() + Objeto_Docente.getIdGradoGuia());
         Lb_Materia_Periodo.setText(Objeto_Docente.getMateriaImpartida() + " " + Cb_Periodo.getSelectedItem().toString());
 
-        Get_Periodos(Cb_Periodo);
-        Get_TipoActividad(Cb_TipoActividad);
-
         DiseñoTabla(Tbl_Actividades);
         modeloTabla = (DefaultTableModel) Tbl_Actividades.getModel();
 
         Objeto_Modelo_Materias = Objeto_Modelo_Materias.Get_Materia(Objeto_Docente.getNIE());
         materia = Objeto_Modelo_Materias.getNombreMateria();
-        idmateria = Objeto_Modelo_Materias.getidMateria();
 
         Lb_Materia_Periodo.setText(materia + " Periodo: " + Cb_Periodo.getSelectedItem().toString());
 
@@ -154,7 +152,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
             List_TipoActividad = Objeto_TipoActividad.Get_EstadosActividades();
             System.out.println("hay " + List_TipoActividad.size());
 
-            for (Modelo_TipoActividad item : List_TipoActividad) {
+            for (Modelo_TipoActividades item : List_TipoActividad) {
                 ModeloComboBox.addElement(item.getTipoActividad());
             }
 
@@ -450,52 +448,51 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
         String nobreActividad = TB_NombreActividad.getText();
         String descripcion = TB_DescripcionActividad.getText();
-        int periodo = Cb_Periodo.getSelectedIndex();
+        
+        int periodo = Cb_Periodo.getSelectedIndex() + 1;
         int TipoActividad = Cb_TipoActividad.getSelectedIndex() + 1;
-        int cantidad_actividades = Tbl_Actividades.getRowCount();
         int grado = Cb_Grado.getSelectedIndex() + 1;
 
-        if (periodo != 0) {
+        System.out.println("/////////////////a asignar nota para grado " + grado + " estudiante  " );
+        if (Funciones.validarCampos(jPanel1)) {
 
-            if (Funciones.validarCampos(jPanel1)) {
+            if (Objeto_Actividades.ComprobarCant_Actividades(grado, periodo, TipoActividad)) {
 
-                if (Objeto_Actividades.ComprobarCant_Actividades(grado, periodo, TipoActividad)) {
+                
+                Modelo_Materias objMateria = new Modelo_Materias();
+                int idMateria = objMateria.Get_IDMateria(materia, grado);
+                
+                Objeto_Actividades.setNombreActividad(nobreActividad);
+                Objeto_Actividades.setDescripcion(descripcion);
+                Objeto_Actividades.setIdTipoActividad(TipoActividad);
+                Objeto_Actividades.setId_Materia(idMateria);
+                Objeto_Actividades.setPeriodo(periodo);
+                
 
-                    Objeto_Actividades.setNombreActividad(nobreActividad);
-                    Objeto_Actividades.setDescripcion(descripcion);
-                    Objeto_Actividades.setIdTipoActividad(TipoActividad);
-                    Objeto_Actividades.setId_Materia(idmateria);
-                    Objeto_Actividades.setPeriodo(periodo);
+                Objeto_Actividades.Insert_Actividad(Objeto_Actividades, grado);
 
-                    Objeto_Actividades.Insert_Actividad(Objeto_Actividades, grado);
+                modeloTabla = (DefaultTableModel) Tbl_Actividades.getModel();
+                modeloTabla.setNumRows(0);
 
-                    modeloTabla = (DefaultTableModel) Tbl_Actividades.getModel();
-                    modeloTabla.setNumRows(0);
+                System.out.println("id mat : " + idmateria);
+                List_Actividades = Objeto_Actividades.GetActividades_PorPeriodo(idmateria, periodo);
+                System.out.println("hay " + List_Actividades.size());
 
-                    System.out.println("id mat : " + idmateria);
-                    List_Actividades = Objeto_Actividades.GetActividades_PorPeriodo(idmateria, periodo);
-                    System.out.println("hay " + List_Actividades.size());
+                ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
+                for (Modelo_Asignacion_Actividades item : List_Actividades) {
 
-                    ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
-                    for (Modelo_Asignacion_Actividades item : List_Actividades) {
-
-                        modeloTabla.addRow(new Object[]{
-                            item.getIdActividad(),
-                            item.getPeriodo(),
-                            item.getNombreActividad(),
-                            item.getTipoActividad(),
-                            item.getDescripcion(),
-                            item.getPonderacion(),
-                            new JLabel(iconoEditar)});
-                    }
-
-                    Tbl_Actividades.setModel(modeloTabla);
+                    modeloTabla.addRow(new Object[]{
+                        item.getIdActividad(),
+                        item.getPeriodo(),
+                        item.getNombreActividad(),
+                        item.getTipoActividad(),
+                        item.getDescripcion(),
+                        item.getPonderacion(),
+                        new JLabel(iconoEditar)});
                 }
-            }
-        }
-        if (periodo == 0) {
-            Funciones.showMessageDialog("Problema", "Cambie al periodo que desea ingresar actividad.");
 
+                Tbl_Actividades.setModel(modeloTabla);
+            }
         }
 
 
@@ -565,7 +562,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         int grado = Cb_Grado.getSelectedIndex() + 1;
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
         Get_Tbl_Actividades(Tbl_Actividades, materia, grado, periodo);
-// TODO add your handling code here:
+
     }//GEN-LAST:event_Cb_GradoActionPerformed
 
     public void DiseñoTabla(JTable tabla) {

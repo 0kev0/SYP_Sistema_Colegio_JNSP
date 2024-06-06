@@ -184,7 +184,8 @@ SELECT Tbl_NAct."Actividad_id",Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
       INNER JOIN "Tbl_TipoActividad" AS Tb_Tact ON Tb_Tact."id_Act" = Tb_Act."TipoActividad_id"
       INNER JOIN "tbl_Estudiante" AS Tb_Est ON Tb_Est."NIE" = Tbl_NAct."Estudiante_id"
       INNER JOIN "Tbl_Grados" AS TbGr ON TbGr.id = Tb_Est."Grado_id"
-      WHERE TbGr.id = ? AND Tb_Act."Periodo_id" = ? AND Tb_EsAc.id = ? AND Tb_Tact."id_Act"= ? ; """;
+      WHERE TbGr.id = ? AND Tb_Act."Periodo_id" = ? AND Tb_EsAc.id = ? AND Tb_Tact."id_Act"= ? 
+                         	  ORDER BY Tb_Est."NIE" ASC; """;
 
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, grado);
@@ -242,7 +243,7 @@ SELECT Tbl_NAct."Actividad_id",Tb_Est."NIE",Tb_Est."Nombres",Tb_Est."Apellidos",
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, grado);
 
-
+            System.out.println("odas las actividades del grado " + grado);
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             ArrayList<Modelo_AsignacionNotas> DataActividades = new ArrayList<>();

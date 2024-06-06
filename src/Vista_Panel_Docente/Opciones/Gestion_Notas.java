@@ -552,6 +552,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
 
+        System.out.println(">>>>>>>>>>>>>buscando notas grado " + grado + " periodo " + periodo + " materia " + Materia);
         List_Notas = Objeto_GestionNotas.GetRegistroNotas(grado, periodo, Materia);
         System.out.println("###hay " + List_Notas.size());
         for (Modelo_GestionNotas item : List_Notas) {
@@ -590,6 +591,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
 
+        System.out.println(">>>>>>>>>>>>>buscando notas grado " + Grado + " periodo " + periodo + " materia " + Materia);
         List_Notas = Objeto_GestionNotas.GetRegistroNotas(Grado, periodo, Materia);
         System.out.println("###hay " + List_Notas.size());
         for (Modelo_GestionNotas item : List_Notas) {

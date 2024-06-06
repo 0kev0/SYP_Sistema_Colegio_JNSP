@@ -27,6 +27,8 @@ public class Modelo_RegistroAsistencia {
     private int NIE;
     private String NombreEstudiante;
     private String ApellidoEstudiante;
+    private String EstadoAsistencia;
+
     private Date Fecha;
     private int CantAsistencias;
     private int CantAusencias;
@@ -158,9 +160,17 @@ public class Modelo_RegistroAsistencia {
         this.CantAusenciaJustificadas = CantAusenciaJustificadas;
     }
 
+    public String getEstadoAsistencia() {
+        return EstadoAsistencia;
+    }
+
+    public void setEstadoAsistencia(String EstadoAsistencia) {
+        this.EstadoAsistencia = EstadoAsistencia;
+    }
+
     public Modelo_RegistroAsistencia(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
             int id, String ApellidoEstudiante, String NombreEstudiante, int CantAsistencias, String Justificacion, Date Fecha,
-            int idEstadoAsistencia, int idDocente, int idEstado, int CantAusencias, int CantAusenciaJustificadas) {
+            int idEstadoAsistencia, int idDocente, int idEstado, int CantAusencias, int CantAusenciaJustificadas, String EstadoAsistencia) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
@@ -177,6 +187,7 @@ public class Modelo_RegistroAsistencia {
         this.idEstadoAsistencia = idEstadoAsistencia;
         this.CantAusencias = CantAusencias;
         this.CantAusenciaJustificadas = CantAusenciaJustificadas;
+        this.EstadoAsistencia = EstadoAsistencia;
 
     }
 
@@ -284,7 +295,7 @@ GROUP BY tbEst."NIE", tbEst."Nombres", tbEst."Apellidos";""";
         return null;
     }
 
-    public ArrayList<Modelo_RegistroAsistencia> GetListadoCustom_dia(int Grado,int dia, int Mes, int Year) {
+    public ArrayList<Modelo_RegistroAsistencia> GetListadoCustom_dia(int Grado, int dia, int Mes, int Year) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             System.out.println("dia mes year " + dia + Mes + Year);
@@ -324,6 +335,106 @@ SELECT tbEst."NIE", tbEst."Nombres", tbEst."Apellidos",
                 DataListado.add(Estudiante);
             }
 
+            conexionDB.close();
+            return DataListado;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_RegistroAsistencia.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Modelo_RegistroAsistencia> Get_DetalleAsistencia(int NIE, int Grado, int Mes) {
+        try {
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            int Year = Funciones.Funciones.Get_Year_Actual();
+            System.out.println("dia mes/ year " + Mes + "/" + Year);
+            String sql = """
+SELECT TbAsi."Fecha" , TBE."Estado" , TbAsi."Justificacion",tbEst."NIE"
+                                                                                                                  	
+             FROM public."Tbl_Asistencias" AS TbAsi
+             INNER JOIN "tbl_Estudiante" AS tbEst ON tbEst."NIE" = TbAsi."Estudiante_id"
+            INNER JOIN "Tbl_estado_aistencia" AS TBE ON TBE.id = TbAsi."Estado_id"
+                         
+                				WHERE EXTRACT(MONTH FROM TbAsi."Fecha") = ? 
+                                          AND EXTRACT(YEAR FROM TbAsi."Fecha") = ? 
+                                          AND tbEst."Grado_id" = ? 
+					AND tbEst."NIE" = ? ;""";
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, Mes);
+            pstm.setInt(2, Year);
+            pstm.setInt(3, Grado);
+            pstm.setInt(4, NIE);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+            System.out.println("sql>" + pstm.toString());
+            ArrayList<Modelo_RegistroAsistencia> DataListado = new ArrayList<>();
+
+            while (consulta.next()) {
+                Modelo_RegistroAsistencia Estudiante = new Modelo_RegistroAsistencia();
+
+                Estudiante.setFecha(consulta.getDate("Fecha"));
+                Estudiante.setEstadoAsistencia(consulta.getString("Estado"));
+                Estudiante.setJustificacion(consulta.getString("Justificacion"));
+//                Estudiante.setCantAsistencias(consulta.getInt("Numero_Asistencias"));
+//                Estudiante.setCantAusencias(consulta.getInt("Numero_Fallas"));
+//                Estudiante.setCantAusenciaJustificadas(consulta.getInt("Numero_Fallas_Justificadas"));
+                System.out.println("fecha" + consulta.getDate("Fecha"));
+                DataListado.add(Estudiante);
+            }
+            System.out.println("hay en > " + DataListado.size());
+            conexionDB.close();
+            return DataListado;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_RegistroAsistencia.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Modelo_RegistroAsistencia> Get_DetalleAsistencia_FiltroTipoAsistencia(int NIE, int Grado, int Mes, int Tipo) {
+        try {
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            int Year = Funciones.Funciones.Get_Year_Actual();
+            System.out.println("dia mes/ year " + Mes + "/" + Year);
+            String sql = """
+SELECT TbAsi."Fecha" , TBE."Estado" , TbAsi."Justificacion",tbEst."NIE"
+                                                                                                                  	
+             FROM public."Tbl_Asistencias" AS TbAsi
+             INNER JOIN "tbl_Estudiante" AS tbEst ON tbEst."NIE" = TbAsi."Estudiante_id"
+            INNER JOIN "Tbl_estado_aistencia" AS TBE ON TBE.id = TbAsi."Estado_id"
+                         
+                				WHERE EXTRACT(MONTH FROM TbAsi."Fecha") = ? 
+                                          AND EXTRACT(YEAR FROM TbAsi."Fecha") = ? 
+                                          AND tbEst."Grado_id" = ? 
+					AND tbEst."NIE" = ? 
+					AND  TBE.id = ?;""";
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, Mes);
+            pstm.setInt(2, Year);
+            pstm.setInt(3, Grado);
+            pstm.setInt(4, NIE);
+            pstm.setInt(5, Tipo);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+            System.out.println("sql>" + pstm.toString());
+            ArrayList<Modelo_RegistroAsistencia> DataListado = new ArrayList<>();
+
+            while (consulta.next()) {
+                Modelo_RegistroAsistencia Estudiante = new Modelo_RegistroAsistencia();
+
+                Estudiante.setFecha(consulta.getDate("Fecha"));
+                Estudiante.setEstadoAsistencia(consulta.getString("Estado"));
+                Estudiante.setJustificacion(consulta.getString("Justificacion"));
+//                Estudiante.setCantAsistencias(consulta.getInt("Numero_Asistencias"));
+//                Estudiante.setCantAusencias(consulta.getInt("Numero_Fallas"));
+//                Estudiante.setCantAusenciaJustificadas(consulta.getInt("Numero_Fallas_Justificadas"));
+                System.out.println("fecha" + consulta.getDate("Fecha"));
+                DataListado.add(Estudiante);
+            }
+            System.out.println("hay en > " + DataListado.size());
             conexionDB.close();
             return DataListado;
 

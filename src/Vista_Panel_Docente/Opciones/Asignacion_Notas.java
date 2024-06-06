@@ -7,7 +7,7 @@ import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_EstadoActividad;
 import Modelos.Docente.Modelo_Grados;
 import Modelos.Docente.Modelo_Periodos;
-import Modelos.Docente.Modelo_TipoActividad;
+import Modelos.Docente.Modelo_TipoActividades;
 import static Vista_Panel_Docente.Opciones.Asignacion_Actividades.Get_Cb_Grados;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,6 +28,8 @@ import javax.swing.table.JTableHeader;
 public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
     public Asignacion_Notas() {
+        initComponents();
+
     }
 
     private final Modelo_AsignacionNotas Objeto = new Modelo_AsignacionNotas();
@@ -39,8 +41,8 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     private final Modelo_Periodos Objeto_Periodos = new Modelo_Periodos();
     private List<Modelo_Periodos> List_Periodos;
 
-    private final Modelo_TipoActividad Objeto_TipoActividad = new Modelo_TipoActividad();
-    private List<Modelo_TipoActividad> List_Modelo_TipoActividad;
+    private final Modelo_TipoActividades Objeto_TipoActividad = new Modelo_TipoActividades();
+    private List<Modelo_TipoActividades> List_Modelo_TipoActividad;
 
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
@@ -48,6 +50,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     private List<Modelo_Grados> List_Grados;
 
     private Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
+    private Asignacion_Notas objeto;
     private int grado;
     private String Materia;
 
@@ -59,7 +62,9 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         Get_Cb_Grados(Cb_Grado, List_Grados, Objeto_Grados);
         Get_EstadosActividades(Cb_EstadoActividad);
 
-        Get_Tabla_NotaActividades(Tbl_Actividades);
+        this.objeto = this;
+
+        Cb_EstadoActividad.setSelectedIndex(1);
 
         Objeto_Docente = docente;
 
@@ -67,6 +72,9 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         this.Materia = Objeto_Docente.getMateriaImpartida();
 
         Lb_Materia_Grado.setText(docente.getMateriaImpartida() + " Grado: " + grado);
+
+        System.out.println("docente " + docente.getNombres() + " grado " + docente.getIdGradoGuia() + " materia " + docente.getMateriaImpartida());
+        Get_Tabla_NotaActividades_Todas(Tbl_Actividades);
 
         Tbl_Actividades.addMouseListener(new MouseAdapter() {
             @Override
@@ -85,6 +93,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                         String apellido = Tbl_Actividades.getValueAt(ROW, 3).toString();
                         int periodo = Integer.parseInt(Tbl_Actividades.getValueAt(ROW, 4).toString());
                         String actividad = Tbl_Actividades.getValueAt(ROW, 5).toString();
+                        grado = Cb_Grado.getSelectedIndex() + 1;
 
                         Modelo_AsignacionNotas Objeto_AsignarNota = new Modelo_AsignacionNotas();
                         Objeto_AsignarNota.setApellidoEstudiante(apellido);
@@ -92,7 +101,9 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                         Objeto_AsignarNota.setNombreActividad(actividad);
                         Objeto_AsignarNota.setNIE(nie);
 
-                        Asignar_Nota notaObtenida = new Asignar_Nota(idActividad, periodo, Objeto_AsignarNota, Tbl_Actividades);
+                        System.out.println("a asignar nota para grado " + grado + " estudiante  "  + Objeto_AsignarNota.getEstadoActividad());
+                        
+                        Asignar_Nota notaObtenida = new Asignar_Nota(idActividad, periodo, grado, Objeto_AsignarNota, Tbl_Actividades, objeto);
                         notaObtenida.setVisible(true);
 
                         System.out.println("Editable column: " + COL);
@@ -168,15 +179,15 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             Tbl_Actividades.getColumnModel().getColumn(1).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(1).setPreferredWidth(70);
             Tbl_Actividades.getColumnModel().getColumn(2).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(150);
+            Tbl_Actividades.getColumnModel().getColumn(2).setPreferredWidth(200);
             Tbl_Actividades.getColumnModel().getColumn(3).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(150);
+            Tbl_Actividades.getColumnModel().getColumn(3).setPreferredWidth(200);
             Tbl_Actividades.getColumnModel().getColumn(4).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(80);
+            Tbl_Actividades.getColumnModel().getColumn(4).setPreferredWidth(70);
             Tbl_Actividades.getColumnModel().getColumn(5).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(150);
+            Tbl_Actividades.getColumnModel().getColumn(5).setPreferredWidth(80);
             Tbl_Actividades.getColumnModel().getColumn(6).setResizable(false);
-            Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(100);
+            Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(80);
             Tbl_Actividades.getColumnModel().getColumn(7).setResizable(false);
             Tbl_Actividades.getColumnModel().getColumn(7).setPreferredWidth(100);
             Tbl_Actividades.getColumnModel().getColumn(8).setResizable(false);
@@ -465,7 +476,8 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         Cb_Periodo.setSelectedIndex(0);
         Cb_EstadoActividad.setSelectedIndex(0);
         Cb_TipoActividad.setSelectedIndex(0);
-        Get_Tabla_NotaActividades(Tbl_Actividades);
+
+        Get_Tabla_NotaActividades_QuitarFiltros(Tbl_Actividades);
 
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseClicked
 
@@ -481,7 +493,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         grado = Cb_Grado.getSelectedIndex() + 1;
         Lb_Materia_Grado.setText(Materia + " Grado: " + grado);
 
-
+        Get_Tabla_NotaActividades(Tbl_Actividades);
     }//GEN-LAST:event_Cb_GradoActionPerformed
 
     public void DiseñoTabla(JTable tabla) {
@@ -519,11 +531,12 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         modeloTabla.setNumRows(0);
 
         ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
-        int Grado = Cb_Grado.getSelectedIndex()+1;
-        int Periodo = Cb_Periodo.getSelectedIndex()+1;
-        int Actividad = Cb_TipoActividad.getSelectedIndex()+1;
-        int Estado = Cb_EstadoActividad.getSelectedIndex()+1;
+        int Grado = Cb_Grado.getSelectedIndex() + 1;
+        int Periodo = Cb_Periodo.getSelectedIndex() + 1;
+        int Actividad = Cb_TipoActividad.getSelectedIndex() + 1;
+        int Estado = Cb_EstadoActividad.getSelectedIndex() + 1;
 
+        System.out.println("consultando por grado " + Grado + " periodo " + Periodo + " iDestado " + Estado + " iDActividad " + Actividad);
         ListObjeto = Objeto.getListadoActividades(Grado, Periodo, Estado, Actividad);
         System.out.println("hay " + ListObjeto.size());
 
@@ -545,14 +558,41 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         tabla.setModel(modeloTabla);
     }
 
-    public void Get_Tabla_NotaActividades_Todas(JTable tabla, int Criterio, String Parametro) {
+    public void Get_Tabla_NotaActividades_Todas(JTable tabla) {
 
-        int periodo = Cb_Periodo.getSelectedIndex();
         modeloTabla = (DefaultTableModel) tabla.getModel();
         modeloTabla.setNumRows(0);
 
         ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
-        int Grado = Cb_Grado.getSelectedIndex();
+
+        ListObjeto = Objeto.get_NotasTodos(grado);
+        System.out.println("###buscar todo por grado " + grado + " hay " + ListObjeto.size());
+
+        for (Modelo_AsignacionNotas item : ListObjeto) {
+
+            modeloTabla.addRow(new Object[]{
+                item.getId_Actividad(),
+                item.getNIE(),
+                item.getNombreEstudiante(),
+                item.getApellidoEstudiante(),
+                item.getPeriodo(),
+                item.getNombreActividad(),
+                item.getEstadoActividad(),
+                item.getPonderacion(),
+                item.getNota(),
+                new JLabel(iconoEditar)});
+        }
+
+        tabla.setModel(modeloTabla);
+    }
+
+    public void Get_Tabla_NotaActividades_QuitarFiltros(JTable tabla) {
+
+        modeloTabla = (DefaultTableModel) tabla.getModel();
+        modeloTabla.setNumRows(0);
+
+        ImageIcon iconoEditar = new ImageIcon(getClass().getResource("/Imagenes/Edit_.png"));
+        int Grado = Cb_Grado.getSelectedIndex() + 1;
 
         ListObjeto = Objeto.get_NotasTodos(Grado);
         System.out.println("hay " + ListObjeto.size());
@@ -610,7 +650,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         List_Modelo_TipoActividad = Objeto_TipoActividad.Get_EstadosActividades();
         System.out.println("hay " + List_Modelo_TipoActividad.size());
 
-        for (Modelo_TipoActividad item : List_Modelo_TipoActividad) {
+        for (Modelo_TipoActividades item : List_Modelo_TipoActividad) {
             ModeloComboBox.addElement(item.getTipoActividad());
         }
 

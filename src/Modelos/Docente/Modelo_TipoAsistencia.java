@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Modelo_TipoActividad {
+public class Modelo_TipoAsistencia {
 
     private Connection conexionDB;
     private Statement statement;
@@ -18,8 +18,8 @@ public class Modelo_TipoActividad {
     private PreparedStatement pstm;
 
 //lado escritorio
-    private int idTipoActividad;
-    private String TipoActividad;
+    private int idEstadoAsistencia;
+    private String EstadoAsistencia;
 
     public Connection getConexionDB() {
         return conexionDB;
@@ -53,36 +53,33 @@ public class Modelo_TipoActividad {
         this.pstm = pstm;
     }
 
-    public int getidTipoActividad() {
-        return idTipoActividad;
+    public int getIdEstadoAsistencia() {
+        return idEstadoAsistencia;
     }
 
-    public void setidTipoActividad(int idTipoActividad) {
-        this.idTipoActividad = idTipoActividad;
+    public void setIdEstadoAsistencia(int idEstadoAsistencia) {
+        this.idEstadoAsistencia = idEstadoAsistencia;
     }
 
-    public String getTipoActividad() {
-        return TipoActividad;
+    public String getEstadoAsistencia() {
+        return EstadoAsistencia;
     }
 
-    public void setTipoActividad(String TipoActividad) {
-        this.TipoActividad = TipoActividad;
+    public void setEstadoAsistencia(String EstadoAsistencia) {
+        this.EstadoAsistencia = EstadoAsistencia;
     }
 
-    public Modelo_TipoActividad(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm,
-            String TipoActividad, int idTipoActividad) {
-
+    public Modelo_TipoAsistencia(Connection conexionDB, Statement statement, ClaseConexion claseConectar, PreparedStatement pstm, int idEstadoAsistencia, String EstadoAsistencia) {
         this.conexionDB = conexionDB;
         this.statement = statement;
         this.claseConectar = new ClaseConexion();
         this.pstm = pstm;
-        ////////////////////////////////////////////////
-        this.idTipoActividad = idTipoActividad;
-        this.TipoActividad = TipoActividad;
-
+        //////////////////////////////////////////////
+        this.idEstadoAsistencia = idEstadoAsistencia;
+        this.EstadoAsistencia = EstadoAsistencia;
     }
 
-    public Modelo_TipoActividad() {
+    public Modelo_TipoAsistencia() {
         this.claseConectar = new ClaseConexion();
     }
 
@@ -90,34 +87,33 @@ public class Modelo_TipoActividad {
      * @return
      * *******************************************************************************************************************
      */
-    
-    public ArrayList<Modelo_TipoActividad> Get_EstadosActividades() {
+    public ArrayList<Modelo_TipoAsistencia> Get_EstadosAsistencias() {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
-            String sql = "SELECT \"TipoActividad\" FROM public.\"Tbl_TipoActividad\";";
+            String sql = "SELECT id, \"Estado\" FROM public.\"Tbl_estado_aistencia\" ORDER BY id ASC;";
 
             pstm = conexionDB.prepareStatement(sql);
 
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
-            ArrayList<Modelo_TipoActividad> DataListado = new ArrayList<>();
+            ArrayList<Modelo_TipoAsistencia> DataEstadosDeAsistencias = new ArrayList<>();
             while (consulta.next()) {
-                Modelo_TipoActividad Estudiante = new Modelo_TipoActividad();
+                Modelo_TipoAsistencia Estados = new Modelo_TipoAsistencia();
 
-                Estudiante.setTipoActividad(consulta.getString("TipoActividad"));
+                Estados.setEstadoAsistencia(consulta.getString("Estado"));
 
-                DataListado.add(Estudiante);
+                DataEstadosDeAsistencias.add(Estados);
             }
 
             conexionDB.close();
-            return DataListado;
+            return DataEstadosDeAsistencias;
 
         } catch (SQLException ex) {
-            Logger.getLogger(Modelo_TipoActividad.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
+            Logger.getLogger(Modelo_TipoAsistencia.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
         }
         return null;
     }
-    
+
 //      public ArrayList<Modelo_TipoActividad> Get_EstadosActividades_Filtrada(String ) {
 //        try {
 //            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
@@ -144,9 +140,8 @@ public class Modelo_TipoActividad {
 //        }
 //        return null;
 //    }
-
     ////////////////////////////////////USELESS 
-    public ArrayList<Modelo_TipoActividad> GetListadoCustom(int Grado, int Mes, int Year) {
+    public ArrayList<Modelo_TipoAsistencia> GetListadoCustom(int Grado, int Mes, int Year) {
         try {
             conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
             String sql = """
@@ -172,10 +167,10 @@ GROUP BY tbEst."NIE", tbEst."Nombres", tbEst."Apellidos";""";
 
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
-            ArrayList<Modelo_TipoActividad> DataListado = new ArrayList<>();
+            ArrayList<Modelo_TipoAsistencia> DataListado = new ArrayList<>();
 
             while (consulta.next()) {
-                Modelo_TipoActividad Estudiante = new Modelo_TipoActividad();
+                Modelo_TipoAsistencia Estudiante = new Modelo_TipoAsistencia();
 
 //                Estudiante.setNIE(consulta.getInt("NIE"));
 //                Estudiante.setNombreEstudiante(consulta.getString("Nombres"));
@@ -190,12 +185,12 @@ GROUP BY tbEst."NIE", tbEst."Nombres", tbEst."Apellidos";""";
             return DataListado;
 
         } catch (SQLException ex) {
-            Logger.getLogger(Modelo_TipoActividad.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
+            Logger.getLogger(Modelo_TipoAsistencia.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
         }
         return null;
     }
 
-    public int RegistrarAsistencia(Modelo_TipoActividad asistenciaInsert) {
+    public int RegistrarAsistencia(Modelo_TipoAsistencia asistenciaInsert) {
         try {
             String sql = """
     INSERT INTO public."Tbl_Asistencias" 
@@ -221,12 +216,12 @@ GROUP BY tbEst."NIE", tbEst."Nombres", tbEst."Apellidos";""";
             return respuesta;
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Modelo_TipoActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Modelo_TipoAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return 0;
     }
 
-    public int editPersonas(Modelo_TipoActividad PersonasEdit) {
+    public int editPersonas(Modelo_TipoAsistencia PersonasEdit) {
         try {
 
             String sql = """
@@ -254,7 +249,7 @@ GROUP BY tbEst."NIE", tbEst."Nombres", tbEst."Apellidos";""";
             return respuesta;
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Modelo_TipoActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Modelo_TipoAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -277,7 +272,7 @@ GROUP BY tbEst."NIE", tbEst."Nombres", tbEst."Apellidos";""";
             return respuesta;
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Modelo_TipoActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Modelo_TipoAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -296,7 +291,7 @@ GROUP BY tbEst."NIE", tbEst."Nombres", tbEst."Apellidos";""";
             return respuesta;
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Modelo_TipoActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Modelo_TipoAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return 0;
     }

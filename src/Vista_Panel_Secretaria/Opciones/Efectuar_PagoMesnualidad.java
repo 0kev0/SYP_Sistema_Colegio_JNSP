@@ -7,7 +7,7 @@ import static Funciones.Funciones.Mouse_LeftTextbox;
 import Modelos.Docente.Modelo_AsignacionNotas;
 import Modelos.Docente.Modelo_Asignacion_Actividades;
 import Modelos.Docente.Modelo_Periodos;
-import Modelos.Docente.Modelo_TipoActividad;
+import Modelos.Docente.Modelo_TipoActividades;
 import Modelos.Secretaria.Modelo_Mensualidad;
 import Modelos.Secretaria.Modelo_Responsables;
 import Modelos.Secretaria.Modelo_Transacciones;
@@ -30,12 +30,15 @@ public final class Efectuar_PagoMesnualidad extends javax.swing.JFrame {
     private final Modelo_Asignacion_Actividades Objeto_Actividades = new Modelo_Asignacion_Actividades();
 
     private final JTable tbl_Mensualidades;
+    private Gestion_Mensualidades Form_Mensualidades;
 
-    public Efectuar_PagoMesnualidad(Modelo_Mensualidad Objeto_Mensualidad, JTable tbl_Actividades) {
+    public Efectuar_PagoMesnualidad(Modelo_Mensualidad Objeto_Mensualidad, JTable tbl_Actividades, Gestion_Mensualidades _Form_Mensualidades) {
         initComponents();
         setLocationRelativeTo(this);
 
         this.tbl_Mensualidades = tbl_Actividades;
+        this.Form_Mensualidades = _Form_Mensualidades;
+
         this._DataMensualidad = Objeto_Mensualidad;
 
         TB_NIE.setText(Integer.toString(_DataMensualidad.getNIE()));
@@ -357,8 +360,8 @@ public final class Efectuar_PagoMesnualidad extends javax.swing.JFrame {
             List<Modelo_Transacciones> resumen = new ArrayList<>();
             resumen.add(datos);
 
-            Objeto_GetionMensualidad.Get_list_MesActual_Mensualidades(tbl_Mensualidades);
-            
+            Form_Mensualidades.Get_list_MesActual_Mensualidades(tbl_Mensualidades);
+
             Recibo1 recibo = new Recibo1(resumen, datos);
             recibo.setVisible(true);
             dispose();

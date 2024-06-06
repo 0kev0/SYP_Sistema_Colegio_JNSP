@@ -207,13 +207,11 @@ public class Modelo_Mensualidad {
                 pstm.setInt(5, 100);
                 pstm.setInt(6, 0);
 
-                // Ejecutamos la consulta para insertar los datos
-                respuesta = pstm.executeUpdate(); // Actualizamos la variable respuesta
-                // Aquí podrías agregar más lógica según tus necesidades
+                respuesta = pstm.executeUpdate();
             }
 
             if (respuesta > 0) {
-                Funciones.showMessageDialog("Info", "Mensualidades agregadas.");
+                Funciones.showMessageDialog("Info", "Talonario mensual generado.");
             }
 
             conexionDB.close();
@@ -239,7 +237,7 @@ TBEP."Estado"
 	INNER JOIN "Tbl_EstadoPagos" AS TBEP ON TBEP.id = TBM."Estado_id"
 
 	
-		WHERE TBE."Grado_id" = ? AND TBM."Estado_id" = ? AND TBM."Mes" = ? AND TBM."Year" = ? ;;
+		WHERE TBE."Grado_id" = ? AND TBM."Estado_id" = ? AND TBM."Mes" = ? AND TBM."Year" = ? ;
                          """;
 
             int year = Funciones.Get_Year_Actual();
@@ -270,7 +268,6 @@ TBEP."Estado"
 
                 Estudiante.setMontoFinal(Consulta.getDouble("MontoFinal"));
                 Estudiante.setMora(Consulta.getDouble("Mora"));
-                System.out.println(">" + Consulta.getInt("Year"));
                 DataListado.add(Estudiante);
             }
             conexionDB.close();
@@ -330,15 +327,14 @@ TBEP."Estado"
 	INNER JOIN "Tbl_Responsabless" AS TBR ON TBR.id = TBE."Responsables_id"
 	INNER JOIN "Tbl_EstadoPagos" AS TBEP ON TBEP.id = TBM."Estado_id"
 	
-	WHERE TBM."Year" = ? AND TBM."Mes" = ? ;
-                         """;
+	WHERE TBM."Year" = ? AND TBM."Mes" = ? ;  """;
 
             pstm = conexionDB.prepareStatement(sql);
             pstm.setInt(1, year);
             pstm.setInt(2, mes);
 
             java.sql.ResultSet Consulta = pstm.executeQuery(); // Ejecutamos la consulta
-
+System.out.println("sql> " +pstm.toString());
             ArrayList<Modelo_Mensualidad> DataListado = new ArrayList<>();
 
             while (Consulta.next()) {
@@ -357,7 +353,6 @@ TBEP."Estado"
 
                 Estudiante.setMontoFinal(Consulta.getDouble("MontoFinal"));
                 Estudiante.setMora(Consulta.getDouble("Mora"));
-                System.out.println(">" + Consulta.getInt("Year"));
                 DataListado.add(Estudiante);
             }
             conexionDB.close();
@@ -368,6 +363,84 @@ TBEP."Estado"
             System.out.println("error" + ex.getMessage());
         }
         return null;
+    }
+
+    public ArrayList<Modelo_Mensualidad> Get_NIES_MensualidadesAtrasadas(int year, int mes) {
+        try {
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            String sql = """
+SELECT TBE."NIE" FROM public."Tbl_Mensualidades" AS TBM
+	INNER JOIN "tbl_Estudiante" AS  TBE ON TBM."NIE" = TBE."NIE"
+	INNER JOIN "Tbl_Responsabless" AS TBR ON TBR.id = TBE."Responsables_id"
+	INNER JOIN "Tbl_EstadoPagos" AS TBEP ON TBEP.id = TBM."Estado_id"
+	
+	WHERE TBM."Year" = ? AND TBM."Mes" < ? AND TBM."Estado_id"= 0  ;
+                         """;
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setInt(1, year);
+            pstm.setInt(2, mes);
+
+            java.sql.ResultSet Consulta = pstm.executeQuery(); // Ejecutamos la consulta
+            System.out.println("SQL> " + pstm.toString());
+
+            ArrayList<Modelo_Mensualidad> List_MensualidadesAtrasadas = new ArrayList<>();
+
+            while (Consulta.next()) {
+                Modelo_Mensualidad MensualidadAtrasada = new Modelo_Mensualidad();
+
+                MensualidadAtrasada.setNIE(Consulta.getInt("NIE"));
+
+                List_MensualidadesAtrasadas.add(MensualidadAtrasada);
+            }
+
+            System.out.println("######CANT NIES CON MENSUALIDADES ATRASADAS " + List_MensualidadesAtrasadas.size());
+
+            conexionDB.close();
+            return List_MensualidadesAtrasadas;
+
+        } catch (SQLException ex) {
+
+            System.out.println("error" + ex.getMessage());
+        }
+        return null;
+    }
+
+    public void Edit_AtrasoMensualidad(int year, int mes) {
+        try {
+            String sql = """
+UPDATE public."Tbl_Mensualidades"
+	SET "Mora"= 3, "MontoFinal"= 103 , "Estado_id"= 2
+	WHERE  "NIE"= ?  ;
+        """;
+
+            Modelo_Mensualidad objMensualidad = new Modelo_Mensualidad();
+            ArrayList<Modelo_Mensualidad> List_MensualidadesAtrasadas = objMensualidad.Get_NIES_MensualidadesAtrasadas(year, mes);
+
+            conexionDB = claseConectar.iniciarConexion();
+            int cantidadAtrasos = 0;
+
+            for (Modelo_Mensualidad item : List_MensualidadesAtrasadas) {
+                pstm = conexionDB.prepareStatement(sql);
+                pstm.setDouble(1, item.getNIE());
+                System.out.println("sql > " + pstm.toString());
+                cantidadAtrasos++;
+
+                int respuesta = pstm.executeUpdate();
+                System.out.println(">" + respuesta);
+
+            }
+
+            if (cantidadAtrasos > 0) {
+                Funciones.showMessageDialog("Info", "Hay " + cantidadAtrasos + " mensualidades pendientes de pago, realizar aviso correspondiente.");
+            }
+
+            conexionDB.close();
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(Modelo_Matricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            // Aquí podrías mostrar un mensaje de error al usuario
+        }
     }
 
     public Modelo_Mensualidad Get_DatoMensualidad(int year, int mes, int NIE, int grado) {
@@ -382,9 +455,9 @@ TBEP."Estado"
 	FROM public."Tbl_Mensualidades" AS TBM
 	INNER JOIN "tbl_Estudiante" AS  TBE ON TBM."NIE" = TBE."NIE"
 	INNER JOIN "Tbl_Responsabless" AS TBR ON TBR.id = TBE."Responsables_id"
-	INNER JOIN "Tbl_Estado_pago" AS TBEP ON TBEP.id = TBM."Estado_id"
+	INNER JOIN "Tbl_EstadoPagos" AS TBEP ON TBEP.id = TBM."Estado_id"
 	
-	WHERE TBM."Year" = ? AND TBM."Mes" = ? AND TBE."NIE" = ?  AND TBE."Grado_id" = ?;
+	WHERE TBM."Year" = ? AND TBM."Mes" = ? AND TBE."NIE" = ?  AND TBE."Grado_id" = ? ;
                          """;
 
             pstm = conexionDB.prepareStatement(sql);
@@ -433,7 +506,6 @@ UPDATE public."Tbl_Mensualidades"
             conexionDB = claseConectar.iniciarConexion();
             pstm = conexionDB.prepareStatement(sql);
 
-
             Date fecha = new Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             double MONTOFINAL = DatosMensualidad.getMora() + DatosMensualidad.getMontoFinal();
@@ -467,210 +539,45 @@ UPDATE public."Tbl_Mensualidades"
         return 0;
     }
 
-//    public ArrayList<Modelo_RegistroAsistencia> GetListadoCustom(int Grado, int Mes, int Year) {
-//        try {
-//            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
-//            String sql = """
-//SELECT
-//    tbEst."NIE", tbEst."Nombres", tbEst."Apellidos",
-//    SUM(CASE WHEN TbAsi."Estado_id" = 1 THEN 1 ELSE 0 END) AS "Numero_Asistencias",
-//    SUM(CASE WHEN TbAsi."Estado_id" = 2 THEN 1 ELSE 0 END) AS "Numero_Fallas",
-//    SUM(CASE WHEN TbAsi."Estado_id" = 3 THEN 1 ELSE 0 END) AS "Numero_Fallas_Justificadas"
-//	
-//FROM public."Tbl_Asistencias" AS TbAsi
-//INNER JOIN "tbl_Estudiante" AS tbEst ON tbEst."NIE" = TbAsi."Estudiante_id"
-//
-//WHERE EXTRACT(MONTH FROM TbAsi."Fecha") = ?
-//AND EXTRACT(YEAR FROM TbAsi."Fecha") = ?
-//AND tbEst."Grado_id" = ?
-//
-//GROUP BY tbEst."NIE", tbEst."Nombres", tbEst."Apellidos";""";
-//
-//            pstm = conexionDB.prepareStatement(sql);
-//            pstm.setInt(1, Mes);
-//            pstm.setInt(2, Year);
-//            pstm.setInt(3, Grado);
-//
-//            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
-//
-//            ArrayList<Modelo_RegistroAsistencia> DataListado = new ArrayList<>();
-//
-//            while (consulta.next()) {
-//                Modelo_RegistroAsistencia Estudiante = new Modelo_RegistroAsistencia();
-//
-//                Estudiante.setNIE(consulta.getInt("NIE"));
-//                Estudiante.setNombreEstudiante(consulta.getString("Nombres"));
-//                Estudiante.setApellidoEstudiante(consulta.getString("Apellidos"));
-//                Estudiante.setCantAsistencias(consulta.getInt("Numero_Asistencias"));
-//                Estudiante.setCantAusencias(consulta.getInt("Numero_Fallas"));
-//                Estudiante.setCantAusenciaJustificadas(consulta.getInt("Numero_Fallas_Justificadas"));
-//
-//                DataListado.add(Estudiante);
-//            }
-//
-//            conexionDB.close();
-//            return DataListado;
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Modelo_RegistroAsistencia.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
-//        }
-//        return null;
-//    }
-//
-//    public ArrayList<Modelo_RegistroAsistencia> GetListadoCustom_dia(int Grado, int dia, int Mes, int Year) {
-//        try {
-//            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
-//            System.out.println("dia mes year " + dia + Mes + Year);
-//            String sql = """
-//SELECT tbEst."NIE", tbEst."Nombres", tbEst."Apellidos",
-//                        (CASE WHEN TbAsi."Estado_id" = 1 THEN 1 ELSE 0 END) AS "Numero_Asistencias",
-//                        (CASE WHEN TbAsi."Estado_id" = 2 THEN 1 ELSE 0 END) AS "Numero_Fallas",
-//                        (CASE WHEN TbAsi."Estado_id" = 3 THEN 1 ELSE 0 END) AS "Numero_Fallas_Justificadas"
-//                                                                                                                    	
-//                         FROM public."Tbl_Asistencias" AS TbAsi
-//                                INNER JOIN "tbl_Estudiante" AS tbEst ON tbEst."NIE" = TbAsi."Estudiante_id"
-//                					WHERE EXTRACT(DAY FROM TbAsi."Fecha") = ?                       
-//                                      AND EXTRACT(MONTH FROM TbAsi."Fecha") = ? 
-//                                      AND EXTRACT(YEAR FROM TbAsi."Fecha") = ? 
-//                                      AND tbEst."Grado_id" = ?;""";
-//
-//            pstm = conexionDB.prepareStatement(sql);
-//            pstm.setInt(1, dia);
-//            pstm.setInt(2, Mes);
-//            pstm.setInt(3, Year);
-//            pstm.setInt(4, Grado);
-//
-//            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
-//
-//            ArrayList<Modelo_RegistroAsistencia> DataListado = new ArrayList<>();
-//
-//            while (consulta.next()) {
-//                Modelo_RegistroAsistencia Estudiante = new Modelo_RegistroAsistencia();
-//
-//                Estudiante.setNIE(consulta.getInt("NIE"));
-//                Estudiante.setNombreEstudiante(consulta.getString("Nombres"));
-//                Estudiante.setApellidoEstudiante(consulta.getString("Apellidos"));
-//                Estudiante.setCantAsistencias(consulta.getInt("Numero_Asistencias"));
-//                Estudiante.setCantAusencias(consulta.getInt("Numero_Fallas"));
-//                Estudiante.setCantAusenciaJustificadas(consulta.getInt("Numero_Fallas_Justificadas"));
-//
-//                DataListado.add(Estudiante);
-//            }
-//
-//            conexionDB.close();
-//            return DataListado;
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Modelo_Matricula.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
-//        }
-//        return null;
-//    }
-//
-//    public int Insert_Mensualidad_MesActual(Modelo_Matricula asistenciaInsert) {
-//        try {
-//            String sql = """
-//    INSERT INTO public."Tbl_Asistencias" 
-//                         ("Docente_id", "Estudiante_id", "Fecha", "Estado_id", "Justificacion")
-//                         	VALUES (?, ?, ?, ?, ?);""";
-//
-//            conexionDB = claseConectar.iniciarConexion();
-//            pstm = conexionDB.prepareCall(sql);
-//
-//            pstm.setInt(1, asistenciaInsert.getIdDocente());
-//            pstm.setInt(2, asistenciaInsert.getNIE());
-//// Suponiendo que asistenciaInsert.getFecha() devuelve un java.util.Date
-//            java.util.Date fechaUtil = asistenciaInsert.getFecha();
-//            java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
-//
-//            pstm.setDate(3, fechaSQL);
-//
-//            pstm.setInt(4, asistenciaInsert.getIdEstadoAsistencia());
-//            pstm.setString(5, asistenciaInsert.getJustificacion());
-//
-//            int respuesta = pstm.executeUpdate();
-//
-//            System.out.println(">> se registro asistencia del NIE " + asistenciaInsert.getNIE());
-//
-//            return respuesta;
-//
-//        } catch (SQLException ex) {
-//            java.util.logging.Logger.getLogger(Modelo_Matricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        return 0;
-//    }
-//
-//    public int Edit_PagoMensualidad(Modelo_Matricula PersonasEdit) {
-//        try {
-//
-//            String sql = """
-//                         UPDATE public."Tbl_Cliente"
-//                         	SET  nombre=?, "apellido paterno"=?, "apellido materno"=?, tipo_documneto=?, num_documento=?, direccion=?, telefono=?, email=?, "Password"=?, "id_Membresia"=?
-//                         	WHERE idpersona=?;""";
-//
-//            conexionDB = claseConectar.iniciarConexion();
-//            pstm = conexionDB.prepareStatement(sql);
-//
-//            //   System.out.println("id a modificar" + PersonasEdit.getNIE());
-////            pstm.setString(1, PersonasEdit.getNombre());
-////            pstm.setString(2, PersonasEdit.getApellido_paterno());
-////            pstm.setString(3, PersonasEdit.getApellido_materno());
-////            pstm.setString(4, PersonasEdit.getTipo_doc());
-////            pstm.setString(5, PersonasEdit.getNum_doc());
-////            pstm.setString(6, PersonasEdit.getDireccion());
-////            pstm.setString(7, PersonasEdit.getTelefono());
-////            pstm.setString(8, PersonasEdit.getEmail());
-////            pstm.setString(9, PersonasEdit.getPassword());
-////            pstm.setInt(10, PersonasEdit.getIdMembresia());
-////            pstm.setInt(11, PersonasEdit.getNIE());
-//            int respuesta = pstm.executeUpdate();
-//
-//            return respuesta;
-//
-//        } catch (SQLException ex) {
-//            java.util.logging.Logger.getLogger(Modelo_Matricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        return 0;
-//    }
-//
-//    public int CambioMembresia(int id, int id_membresia) {
-//        try {
-//
-//            String sql = """
-//                         UPDATE public."Tbl_Cliente"SET   "id_Membresia"=?
-//                              WHERE idpersona=?;""";
-//
-//            conexionDB = claseConectar.iniciarConexion();
-//            pstm = conexionDB.prepareCall(sql);
-//
-//            pstm.setInt(1, id_membresia);
-//            pstm.setInt(2, id);
-//
-//            int respuesta = pstm.executeUpdate();
-//            //  System.out.println("cambio->> el ID: " + NIE + " membresia " + idMembresia + " >? " + respuesta);
-//            return respuesta;
-//
-//        } catch (SQLException ex) {
-//            java.util.logging.Logger.getLogger(Modelo_Matricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        return 0;
-//    }
-//
-//    public int deletePersonas(int id) {
-//        try {
-//            String sql = "DELETE FROM public.personas WHERE idpersona=? ;";
-//
-//            conexionDB = claseConectar.iniciarConexion();
-//            pstm = conexionDB.prepareCall(sql);
-//
-//            pstm.setInt(1, id);
-//
-//            int respuesta = pstm.executeUpdate();
-//
-//            return respuesta;
-//
-//        } catch (SQLException ex) {
-//            java.util.logging.Logger.getLogger(Modelo_Matricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        return 0;
-//    }
+    public int CambioMembresia(int id, int id_membresia) {
+        try {
+
+            String sql = """
+                         UPDATE public."Tbl_Cliente"SET   "id_Membresia"=?
+                              WHERE idpersona=?;""";
+
+            conexionDB = claseConectar.iniciarConexion();
+            pstm = conexionDB.prepareCall(sql);
+
+            pstm.setInt(1, id_membresia);
+            pstm.setInt(2, id);
+
+            int respuesta = pstm.executeUpdate();
+            //  System.out.println("cambio->> el ID: " + NIE + " membresia " + idMembresia + " >? " + respuesta);
+            return respuesta;
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(Modelo_Matricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int deletePersonas(int id) {
+        try {
+            String sql = "DELETE FROM public.personas WHERE idpersona=? ;";
+
+            conexionDB = claseConectar.iniciarConexion();
+            pstm = conexionDB.prepareCall(sql);
+
+            pstm.setInt(1, id);
+
+            int respuesta = pstm.executeUpdate();
+
+            return respuesta;
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(Modelo_Matricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 }

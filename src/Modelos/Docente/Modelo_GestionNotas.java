@@ -370,7 +370,7 @@ tna."NotaObtenida",tbA."Nombre_Actividad",tbtA."TipoActividad"
     }
 
     public ArrayList<Integer> Get_ListadoNIES(int grado) throws SQLException {
-        System.out.println("---CARGAR NIES");
+        System.out.println(">>>>>>>>>>>CARGAR NIES buiscando del grado " + grado);
         conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
         statement = conexionDB.createStatement(); // Creamos la consulta
         String sql_lista = """

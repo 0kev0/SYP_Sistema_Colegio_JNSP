@@ -1,14 +1,12 @@
 package Vista_Panel_Secretaria.Opciones;
 
-import Vista_Panel_Docente.Opciones.*;
 import Customizacion.TablaCusomizada;
 import Funciones.Funciones;
-import Modelos.Docente.Modelo_AsignacionNotas;
 import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_EstadoActividad;
 import Modelos.Docente.Modelo_Grados;
 import Modelos.Docente.Modelo_Periodos;
-import Modelos.Docente.Modelo_TipoActividad;
+import Modelos.Docente.Modelo_TipoActividades;
 import Modelos.Secretaria.Modelo_EstadoPago;
 import Modelos.Secretaria.Modelo_Mensualidad;
 import java.awt.Color;
@@ -38,8 +36,8 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
     private final Modelo_Periodos Objeto_Periodos = new Modelo_Periodos();
     private List<Modelo_Periodos> List_Periodos;
 
-    private final Modelo_TipoActividad Objeto_TipoActividad = new Modelo_TipoActividad();
-    private List<Modelo_TipoActividad> List_Modelo_TipoActividad;
+    private final Modelo_TipoActividades Objeto_TipoActividad = new Modelo_TipoActividades();
+    private List<Modelo_TipoActividades> List_Modelo_TipoActividad;
 
     private DefaultTableModel modeloTabla = new DefaultTableModel();
 
@@ -50,24 +48,31 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
     private List<Modelo_EstadoPago> List_estado;
 
     private Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
+    private Gestion_Mensualidades form;
     private int grado;
     private String Materia;
 
     public Gestion_Mensualidades() {
         initComponents();
+        int mes = Funciones.Get_MES_Actual();
+        int year = Funciones.Get_Year_Actual();
+
         DiseñoTabla(Tbl_Mensualidades);
 
         Get_Cb_Grados(Cb_Grado, List_Grados, Objeto_Grados);
         Get_Cb_Estados(Cb_EstadoPago, List_estado, Objeto_estado);
-        int mes = Funciones.Get_MES_Actual();
 
-        Cb_Meses.setSelectedIndex(mes);
+        Cb_Meses.setSelectedIndex(mes - 1);
         Lb_Materia_Grado.setText("Mes : " + Cb_Meses.getSelectedItem().toString() + " " + Cb_Grado.getSelectedItem().toString());
 
         this.grado = Objeto_Docente.getIdGradoGuia();
         this.Materia = Objeto_Docente.getMateriaImpartida();
 
+        verificarTalonarioMensual();
+        ValidarMensualidadesAtrasadas();
         Get_list_MesActual_Mensualidades(Tbl_Mensualidades);
+
+        this.form = this;
 
         Tbl_Mensualidades.addMouseListener(new MouseAdapter() {
             @Override
@@ -87,7 +92,7 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
                         Modelo_Mensualidad DatosMensualidad = new Modelo_Mensualidad();
                         DatosMensualidad = DatosMensualidad.Get_DatoMensualidad(year, mes, NIE, grado);
 
-                        Efectuar_PagoMesnualidad PagoMensualidad = new Efectuar_PagoMesnualidad(DatosMensualidad, Tbl_Mensualidades);
+                        Efectuar_PagoMesnualidad PagoMensualidad = new Efectuar_PagoMesnualidad(DatosMensualidad, Tbl_Mensualidades, form);
                         PagoMensualidad.setVisible(true);
 
                         System.out.println("Editable column: " + COL);
@@ -392,18 +397,6 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
 
     private void Btn_AsignarMensualidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarMensualidadMouseClicked
         // asignara el talonario de mensualidad del mes actual si no se a asignado ya
-        int year = Funciones.Get_Year_Actual();
-        int mes = Funciones.Get_MES_Actual();
-
-        if (Mensualidad.Validartalonario(mes)) {
-            Lb_AsignarMensualidades.setText("Talonario generado");
-            Btn_AsignarMensualidad.setEnabled(false);
-        } else {
-            System.out.println("ingresando en mes " + mes + " year " + year);
-
-            Modelo_Mensualidad Mesnualidad = new Modelo_Mensualidad();
-            Mesnualidad.Insert_Mensualidad_MesActual(year, mes);
-        }
 
 
     }//GEN-LAST:event_Btn_AsignarMensualidadMouseClicked
@@ -448,6 +441,18 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
         Get_list_Filtrada_Mensualidades(Tbl_Mensualidades);
 
     }//GEN-LAST:event_Cb_GradoActionPerformed
+
+    public void verificarTalonarioMensual() {
+        int year = Funciones.Get_Year_Actual();
+        int mes = Funciones.Get_MES_Actual();
+
+        System.out.println("ingresando en mes " + mes + " year " + year);
+
+        Modelo_Mensualidad Mesnualidad = new Modelo_Mensualidad();
+        Mesnualidad.Insert_Mensualidad_MesActual(year, mes);
+        Get_list_MesActual_Mensualidades(Tbl_Mensualidades);
+
+    }
 
     public static void Get_Cb_Grados(JComboBox ComboBox, List<Modelo_Grados> List_Grados, Modelo_Grados Objeto_Grados) {
 
@@ -533,6 +538,15 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
         }
 
         tabla.setModel(modeloTabla);
+    }
+
+    public void ValidarMensualidadesAtrasadas() {
+        int mes = Funciones.Get_MES_Actual();
+        int year = Funciones.Get_Year_Actual();
+
+        System.out.println("######Verificando mensualidades atrasadas mes actual " + mes);
+        Mensualidad.Edit_AtrasoMensualidad(year, mes);
+
     }
 
     public void Get_list_Filtrada_Mensualidades(JTable tabla) {
@@ -630,7 +644,7 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
         List_Modelo_TipoActividad = Objeto_TipoActividad.Get_EstadosActividades();
         System.out.println("hay " + List_Modelo_TipoActividad.size());
 
-        for (Modelo_TipoActividad item : List_Modelo_TipoActividad) {
+        for (Modelo_TipoActividades item : List_Modelo_TipoActividad) {
             ModeloComboBox.addElement(item.getTipoActividad());
         }
 

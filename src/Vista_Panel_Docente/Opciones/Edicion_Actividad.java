@@ -9,7 +9,7 @@ import static Funciones.Funciones.showMessageDialog;
 import static Funciones.Funciones.validarCampos;
 import Modelos.Docente.Modelo_Asignacion_Actividades;
 import Modelos.Docente.Modelo_Periodos;
-import Modelos.Docente.Modelo_TipoActividad;
+import Modelos.Docente.Modelo_TipoActividades;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -20,8 +20,8 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
     private final Modelo_Periodos Objeto_Periodos = new Modelo_Periodos();
     private List<Modelo_Periodos> List_Periodos;
 
-    private final Modelo_TipoActividad Objeto_TipoActividad = new Modelo_TipoActividad();
-    private List<Modelo_TipoActividad> List_TipoActividad;
+    private final Modelo_TipoActividades Objeto_TipoActividad = new Modelo_TipoActividades();
+    private List<Modelo_TipoActividades> List_TipoActividad;
 
     private Modelo_Asignacion_Actividades Objeto_Actividades = new Modelo_Asignacion_Actividades();
     private final JTable tbl_Act;
@@ -66,7 +66,7 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
             List_TipoActividad = Objeto_TipoActividad.Get_EstadosActividades();
             System.out.println("hay " + List_TipoActividad.size());
 
-            for (Modelo_TipoActividad item : List_TipoActividad) {
+            for (Modelo_TipoActividades item : List_TipoActividad) {
                 ModeloComboBox.addElement(item.getTipoActividad());
             }
 
@@ -92,6 +92,10 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         Btn_GuardarActividad = new javax.swing.JPanel();
         Lb_Guardar = new javax.swing.JLabel();
         TB_NombreActividad1 = new javax.swing.JTextField();
+        Btn_Regresar = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        Lb_Aerolinea7 = new javax.swing.JLabel();
+        Lb_Ordenar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -256,11 +260,56 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         });
         jPanel1.add(TB_NombreActividad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 208, 50));
 
+        Btn_Regresar.setBackground(new java.awt.Color(152, 5, 5));
+        Btn_Regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_RegresarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_RegresarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_RegresarMouseExited(evt);
+            }
+        });
+        Btn_Regresar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel8.setBackground(new java.awt.Color(255, 10, 10));
+
+        Lb_Aerolinea7.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Aerolinea7.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        Lb_Aerolinea7.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Lb_Aerolinea7))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lb_Aerolinea7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        Btn_Regresar.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 149, 12));
+
+        Lb_Ordenar.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        Lb_Ordenar.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_Ordenar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/back (1).png"))); // NOI18N
+        Lb_Ordenar.setText("Regresar");
+        Lb_Ordenar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar.add(Lb_Ordenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 130, 30));
+
+        jPanel1.add(Btn_Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, -1, 50));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,6 +382,19 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TB_NombreActividad1MouseExited
 
+    private void Btn_RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseClicked
+
+        dispose();
+    }//GEN-LAST:event_Btn_RegresarMouseClicked
+
+    private void Btn_RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseEntered
+        EnterMouse(Btn_Regresar, Lb_Ordenar, "#D90707", "#000000");
+    }//GEN-LAST:event_Btn_RegresarMouseEntered
+
+    private void Btn_RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseExited
+        LeftMouse(Btn_Regresar, Lb_Ordenar, "#980505", "#FFFFFF");
+    }//GEN-LAST:event_Btn_RegresarMouseExited
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -341,16 +403,20 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_GuardarActividad;
+    private javax.swing.JPanel Btn_Regresar;
     private javax.swing.JComboBox<String> Cb_TipoActividad;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
+    private javax.swing.JLabel Lb_Aerolinea7;
     private javax.swing.JLabel Lb_Guardar;
+    private javax.swing.JLabel Lb_Ordenar;
     private javax.swing.JTextField TB_DescripcionActividad;
     private javax.swing.JTextField TB_NombreActividad;
     private javax.swing.JTextField TB_NombreActividad1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel8;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -127,7 +127,7 @@ public class log_in1 extends javax.swing.JFrame {
         TxbCorreo.setBackground(new java.awt.Color(5, 89, 91));
         TxbCorreo.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         TxbCorreo.setForeground(new java.awt.Color(255, 255, 255));
-        TxbCorreo.setText("0000");
+        TxbCorreo.setText("9876");
         TxbCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Correo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Sylfaen", 1, 18), new java.awt.Color(251, 212, 0))); // NOI18N
         TxbCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

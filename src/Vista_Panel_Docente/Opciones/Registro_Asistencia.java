@@ -1,14 +1,18 @@
 package Vista_Panel_Docente.Opciones;
 
 import Customizacion.TablaCusomizada;
+import Funciones.Funciones;
 import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_RegistroAsistencia;
+import Modelos.Secretaria.Modelo_Estudiante;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -20,8 +24,15 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
 
     private final Modelo_RegistroAsistencia Objeto = new Modelo_RegistroAsistencia();
     private List<Modelo_RegistroAsistencia> ListObjeto;
+
+    private List<Modelo_RegistroAsistencia> ListDetallesAsistencia;
+
     private DefaultTableModel modeloTabla = new DefaultTableModel();
-    private final int Grado;
+    private int Grado;
+
+    public Registro_Asistencia() {
+
+    }
 
     public Registro_Asistencia(Modelo_DocenteGuia docente) {
         initComponents();
@@ -30,6 +41,31 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         modeloTabla = (DefaultTableModel) Tbl_RegistroAsistencia.getModel();
         DiseñoTabla(Tbl_RegistroAsistencia);
         Cargar_Listado_Registro(Tbl_RegistroAsistencia);
+
+        Tbl_RegistroAsistencia.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int COL = Tbl_RegistroAsistencia.columnAtPoint(e.getPoint());
+                int ROW = Tbl_RegistroAsistencia.rowAtPoint(e.getPoint());
+
+                if (COL == 6) {
+                    int NIE = Integer.parseInt(Tbl_RegistroAsistencia.getValueAt(ROW, 0).toString());
+                    int Mes = Funciones.Get_MES_Actual();
+                    int year = Funciones.Get_Year_Actual();
+
+                    Modelo_RegistroAsistencia registro = new Modelo_RegistroAsistencia();
+                    ListDetallesAsistencia = registro.Get_DetalleAsistencia(NIE, Grado, Mes);
+                    System.out.println("hay > " + ListDetallesAsistencia.size());
+
+                    Modelo_Estudiante DataEstudiante = new Modelo_Estudiante();
+                    DataEstudiante = DataEstudiante.Get_DataEstudiante(NIE);
+
+                    DetallesAsistencia RESUMEN = new DetallesAsistencia(ListDetallesAsistencia, DataEstudiante);
+                    RESUMEN.setVisible(true);
+
+                }
+            }
+        });
 
     }
 
@@ -71,17 +107,17 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         Tbl_RegistroAsistencia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 153, 51)));
         Tbl_RegistroAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "NIE", "Nombres", "Apellidos", "Asistencia", "Fallas", "Fallas justificadas"
+                "NIE", "Nombres", "Apellidos", "Asistencia", "Fallas", "Fallas justificadas", "Detalles"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -106,9 +142,10 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
             Tbl_RegistroAsistencia.getColumnModel().getColumn(4).setPreferredWidth(80);
             Tbl_RegistroAsistencia.getColumnModel().getColumn(5).setResizable(false);
             Tbl_RegistroAsistencia.getColumnModel().getColumn(5).setPreferredWidth(80);
+            Tbl_RegistroAsistencia.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 940, 290));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 1000, 290));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -301,11 +338,11 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseClicked
 
     private void Btn_LimpiarFiltrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseEntered
-        Funciones.Funciones.EnterMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#FFF099", "#FF9900");
+        Funciones.EnterMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#FFF099", "#FF9900");
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseEntered
 
     private void Btn_LimpiarFiltrosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseExited
-        Funciones.Funciones.LeftMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#E2D784", "#000000");
+        Funciones.LeftMouse(Btn_LimpiarFiltros, Lb_LimpiarFiltros, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_LimpiarFiltrosMouseExited
 
     public void DiseñoTabla(JTable tabla) {
@@ -321,7 +358,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        int numeroDeCeldas = 6; // Cambia este valor al número de celdas que necesites
+        int numeroDeCeldas = Tbl_RegistroAsistencia.getColumnCount() - 1; // Cambia este valor al número de celdas que necesites
 
         for (int i = 0; i < numeroDeCeldas; i++) {
             tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
@@ -344,6 +381,8 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         ListObjeto = Objeto.GetListado(Grado);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
 
+        ImageIcon VerDetalles = new ImageIcon(getClass().getResource("/Imagenes/VerDetalles.png"));
+
         for (Modelo_RegistroAsistencia item : ListObjeto) {
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
@@ -351,7 +390,8 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 item.getApellidoEstudiante(),
                 item.getCantAsistencias(),
                 item.getCantAusencias(),
-                item.getCantAusenciaJustificadas()});
+                item.getCantAusenciaJustificadas(),
+                new JLabel(VerDetalles)});
         }
 
         tabla.setModel(modeloTabla);
@@ -387,7 +427,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         modeloTabla.setNumRows(0);
 
         System.out.println("buscando por año: " + Year + "  por mes : " + mes + " por dia: " + dia);
-        ListObjeto = Objeto.GetListadoCustom_dia(1, dia, mes, Year);
+        ListObjeto = Objeto.GetListadoCustom_dia(Grado, dia, mes, Year);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
 
         for (Modelo_RegistroAsistencia item : ListObjeto) {

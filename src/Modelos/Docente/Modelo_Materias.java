@@ -172,7 +172,38 @@ SELECT TbMt."Nombre",TbMt."id",TbMt."Nombre"
         } catch (SQLException ex) {
             Logger.getLogger(Modelo_Materias.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
         }
+
         return null;
+    }
+
+    public int Get_IDMateria(String materia, int grado) {
+        try {
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            String sql = """
+SELECT id FROM public."Tbl_Materias"
+WHERE "Nombre" = ? AND "Grado_id" = ? ;""";
+
+            pstm = conexionDB.prepareStatement(sql);
+            pstm.setString(1, materia);
+            pstm.setInt(2, grado);
+
+            ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
+            int _idMateria = 0;
+
+            while (consulta.next()) {
+                _idMateria = consulta.getInt("id");
+
+            }
+
+            System.out.println("*************materia " + materia + " del grado " + grado + " con id" + _idMateria);
+            conexionDB.close();
+            return _idMateria;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Materias.class.getName()).log(Level.SEVERE, "Error al obtener el listado", ex);
+        }
+
+        return 0;
     }
 
     public ArrayList<Modelo_Materias> Get_Id_ListadoMaterias(int id_Grado) {
