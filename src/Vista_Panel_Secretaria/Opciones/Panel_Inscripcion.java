@@ -599,6 +599,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                 Txb_idPadresKeyTyped(evt);
             }
         });
+        jPanel4.add(Txb_idPadres, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 171, -1));
 
         Btn_Buscar.setBackground(new java.awt.Color(64, 124, 62));
         Btn_Buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -656,6 +657,8 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 3, Short.MAX_VALUE))
         );
+
+        jPanel4.add(Btn_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, -1, -1));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -719,10 +722,6 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                         .addGap(64, 64, 64))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(Txb_idPadres, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(loading1)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(Txb_Nombre_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -755,11 +754,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                             .addComponent(Txb_Apellido_Alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(errorNombre)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Txb_idPadres, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_Buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(errorNombre3)
@@ -918,34 +913,23 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_InscribirMouseEntered
 
     private void Btn_InscribirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_InscribirMouseClicked
-        if (Funciones.validarCampos(jPanel5)) {
-            System.out.println("Todo bien");
-            Modelo_Responsables Responsables = new Modelo_Responsables();
+        ///con id previo
+        Modelo_Responsables Responsables = new Modelo_Responsables();
+        int idResponsable = Integer.parseInt(Txb_idPadres.getText());
 
-            Responsables.setApellidos_A(Txb_ApellidosResponsableA.getText());
-            Responsables.setNombres_A(Txb_NombresResponsableA.getText());
-            Responsables.setId_TipoA(Cb_TipoResponsableA.getSelectedIndex());
-            Responsables.setTelefonoA(TxbTelefono1.getText());
+        if (Responsables.Valid_IdResponsable(idResponsable)) {
 
-            Responsables.setApellidos_B(Txb_ApellidosResponsableB.getText());
-            Responsables.setNombres_B(Txb_NombresResponsableB.getText());
-            Responsables.setId_TipoB(Cb_TipoResponsable_B.getSelectedIndex());
-            Responsables.setTelefonoB(TxbTelefono2.getText());
+            if (Funciones.validarCampos(jPanel5)) {
+                System.out.println("Todo bien");
 
-            Responsables.setDireccion(Txb_Direccion.getText());
-            Responsables.setCorreo(Txb_Correo.getText());
-
-            if (Responsables.Insert_Responsables(Responsables) > 0) {
-
-                int idresponsable = Responsables.Get_IdReciente() + 1;
-                System.out.println("Responsables agregados id " + idresponsable);
+                System.out.println("Responsables agregados id " + idResponsable);
 
                 Modelo_Estudiante EstudianteNuevo = new Modelo_Estudiante();
 
                 EstudianteNuevo.setNIE(Integer.parseInt(Txb_NIE.getText()));
                 EstudianteNuevo.setNombres_Estudiante(Txb_Nombre_Alumno.getText());
                 EstudianteNuevo.setApellidos_Estudiante(Txb_Apellido_Alumno.getText());
-                EstudianteNuevo.setId_Responsables(idresponsable);
+                EstudianteNuevo.setId_Responsables(idResponsable);
                 EstudianteNuevo.setId_Grado(Cb_Grado.getSelectedIndex());
                 EstudianteNuevo.setEdad(Integer.parseInt(Cb_Edad.getSelectedItem().toString()));
 
@@ -960,7 +944,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
 
                     Modelo_Matricula Matricula = new Modelo_Matricula();
                     Matricula.setNIE(NIE);
-                    Matricula.setId_Responsables(idresponsable);
+                    Matricula.setId_Responsables(idResponsable);
                     Matricula.setYear(Year);
                     Matricula.setFecha(fecha);
                     Matricula.setMontoNeto(100);
@@ -998,7 +982,7 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                             transaccion.setId_tipo_transaccion(tipo);
                             transaccion.setCostos(Precio);
                             transaccion.setGanancias(ganancia);
-                            transaccion.setNIES_Responsable(idresponsable);
+                            transaccion.setNIES_Responsable(idResponsable);
                             transaccion.setEstudiante_id(NIE);
                             transaccion.setFecha(fecha);
                             transaccion.setGanancias(Ganancia);
@@ -1008,9 +992,9 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                             Recibo.add(transaccion);
 
                             Modelo_Transacciones Datos = new Modelo_Transacciones();
-                            Datos = Datos.Get_DatosRecibo(idresponsable, NIE);
+                            Datos = Datos.Get_DatosRecibo(idResponsable, NIE);
 
-                            Recibo1 resumenDeCompra = new Recibo1(Recibo, Datos);
+                            Recibo resumenDeCompra = new Recibo(Recibo, Datos);
                             resumenDeCompra.setVisible(true);
                         }
                         case JOptionPane.NO_OPTION ->
@@ -1021,7 +1005,112 @@ public class Panel_Inscripcion extends javax.swing.JFrame {
                 }
 
             }
+        } else {
+            if (Funciones.validarCampos(jPanel5)) {
+                System.out.println("Todo bien");
+
+                Responsables.setApellidos_A(Txb_ApellidosResponsableA.getText());
+                Responsables.setNombres_A(Txb_NombresResponsableA.getText());
+                Responsables.setId_TipoA(Cb_TipoResponsableA.getSelectedIndex());
+                Responsables.setTelefonoA(TxbTelefono1.getText());
+
+                Responsables.setApellidos_B(Txb_ApellidosResponsableB.getText());
+                Responsables.setNombres_B(Txb_NombresResponsableB.getText());
+                Responsables.setId_TipoB(Cb_TipoResponsable_B.getSelectedIndex());
+                Responsables.setTelefonoB(TxbTelefono2.getText());
+
+                Responsables.setDireccion(Txb_Direccion.getText());
+                Responsables.setCorreo(Txb_Correo.getText());
+
+                if (Responsables.Insert_Responsables(Responsables) > 0) {
+
+                    int idresponsable = Responsables.Get_IdReciente() + 1;
+                    System.out.println("Responsables agregados id " + idresponsable);
+
+                    Modelo_Estudiante EstudianteNuevo = new Modelo_Estudiante();
+
+                    EstudianteNuevo.setNIE(Integer.parseInt(Txb_NIE.getText()));
+                    EstudianteNuevo.setNombres_Estudiante(Txb_Nombre_Alumno.getText());
+                    EstudianteNuevo.setApellidos_Estudiante(Txb_Apellido_Alumno.getText());
+                    EstudianteNuevo.setId_Responsables(idresponsable);
+                    EstudianteNuevo.setId_Grado(Cb_Grado.getSelectedIndex());
+                    EstudianteNuevo.setEdad(Integer.parseInt(Cb_Edad.getSelectedItem().toString()));
+
+                    if (EstudianteNuevo.Insert_Estudiante(EstudianteNuevo) > 0) {
+                        int NIE = EstudianteNuevo.getNIE();
+                        int id_grado = EstudianteNuevo.getId_Grado();
+                        Date fecha = new Date();
+
+                        int Year = Funciones.Get_Year_Actual();
+                        //valores de prueba
+                        int descuento_id = 0;
+
+                        Modelo_Matricula Matricula = new Modelo_Matricula();
+                        Matricula.setNIE(NIE);
+                        Matricula.setId_Responsables(idresponsable);
+                        Matricula.setYear(Year);
+                        Matricula.setFecha(fecha);
+                        Matricula.setMontoNeto(100);
+                        Matricula.setId_Descuento(descuento_id);
+                        Matricula.setMontoFinal(150);
+                        Matricula.setId_Grado(id_grado);
+
+                        if (Matricula.Insert_Matricula(Matricula) > 0) {
+                        }
+                        System.out.println("Exito se matriculo al joven " + EstudianteNuevo.getApellidos_Estudiante() + " "
+                                + EstudianteNuevo.getNombres_Estudiante() + " NIE " + EstudianteNuevo.getNIE());
+
+                        int respuesta = JOptionPane.showConfirmDialog(rootPane, "Resumen de compra\n Total de: " + 100, "Inscripcion", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+                        switch (respuesta) {
+                            case JOptionPane.YES_OPTION -> {
+
+                                Modelo_Transacciones transaccion = new Modelo_Transacciones();
+
+                                String detalle = "Inscripcion alumno " + EstudianteNuevo.getNombres_Estudiante();
+                                int cant = 1;
+                                double Sub_Total = 100;
+
+                                int tipo = 3;//id de transaccion de tipo inscripcion
+                                double Precio = 100;
+                                double ganancia = 100;
+
+                                double Costo = 0;
+                                double Ganancia = Sub_Total - (cant * Costo);
+
+                                transaccion.setDetalles(detalle);
+                                transaccion.setCantidades(cant);
+                                transaccion.setPrecio(Precio);
+                                transaccion.setMontos(Sub_Total);
+                                transaccion.setId_tipo_transaccion(tipo);
+                                transaccion.setCostos(Precio);
+                                transaccion.setGanancias(ganancia);
+                                transaccion.setNIES_Responsable(idresponsable);
+                                transaccion.setEstudiante_id(NIE);
+                                transaccion.setFecha(fecha);
+                                transaccion.setGanancias(Ganancia);
+
+                                transaccion.Insert_Transaccion(transaccion);
+                                transaccion.Edit_Resta_inventario(transaccion);
+                                Recibo.add(transaccion);
+
+                                Modelo_Transacciones Datos = new Modelo_Transacciones();
+                                Datos = Datos.Get_DatosRecibo(idresponsable, NIE);
+
+                                Recibo resumenDeCompra = new Recibo(Recibo, Datos);
+                                resumenDeCompra.setVisible(true);
+                            }
+                            case JOptionPane.NO_OPTION ->
+                                Funciones.showMessageDialog("Info", "Orden cancelada");
+                            default -> {
+                            }
+                        }
+                    }
+
+                }
+            }
         }
+
     }//GEN-LAST:event_Btn_InscribirMouseClicked
 
     private void Btn_RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseExited

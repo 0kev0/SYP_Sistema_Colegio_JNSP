@@ -272,10 +272,10 @@ tna."NotaObtenida",tbA."Nombre_Actividad",tbtA."TipoActividad"
                     NotaAlumno.setAutoE(0.0);
                 }
 
-                if (NotaAlumno.getParcial()== null) {
+                if (NotaAlumno.getParcial() == null) {
                     NotaAlumno.setParcial(0.0);
                 }
-                
+
                 while (notas.size() < 4) {
                     notas.add(0.0);
                 }
@@ -285,7 +285,6 @@ tna."NotaObtenida",tbA."Nombre_Actividad",tbtA."TipoActividad"
                 NotaAlumno.setNotas(notas); // Asignar la lista de notas al estudiante
                 if (NotaAlumno.getNIE() != 0) {
                     ListadoNotas.add(NotaAlumno); // Agregar el estudiante a la lista de actividades
-
                 }
 
             }
@@ -388,6 +387,80 @@ tna."NotaObtenida",tbA."Nombre_Actividad",tbtA."TipoActividad"
             ListaNies.add(ConsultaListaNies.getInt("NIE"));
         }
         return ListaNies;
+    }
+
+    public Boolean vALIDAR_nOTAS(ArrayList<Integer> nies, int periodo, int grado) throws SQLException {
+        System.out.println(">>>>>>>>>>>CARGAR NIES buiscando del grado " + grado);
+        conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+        statement = conexionDB.createStatement(); // Creamos la consulta
+        Boolean ValidarNotas = true;
+
+        String sql_lista = """
+               SELECT TBE."NIE", "Actividad_id", "NotaObtenida", "EstadoActividad_id"
+                                                                                             
+            	FROM public."Tbl_Nota_Actividad" AS TBNA
+            	INNER JOIN "tbl_Estudiante" AS TBE ON TBE."NIE" = TBNA."Estudiante_id"
+            	INNER JOIN "Tbl_Actividades" AS TBA ON TBA.id = TBNA."Actividad_id"
+            	INNER JOIN "Tbl_EstadoActividad" AS TBEA ON TBEA.id = TBNA."EstadoActividad_id"
+            	
+            	WHERE  TBEA.id = 2 AND TBE."NIE" = ? AND TBA."Periodo_id" = ? AND TBE."Grado_id" = ? ;
+        """;
+
+        for (Integer Nie : nies) {
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(sql_lista);
+            preparedStatement.setInt(1, Nie);
+            preparedStatement.setInt(2, periodo);
+            preparedStatement.setInt(3, grado);
+
+            ResultSet ConsultaListaNies = preparedStatement.executeQuery();
+
+            while (ConsultaListaNies.next()) {
+                ValidarNotas = false;
+            }
+        }
+        conexionDB.close();
+        return ValidarNotas;
+    }
+
+    public Boolean UPDATE_CuadrarNotasPeriodo(ArrayList<Integer> nies, int Id_periodo, int id_Materia, ArrayList<Double> NotaPeriodo) throws SQLException {
+        System.out.println(">>>>>>>>>>>CARGAR NIES buiscando del grado " + id_Materia);
+        conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+        statement = conexionDB.createStatement(); // Creamos la consulta
+        Boolean ValidarNotas = true;
+
+        String Periodo = "";
+
+        switch (Id_periodo) {
+            case 1 ->
+                Periodo = "\"Promedio_1\"= ?";
+            case 2 ->
+                Periodo = "\"Promedio_2\"= ?";
+            case 3 ->
+                Periodo = "\"Promedio_3\"= ?";
+            case 4 ->
+                Periodo = "\"Promedio_4\"= ?";
+
+            default ->
+                throw new AssertionError();
+        }
+        String sql_lista = """
+UPDATE public."Tbl_NotasPromediadas"
+               	SET  
+""" + Periodo + "   	WHERE \"NIE\"= ?  AND \"Materia_id\"= ? ;";
+        int i = 0;
+        
+        for (Integer Nie : nies) {
+
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(sql_lista);
+            preparedStatement.setDouble(1, NotaPeriodo.get(i));
+            preparedStatement.setInt(2, Nie);
+            preparedStatement.setInt(3, id_Materia);
+
+            System.out.println("\nSQL > " + preparedStatement.toString() + "\n");
+            i++;
+        }
+        conexionDB.close();
+        return ValidarNotas;
     }
 
     public ArrayList<Modelo_GestionNotas> Get_Busqueda(String Palabra, String ParametroBusqueda, int Periodo, int grado, int idmat) {

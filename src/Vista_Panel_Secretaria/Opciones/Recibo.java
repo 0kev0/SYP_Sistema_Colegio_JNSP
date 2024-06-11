@@ -1,21 +1,30 @@
 package Vista_Panel_Secretaria.Opciones;
 
+import Funciones.Creador_PDF;
+import Funciones.EnviarCorreo;
 import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import Modelos.Secretaria.Modelo_Transacciones;
 import java.util.List;
+import javax.swing.JTable;
 
-public class Recibo1 extends javax.swing.JFrame {
+public class Recibo extends javax.swing.JFrame {
 
-    public Recibo1(List<Modelo_Transacciones> ResumenCompra, Modelo_Transacciones Datos) {
+    private String Detalle;
+    private Modelo_Transacciones Datos;
+
+    private JTable Tabla;
+
+    public Recibo(List<Modelo_Transacciones> ResumenCompra, Modelo_Transacciones _Datos) {
         initComponents();
         setLocationRelativeTo(this);
         Tb_Concepto.setLineWrap(true);
-        String Detalle = "";
+        this.Detalle = "";
+        this.Datos = _Datos;
 
-        lb_Responsable.setText("Responsable :" + Datos.getResponsable());
-        Lb_Estudiante.setText("Estudiante : " + Datos.getEstudiante());
-        Lb_Correo.setText("Correo : " + Datos.getCorreo());
+        lb_Responsable.setText("Responsable :" + _Datos.getResponsable());
+        Lb_Estudiante.setText("Estudiante : " + _Datos.getEstudiante());
+        Lb_Correo.setText("Correo : " + _Datos.getCorreo());
 
         Double sub_total = 0.0;
         if (ResumenCompra.size() > 1) {
@@ -25,7 +34,7 @@ public class Recibo1 extends javax.swing.JFrame {
             }
         } else {
             for (Modelo_Transacciones item : ResumenCompra) {
-                Detalle += "- " + item.getDetalles() + " Cantidad: " + item.getCantidades() +  " Sub-Total : " + item.getMontos() ;
+                Detalle += "- " + item.getDetalles() + " Cantidad: " + item.getCantidades() + " Sub-Total : " + item.getMontos();
                 sub_total = item.getMontos();
             }
         }
@@ -33,114 +42,38 @@ public class Recibo1 extends javax.swing.JFrame {
         Tb_Concepto.setText(Detalle);
         Lb_SubTotal.setText("Sub_Total: $ " + sub_total);
 
-//        Double Descuent = sub_total * person_.getMembresia();
-//        Lb_Descuento.setText("Descuento: (-) $ " + Descuent);
-//
-//        Double Descontado = sub_total - Descuent;
-//
-//        Double iva = Descontado * .13;
-//
-//        Lb_IVA.setText("IVA : (+) $ " + String.format("%.2f", iva));
-//
-//        Double Total = iva + Descontado;
-//
-//        Lb_Total.setText("Total por estadia : $ " + String.format("%.2f", Total));
-//
-//        Tbl_RegistroConsumo consumo = new Tbl_RegistroConsumo();
-//        consumo.setIdCliente(person.getId());
-//        consumo.setConsumo(sub_total);
-//        consumo.setConsumoFinal(Total);
-//        consumo.setCategoria("Reserva");
-//        consumo.setDecuento_Aplicado(person_.getMembresia());
-//
-//        consumo.insertConsumos(consumo);
     }
 
-//    public Recibo1(ArrayList<Tbl_Cartilla_productos> productos, Tbl_Cliente person) {
-//        initComponents();
-//        setLocationRelativeTo(this);
-//
-//        Tb_Concepto.setLineWrap(true);
-//        this.person_ = person;
-//
-//        Lb_Membresia.setText("Membresia : " + person_.getTierMembresia() + "  %" + person_.getMembresia());
-//
-//        lb_Responsable.setText("Cliente :" + person_.getNombre());
-//        Lb_Estudiante.setText("Documento : " + person_.getNum_doc());
-//
-//        String Concepto = "";
-//        Double sub_total = 0.0;
-//        String Categoria = "";
-//
-//        for (Tbl_Cartilla_productos producto : productos) {
-//
-//            Concepto += " - " + producto.getNombre() + "\tprecio unitario: $ " + producto.getPrecio() + "\tCantidad:" + producto.getCant() + "\n";
-//            sub_total += (producto.getPrecio() * producto.getCant());
-//            Categoria = producto.getCategoria();
-//
-//        }
-//        System.out.println("CATEGORIA: " + Categoria);
-//        Tb_Concepto.setText(Concepto);
-//
-//        Lb_SubTotal.setText("Sub_Total: $ " + sub_total);
-//
-//        Double Descontado = sub_total * person_.getMembresia();
-//
-//        Double Descuento = sub_total - Descontado;
-//        Lb_Descuento.setText("Descuento: (-) $ " + Descontado);
-//
-//        Double iva = Descuento * .13;
-//        Lb_IVA.setText("IVA : (+) $ " + String.format("%.2f", iva));
-//
-//        Double Total = iva + Descuento;
-//        Lb_Total.setText("Total: $ " + String.format("%.2f", Total));
-//
-//        Tbl_RegistroConsumo consumo = new Tbl_RegistroConsumo();
-//        consumo.setIdCliente(person.getId());
-//        consumo.setConsumo(sub_total);
-//        consumo.setConsumoFinal(Total);
-//        consumo.setCategoria(Categoria);
-//        consumo.setDecuento_Aplicado(person_.getMembresia());
-//
-//        consumo.insertConsumos(consumo);
-//    }
-//
-//    public Recibo1(String Concepto, Tbl_Cliente person, Double precio) {
-//        initComponents();
-//        setLocationRelativeTo(this);
-//
-//        Tb_Concepto.setLineWrap(true);
-//        this.person_ = person;
-//
-//        lb_Responsable.setText("Cliente :" + person_.getNombre());
-//        Lb_Estudiante.setText("Documento : " + person_.getNum_doc());
-//        Lb_Membresia.setText("Membresia adquirida : " + person_.getTierMembresia() + "  %" + person_.getMembresia());
-//
-//        Tb_Concepto.setText(" - " + Concepto);
-//
-//        Double sub_total = precio;
-//        Lb_SubTotal.setText("Sub_Total: $ " + sub_total);
-//
-//        Lb_Descuento.setText("Descuento: (-) $ " + 0.0);
-//
-//        Double iva = sub_total * .13;
-//
-//        Lb_IVA.setText("IVA : (+) $ " + String.format("%.2f", iva));
-//
-//        Double Total = iva + sub_total;
-//
-//        Lb_Total.setText("Total : $ " + String.format("%.2f", Total));
-//
-//        Tbl_RegistroConsumo consumo = new Tbl_RegistroConsumo();
-//        consumo.setIdCliente(person.getId());
-//        consumo.setConsumo(sub_total);
-//        consumo.setConsumoFinal(Total);
-//        consumo.setCategoria("Membresia");
-//        consumo.setDecuento_Aplicado(person_.getMembresia());
-//
-//        consumo.insertConsumos(consumo);
-//
-//    }
+    public Recibo(List<Modelo_Transacciones> ResumenCompra, Modelo_Transacciones _Datos, JTable _tabla) {
+        initComponents();
+        setLocationRelativeTo(this);
+        Tb_Concepto.setLineWrap(true);
+        this.Detalle = "";
+        this.Tabla = _tabla;
+        this.Datos = _Datos;
+
+        lb_Responsable.setText("Responsable :" + _Datos.getResponsable());
+        Lb_Estudiante.setText("Estudiante : " + _Datos.getEstudiante());
+        Lb_Correo.setText("Correo : " + _Datos.getCorreo());
+
+        Double sub_total = 0.0;
+        if (ResumenCompra.size() > 1) {
+            for (Modelo_Transacciones item : ResumenCompra) {
+                Detalle += "- " + item.getDetalles() + "\nCantidad: " + item.getCantidades() + " Precio : " + item.getPrecio() + " Sub-Total : " + item.getMontos() + "\n";
+                sub_total += item.getMontos();
+            }
+        } else {
+            for (Modelo_Transacciones item : ResumenCompra) {
+                Detalle += "- " + item.getDetalles() + " Cantidad: " + item.getCantidades() + " Sub-Total : " + item.getMontos();
+                sub_total = item.getMontos();
+            }
+        }
+
+        Tb_Concepto.setText(Detalle);
+        Lb_SubTotal.setText("Sub_Total: $ " + sub_total);
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -162,6 +95,10 @@ public class Recibo1 extends javax.swing.JFrame {
         Lb_Aerolinea9 = new javax.swing.JLabel();
         Lb_Ordenar = new javax.swing.JLabel();
         Lb_Correo = new javax.swing.JLabel();
+        Btn_EnviarComprobante = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        Lb_Aerolinea6 = new javax.swing.JLabel();
+        Lb_Crearcuenta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Recibo");
@@ -256,6 +193,63 @@ public class Recibo1 extends javax.swing.JFrame {
         Lb_Correo.setForeground(new java.awt.Color(255, 255, 255));
         Lb_Correo.setText("Correo :");
 
+        Btn_EnviarComprobante.setBackground(new java.awt.Color(64, 124, 62));
+        Btn_EnviarComprobante.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_EnviarComprobante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_EnviarComprobanteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_EnviarComprobanteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_EnviarComprobanteMouseExited(evt);
+            }
+        });
+
+        jPanel7.setBackground(new java.awt.Color(40, 200, 35));
+
+        Lb_Aerolinea6.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Aerolinea6.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        Lb_Aerolinea6.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Lb_Aerolinea6))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lb_Aerolinea6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        Lb_Crearcuenta.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        Lb_Crearcuenta.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_Crearcuenta.setText("Enviar Comprobante");
+        Lb_Crearcuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout Btn_EnviarComprobanteLayout = new javax.swing.GroupLayout(Btn_EnviarComprobante);
+        Btn_EnviarComprobante.setLayout(Btn_EnviarComprobanteLayout);
+        Btn_EnviarComprobanteLayout.setHorizontalGroup(
+            Btn_EnviarComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(Btn_EnviarComprobanteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Crearcuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        Btn_EnviarComprobanteLayout.setVerticalGroup(
+            Btn_EnviarComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Btn_EnviarComprobanteLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(Lb_Crearcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -265,7 +259,9 @@ public class Recibo1 extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(Btn_Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Btn_EnviarComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Lb_IVA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Lb_Descuento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -305,16 +301,18 @@ public class Recibo1 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Btn_Regresar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(Lb_SubTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Lb_Descuento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Lb_IVA)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Lb_Total)))
+                        .addComponent(Lb_Total))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Btn_EnviarComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn_Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34))
         );
 
@@ -362,7 +360,45 @@ public class Recibo1 extends javax.swing.JFrame {
         LeftMouse(Btn_Regresar, Lb_Ordenar, "#980505", "#FFFFFF");
     }//GEN-LAST:event_Btn_RegresarMouseExited
 
-    public Recibo1() {
+    private void Btn_EnviarComprobanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_EnviarComprobanteMouseClicked
+        String FECHA = Funciones.Funciones.Get_DIA_Actual() + " " + Funciones.Funciones.Get_MES_Actual() + " " + Funciones.Funciones.Get_Year_Actual() + " ";
+
+        if (Tabla != null) {
+
+            String rutaPDF = Creador_PDF.createPDFWithTable(Tabla, "Comprobante_" + FECHA + " " + Datos.getNIES_Responsable() , Datos.getResponsable(), Datos.getCorreo(), Datos.getNIES_Responsable());
+            Funciones.Funciones.showMessageDialog("info", Detalle);
+            EnviarCorreo factura = new EnviarCorreo();
+
+
+            String destinatario = "rr19118@ues.edu.sv";
+            String asunto = "Prueba de envío de factura";
+            String mensaje = Detalle;
+
+            factura.enviarFactura(destinatario, asunto, mensaje, rutaPDF);
+        } else {
+            String rutaPDF = Creador_PDF.createPDFsinTabla("Comprobante_" + FECHA + " " + Datos.getNIES_Responsable() + ".pdf", Datos.getResponsable(), Datos.getCorreo(), Datos.getNIES_Responsable(), Detalle);
+            Funciones.Funciones.showMessageDialog("info", Detalle);
+            EnviarCorreo factura = new EnviarCorreo();
+            
+            String destinatario = "rr19118@ues.edu.sv";
+            String asunto = "Prueba de envío de factura";
+            String mensaje = Detalle;
+
+            factura.enviarFactura(destinatario, asunto, mensaje, rutaPDF);
+        }
+
+
+    }//GEN-LAST:event_Btn_EnviarComprobanteMouseClicked
+
+    private void Btn_EnviarComprobanteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_EnviarComprobanteMouseEntered
+        EnterMouse(Btn_EnviarComprobante, Lb_Crearcuenta, "#7BC778", "#000000");
+    }//GEN-LAST:event_Btn_EnviarComprobanteMouseEntered
+
+    private void Btn_EnviarComprobanteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_EnviarComprobanteMouseExited
+        LeftMouse(Btn_EnviarComprobante, Lb_Crearcuenta, "#407C3E", "#FFFFFF");
+    }//GEN-LAST:event_Btn_EnviarComprobanteMouseExited
+
+    public Recibo() {
         initComponents();
 
     }
@@ -370,14 +406,17 @@ public class Recibo1 extends javax.swing.JFrame {
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
-            new Recibo1().setVisible(true);
+            new Recibo().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Btn_EnviarComprobante;
     private javax.swing.JPanel Btn_Regresar;
+    private javax.swing.JLabel Lb_Aerolinea6;
     private javax.swing.JLabel Lb_Aerolinea9;
     private javax.swing.JLabel Lb_Correo;
+    private javax.swing.JLabel Lb_Crearcuenta;
     private javax.swing.JLabel Lb_Descuento;
     private javax.swing.JLabel Lb_Estudiante;
     private javax.swing.JLabel Lb_IVA;
@@ -389,6 +428,7 @@ public class Recibo1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_Responsable;
     private javax.swing.JLabel loading2;

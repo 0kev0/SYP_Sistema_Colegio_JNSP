@@ -73,7 +73,6 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
         Lb_Aerolinea2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         Lb_Aerolinea3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         Lb_Aerolinea4 = new javax.swing.JLabel();
 
@@ -88,6 +87,8 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
         setVerifyInputWhenFocusTarget(false);
 
         jPanel1.setBackground(new java.awt.Color(234, 223, 180));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1160, 630));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1160, 630));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 540));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -132,7 +133,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
             Tbl_ListadoAsistencia.getColumnModel().getColumn(6).setPreferredWidth(150);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 990, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 1040, 350));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -148,7 +149,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(Lb_FechaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(Lb_FechaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -159,7 +160,7 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 270, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 340, -1));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -218,10 +219,6 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Que se tome la fecha actual y esta se muestre en el label fecha, y se suba a la base de datos ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 510, -1));
-
         jPanel6.setBackground(new java.awt.Color(226, 215, 132));
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
         jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -256,17 +253,17 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 450, 200, 50));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 550, 200, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -415,7 +412,6 @@ public final class Toma_Asistencia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Lb_Aerolinea4;
     private javax.swing.JLabel Lb_FechaActual;
     private javax.swing.JTable Tbl_ListadoAsistencia;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

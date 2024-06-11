@@ -338,6 +338,47 @@ SELECT "NIE" FROM public."tbl_Estudiante"; """;
         return null;
     }
 
+    public ArrayList<Modelo_Estudiante> Get_Listado_NIES_porGrado(int Grado) {
+        try {
+            System.out.println("---CARGAR PRODUCTOS");
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            statement = conexionDB.createStatement(); // Creamos la consulta
+
+            String ConsultaNotasPorNIE = """
+SELECT "NIE", "Nombres", "Apellidos", "Grado_id", "Edad", "Responsables_id"
+FROM public."tbl_Estudiante"
+WHERE "Grado_id" = ? ;""";
+
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(ConsultaNotasPorNIE);
+            preparedStatement.setInt(1, Grado);
+
+            ResultSet Conaulta_Inscripcion = preparedStatement.executeQuery();
+
+            TiemSql();
+
+            ArrayList<Modelo_Estudiante> Lista_NIES = new ArrayList<>();
+
+            while (Conaulta_Inscripcion.next()) {
+
+                Modelo_Estudiante NewNIE = new Modelo_Estudiante();
+
+                NewNIE.setNIE(Conaulta_Inscripcion.getInt("NIE"));
+
+                Lista_NIES.add(NewNIE);
+            }
+
+            System.out.println("\t-> RETORNANDO LISTA DE NIES, CANTIDAD : " + Lista_NIES.size());
+            conexionDB.close();
+
+            return Lista_NIES;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Estudiante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
     public Modelo_Estudiante Get_DataEstudiante(int NIE) {
         try {
             System.out.println("---CARGAR PRODUCTOS");
@@ -592,13 +633,13 @@ INSERT INTO public."tbl_Estudiante"(
             preparedStatement.setInt(1, Grado);
             preparedStatement.setInt(2, Edad);
             preparedStatement.setInt(3, NIE);
-            
-            System.out.println("SQL > " + pstm.toString() );
+
+            System.out.println("SQL > " + pstm.toString());
 
             int respuesta = preparedStatement.executeUpdate();
 
             return respuesta;
-            
+
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(Modelo_Estudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

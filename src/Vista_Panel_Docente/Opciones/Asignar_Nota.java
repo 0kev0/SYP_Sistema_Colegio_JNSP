@@ -100,6 +100,7 @@ public final class Asignar_Nota extends javax.swing.JFrame {
         Lb_Ordenar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(234, 223, 180));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 540));

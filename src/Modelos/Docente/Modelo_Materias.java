@@ -194,7 +194,7 @@ WHERE "Nombre" = ? AND "Grado_id" = ? ;""";
                 _idMateria = consulta.getInt("id");
 
             }
-
+            System.out.println("SQL> " + pstm);
             System.out.println("*************materia " + materia + " del grado " + grado + " con id" + _idMateria);
             conexionDB.close();
             return _idMateria;

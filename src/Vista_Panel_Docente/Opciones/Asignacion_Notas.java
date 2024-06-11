@@ -151,6 +151,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         setVerifyInputWhenFocusTarget(false);
 
         jPanel1.setBackground(new java.awt.Color(234, 223, 180));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1160, 630));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 540));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -196,7 +197,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
             Tbl_Actividades.getColumnModel().getColumn(9).setPreferredWidth(60);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 850, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 850, 350));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -227,7 +228,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 260, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 260, -1));
 
         Cb_TipoActividad.setBackground(new java.awt.Color(224, 213, 170));
         Cb_TipoActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -239,7 +240,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 Cb_TipoActividadActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_TipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 160, -1));
+        jPanel1.add(Cb_TipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 160, -1));
 
         Cb_Periodo.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Periodo.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -251,7 +252,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 Cb_PeriodoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 160, -1));
+        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 160, -1));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -324,7 +325,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 Cb_EstadoActividadActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_EstadoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 160, -1));
+        jPanel1.add(Cb_EstadoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 160, -1));
 
         Btn_GuardarActividad.setBackground(new java.awt.Color(226, 215, 132));
         Btn_GuardarActividad.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -363,7 +364,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 450, 240, 50));
+        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 530, 240, 50));
 
         Btn_LimpiarFiltros.setBackground(new java.awt.Color(226, 215, 132));
         Btn_LimpiarFiltros.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -400,7 +401,7 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 .addComponent(Lb_LimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 140, 40));
+        jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 140, 40));
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("hay que restrinjirlo a la materia que imparte el docente guia ");
@@ -416,17 +417,17 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
                 Cb_GradoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 160, -1));
+        jPanel1.add(Cb_Grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1099, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
 
         pack();

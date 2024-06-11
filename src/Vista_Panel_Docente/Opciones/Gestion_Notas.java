@@ -10,7 +10,11 @@ import Modelos.Docente.Modelo_Materias;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -27,8 +31,8 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
     }
 
-    private final Modelos.Docente.Modelo_GestionNotas Objeto_GestionNotas = new Modelos.Docente.Modelo_GestionNotas();
-    private List<Modelos.Docente.Modelo_GestionNotas> List_Notas;
+    private final Modelo_GestionNotas Objeto_GestionNotas = new Modelo_GestionNotas();
+    private List<Modelo_GestionNotas> List_Notas;
 
     private List<Modelo_Materias> List_Materias;
     private final Modelo_Materias Objeto_Modelo_Materias = new Modelo_Materias();
@@ -71,6 +75,8 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         Lb_MateriaGuia = new javax.swing.JLabel();
         Cb_Materias = new javax.swing.JComboBox<>();
+        Btn_CuadrarNota = new javax.swing.JPanel();
+        Lb_Guardar = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
@@ -83,6 +89,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         setVerifyInputWhenFocusTarget(false);
 
         jPanel1.setBackground(new java.awt.Color(234, 223, 180));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1060, 630));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 540));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -93,7 +100,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "NIE", "Apellidos", "Nombre", "Actividad 1 (10%)", "Actividad 2 (10%)", " Actividad 3 (10%)", "Actividad 4 (10%)", "Examen (50%)", "Auto-evaluacion (10%)", "Promedio"
+                "NIE", "Apellidos", "Nombre", "Act.1 (15%)", "Act.2 (15%)", " Act.3 (15%)", "Act.4 (15%)", "Examen (30%)", "Auto-eval (10%)", "Promedio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -110,7 +117,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
             Tbl_RegistroNotas.getColumnModel().getColumn(9).setPreferredWidth(50);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1060, 275));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1060, 340));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -244,15 +251,53 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
         });
         jPanel1.add(Cb_Materias, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 180, -1));
 
+        Btn_CuadrarNota.setBackground(new java.awt.Color(226, 215, 132));
+        Btn_CuadrarNota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
+        Btn_CuadrarNota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_CuadrarNotaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_CuadrarNotaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_CuadrarNotaMouseExited(evt);
+            }
+        });
+
+        Lb_Guardar.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Guardar.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        Lb_Guardar.setForeground(new java.awt.Color(0, 0, 0));
+        Lb_Guardar.setText("Cuadrar Notas");
+
+        javax.swing.GroupLayout Btn_CuadrarNotaLayout = new javax.swing.GroupLayout(Btn_CuadrarNota);
+        Btn_CuadrarNota.setLayout(Btn_CuadrarNotaLayout);
+        Btn_CuadrarNotaLayout.setHorizontalGroup(
+            Btn_CuadrarNotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Btn_CuadrarNotaLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(Lb_Guardar)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        Btn_CuadrarNotaLayout.setVerticalGroup(
+            Btn_CuadrarNotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_CuadrarNotaLayout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
+                .addComponent(Lb_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(Btn_CuadrarNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 560, 200, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
 
         pack();
@@ -515,9 +560,54 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_TB_BuscarInputMethodTextChanged
 
+    private void Btn_CuadrarNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CuadrarNotaMouseClicked
+        Boolean validarNotasCalificadas = false;
+        ArrayList<Integer> NIES = new ArrayList<>();
+        ArrayList<Double> NOTAS = new ArrayList<>();
+
+        int Periodo = Cb_Periodo.getSelectedIndex()+1;
+        
+        for (int i = 0 ; i < Tbl_RegistroNotas.getRowCount(); i++) {
+            int NIE = Integer.parseInt(Tbl_RegistroNotas.getValueAt(i, 0).toString());
+            double NOTAfINAL = Double.parseDouble(Tbl_RegistroNotas.getValueAt(i, 9).toString());
+            NIES.add(NIE);
+            NOTAS.add(NOTAfINAL);
+
+        }
+
+        try {
+            validarNotasCalificadas = Objeto_GestionNotas.vALIDAR_nOTAS(NIES, Periodo, Grado);
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestion_Notas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (validarNotasCalificadas) {
+            try {
+            Funciones.showMessageDialog("info", "Cuadrando notas.");
+                Objeto_GestionNotas.UPDATE_CuadrarNotasPeriodo(NIES, Periodo, idMateriaGuia, NOTAS);
+            } catch (SQLException ex) {
+                Logger.getLogger(Gestion_Notas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else
+        {
+            Funciones.showMessageDialog("info", "hay ctividades pendientes de calificar.");
+        }
+
+
+    }//GEN-LAST:event_Btn_CuadrarNotaMouseClicked
+
+    private void Btn_CuadrarNotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CuadrarNotaMouseEntered
+        Funciones.EnterMouse(Btn_CuadrarNota, Lb_Guardar, "#FFF099", "#FF9900");
+    }//GEN-LAST:event_Btn_CuadrarNotaMouseEntered
+
+    private void Btn_CuadrarNotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CuadrarNotaMouseExited
+        Funciones.LeftMouse(Btn_CuadrarNota, Lb_Guardar, "#E2D784", "#000000");
+    }//GEN-LAST:event_Btn_CuadrarNotaMouseExited
+
     public void DiseñoTabla(JTable tabla) {
-        tabla.setDefaultRenderer(Object.class,
-                new TablaCusomizada());
+
+        tabla.setDefaultRenderer(Object.class, new TablaCusomizada());
         tabla.setRowHeight(40);
         tabla.getTableHeader().setBackground(Color.decode("#5C636E"));
         tabla.getTableHeader().setForeground(Color.white);
@@ -624,10 +714,12 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Btn_CuadrarNota;
     private javax.swing.JComboBox<String> Cb_Busqueda;
     private javax.swing.JComboBox<String> Cb_Materias;
     private javax.swing.JComboBox<String> Cb_Periodo;
     private javax.swing.JLabel Lb_Aerolinea1;
+    private javax.swing.JLabel Lb_Guardar;
     private javax.swing.JLabel Lb_MateriaGuia;
     private javax.swing.JTextField TB_Buscar;
     private javax.swing.JTable Tbl_RegistroNotas;

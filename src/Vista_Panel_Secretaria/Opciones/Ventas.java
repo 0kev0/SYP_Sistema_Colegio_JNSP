@@ -53,6 +53,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
     
     private DefaultTableModel modeloTabla_Productos = new DefaultTableModel();
     private DefaultTableModel modeloTabla_Carrito = new DefaultTableModel();
+    private JTable tabla_recibo ;
     
     private final String materia;
     private final int idmateria;
@@ -414,6 +415,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
         setVerifyInputWhenFocusTarget(false);
 
         jPanel1.setBackground(new java.awt.Color(234, 223, 180));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1060, 630));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 540));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -476,7 +478,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
                 TB_CodigoResponsableKeyTyped(evt);
             }
         });
-        jPanel1.add(TB_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 180, 50));
+        jPanel1.add(TB_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 180, 50));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -484,7 +486,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
         Lb_Aerolinea2.setBackground(new java.awt.Color(255, 255, 255));
         Lb_Aerolinea2.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         Lb_Aerolinea2.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Aerolinea2.setText("Asignacion de actividades");
+        Lb_Aerolinea2.setText("Venta de productos");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -629,7 +631,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
             Tbl_Carrito.getColumnModel().getColumn(3).setPreferredWidth(80);
         }
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 360, 750, 220));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 360, 750, 240));
 
         jPanel7.setBackground(new java.awt.Color(226, 215, 132));
         jPanel7.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -687,7 +689,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
         errorTb_CodigoResponsable.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         errorTb_CodigoResponsable.setForeground(new java.awt.Color(23, 42, 56));
         errorTb_CodigoResponsable.setText("Error");
-        jPanel1.add(errorTb_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 280, -1));
+        jPanel1.add(errorTb_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 280, -1));
 
         Cb_Estudiantes.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Estudiantes.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -699,7 +701,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
                 Cb_EstudiantesActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Estudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 180, -1));
+        jPanel1.add(Cb_Estudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 180, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -709,7 +711,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
 
         pack();
@@ -769,8 +771,7 @@ public final class Ventas extends javax.swing.JInternalFrame {
                     }
                     Modelo_Transacciones Datos = new Modelo_Transacciones();
                     Datos = Datos.Get_DatosRecibo(responsableid, NIE);
-                    
-                    Recibo1 resumenDeCompra = new Recibo1(Recibo, Datos);
+                    Recibo resumenDeCompra = new Recibo(Recibo, Datos,Tbl_Carrito);
                     resumenDeCompra.setVisible(true);
                 }
                 case JOptionPane.NO_OPTION ->

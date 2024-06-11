@@ -320,6 +320,47 @@ LIMIT 1;""";
         return 0;
     }
 
+    public Boolean Valid_IdResponsable(int idResponsable) {
+        try {
+            System.out.println("---CARGAR PRODUCTOS");
+            conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
+            statement = conexionDB.createStatement(); // Creamos la consulta
+            Boolean check = false;
+
+            String UltimoId = """
+SELECT id
+FROM public."Tbl_Responsabless"
+WHERE id = ?
+ORDER BY id DESC
+LIMIT 1;""";
+
+            PreparedStatement preparedStatement = conexionDB.prepareStatement(UltimoId);
+            preparedStatement.setInt(1, idResponsable);
+            ResultSet Conaulta_Inscripcion = preparedStatement.executeQuery(); // Ejecutamos la consulta
+            //System.out.println("consulta:  " + preparedStatement.toString());
+
+            TiemSql();
+
+            int id = 0;
+
+            while (Conaulta_Inscripcion.next()) {
+                id = Conaulta_Inscripcion.getInt("id");
+            }
+            if (id != 0) {
+                check = true;
+
+            }
+            conexionDB.close();
+
+            return check;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo_Responsables.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
     public String Get_CorreoporNIE(int NIE) {
         try {
             System.out.println("---CARGAR PRODUCTOS");
@@ -394,11 +435,11 @@ WHERE TBR.id =  ? ; """;
                 DataResponsable.setCantidadInscritos(Conaulta_Inscripcion.getInt("Cantidad_Estudiantes"));
                 DataResponsable.setCorreo(Conaulta_Inscripcion.getString("Correo"));
                 DataResponsable.setDireccion(Conaulta_Inscripcion.getString("Direccion"));
-                
+
                 System.out.println("sql> cant hijos> " + Conaulta_Inscripcion.getInt("Cantidad_Estudiantes"));
 
             }
-            
+
             if (null != DataResponsable) {
                 Funciones.Funciones.showMessageDialog("info", "Datos encontrados");
             }
@@ -413,8 +454,7 @@ WHERE TBR.id =  ? ; """;
 
         return null;
     }
-    
-    
+
     public Modelo_Responsables Get_DataResponsable_porNIE(int NIE) {
         try {
             System.out.println("---CARGAR PRODUCTOS");
@@ -453,10 +493,9 @@ WHERE TBE."NIE" = ? """;
 
                 DataResponsable.setCorreo(Conaulta_Inscripcion.getString("Correo"));
                 DataResponsable.setDireccion(Conaulta_Inscripcion.getString("Direccion"));
-                
 
             }
-            
+
             if (null != DataResponsable) {
                 Funciones.Funciones.showMessageDialog("info", "Datos encontrados");
             }

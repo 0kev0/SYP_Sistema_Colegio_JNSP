@@ -34,7 +34,7 @@ public final class DetallesAsistencia extends javax.swing.JFrame {
     private DefaultTableModel modeloTabla = new DefaultTableModel();
     private List<Modelo_RegistroAsistencia> ListDetallesAsistencia;
     
-    private Modelo_RegistroAsistencia objetoRegistro;
+    private Modelo_RegistroAsistencia objetoRegistro = new Modelo_RegistroAsistencia();
     private DetallesAsistencia Form;
     
     public DetallesAsistencia() {
@@ -47,7 +47,6 @@ public final class DetallesAsistencia extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         
         int mesActual = Get_MES_Actual() - 1;
-        this.objetoRegistro = new Modelo_RegistroAsistencia();
         this.Form = this;
         
         Lb_Info.setText("NIE : " + DataEstudiante_.getNIE());

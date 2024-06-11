@@ -88,7 +88,7 @@ public class Panel_Docente extends javax.swing.JFrame {
         Lb_Aerolinea2.setText("Colegio Josefino Nuestra Señora De La Paz ");
         jPanel3.add(Lb_Aerolinea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 540, 70));
 
-        Panel_bg.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 80));
+        Panel_bg.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 80));
 
         Panel_Izq.setBackground(new java.awt.Color(17, 66, 50));
         Panel_Izq.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 5, new java.awt.Color(0, 126, 112)));
@@ -298,7 +298,7 @@ public class Panel_Docente extends javax.swing.JFrame {
             .addGroup(Btn_RegistroAsistenciaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Lb_RegistroVentas)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         Btn_RegistroAsistenciaLayout.setVerticalGroup(
             Btn_RegistroAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,12 +472,12 @@ public class Panel_Docente extends javax.swing.JFrame {
                 .addComponent(Btn_RegistroAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Btn_Modificar_cuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addComponent(Btn_Regresar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        Panel_bg.add(Panel_Izq, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 210, 540));
+        Panel_bg.add(Panel_Izq, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 210, 630));
 
         Desk.setBackground(new java.awt.Color(250, 244, 208));
 
@@ -485,20 +485,20 @@ public class Panel_Docente extends javax.swing.JFrame {
         Desk.setLayout(DeskLayout);
         DeskLayout.setHorizontalGroup(
             DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGap(0, 1160, Short.MAX_VALUE)
         );
         DeskLayout.setVerticalGroup(
             DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGap(0, 630, Short.MAX_VALUE)
         );
 
-        Panel_bg.add(Desk, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 1100, 540));
+        Panel_bg.add(Desk, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 1160, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Panel_bg, javax.swing.GroupLayout.DEFAULT_SIZE, 1372, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -567,6 +567,9 @@ public class Panel_Docente extends javax.swing.JFrame {
 
         Gestion_Voleta_Notas gest = new Gestion_Voleta_Notas(DocenteGuia);
 
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
@@ -576,6 +579,9 @@ public class Panel_Docente extends javax.swing.JFrame {
     private void Btn_Inventario_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Inventario_MouseClicked
         Gestion_Notas gest = new Gestion_Notas(DocenteGuia);
 
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();    }//GEN-LAST:event_Btn_Inventario_MouseClicked
@@ -591,6 +597,9 @@ public class Panel_Docente extends javax.swing.JFrame {
     private void Btn_AsignarActividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarActividadesMouseClicked
         Asignacion_Actividades gest = new Asignacion_Actividades(DocenteGuia);
 
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
@@ -599,7 +608,9 @@ public class Panel_Docente extends javax.swing.JFrame {
 
     private void Btn_Asignar_NotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_Asignar_NotasMouseClicked
         Asignacion_Notas gest = new Asignacion_Notas(DocenteGuia);
-
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
@@ -609,6 +620,9 @@ public class Panel_Docente extends javax.swing.JFrame {
     private void Btn_TomaAsistenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_TomaAsistenciaMouseClicked
         Toma_Asistencia gest = new Toma_Asistencia(DocenteGuia);
 
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();
@@ -618,6 +632,9 @@ public class Panel_Docente extends javax.swing.JFrame {
     private void Btn_RegistroAsistenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegistroAsistenciaMouseClicked
         Registro_Asistencia gest = new Registro_Asistencia(DocenteGuia);
 
+        gest.setResizable(false);
+        gest.setBounds(0, 0, Desk.getWidth(), Desk.getHeight());
+        gest.setVisible(true);
         CentrarFrames(Desk, gest);
         Desk.add(gest);
         gest.show();

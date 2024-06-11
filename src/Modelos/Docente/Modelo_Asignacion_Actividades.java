@@ -314,7 +314,7 @@ FROM public."Tbl_Actividades" AS Act
         return null;
     }
 
-    public boolean ComprobarCant_Actividades(int grado, int id, int tipoActividad) {
+    public boolean ComprobarCant_Actividades(int Periodo, int id_Materia, int tipoActividad) {
         try {
             conexionDB = claseConectar.iniciarConexion();//iniciamos una coneccion 
             statement = conexionDB.createStatement();//crear consulta
@@ -336,9 +336,10 @@ WHERE Mat.id = ? AND Act."Periodo_id" = ?
 """;
 
             pstm = conexionDB.prepareStatement(sql);
-            pstm.setInt(1, grado);
-            pstm.setInt(2, id);
+            pstm.setInt(1, id_Materia);
+            pstm.setInt(2, Periodo);
 
+            System.out.println("VALIDANDO CANTIDAD DE ACTIVIDADES " + pstm.toString() );
             ResultSet consulta = pstm.executeQuery(); // Ejecutamos la consulta
 
             Modelo_Asignacion_Actividades Actividad = new Modelo_Asignacion_Actividades();

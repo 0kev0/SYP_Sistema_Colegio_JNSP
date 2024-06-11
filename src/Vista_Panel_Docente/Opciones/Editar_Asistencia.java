@@ -1,13 +1,9 @@
 package Vista_Panel_Docente.Opciones;
 
-import Funciones.Funciones;
 import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
 import static Funciones.Funciones.validarCampos;
-import Modelos.Docente.Modelo_Periodos;
 import Modelos.Docente.Modelo_RegistroAsistencia;
-import Modelos.Docente.Modelo_TipoActividades;
-import java.util.List;
 import javax.swing.JTable;
 
 public final class Editar_Asistencia extends javax.swing.JFrame {
@@ -281,11 +277,11 @@ public final class Editar_Asistencia extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_RegresarMouseClicked
 
     private void Btn_RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseEntered
-        Funciones.EnterMouse(Btn_Regresar, Lb_Ordenar, "#D90707", "#000000");
+        EnterMouse(Btn_Regresar, Lb_Ordenar, "#D90707", "#000000");
     }//GEN-LAST:event_Btn_RegresarMouseEntered
 
     private void Btn_RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseExited
-        Funciones.LeftMouse(Btn_Regresar, Lb_Ordenar, "#980505", "#FFFFFF");
+        LeftMouse(Btn_Regresar, Lb_Ordenar, "#980505", "#FFFFFF");
     }//GEN-LAST:event_Btn_RegresarMouseExited
 
     public static void main(String args[]) {

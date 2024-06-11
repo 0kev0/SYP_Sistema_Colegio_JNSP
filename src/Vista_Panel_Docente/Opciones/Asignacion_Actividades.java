@@ -55,6 +55,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         initComponents();
         clearScreen();
 
+        this.idmateria = DocenteGuia.getIdMateriaImpartir();
         this.materia = DocenteGuia.getMateriaImpartida();
         Get_Cb_Grados(Cb_Grado, List_Grados, Objeto_Grados);
         Get_Periodos(Cb_Periodo);
@@ -195,6 +196,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         setVerifyInputWhenFocusTarget(false);
 
         jPanel1.setBackground(new java.awt.Color(234, 223, 180));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1160, 630));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 540));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -232,7 +234,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
             Tbl_Actividades.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 800, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 800, 390));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -263,7 +265,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, 310, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 310, -1));
 
         Cb_TipoActividad.setBackground(new java.awt.Color(224, 213, 170));
         Cb_TipoActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -276,7 +278,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                 Cb_TipoActividadActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_TipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 134, -1));
+        jPanel1.add(Cb_TipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 134, -1));
 
         Cb_Periodo.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Periodo.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -289,7 +291,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                 Cb_PeriodoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 134, -1));
+        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 134, -1));
 
         TB_NombreActividad.setBackground(new java.awt.Color(224, 213, 170));
         TB_NombreActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -304,7 +306,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                 TB_NombreActividadMouseExited(evt);
             }
         });
-        jPanel1.add(TB_NombreActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 208, 50));
+        jPanel1.add(TB_NombreActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 208, 50));
 
         TB_DescripcionActividad.setBackground(new java.awt.Color(224, 213, 170));
         TB_DescripcionActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -319,7 +321,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                 TB_DescripcionActividadMouseExited(evt);
             }
         });
-        jPanel1.add(TB_DescripcionActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 208, 50));
+        jPanel1.add(TB_DescripcionActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 208, 50));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -417,7 +419,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 200, 50));
+        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 200, 50));
 
         Cb_Grado.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Grado.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -435,11 +437,11 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
 
         pack();
@@ -456,7 +458,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         System.out.println("/////////////////a asignar nota para grado " + grado + " estudiante  " );
         if (Funciones.validarCampos(jPanel1)) {
 
-            if (Objeto_Actividades.ComprobarCant_Actividades(grado, periodo, TipoActividad)) {
+            if (Objeto_Actividades.ComprobarCant_Actividades(periodo, idmateria, TipoActividad)) {
 
                 
                 Modelo_Materias objMateria = new Modelo_Materias();

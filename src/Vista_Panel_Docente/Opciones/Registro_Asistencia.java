@@ -84,7 +84,6 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         Lb_Aerolinea2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         Lb_Aerolinea3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         Cb_Dia = new javax.swing.JComboBox<>();
         Cb_Año = new javax.swing.JComboBox<>();
         Cb_BuscarPorMes_ = new javax.swing.JComboBox<>();
@@ -102,7 +101,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         setVerifyInputWhenFocusTarget(false);
 
         jPanel1.setBackground(new java.awt.Color(234, 223, 180));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1100, 540));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1160, 630));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Tbl_RegistroAsistencia.setAutoCreateRowSorter(true);
@@ -147,7 +146,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
             Tbl_RegistroAsistencia.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 1000, 290));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 1000, 350));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -237,10 +236,6 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("al darle click a una fila que muestre un resumen de asistencias, una tabla con fechas por mes con los dias con detalles");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 620, -1));
-
         Cb_Dia.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Dia.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         Cb_Dia.setForeground(new java.awt.Color(0, 0, 0));
@@ -252,7 +247,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 Cb_DiaActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 134, -1));
+        jPanel1.add(Cb_Dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 134, -1));
 
         Cb_Año.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Año.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -260,7 +255,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         Cb_Año.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2025", "2026" }));
         Cb_Año.setToolTipText("");
         Cb_Año.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Año :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        jPanel1.add(Cb_Año, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 134, -1));
+        jPanel1.add(Cb_Año, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 134, -1));
 
         Cb_BuscarPorMes_.setBackground(new java.awt.Color(224, 213, 170));
         Cb_BuscarPorMes_.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -273,7 +268,7 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 Cb_BuscarPorMes_ActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_BuscarPorMes_, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 134, -1));
+        jPanel1.add(Cb_BuscarPorMes_, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 134, -1));
 
         Btn_LimpiarFiltros.setBackground(new java.awt.Color(226, 215, 132));
         Btn_LimpiarFiltros.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -310,17 +305,21 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 .addComponent(Lb_LimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 140, 40));
+        jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, 140, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -456,7 +455,6 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Lb_Aerolinea3;
     private javax.swing.JLabel Lb_LimpiarFiltros;
     private javax.swing.JTable Tbl_RegistroAsistencia;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

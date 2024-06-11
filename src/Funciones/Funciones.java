@@ -26,6 +26,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Funciones {
+    
+    
+    
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -103,6 +106,12 @@ public class Funciones {
         return mesActual;
     }
 
+        public static int Get_DIA_Actual() {
+        // Obtener el mes actual
+        int mesActual = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) ;
+        return mesActual;
+    }
+        
     public static String obtenerFechaActual() {
         // Obtener la fecha y hora actual
         Date fecha = new Date();

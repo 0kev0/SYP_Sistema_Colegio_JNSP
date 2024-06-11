@@ -2,21 +2,13 @@ package Vista_Panel_Secretaria.Opciones;
 
 import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
-import static Funciones.Funciones.Mouse_EnterTextbox;
-import static Funciones.Funciones.Mouse_LeftTextbox;
-import Modelos.Docente.Modelo_AsignacionNotas;
 import Modelos.Docente.Modelo_Asignacion_Actividades;
 import Modelos.Docente.Modelo_Periodos;
-import Modelos.Docente.Modelo_TipoActividades;
 import Modelos.Secretaria.Modelo_Mensualidad;
 import Modelos.Secretaria.Modelo_Responsables;
 import Modelos.Secretaria.Modelo_Transacciones;
-import Vista_Panel_Docente.Opciones.Asignacion_Actividades;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 
 public final class Efectuar_PagoMesnualidad extends javax.swing.JFrame {
@@ -362,7 +354,7 @@ public final class Efectuar_PagoMesnualidad extends javax.swing.JFrame {
 
             Form_Mensualidades.Get_list_MesActual_Mensualidades(tbl_Mensualidades);
 
-            Recibo1 recibo = new Recibo1(resumen, datos);
+            Recibo recibo = new Recibo(resumen, datos);
             recibo.setVisible(true);
             dispose();
         }
