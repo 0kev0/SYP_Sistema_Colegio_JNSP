@@ -293,7 +293,7 @@ FROM public."Tbl_Actividades" AS Act
             Modelo_Asignacion_Actividades Actividad = new Modelo_Asignacion_Actividades();
             while (consulta.next()) {
                 Actividad.setIdTipoActividad(consulta.getInt("id_Act"));
-                Actividad.setIdActividad(consulta.getInt("id"));
+                Actividad.setIdActividad(id);
                 Actividad.setNombreActividad(consulta.getString("Nombre_Actividad"));
                 Actividad.setMateria(consulta.getString("Nombre"));
                 Actividad.setGrado(grado);
@@ -581,7 +581,7 @@ LIMIT 1;""";
 
             String sql = """
 UPDATE public."Tbl_Actividades"
-                         	SET  "Nombre_Actividad"= ?,  "TipoActividad_id"=?, "Descripcion"=?
+                         	SET  "Nombre_Actividad"= ?,   "Descripcion"=?
                          	WHERE id = ?;""";
 
             conexionDB = claseConectar.iniciarConexion();
@@ -589,9 +589,8 @@ UPDATE public."Tbl_Actividades"
 
             System.out.println("id a modificar" + ActividadaEditar.getIdActividad());
             pstm.setString(1, ActividadaEditar.getNombreActividad());
-            pstm.setInt(2, ActividadaEditar.getIdTipoActividad());
-            pstm.setString(3, ActividadaEditar.getDescripcion());
-            pstm.setInt(4, ActividadaEditar.getIdActividad());
+            pstm.setString(2, ActividadaEditar.getDescripcion());
+            pstm.setInt(3, ActividadaEditar.getIdActividad());
 
             int respuesta = pstm.executeUpdate();
 

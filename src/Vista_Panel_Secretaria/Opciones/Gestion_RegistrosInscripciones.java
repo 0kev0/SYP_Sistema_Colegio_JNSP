@@ -58,8 +58,6 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         Lb_Total = new javax.swing.JLabel();
         Cb_Grados = new javax.swing.JComboBox<>();
-        TB_CodigoResponsable = new javax.swing.JTextField();
-        TB_NIE = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         Lb_Aerolinea2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -68,8 +66,6 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         Tbl_RegistroInscripcion = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         Lb_Materia_Periodo2 = new javax.swing.JLabel();
-        errorTb_CodigoResponsable = new javax.swing.JLabel();
-        errorTb_NIE = new javax.swing.JLabel();
         Cb_Año = new javax.swing.JComboBox<>();
         Cb_Mes = new javax.swing.JComboBox<>();
         Btn_Regresar1 = new javax.swing.JPanel();
@@ -121,49 +117,6 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Cb_Grados, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 140, -1));
-
-        TB_CodigoResponsable.setBackground(new java.awt.Color(224, 213, 170));
-        TB_CodigoResponsable.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
-        TB_CodigoResponsable.setForeground(new java.awt.Color(0, 0, 0));
-        TB_CodigoResponsable.setText("Ingrese el codigo del responsable");
-        TB_CodigoResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Codigo responsable: ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        TB_CodigoResponsable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TB_CodigoResponsableMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TB_CodigoResponsableMouseExited(evt);
-            }
-        });
-        TB_CodigoResponsable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                TB_CodigoResponsableKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TB_CodigoResponsableKeyTyped(evt);
-            }
-        });
-        jPanel1.add(TB_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 270, 50));
-
-        TB_NIE.setBackground(new java.awt.Color(224, 213, 170));
-        TB_NIE.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
-        TB_NIE.setForeground(new java.awt.Color(0, 0, 0));
-        TB_NIE.setText("Ingrese NIE del estudiante");
-        TB_NIE.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "NIE estudiante", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        TB_NIE.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TB_NIEMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TB_NIEMouseExited(evt);
-            }
-        });
-        TB_NIE.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                TB_NIEKeyReleased(evt);
-            }
-        });
-        jPanel1.add(TB_NIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 120, 270, 50));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -289,18 +242,6 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 10, 180, 30));
 
-        errorTb_CodigoResponsable.setBackground(new java.awt.Color(23, 42, 56));
-        errorTb_CodigoResponsable.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        errorTb_CodigoResponsable.setForeground(new java.awt.Color(23, 42, 56));
-        errorTb_CodigoResponsable.setText("Error");
-        jPanel1.add(errorTb_CodigoResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 280, -1));
-
-        errorTb_NIE.setBackground(new java.awt.Color(23, 42, 56));
-        errorTb_NIE.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        errorTb_NIE.setForeground(new java.awt.Color(23, 42, 56));
-        errorTb_NIE.setText("Error");
-        jPanel1.add(errorTb_NIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, 280, -1));
-
         Cb_Año.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Año.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         Cb_Año.setForeground(new java.awt.Color(0, 0, 0));
@@ -359,7 +300,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
         );
 
         pack();
@@ -384,36 +325,6 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
         modeloTabla.setNumRows(0);
         Get_Inscripciones_FiltroGrado(Tbl_RegistroInscripcion);
     }//GEN-LAST:event_Cb_GradosActionPerformed
-
-    private void TB_CodigoResponsableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_CodigoResponsableMouseEntered
-        Funciones.Mouse_EnterTextbox(TB_CodigoResponsable);
-    }//GEN-LAST:event_TB_CodigoResponsableMouseEntered
-
-    private void TB_CodigoResponsableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_CodigoResponsableMouseExited
-        Funciones.Mouse_LeftTextbox("Ingrese el codigo del responsable", TB_CodigoResponsable);
-    }//GEN-LAST:event_TB_CodigoResponsableMouseExited
-
-    private void TB_CodigoResponsableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_CodigoResponsableKeyReleased
-
-    }//GEN-LAST:event_TB_CodigoResponsableKeyReleased
-
-    private void TB_CodigoResponsableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_CodigoResponsableKeyTyped
-        //ValidNIE(TB_CodigoResponsable, errorTb_CodigoResponsable);
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TB_CodigoResponsableKeyTyped
-
-    private void TB_NIEMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NIEMouseEntered
-        Funciones.Mouse_EnterTextbox(TB_NIE);
-    }//GEN-LAST:event_TB_NIEMouseEntered
-
-    private void TB_NIEMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NIEMouseExited
-        Funciones.Mouse_LeftTextbox("Ingrese NIE del estudiante", TB_NIE);
-    }//GEN-LAST:event_TB_NIEMouseExited
-
-    private void TB_NIEKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_NIEKeyReleased
-        // ValidNIE(TB_NIE, errorTb_NIE);
-    }//GEN-LAST:event_TB_NIEKeyReleased
 
     private void Cb_AñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_AñoActionPerformed
         Get_Inscripciones_FiltroYear(Tbl_RegistroInscripcion);
@@ -641,11 +552,7 @@ public final class Gestion_RegistrosInscripciones extends javax.swing.JFrame {
     private javax.swing.JLabel Lb_Materia_Periodo2;
     private javax.swing.JLabel Lb_Ordenar1;
     private javax.swing.JLabel Lb_Total;
-    private javax.swing.JTextField TB_CodigoResponsable;
-    private javax.swing.JTextField TB_NIE;
     private javax.swing.JTable Tbl_RegistroInscripcion;
-    private javax.swing.JLabel errorTb_CodigoResponsable;
-    private javax.swing.JLabel errorTb_NIE;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

@@ -81,11 +81,14 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
             public void mouseClicked(MouseEvent e) {
                 int COL = Tbl_Actividades.columnAtPoint(e.getPoint());
                 int ROW = Tbl_Actividades.rowAtPoint(e.getPoint());
+                int periodo = Cb_Periodo.getSelectedIndex() + 1;
+                int grado = Cb_Grado.getSelectedIndex() + 1;
+
                 if (COL == 6) {
                     int id = Integer.parseInt(modeloTabla.getValueAt(ROW, 0).toString());
-
+                    System.out.println("id> " + id);
                     Funciones.showMessageDialog("Editar notas", "Se a habilitado editar la actividad, una vez editado vualva a presionar el icono ");
-                    Edicion_Actividad editar = new Edicion_Actividad(Objeto_Actividades.GetActividad(Grado, id), materia, Tbl_Actividades);
+                    Edicion_Actividad editar = new Edicion_Actividad(Objeto_Actividades.GetActividad(Grado, id), materia,id, Tbl_Actividades, periodo, grado);
                     editar.setVisible(true);
 
                 }
@@ -179,8 +182,6 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         TB_DescripcionActividad = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         Lb_Aerolinea2 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        Lb_Aerolinea3 = new javax.swing.JLabel();
         Btn_GuardarActividad = new javax.swing.JPanel();
         Lb_Guardar = new javax.swing.JLabel();
         Cb_Grado = new javax.swing.JComboBox<>();
@@ -248,11 +249,11 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 302, Short.MAX_VALUE)
+            .addGap(0, 422, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Lb_Materia_Periodo)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(Lb_Materia_Periodo, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                     .addGap(39, 39, 39)))
         );
         jPanel3Layout.setVerticalGroup(
@@ -265,7 +266,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 310, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, 430, -1));
 
         Cb_TipoActividad.setBackground(new java.awt.Color(224, 213, 170));
         Cb_TipoActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -347,37 +348,7 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 370, -1));
-
-        jPanel5.setBackground(new java.awt.Color(226, 215, 132));
-        jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
-
-        Lb_Aerolinea3.setBackground(new java.awt.Color(255, 255, 255));
-        Lb_Aerolinea3.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
-        Lb_Aerolinea3.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Aerolinea3.setText("Asignacion de notas");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 292, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                    .addGap(0, 18, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea3, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                    .addContainerGap(14, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 370, -1));
 
         Btn_GuardarActividad.setBackground(new java.awt.Color(226, 215, 132));
         Btn_GuardarActividad.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -450,26 +421,24 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
         String nobreActividad = TB_NombreActividad.getText();
         String descripcion = TB_DescripcionActividad.getText();
-        
+
         int periodo = Cb_Periodo.getSelectedIndex() + 1;
         int TipoActividad = Cb_TipoActividad.getSelectedIndex() + 1;
         int grado = Cb_Grado.getSelectedIndex() + 1;
 
-        System.out.println("/////////////////a asignar nota para grado " + grado + " estudiante  " );
+        System.out.println("/////////////////a asignar nota para grado " + grado + " estudiante  ");
         if (Funciones.validarCampos(jPanel1)) {
 
             if (Objeto_Actividades.ComprobarCant_Actividades(periodo, idmateria, TipoActividad)) {
 
-                
                 Modelo_Materias objMateria = new Modelo_Materias();
                 int idMateria = objMateria.Get_IDMateria(materia, grado);
-                
+
                 Objeto_Actividades.setNombreActividad(nobreActividad);
                 Objeto_Actividades.setDescripcion(descripcion);
                 Objeto_Actividades.setIdTipoActividad(TipoActividad);
                 Objeto_Actividades.setId_Materia(idMateria);
                 Objeto_Actividades.setPeriodo(periodo);
-                
 
                 Objeto_Actividades.Insert_Actividad(Objeto_Actividades, grado);
 
@@ -604,7 +573,6 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> Cb_Periodo;
     private javax.swing.JComboBox<String> Cb_TipoActividad;
     private javax.swing.JLabel Lb_Aerolinea2;
-    private javax.swing.JLabel Lb_Aerolinea3;
     private javax.swing.JLabel Lb_Guardar;
     private javax.swing.JLabel Lb_Materia_Periodo;
     private javax.swing.JTextField TB_DescripcionActividad;
@@ -613,7 +581,6 @@ public final class Asignacion_Actividades extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

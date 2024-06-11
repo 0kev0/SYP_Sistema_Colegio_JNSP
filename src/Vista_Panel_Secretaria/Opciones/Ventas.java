@@ -134,16 +134,6 @@ public final class Ventas extends javax.swing.JInternalFrame {
                         Funciones.showMessageDialog("no hay mas en existencias", "error");
                     }
 
-//                    int op = Carrito.indexOf(productoAgregado);
-//                    if (Carrito[op].) {
-//
-//                    } else {
-//                        Carrito.add(id);
-//                        ActualizarCarrito(Tbl_Carrito, Carrito);
-//                        // Funciones.Funciones.showMessageDialog("Editar notas", "Se a habilitado editar la actividad, una vez editado vualva a presionar el icono ");
-//                        //Edicion_Actividad editar = new Edicion_Actividad(Objeto_Actividades.GetActividad(1, id),Tbl_Ventas);
-//                        //editar.setVisible(true);
-//                    }
                 }
                 
             }
@@ -215,16 +205,6 @@ public final class Ventas extends javax.swing.JInternalFrame {
                         }
                         
                     }
-//                    System.out.println("item tomado" + id);
-//                    int item = Integer.parseInt(modeloTabla_Productos.getValueAt(ROW, 1).toString());
-//                    int descripcion = Integer.parseInt(modeloTabla_Productos.getValueAt(ROW, 2).toString());
-//                    int Precio = Integer.parseInt(modeloTabla_Productos.getValueAt(ROW, 3).toString());
-//                    int Cantidad = Integer.parseInt(modeloTabla_Productos.getValueAt(ROW, 4).toString());
-//                    product.add(id);
-//                    ActualizarCarrito(Tbl_Carrito, product);
-                    // Funciones.Funciones.showMessageDialog("Editar notas", "Se a habilitado editar la actividad, una vez editado vualva a presionar el icono ");
-                    //Edicion_Actividad editar = new Edicion_Actividad(Objeto_Actividades.GetActividad(1, id),Tbl_Ventas);
-                    //editar.setVisible(true);
 
                 }
                 

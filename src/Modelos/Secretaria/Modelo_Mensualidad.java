@@ -298,7 +298,6 @@ SELECT "NIE"
             java.sql.ResultSet Consulta = preparedStatement.executeQuery();
 
             while (Consulta.next()) {
-                Funciones.showMessageDialog("Info", "Talonario mensual ya generado. ");
                 conexionDB.close();
 
                 return true;

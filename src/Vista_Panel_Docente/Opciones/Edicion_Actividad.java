@@ -25,22 +25,23 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
 
     private Modelo_Asignacion_Actividades Objeto_Actividades = new Modelo_Asignacion_Actividades();
     private final JTable tbl_Act;
-    private final String materia ;
+    private final String materia;
+    private final int periodo;
+    private final int grado;
+    private final int id;
 
-    public Edicion_Actividad(Modelo_Asignacion_Actividades ObjetoEditable,String _materia, JTable tbl_Actividades) {
+    public Edicion_Actividad(Modelo_Asignacion_Actividades ObjetoEditable, String _materia, int _id, JTable tbl_Actividades, int _periodo, int _grado) {
         initComponents();
-       // Get_Periodos(Cb_Periodo);
-        Get_TipoActividad(Cb_TipoActividad);
+        setLocationRelativeTo(this);
+        // Get_Periodos(Cb_Periodo);
         this.Objeto_Actividades = ObjetoEditable;
         this.tbl_Act = tbl_Actividades;
         this.materia = _materia;
-        
-//        Cb_Periodo.setSelectedIndex(ObjetoEditable.getPeriodo() + 1);
-//        Cb_Grado.setSelectedIndex(ObjetoEditable.getGrado()+ 1);
+        this.periodo = _periodo;
+        this.grado = _grado;
+        this.id = _id;
 
-        Cb_TipoActividad.setSelectedIndex(ObjetoEditable.getIdTipoActividad() - 1);
-
-        System.out.println("id t " + ObjetoEditable.getIdTipoActividad() + " id p " + ObjetoEditable.getIdTipoActividad());
+        System.out.println("id t " + id);
         TB_DescripcionActividad.setText(ObjetoEditable.getDescripcion());
         TB_NombreActividad.setText(ObjetoEditable.getNombreActividad());
     }
@@ -82,7 +83,6 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Cb_TipoActividad = new javax.swing.JComboBox<>();
         TB_NombreActividad = new javax.swing.JTextField();
         TB_DescripcionActividad = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -91,7 +91,6 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         Lb_Aerolinea3 = new javax.swing.JLabel();
         Btn_GuardarActividad = new javax.swing.JPanel();
         Lb_Guardar = new javax.swing.JLabel();
-        TB_NombreActividad1 = new javax.swing.JTextField();
         Btn_Regresar = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         Lb_Aerolinea7 = new javax.swing.JLabel();
@@ -102,19 +101,6 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(234, 223, 180));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 540));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Cb_TipoActividad.setBackground(new java.awt.Color(224, 213, 170));
-        Cb_TipoActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
-        Cb_TipoActividad.setForeground(new java.awt.Color(0, 0, 0));
-        Cb_TipoActividad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarea", "Examen", "Auto-Evaluacion", "Expocicion" }));
-        Cb_TipoActividad.setToolTipText("");
-        Cb_TipoActividad.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Tipo de actividad:", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        Cb_TipoActividad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cb_TipoActividadActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Cb_TipoActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 134, -1));
 
         TB_NombreActividad.setBackground(new java.awt.Color(224, 213, 170));
         TB_NombreActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -129,7 +115,7 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
                 TB_NombreActividadMouseExited(evt);
             }
         });
-        jPanel1.add(TB_NombreActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 208, 50));
+        jPanel1.add(TB_NombreActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 208, 50));
 
         TB_DescripcionActividad.setBackground(new java.awt.Color(224, 213, 170));
         TB_DescripcionActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -144,7 +130,7 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
                 TB_DescripcionActividadMouseExited(evt);
             }
         });
-        jPanel1.add(TB_DescripcionActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 208, 50));
+        jPanel1.add(TB_DescripcionActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 208, 50));
 
         jPanel4.setBackground(new java.awt.Color(226, 215, 132));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -243,22 +229,7 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 200, 50));
-
-        TB_NombreActividad1.setBackground(new java.awt.Color(224, 213, 170));
-        TB_NombreActividad1.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
-        TB_NombreActividad1.setForeground(new java.awt.Color(0, 0, 0));
-        TB_NombreActividad1.setText("Ingrese el nombre");
-        TB_NombreActividad1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 153, 51)), "Nombre de la actividad", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Variable", 1, 14), new java.awt.Color(255, 153, 51))); // NOI18N
-        TB_NombreActividad1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TB_NombreActividad1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TB_NombreActividad1MouseExited(evt);
-            }
-        });
-        jPanel1.add(TB_NombreActividad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 208, 50));
+        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 200, 50));
 
         Btn_Regresar.setBackground(new java.awt.Color(152, 5, 5));
         Btn_Regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -303,7 +274,7 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         Lb_Ordenar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_Regresar.add(Lb_Ordenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 130, 30));
 
-        jPanel1.add(Btn_Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, -1, 50));
+        jPanel1.add(Btn_Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -313,15 +284,11 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Cb_TipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_TipoActividadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Cb_TipoActividadActionPerformed
 
     private void TB_NombreActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividadMouseEntered
         Funciones.Mouse_EnterTextbox(TB_NombreActividad);
@@ -341,27 +308,23 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
 
     private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
 
-//        int periodo = Cb_Periodo.getSelectedIndex();
-//        int grado = Cb_Grado.getSelectedIndex() + 1;
+        if (!validarCampos(jPanel1)) {
+            System.out.println("faltan campos");
+        } else {
+            Modelo_Asignacion_Actividades edit = new Modelo_Asignacion_Actividades();
+            edit.setNombreActividad(TB_NombreActividad.getText());
+            edit.setDescripcion(TB_DescripcionActividad.getText());
+            edit.setIdActividad(id);
 
-//        if (!validarCampos(jPanel1)) {
-//            System.out.println("faltan campos");
-//        } else {
-//            Modelo_Asignacion_Actividades edit = new Modelo_Asignacion_Actividades();
-//            edit.setNombreActividad(TB_NombreActividad.getText());
-//            edit.setIdTipoActividad(Cb_TipoActividad.getSelectedIndex() + 1);
-//            edit.setDescripcion(TB_DescripcionActividad.getText());
-//            edit.setIdActividad(Objeto_Actividades.getIdActividad());
-//
-//            edit.Edit_Actividad(edit);
-//
-//            showMessageDialog("Edicion exitosa", "la actividad fue editada exitosamente");
-//            Asignacion_Actividades ActividadEditada = new Asignacion_Actividades();
-//
-//            ActividadEditada.Get_Tbl_Actividades(tbl_Act, materia, grado, periodo);
-//
-//            dispose();
-//        }
+            edit.Edit_Actividad(edit);
+
+            showMessageDialog("Edicion exitosa", "la actividad fue editada exitosamente");
+            Asignacion_Actividades ActividadEditada = new Asignacion_Actividades();
+
+            ActividadEditada.Get_Tbl_Actividades(tbl_Act, materia, grado, periodo);
+
+            dispose();
+        }
 
 
     }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
@@ -373,14 +336,6 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
     private void Btn_GuardarActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseExited
         LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
     }//GEN-LAST:event_Btn_GuardarActividadMouseExited
-
-    private void TB_NombreActividad1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividad1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TB_NombreActividad1MouseEntered
-
-    private void TB_NombreActividad1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_NombreActividad1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TB_NombreActividad1MouseExited
 
     private void Btn_RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseClicked
 
@@ -404,7 +359,6 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_GuardarActividad;
     private javax.swing.JPanel Btn_Regresar;
-    private javax.swing.JComboBox<String> Cb_TipoActividad;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
     private javax.swing.JLabel Lb_Aerolinea7;
@@ -412,7 +366,6 @@ public final class Edicion_Actividad extends javax.swing.JFrame {
     private javax.swing.JLabel Lb_Ordenar;
     private javax.swing.JTextField TB_DescripcionActividad;
     private javax.swing.JTextField TB_NombreActividad;
-    private javax.swing.JTextField TB_NombreActividad1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

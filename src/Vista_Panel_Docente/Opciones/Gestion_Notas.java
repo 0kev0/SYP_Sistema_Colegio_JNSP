@@ -117,7 +117,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
             Tbl_RegistroNotas.getColumnModel().getColumn(9).setPreferredWidth(50);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1060, 340));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 1100, 340));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -169,7 +169,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 Cb_PeriodoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(934, 140, 130, -1));
+        jPanel1.add(Cb_Periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 130, 130, -1));
 
         TB_Buscar.setBackground(new java.awt.Color(224, 213, 170));
         TB_Buscar.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -208,7 +208,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
 
         errorTb_Busqueda.setBackground(new java.awt.Color(23, 42, 56));
         errorTb_Busqueda.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        errorTb_Busqueda.setForeground(new java.awt.Color(23, 42, 56));
+        errorTb_Busqueda.setForeground(new java.awt.Color(234, 223, 180));
         errorTb_Busqueda.setText("Error");
         jPanel1.add(errorTb_Busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 280, -1));
 
@@ -237,7 +237,7 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 10, 320, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 10, 320, -1));
 
         Cb_Materias.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Materias.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -287,13 +287,13 @@ public final class Gestion_Notas extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(Btn_CuadrarNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 560, 200, 40));
+        jPanel1.add(Btn_CuadrarNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 560, 200, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

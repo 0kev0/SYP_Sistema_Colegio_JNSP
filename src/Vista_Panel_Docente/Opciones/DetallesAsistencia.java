@@ -67,8 +67,9 @@ public final class DetallesAsistencia extends javax.swing.JFrame {
                 int ROW = Tbl_RegistroAsistencia.rowAtPoint(e.getPoint());
                 
                 if (COL == 3) {
-                    String asistencia = Tbl_RegistroAsistencia.getValueAt(ROW, 0).toString();
+                    String asistencia = Tbl_RegistroAsistencia.getValueAt(ROW, 1).toString();
                     if (asistencia.equalsIgnoreCase("Ausente")) {
+                        System.out.println("activa");
                         int MesActual = Get_MES_Actual();
                         int NIE = DataEstudiante_.getNIE();
                         int grado = estudiante.getId_Grado();

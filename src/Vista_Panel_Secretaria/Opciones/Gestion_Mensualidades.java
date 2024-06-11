@@ -97,7 +97,7 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
 
                         System.out.println("Editable column: " + COL);
                     } else {
-                        Funciones.showMessageDialog("Problema", "Ya se a calificado la actividad.");
+                        Funciones.showMessageDialog("Problema", "Ya se ha cancelado este mes.");
                     }
                 }
             }
@@ -116,19 +116,15 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
         Lb_Materia_Grado = new javax.swing.JLabel();
         Cb_EstadoPago = new javax.swing.JComboBox<>();
         Cb_Meses = new javax.swing.JComboBox<>();
-        jPanel4 = new javax.swing.JPanel();
-        Lb_Aerolinea2 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        Lb_Aerolinea3 = new javax.swing.JLabel();
-        Btn_AsignarMensualidad = new javax.swing.JPanel();
-        Lb_AsignarMensualidades = new javax.swing.JLabel();
         Btn_LimpiarFiltros = new javax.swing.JPanel();
         Lb_LimpiarFiltros = new javax.swing.JLabel();
         Cb_Grado = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
+        Lb_Aerolinea2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 153));
         setBorder(null);
-        setTitle("Asignacion de actividades");
+        setTitle("Gestion Mensualidades");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setEnabled(false);
         setFocusCycleRoot(false);
@@ -196,20 +192,20 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Lb_Materia_Grado, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addComponent(Lb_Materia_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(Lb_Materia_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(Lb_Materia_Grado, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, 500, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 450, -1));
 
         Cb_EstadoPago.setBackground(new java.awt.Color(224, 213, 170));
         Cb_EstadoPago.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -221,7 +217,7 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
                 Cb_EstadoPagoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_EstadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 160, -1));
+        jPanel1.add(Cb_EstadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 160, -1));
 
         Cb_Meses.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Meses.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -234,103 +230,7 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
                 Cb_MesesActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Meses, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 160, -1));
-
-        jPanel4.setBackground(new java.awt.Color(226, 215, 132));
-        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
-
-        Lb_Aerolinea2.setBackground(new java.awt.Color(255, 255, 255));
-        Lb_Aerolinea2.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
-        Lb_Aerolinea2.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Aerolinea2.setText("Asignacion de notas ");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Lb_Aerolinea2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(Lb_Aerolinea2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
-
-        jPanel5.setBackground(new java.awt.Color(226, 215, 132));
-        jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
-
-        Lb_Aerolinea3.setBackground(new java.awt.Color(255, 255, 255));
-        Lb_Aerolinea3.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
-        Lb_Aerolinea3.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Aerolinea3.setText("Asignacion de notas");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 292, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                    .addGap(0, 18, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea3, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                    .addContainerGap(14, Short.MAX_VALUE)
-                    .addComponent(Lb_Aerolinea3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
-
-        Btn_AsignarMensualidad.setBackground(new java.awt.Color(226, 215, 132));
-        Btn_AsignarMensualidad.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
-        Btn_AsignarMensualidad.setEnabled(false);
-        Btn_AsignarMensualidad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Btn_AsignarMensualidadMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Btn_AsignarMensualidadMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Btn_AsignarMensualidadMouseExited(evt);
-            }
-        });
-
-        Lb_AsignarMensualidades.setBackground(new java.awt.Color(255, 255, 255));
-        Lb_AsignarMensualidades.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
-        Lb_AsignarMensualidades.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_AsignarMensualidades.setText("Pagar por adelantado");
-
-        javax.swing.GroupLayout Btn_AsignarMensualidadLayout = new javax.swing.GroupLayout(Btn_AsignarMensualidad);
-        Btn_AsignarMensualidad.setLayout(Btn_AsignarMensualidadLayout);
-        Btn_AsignarMensualidadLayout.setHorizontalGroup(
-            Btn_AsignarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Btn_AsignarMensualidadLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Lb_AsignarMensualidades, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        Btn_AsignarMensualidadLayout.setVerticalGroup(
-            Btn_AsignarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Btn_AsignarMensualidadLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Lb_AsignarMensualidades, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(Btn_AsignarMensualidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 530, 240, 50));
+        jPanel1.add(Cb_Meses, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 160, -1));
 
         Btn_LimpiarFiltros.setBackground(new java.awt.Color(226, 215, 132));
         Btn_LimpiarFiltros.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
@@ -367,7 +267,7 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
                 .addComponent(Lb_LimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 140, 40));
+        jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 140, 40));
 
         Cb_Grado.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Grado.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -379,7 +279,34 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
                 Cb_GradoActionPerformed(evt);
             }
         });
-        jPanel1.add(Cb_Grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 160, -1));
+        jPanel1.add(Cb_Grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 160, -1));
+
+        jPanel4.setBackground(new java.awt.Color(226, 215, 132));
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 8, 8, 0, new java.awt.Color(255, 153, 51)));
+
+        Lb_Aerolinea2.setBackground(new java.awt.Color(255, 255, 255));
+        Lb_Aerolinea2.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
+        Lb_Aerolinea2.setForeground(new java.awt.Color(0, 0, 0));
+        Lb_Aerolinea2.setText("Gestion Mensualidades");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lb_Aerolinea2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(Lb_Aerolinea2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 360, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -394,20 +321,6 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Btn_AsignarMensualidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarMensualidadMouseClicked
-        // asignara el talonario de mensualidad del mes actual si no se a asignado ya
-
-
-    }//GEN-LAST:event_Btn_AsignarMensualidadMouseClicked
-
-    private void Btn_AsignarMensualidadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarMensualidadMouseEntered
-        Funciones.EnterMouse(Btn_AsignarMensualidad, Lb_AsignarMensualidades, "#FFF099", "#FF9900");
-    }//GEN-LAST:event_Btn_AsignarMensualidadMouseEntered
-
-    private void Btn_AsignarMensualidadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarMensualidadMouseExited
-        Funciones.LeftMouse(Btn_AsignarMensualidad, Lb_AsignarMensualidades, "#E2D784", "#000000");
-    }//GEN-LAST:event_Btn_AsignarMensualidadMouseExited
 
     private void Cb_EstadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cb_EstadoPagoActionPerformed
         Get_list_Filtrada_Mensualidades(Tbl_Mensualidades);
@@ -654,21 +567,17 @@ public final class Gestion_Mensualidades extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Btn_AsignarMensualidad;
     private javax.swing.JPanel Btn_LimpiarFiltros;
     private javax.swing.JComboBox<String> Cb_EstadoPago;
     private javax.swing.JComboBox<String> Cb_Grado;
     private javax.swing.JComboBox<String> Cb_Meses;
     private javax.swing.JLabel Lb_Aerolinea2;
-    private javax.swing.JLabel Lb_Aerolinea3;
-    private javax.swing.JLabel Lb_AsignarMensualidades;
     private javax.swing.JLabel Lb_LimpiarFiltros;
     private javax.swing.JLabel Lb_Materia_Grado;
     private javax.swing.JTable Tbl_Mensualidades;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 

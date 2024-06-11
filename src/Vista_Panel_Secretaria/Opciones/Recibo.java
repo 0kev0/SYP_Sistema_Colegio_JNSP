@@ -82,9 +82,6 @@ public class Recibo extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         loading2 = new javax.swing.JLabel();
         Lb_SubTotal = new javax.swing.JLabel();
-        Lb_IVA = new javax.swing.JLabel();
-        Lb_Descuento = new javax.swing.JLabel();
-        Lb_Total = new javax.swing.JLabel();
         Lb_Estudiante = new javax.swing.JLabel();
         lb_Responsable = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -111,22 +108,11 @@ public class Recibo extends javax.swing.JFrame {
         loading2.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         loading2.setForeground(new java.awt.Color(255, 255, 255));
         loading2.setText("Recibo");
+        loading2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(255, 255, 255)));
 
         Lb_SubTotal.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         Lb_SubTotal.setForeground(new java.awt.Color(255, 255, 255));
         Lb_SubTotal.setText(" Sub-Total : $ ");
-
-        Lb_IVA.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        Lb_IVA.setForeground(new java.awt.Color(255, 255, 255));
-        Lb_IVA.setText("IVA : (-) $ ");
-
-        Lb_Descuento.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        Lb_Descuento.setForeground(new java.awt.Color(255, 255, 255));
-        Lb_Descuento.setText("Descuento: (-) $ ");
-
-        Lb_Total.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
-        Lb_Total.setForeground(new java.awt.Color(255, 255, 255));
-        Lb_Total.setText("Total por dia : $ ");
 
         Lb_Estudiante.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         Lb_Estudiante.setForeground(new java.awt.Color(255, 255, 255));
@@ -255,34 +241,32 @@ public class Recibo extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lb_Responsable, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                            .addComponent(Lb_Estudiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Lb_Correo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(233, Short.MAX_VALUE)
+                        .addComponent(loading2)
+                        .addGap(167, 167, 167)))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(Btn_Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Btn_EnviarComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Lb_IVA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Lb_Descuento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Lb_SubTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Lb_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Lb_SubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb_Responsable, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Lb_Estudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Lb_Correo, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(loading2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(159, 159, 159)))
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,10 +274,10 @@ public class Recibo extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(loading2)
-                        .addGap(18, 18, 18)
-                        .addComponent(lb_Responsable))
+                        .addComponent(loading2))
                     .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lb_Responsable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Lb_Estudiante)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -301,18 +285,11 @@ public class Recibo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(Lb_SubTotal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Lb_Descuento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Lb_IVA)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Lb_Total))
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Btn_EnviarComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Btn_Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(Lb_SubTotal)
+                .addGap(50, 50, 50)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Btn_EnviarComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34))
         );
 
@@ -366,7 +343,7 @@ public class Recibo extends javax.swing.JFrame {
         if (Tabla != null) {
 
             String rutaPDF = Creador_PDF.createPDFWithTable(Tabla, "Comprobante_" + FECHA + " " + Datos.getNIES_Responsable() , Datos.getResponsable(), Datos.getCorreo(), Datos.getNIES_Responsable());
-            Funciones.Funciones.showMessageDialog("info", Detalle);
+            Funciones.Funciones.showMessageDialog("info", "Comprobante enviado...");
             EnviarCorreo factura = new EnviarCorreo();
 
 
@@ -377,7 +354,7 @@ public class Recibo extends javax.swing.JFrame {
             factura.enviarFactura(destinatario, asunto, mensaje, rutaPDF);
         } else {
             String rutaPDF = Creador_PDF.createPDFsinTabla("Comprobante_" + FECHA + " " + Datos.getNIES_Responsable() + ".pdf", Datos.getResponsable(), Datos.getCorreo(), Datos.getNIES_Responsable(), Detalle);
-            Funciones.Funciones.showMessageDialog("info", Detalle);
+            Funciones.Funciones.showMessageDialog("info", "Comprobante enviado");
             EnviarCorreo factura = new EnviarCorreo();
             
             String destinatario = "rr19118@ues.edu.sv";
@@ -417,12 +394,9 @@ public class Recibo extends javax.swing.JFrame {
     private javax.swing.JLabel Lb_Aerolinea9;
     private javax.swing.JLabel Lb_Correo;
     private javax.swing.JLabel Lb_Crearcuenta;
-    private javax.swing.JLabel Lb_Descuento;
     private javax.swing.JLabel Lb_Estudiante;
-    private javax.swing.JLabel Lb_IVA;
     private javax.swing.JLabel Lb_Ordenar;
     private javax.swing.JLabel Lb_SubTotal;
-    private javax.swing.JLabel Lb_Total;
     private javax.swing.JTextArea Tb_Concepto;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel10;

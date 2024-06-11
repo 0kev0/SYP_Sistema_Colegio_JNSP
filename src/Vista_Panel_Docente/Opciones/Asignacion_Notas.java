@@ -131,13 +131,11 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         Lb_Aerolinea2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         Lb_Aerolinea3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         Cb_EstadoActividad = new javax.swing.JComboBox<>();
         Btn_GuardarActividad = new javax.swing.JPanel();
         Lb_Guardar = new javax.swing.JLabel();
         Btn_LimpiarFiltros = new javax.swing.JPanel();
         Lb_LimpiarFiltros = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         Cb_Grado = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(153, 153, 153));
@@ -311,10 +309,6 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 6, 300, -1));
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Restrinjir cuanto ya se haya pasado de periodo");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 400, -1));
-
         Cb_EstadoActividad.setBackground(new java.awt.Color(224, 213, 170));
         Cb_EstadoActividad.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         Cb_EstadoActividad.setForeground(new java.awt.Color(0, 0, 0));
@@ -402,10 +396,6 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
         );
 
         jPanel1.add(Btn_LimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 140, 40));
-
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("hay que restrinjirlo a la materia que imparte el docente guia ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 400, -1));
 
         Cb_Grado.setBackground(new java.awt.Color(224, 213, 170));
         Cb_Grado.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
@@ -672,8 +662,6 @@ public final class Asignacion_Notas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Lb_LimpiarFiltros;
     private javax.swing.JLabel Lb_Materia_Grado;
     private javax.swing.JTable Tbl_Actividades;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

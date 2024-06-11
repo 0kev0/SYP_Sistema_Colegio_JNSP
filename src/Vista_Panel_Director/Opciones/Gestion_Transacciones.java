@@ -2,6 +2,8 @@ package Vista_Panel_Director.Opciones;
 
 import Modelo.Director.Modelo_Gestion_Transacciones;
 import Customizacion.TablaCusomizada;
+import static Funciones.Funciones.EnterMouse;
+import Vista_Panel_Director.Panel_Director1;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -28,6 +30,7 @@ public final class Gestion_Transacciones extends javax.swing.JFrame {
 
     public Gestion_Transacciones() {
         initComponents();
+        setLocationRelativeTo(this);
         modeloTabla = (DefaultTableModel) Tbl_RegistoInscripciones.getModel();
 
         Get_Tbl_Transacciones(Tbl_RegistoInscripciones);
@@ -49,13 +52,13 @@ public final class Gestion_Transacciones extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         Lb_Aerolinea3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        Btn_GuardarActividad = new javax.swing.JPanel();
-        Lb_Guardar = new javax.swing.JLabel();
         Btn_LimpiarFiltros = new javax.swing.JPanel();
         Lb_LimpiarFiltros = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Cb_Año = new javax.swing.JComboBox<>();
         Cb_BuscarPorMes_ = new javax.swing.JComboBox<>();
+        Btn_Regresar = new javax.swing.JPanel();
+        Lb_atras = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,7 +95,7 @@ public final class Gestion_Transacciones extends javax.swing.JFrame {
             Tbl_RegistoInscripciones.getColumnModel().getColumn(8).setPreferredWidth(200);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 910, 490));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 1020, 490));
 
         jPanel3.setBackground(new java.awt.Color(226, 215, 132));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 8, new java.awt.Color(255, 153, 51)));
@@ -186,48 +189,6 @@ public final class Gestion_Transacciones extends javax.swing.JFrame {
         jLabel1.setText("Restrinjir cuanto ya se haya pasado de periodo");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 400, -1));
 
-        Btn_GuardarActividad.setBackground(new java.awt.Color(226, 215, 132));
-        Btn_GuardarActividad.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
-        Btn_GuardarActividad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Btn_GuardarActividadMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Btn_GuardarActividadMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Btn_GuardarActividadMouseExited(evt);
-            }
-        });
-
-        Lb_Guardar.setBackground(new java.awt.Color(255, 255, 255));
-        Lb_Guardar.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
-        Lb_Guardar.setForeground(new java.awt.Color(0, 0, 0));
-        Lb_Guardar.setText("Asignar Notas");
-
-        javax.swing.GroupLayout Btn_GuardarActividadLayout = new javax.swing.GroupLayout(Btn_GuardarActividad);
-        Btn_GuardarActividad.setLayout(Btn_GuardarActividadLayout);
-        Btn_GuardarActividadLayout.setHorizontalGroup(
-            Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-            .addGroup(Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_GuardarActividadLayout.createSequentialGroup()
-                    .addContainerGap(21, Short.MAX_VALUE)
-                    .addComponent(Lb_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-        );
-        Btn_GuardarActividadLayout.setVerticalGroup(
-            Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 43, Short.MAX_VALUE)
-            .addGroup(Btn_GuardarActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_GuardarActividadLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Lb_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
-        jPanel1.add(Btn_GuardarActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 200, 50));
-
         Btn_LimpiarFiltros.setBackground(new java.awt.Color(226, 215, 132));
         Btn_LimpiarFiltros.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 8, 0, new java.awt.Color(255, 153, 51)));
         Btn_LimpiarFiltros.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -295,11 +256,35 @@ public final class Gestion_Transacciones extends javax.swing.JFrame {
         });
         jPanel1.add(Cb_BuscarPorMes_, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 134, -1));
 
+        Btn_Regresar.setBackground(new java.awt.Color(152, 5, 5));
+        Btn_Regresar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 10, 0, new java.awt.Color(247, 17, 17)));
+        Btn_Regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_RegresarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_RegresarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_RegresarMouseExited(evt);
+            }
+        });
+        Btn_Regresar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Lb_atras.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        Lb_atras.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_atras.setText("Regresar");
+        Lb_atras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Regresar.add(Lb_atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 130, 40));
+
+        jPanel1.add(Btn_Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 140, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1196, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1320, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,18 +294,6 @@ public final class Gestion_Transacciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private void Btn_GuardarActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Btn_GuardarActividadMouseClicked
-
-    private void Btn_GuardarActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseEntered
-        Funciones.Funciones.EnterMouse(Btn_GuardarActividad, Lb_Guardar, "#FFF099", "#FF9900");
-    }//GEN-LAST:event_Btn_GuardarActividadMouseEntered
-
-    private void Btn_GuardarActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarActividadMouseExited
-        Funciones.Funciones.LeftMouse(Btn_GuardarActividad, Lb_Guardar, "#E2D784", "#000000");
-    }//GEN-LAST:event_Btn_GuardarActividadMouseExited
 
     private void Btn_LimpiarFiltrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarFiltrosMouseClicked
         Get_Tbl_Transacciones(Tbl_RegistoInscripciones);
@@ -343,6 +316,20 @@ public final class Gestion_Transacciones extends javax.swing.JFrame {
         Cargar_Listado_Registro_Busqueda_dia(Tbl_RegistoInscripciones);
 
     }//GEN-LAST:event_Cb_AñoActionPerformed
+
+    private void Btn_RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseClicked
+
+        dispose();
+
+    }//GEN-LAST:event_Btn_RegresarMouseClicked
+
+    private void Btn_RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseEntered
+        EnterMouse(Btn_Regresar, Lb_atras, "#FFF099", "#FF9900");
+    }//GEN-LAST:event_Btn_RegresarMouseEntered
+
+    private void Btn_RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_RegresarMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_RegresarMouseExited
 
     public void Cargar_Listado_Registro_Busqueda_dia(JTable tabla) {
         int mes = Cb_BuscarPorMes_.getSelectedIndex() + 1;
@@ -476,15 +463,15 @@ public final class Gestion_Transacciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Btn_GuardarActividad;
     private javax.swing.JPanel Btn_LimpiarFiltros;
+    private javax.swing.JPanel Btn_Regresar;
     private javax.swing.JComboBox<String> Cb_Año;
     private javax.swing.JComboBox<String> Cb_BuscarPorMes_;
     private javax.swing.JLabel Lb_Aerolinea2;
     private javax.swing.JLabel Lb_Aerolinea3;
-    private javax.swing.JLabel Lb_Guardar;
     private javax.swing.JLabel Lb_LimpiarFiltros;
     private javax.swing.JLabel Lb_Utilidades;
+    private javax.swing.JLabel Lb_atras;
     private javax.swing.JTable Tbl_RegistoInscripciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

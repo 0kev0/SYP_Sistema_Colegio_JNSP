@@ -6,10 +6,9 @@ import static Funciones.Funciones.VaciarCampos;
 import static Funciones.Funciones.validarCampos;
 import Log_Iin.Usuario.Modelo_Usuario;
 import Modelos.Docente.Modelo_DocenteGuia;
-import Vista_Panel_Director.Panel_Director;
+import Vista_Panel_Director.Panel_Director1;
 import Vista_Panel_Docente.Panel_Docente;
 import Vista_Panel_Secretaria.Panel_Secretaria;
-import javax.crypto.AEADBadTagException;
 import javax.swing.JOptionPane;
 
 public class log_in1 extends javax.swing.JFrame {
@@ -340,7 +339,7 @@ public class log_in1 extends javax.swing.JFrame {
 
             if (USER.getNombres() != null) {
                 System.out.println("\tINICIO SATISFACTORIO");
-                Funciones.Funciones.showMessageDialog("BIENVENIDO", "Bienvenido " + USER.getNIE() + USER.getApellidos() + " " + USER.getNombres());
+                Funciones.Funciones.showMessageDialog("BIENVENIDO", "Bienvenido\n " + USER.getApellidos() + " " + USER.getNombres());
 
                 int rol = USER.getId_Rol();
                 System.out.println("rol " + USER.getId_Rol());
@@ -350,7 +349,7 @@ public class log_in1 extends javax.swing.JFrame {
                         Modelo_DocenteGuia Objeto_Docente = new Modelo_DocenteGuia();
                         Objeto_Docente = Objeto_Docente.Get_Docente(NIE);
 
-                        System.out.println("Docente guia del grado  " + Objeto_Docente.getIdGradoGuia() + " materia " + Objeto_Docente.getMateriaImpartida());
+                        System.out.println("Docente guia del grado  " + Objeto_Docente.getIdGradoGuia() + "grado materia " + Objeto_Docente.getMateriaImpartida());
 
                         Panel_Docente docente = new Panel_Docente(Objeto_Docente);
                         docente.setVisible(true);
@@ -364,7 +363,7 @@ public class log_in1 extends javax.swing.JFrame {
                     }
                     case 3 -> {
                         //director
-                        Panel_Director Director = new Panel_Director();
+                        Panel_Director1 Director = new Panel_Director1();
                         Director.setVisible(true);
                         dispose();
                     }
