@@ -3,12 +3,9 @@ package Vista_Panel_Docente.Opciones;
 import Customizacion.TablaCusomizada;
 import static Funciones.Funciones.EnterMouse;
 import static Funciones.Funciones.LeftMouse;
-import static Funciones.Funciones.Mouse_EnterTextbox;
-import static Funciones.Funciones.Mouse_LeftTextbox;
 import Funciones.NotasTrimestralesPDF;
 import Modelos.Docente.Modelo_DocenteGuia;
 import Modelos.Docente.Modelo_GestionPromedios;
-import Modelos.Docente.Modelo_TomaAsistencia;
 import Modelos.Secretaria.Modelo_Estudiante;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -53,8 +50,8 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
         Lb_Docente.setText("Docente : " + docente.getApellidos() + " " + docente.getNombres());
         Lb_Periodo.setText(periodo);
 
-        DiseñoTabla(Tbl_RegistroNotaPeriodo);
-        DiseñoTabla(Tbl_RegistroNotasTrimestres);
+        DiseñoTablaPeriodo(Tbl_RegistroNotaPeriodo);
+        DiseñoTablaPeriodo(Tbl_RegistroNotasTrimestres);
 
         Get_ListadoNotas(Tbl_RegistroNotaPeriodo);
         Get_ListadoNotasTrimestres(Tbl_RegistroNotasTrimestres);
@@ -415,7 +412,7 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(Pnl_BoletaLayout.createSequentialGroup()
                         .addComponent(Lb_Estudiante)
-                        .addGap(252, 252, 252)
+                        .addGap(207, 207, 207)
                         .addGroup(Pnl_BoletaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(Pnl_BoletaLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -547,7 +544,7 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_Cb_NIESActionPerformed
 
-    public void DiseñoTabla(JTable tabla) {
+    public void DiseñoTablaPeriodo(JTable tabla) {
         tabla.setDefaultRenderer(Object.class, new TablaCusomizada());
         tabla.setRowHeight(30); // Altura de las filas de datos
         tabla.getTableHeader().setBackground(Color.decode("#5C636E"));
@@ -569,6 +566,31 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
         leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 
         tabla.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+
+        JTableHeader header = tabla.getTableHeader();
+        header.setPreferredSize(new Dimension(60, 50)); // Ajusta la altura del encabezado
+    }
+
+    public void DiseñoTablaTrimestres(JTable tabla) {
+        tabla.setDefaultRenderer(Object.class, new TablaCusomizada());
+        tabla.setRowHeight(30); // Altura de las filas de datos
+        tabla.getTableHeader().setBackground(Color.decode("#5C636E"));
+        tabla.getTableHeader().setForeground(Color.white);
+        Font fuente = new Font("Roboto", Font.BOLD, 12);
+        tabla.setFont(fuente);
+        tabla.getTableHeader().setFont(fuente);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        int numeroDeCeldas = tabla.getColumnCount(); // Cambia este valor al número de celdas que necesites
+
+        for (int i = 0; i < numeroDeCeldas; i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(60, 50)); // Ajusta la altura del encabezado
@@ -639,7 +661,7 @@ public final class Gestion_Voleta_Notas extends javax.swing.JInternalFrame {
                 item.getNotasActividades().get(2),
                 item.getNotasActividades().get(3),
                 tareas,
-                (item.getAutoE()) * .10,
+                AutoEvaluacion,
                 item.getParcial(),
                 parcial,
                 promedio,});

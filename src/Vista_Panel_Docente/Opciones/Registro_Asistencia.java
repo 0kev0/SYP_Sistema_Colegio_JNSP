@@ -407,6 +407,8 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         ListObjeto = Objeto.GetListadoCustom(1, mes, Year);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
         
+        ImageIcon VerDetalles = new ImageIcon(getClass().getResource("/Imagenes/VerDetalles.png"));
+        
         for (Modelo_RegistroAsistencia item : ListObjeto) {
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
@@ -414,7 +416,8 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 item.getApellidoEstudiante(),
                 item.getCantAsistencias(),
                 item.getCantAusencias(),
-                item.getCantAusenciaJustificadas()});
+                item.getCantAusenciaJustificadas(),
+                new JLabel(VerDetalles)});
         }
         
         tabla.setModel(modeloTabla);
@@ -431,6 +434,8 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
         ListObjeto = Objeto.GetListadoCustom_dia(Grado, dia, mes, Year);
         System.out.println("Hay " + ListObjeto.size() + " registros en la lista.");
         
+        ImageIcon VerDetalles = new ImageIcon(getClass().getResource("/Imagenes/VerDetalles.png"));
+        
         for (Modelo_RegistroAsistencia item : ListObjeto) {
             modeloTabla.addRow(new Object[]{
                 item.getNIE(),
@@ -438,7 +443,8 @@ public final class Registro_Asistencia extends javax.swing.JInternalFrame {
                 item.getApellidoEstudiante(),
                 item.getCantAsistencias(),
                 item.getCantAusencias(),
-                item.getCantAusenciaJustificadas()});
+                item.getCantAusenciaJustificadas(),
+                new JLabel(VerDetalles)});
         }
         
         tabla.setModel(modeloTabla);

@@ -190,7 +190,7 @@ public class Modelo_GestionPromedios {
             ArrayList<Modelo_Materias> ListadoMaterias = objMateria.Get_Id_ListadoMaterias(Grado);
 
             for (Modelo_Materias itemMateria : ListadoMaterias) {
-                System.out.println("//////Materia" + itemMateria.getNombreMateria());
+                System.out.println("//////Materia" + itemMateria.getNombreMateria() + " id " + itemMateria.getidMateria());
 
             }
 
@@ -315,7 +315,7 @@ WHERE Tb_Np."NIE" = ?  AND Tb_Gr.id = ? ;
             System.out.println("///////////hay materias" + ListadoMaterias.size());
 
             for (Modelo_Materias ListadoMateria : ListadoMaterias) {
-                System.out.println("> " + ListadoMateria.getNombreMateria());
+                System.out.println(">>> " + ListadoMateria.getNombreMateria() + " " + ListadoMateria.getidMateria());
             }
 
             conexionDB.close();
@@ -338,6 +338,7 @@ ORDER BY Tact."TipoActividad_id" ASC ;
                 ArrayList<Double> notas = new ArrayList<>();
                 conexionDB = claseConectar.iniciarConexion(); // Iniciamos una conexión
                 Modelo_GestionPromedios PromediosEstudiante = new Modelo_GestionPromedios();
+                    PromediosEstudiante.setNombre(itemMateria.getNombreMateria());
 
                 System.out.println(">>>>>>>>>>>>>>>>>>> " + itemMateria.getNombreMateria());
                 PreparedStatement preparedStatement1 = conexionDB.prepareStatement(ConsultaNotasPorMateria);
@@ -389,8 +390,7 @@ ORDER BY Tact."TipoActividad_id" ASC ;
                         notas.add(0.0);
                     }
                 } else {
-                    System.out.println("SQL>>>>>>>>>>>>>>>> SIN RESULTADOS");
-                    PromediosEstudiante.setNombre(itemMateria.getNombreMateria());
+                    System.out.println("SQL>>>>>>>>>>>>>>>> SIN RESULTADOS agragando vacio a  " + itemMateria.getNombreMateria());
 
                     if (PromediosEstudiante.getAutoE() == null) {
                         PromediosEstudiante.setAutoE(0.0);
@@ -403,6 +403,7 @@ ORDER BY Tact."TipoActividad_id" ASC ;
                     while (notas.size() < 4) {
                         notas.add(0.0);
                     }
+                    
                     PromediosEstudiante.setNotasActividades(notas);
 
                 }
